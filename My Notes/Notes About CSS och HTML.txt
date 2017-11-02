@@ -1,0 +1,2930 @@
+The other notes merely was the added material for HTML5 compared to HTML4. Have to run a rundown on Actual interactions of the HTML itself,
+not JS. Also rundown on CSS.
+
+In general, HTML uses tags to denote blocks:
+
+<html> //Html section
+	<body> //Body section
+		<h1></h1> //A header
+		<p>something</p> //A paragraph
+	</body>
+</html>
+
+Every single one of these tags and encapsulations, refers to a general structure part. Within these parts, we can have text, images, etc.
+
+We can designate attributes for elements, as the following example:
+
+<p lang="en-us">Paragraph</p>
+
+The body structure is usually as follows:
+
+<html> //Encapsulates the entire HTML document
+	<head> //Where we put meta-data
+		<title>This is the Title of The Page</title> //The title of the Page or Name shown on the tab section of the page
+	</head> //End of Head
+	<body> //Beginning of Body
+		<h1>This is the body of the page</h1> //The first header
+		<p>This is a smaller paragraph under the header</p> //Smaller paragraph under the header
+	</body> //End of body
+</html> //End of HTML encapsulation
+
+To see the sourcecode of the website, we can use the View Source under the View tab of the webbrowser
+
+HTML itself is a markup language, meaning we just mark up the elements that are supposed to be put into the actual website.
+
+There are two kinds of markups in HTML: Structural Markup and Semantical Markup.
+
+Structural markup: The elements that can be used to describe both headings and paragraphs
+
+Semantic Markup: Extra info on emphasis, quotations etc.
+
+The <h1> and etc. are headings
+
+<p> are paragraphs
+
+<b> is bold
+
+<i> is italic
+
+<sup> is superscript, getting elevated to be above the text
+
+<sub> is subscript, getting put to be below the text
+
+HTML uses whitespace collapsing, meaning it condesenses any sense of >= 2 spaces in a row to 1 space.
+
+To break a line, we simply use the <br /> tag
+
+To create a horizontal line, we can use <hr />
+
+If we wish to put emphasis on something, we can use <em>, where as, if we wish to treat a block to be a quoted piece of information,
+we can use the <blockquote>
+
+<strong> to cause bolded text
+
+<em> for cursive
+
+if we use blockquote alongside with cite, then we can end up citing a blockquote, which indents said text, albeit should not be made
+common practice for indenture, CSS should be left to deal with that.
+
+The <q> element is used for shorter quotes, albeit avoided due to that it's intended to put "" around quotes, but in IE, it does not.
+
+If we wish to use abbrevations and acronyms, we can use the <abbr> in the folliwing format:
+
+<p><abbr title="professor">Prof</abbr> Stephen hawking is a theoretical physicist and cosmologist.</p>
+
+The above will cause code that does so that when we hover above the abbrevation, we get the full title shown to us.
+
+if we wish to put italics to a set of text, we can use the <cite> tag, albeit it's deprecated since HTML4 (kinda)
+
+In some cases, if we wish to introduce new terms, we can use the <dfn> tag.
+
+If we wish to refer to a adress, we have the <address> tag
+
+If we wish to refer to a hyperlink, we can use the <a href="example.com">example.com</a> to cause a hyperlink to example.com
+
+We can put a line through text with either the <del> tag or <s>, where as of we can put a line under with <ins>
+
+Ordered lists are assigned as <ol>, and each element is assigned as <li>
+
+Unordered lists are assigned as <ul> and each element is assigned as <li>
+
+To create a definition list, we can use <dl>, where <dt> is the element being defined and <dd> the explonation part
+
+Note: <dd> causes an indention
+
+we can have nested lists within other lists, as follows:
+
+<ul>
+	<li>Mousses</li>
+	<li>Pasteries</li>
+	<ul>
+		<li>etc.</li>
+	</ul>
+	<li>some random shit</li>
+</ul>
+
+In terms of Link URLs, <a> can contain an absolute or a relative link. An absolute link, is one with the full domain, and refers to another site.
+
+If we include a relative link, however, we refer to other pages on the same site.
+
+An example of an absolute link:
+
+<a href="http://www.empireonline.com">Empire</a>
+
+A relative link:
+
+<a href="index.html">Home</a>
+
+In terms of Dir structure for websites, then it is so that we refer to children and grandchildren etc.
+
+A child is a dir that is direct descendant of the parent dir, where as of a grandchild is one step lower (has 2 steps to top in total, in terms of parents, instead of 1)
+
+the same goes for parents, where something is a parent or a grandparent, dependant upon how many children it has
+
+An example of a structure would be to have one dir for each section (DVDs, Images, Music etc.), where each such folder has a index.html which is the 
+"main page" that you are going to refer to. The page from which we direct ourselves from.
+
+An example would also to be to have for instance in the above example, one html file with reviews and one with listings, for each folder
+
+When it comes to the relative linking of stuff, we can follow the general structure as follows:
+
+Same folder: <a href="reviews.html">Reviews</a> //Just refer to a file directly
+
+Child folder: <a href="music/listings.html">Listings</a> //Use the name of the child folder, and then the relevant html file in said folder
+
+Grandchild folder: <a href="movies/dvd/reviews.html">Reviews</a> //use the name of the child folder, / then do name of grandchild and / and then filename
+
+Parent folder: <a href="../index.html">home</a> //uses syntax of prev folder akin to Linux for folder referal
+
+Grandparent folder: <a href="../../index.html">home</a> //uses syntax to two prev folders
+
+A / Slash returns the homepage for the entire site
+
+if you just refer to a child folder without a filename, it attempts to show the homepage for that section.
+
+A /<filename> will atttempt to get the said file assuming it's in the root dir
+
+To cause a email link, akin to a hyperlink but one that opens an email to said person, you can use <mailto>, as follows:
+
+<a href="mailto:jon@example.com">Email Jon</a>
+
+Clicking teh above link will attempt to open your email program with referal to said emailadress
+
+To cause a link that opens in another window, we can do as follows:
+
+<a href="http://www.imdb.com" target="_blank"> Internet movie DB</a> 
+
+The above will cause imdb to open in a new window
+
+In HTML, we can create links that jumps to certain sections of the Same page, which we can do in manner of using a href but with ids, as follows:
+
+<h1 id="top">Film-Making terms</h1>
+<a href="#arc_shot">Arc Shot</a><br /> //the # notation in combination with href causesi t to be a link to a place on the same page, assuming said id exists
+<a href="#interlude">Interlude</a><br />
+<a href="prologue">Prologue</a><br /><br />
+<h2 id="arc_shot">Arc Shot</h2>
+<p> some random shit</p>
+<h2 id="interlude">Interlude</h2>
+<p> more shit</p>
+<h2 id="prologue">Prologue</h2>
+<p>more shit</p>
+<p><a href="#top">Top</a></p>
+
+NOTE: Id referals in terms of # with a href, works against other sites as well, as long as respective site has the specified ID attempted to be accessed
+
+We can append images to HTML, with both CSS and HTML.
+
+Generally, in terms of having Structure for Folders of Images and stuff, we generally have a big folder for Imagens and subdirs to that to find other images within said dir
+
+To add an image, we can use the <img> tag, as follows:
+
+<img src="images/quokka.jpg" alt="A picture lol" title="a picture of doooom" />
+
+The img tag denotes a image, src denotes the source, alt is the alternative (Relevant for handicapped people and Search engines) 
+
+Title is something that occurs upon hovering over it with the mouse
+
+We can specify the size of a image, in CSS, but also HTML, as follows:
+
+<img src="images/quokka.jpg" alt="Some shit" width="500" height="400" />
+
+Depending on where we put a picture, it will define where it will end up being.
+
+We can put it in the start of a paragraph, in the middle of one, in the end of one, before one, etc.
+
+Block elements always appears on a new line. Block elements, include <p>, <h1>
+
+If a block element comes after a pic, it is leveled right at the foot of teh image
+
+Inline elements, do not interfere with this structure, and generally are: <b> <em> <img> etc.
+
+Note: Websites mostly use .png, .jpeg or .gif
+
+Notes on images: use the correct resolution (72 px), use right size and use the above formats
+
+When faced with many colours, use jpeg for saved format
+
+When there is a lot of the same colour or few colours, use .png or .gif
+
+If a pic has straight edges and is 100% transparent in parts, we can save it as .gif
+
+Otherwise, we run with .png
+
+if we wish to have a caption to pictures, we can use the <figure> and <figcaption> as follows:
+
+<figure>
+	<img src="images/otters.jpg" alt="Photograph of two sea otters floating in water">
+	<br />
+	<figcaption>lollololo undertext</figcaption>
+</figure>
+
+To have pictures line up with each other, we can put them all into the same <p> tag or <div> tag
+
+if we wish to create table of things, then we can use the <table>, <tr> and <td> tags, as follows:
+
+<table>
+	<tr>
+		<td>15</td>
+		<td>20</td>
+		<td>30</td>
+	</tr>
+	<tr>
+		<td>45</td>
+		<td>60</td>
+		<td>90</td>
+	</tr>
+</table>
+
+the <table> denotion is for a upcoming table, <tr> means a new row is starting and <td> means table data, which is a cell of the respective row
+
+To use headers, we can use the <th> tag, which has scope desgination in term of "header" or "scope". An example follows:
+
+<table> <!-- declare a start of the table -->
+	<tr>
+		<th></th> <!-- empty header -->
+		<th scope="col">Saturday</th> <!-- column header -->
+		<th scope="col">Sunday</th> <!-- column header -->
+	</tr> <!-- end of row -->
+	<tr> <!-- beginning of row -->
+		<th scope="row">Tickets sold:</th> <!-- declare a header on the side with the name of Tickets sold -->
+		<td>120</td> <!-- first element -->
+		<td>135</td> <!-- second element -->
+	</tr> <!-- end of row -->
+	<tr>
+		<th scope="row">Total sales:</th> <!-- declare a header on the side with the name of Total sales -->
+		<td>$600</td> <!-- first element -->
+		<td>$675</td> <!-- second element -->
+	</tr> <!-- indicates end of elements on this row -->
+</table> <!-- declare a end of the table -->
+
+If we wish to make it so that something stretches over multiple cells, we could define the colspan attribute for th and td, as follows:
+
+<table> <!-- declare the table -->
+	<tr> <!-- define a table row -->
+		<th></th> <!-- Declare an empty header -->
+		<th>9am</th> <!-- Table header values -->
+		<th>10am</th>
+		<th>11am</th>
+		<th>12am</th>
+	</tr> <!-- End of table row -->
+	<tr> <!-- New table row -->
+		<th>Monday</th> <!-- Table header -->
+		<td colspan="2">Geography</td> <!-- table data that spans 2 columns -->
+		<td>Math</td> <!-- Math -->
+		<td>Art</td>
+	</tr> <!-- End of table row -->
+	<tr> <!-- New table row -->
+		<th>Tuesday</th> <!-- Table header -->
+		<td colspan="3">Gym</td> <!-- Table data that spans 3 rows -->
+		<td>Home Ec</td>
+	</tr>
+</table>
+
+To be able to span Multiple rows, as in going down, instead of goign to the side, we can use the rowspan setting, as follows:
+
+<table> <!-- Define a table -->
+	<tr> <!-- Define a table row -->
+		<th></th> <!-- Make a table header with no value -->
+		<th>ABC</th> <!-- table header values -->
+		<th>BBC</th>
+		<th>CNN</th>
+	</tr> <!-- End of table row -->
+	<tr> <!-- Define a table row -->
+		<th>6pm - 7pm</th> <!-- table header -->
+		<td rowspan="2">Movie</td> <!-- table data that spans 2 rows -->
+		<td>Comedy</td> <!-- Table data -->
+		<td>News</td> <!-- Table data -->
+	</tr> <!-- End of table row -->
+	<tr> <!-- Table row -->
+		<th>7pm - 8pm</th> <!-- Table header -->
+		<td>Sport</td> <!-- Table data -->
+		<td>Current Affairs</td> <!-- Table data -->
+	</tr> <!-- end of table row -->
+</table> <!-- End of table -->
+
+If we have a really long table, that spans longer than that of the screen, we can use thead and tbody and tfoot, as follows:
+
+<table>
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Income</th>
+			<th>Expenditure</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>1st January</th>
+			<td>250</td>
+			<td>36</td>
+		</tr>
+		<tr>
+			<th>2nd of January</th>
+			<td>285</td>
+			<td>48</td>
+		</tr>
+		<!-- Additional rows as above -->
+		<tr>
+			<th>31st January</th>
+			<td>129</td>
+			<td>64</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td></td>
+			<td>7824</td>
+			<td>1242</td>
+		</tr>
+	</tfoot>
+</table>
+
+an example of a simple tabled website:
+
+<html>
+	<head>
+		<title>Table</title>
+	</head>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th scope="col">Home starter hosting</th>
+					<th scope="col">Premium business shit</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">Disk Space</th>
+					<td>250mb</td>
+					<td>lgb</td>
+				</tr>
+				<tr>
+					<th scope="row">Bandwidth</th>
+					<td>5gb per month</td>
+					<td>50gb per month</td>
+				</tr>
+				<!-- more rows like above -->
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td colspan="2">Sign up now and save 10%!</td>
+				</tr>
+			</tfoot>
+		</table>
+	</body>
+</html>
+
+In HTML, we can use forms, which is a number of different functions, as follows:
+
+Text input boxes
+
+Password input boxes
+
+Text area input boxes (multi-line)
+
+Radio buttons 
+
+Checkboxes
+
+Drop-down boxes
+
+Submit forms //Subscription buttons etc.
+
+Image Buttons //Same as above, but allows customization in terms of button on it
+
+File upload sections //Browsing section + upload button to upload
+
+Generally, in HTML; we use forms to aquire data, with GET or POST methods.
+
+What follows, is an example of handling a form and setting actions etc:
+
+<form action="http://www.example.com/subscribe.php" method="get">
+	<p>This is where the form controls appears</p>
+</form>
+
+The form designation is what designates both an action and a id for said form.
+
+The action is the value of the website that will recieve the information from the action.
+
+The two methods, GET and POST, are as follows:
+
+GET //Used for short input data, to retrieve from the Server, such as Search queries and what not.
+
+POST //Allows for uploads, longer format, sensitive data, and interaction with DBs (removal or appendal)
+
+NOTE: If the method attribute is not set, get becomes the default.
+
+To interact with input elements, boxes that allow for input that is, we can use the <input> designation, as follows:
+
+<form action="http://www.example.com/login.php">
+	<p>Username:
+		<input type="text" name="username" size="15" maxlength="30" />
+	</p>
+</form>
+
+The above, would give us a input box, lined up with "Username:" and the input type would be a single line of text.
+
+The size and maxlength attributes, should be set in CSS.
+
+The name attribute becomes the defining factor of what it is, in terms of what we are trying to do as per with the value. Which means,
+the name value is basically it's ID, for later references.
+
+To allow input for Passwords, we could do as follows:
+
+<form action="http://www.example.com/login.php">
+	<p>Username:
+		<input type="text" name="username" size="15" maxlength="30" />
+	</p>
+	<p>Password:
+		<input tytpe="password" name="password" size="15" maxlength="30" /> //The input type of password, denotes that the text input should be * formatted
+	</p>
+</form>
+
+NOTE: The above example is not a secure example of putting in passwords. In fact, if we wish to have so that we could put in safe passwords,
+we'd have to reinforce it with SSL encryption.
+
+When it comes to text areas, we use the <textarea> denotation, as follows:
+
+<form action="http://www.example.com/comments.php"> //php script to handle the comments section
+	<p>What did you think of this gig</p>
+	<textarea name="comments" cols="20" rows="4">Enter comments here lol</textarea>
+</form>
+
+The above would give a comment sections box where we could send data to the server
+
+If we were to wish to implement radio buttons, we could do <input> tags with "radio" denotation instead:
+
+<form action="http://www.example.com/profile.php">
+	<p>Please select your favorite genre:
+		<br />
+		<input type="radio" name="genre" value="rock" checked="checked" />Rock
+		<input type="radio" name="genre" value="pop" />Pop
+		<input type="radio" name="genre" value="jazz" />Jazz
+	</p>
+</form>
+
+The above would create three lined up radio buttons that allows selection of one of em
+
+The name attribute is the name of the variable being send, the value is the value
+
+If we wish to define checkboxes, we could instead use the input type of checkboxes, as follows:
+
+<form action="http://www.example.comm/profile.php">
+	<p>Please select your favorite music services:
+		<br />
+		<input type="checkbox" name="service" value="itunes" checked="checked" /> Itunes
+		<input type="checkbox" name="service" value="lastfm" /> last.fm
+		<input type="checkbox" name="service" value="spotify" /> Spotify
+	</p>
+</form>
+
+The values are pretty self explanetory
+
+An example of a Drop down list box follows:
+
+<form action="http://www.example.com/profile.php">
+	<p>What decide do you listen to music on?</p>
+	<select name="devices">
+		<option value="ipod">Ipod</option>
+		<option value="radio">Radio</option>
+		<option value="computer">Computer</option>
+	</select>
+</form>
+
+The above will produce a dropdown list
+
+To create a multi-select box, we could use the following:
+
+<form action="http://www.example.com/profile.php">
+	<p>Shit shit shit</p>
+	<select name="instruments" size="3" multiple="multiple">
+		<option value="guitar" selected="selected">Guitar</option>
+		<option value="drums">Drums</option>
+		<option value="keyboard" selected="selected">Keyboard</option>
+		<option value="bass">Bass</option>
+	</select>
+</form>
+
+To create a file input box, we could do as follows:
+
+<form action="http://www.example.com/upload.php" method="post"> //Create a form with the method to post, to send Data
+	<p>Upload your song in mp3 format:</p>
+	<input type="file" name="user-song" /><br /> //The input type="file" Adds a file selector 
+	<input type="submit" value="Upload" /> //adds a button with submit, the value being upload
+</form>
+
+if we wish to create a submit button, we could do as follows:
+
+<form action="http://www.example.com/subscribe.php">
+	<p>Subscribe to our email list:</p>
+	<input type="text" name="email" />
+	<input type="submit" name="subscribe" value="Subscribe" /> //Submit denotes form sending to Server, Value is the name, Name is the var name
+</form>
+
+If we wish to apply a picture to the button, we could use the following format:
+
+<form action="http://www.example.org/subscribe.php">
+	<p>Subscribe to our email list:</p>
+	<input type="text" name="email" />
+	<input type="image" src="images/subscribe.jpg" width="100" height="20" />
+</form>
+
+The above will produce the input button, without submit function, and it's graphics replaced with the subscribe.jpg button
+
+An example of interaction with buttons and hidden inputs, follows:
+
+<form action="http://www.example.com/add.php">
+	<button><img src="images/add.gif" alt="add" width="10" height="10" /> Add </button>
+	<input type="hidden" name="bookmark" value="lyrics" />
+</form>
+
+What follows is an example of creating labels with related values:
+
+<label>Age: <input type="text" name="age" /></label>
+<br/ >
+Gender:
+<input id="female" type="radio" name="gender" value="f">
+<label for="female">Female</label>
+<input id="male" type="radio" name="gender" value="m">
+<label for "male">Male</label>
+
+To create a set of input forms, we could use the <fieldset> attribute, as follows:
+
+<fieldset> //Declares a boxed in box with relevant values or inputs
+	<legend>Contact Details</legend> //This is kind of a header for the boxed box
+	<label>Email:<br />
+	<input type="text" name="email" /></label><br />
+	<label>Mobile:<br />
+	<input type="text" name="mobile" /></label><br />
+	<label>Telephone:<br />
+	<input type="text" name="telephone" /></label>
+</fieldset>
+
+We also have something called Form validation, which is the security measure of checking against errors in HTML5:
+
+<form action="http://www.example.com/login/" method="post">
+	<label for="username">Username:</label>
+	<input type="text" name="username" required="required" /></title><br />
+	<label for="password">Password:</label>
+	<input type="password" name="password" required="required" />
+	<input type="submit" value="Submit" />
+</form>
+
+If we wish to create a form that sends input in terms of a POST method with foramtted Dates, we can use the input type="date":
+
+<form action="http://www.example.com/bookings/" method="post">
+	<label for="username">Departure date:</label>
+	<input type="date" name="depart" />
+	<input type="submit" value="Submit" />
+</form>
+
+The above would give a input format of requiring a date
+
+We can also use a form that conforms to forming a URL or a website:
+
+<form action="http://www.example.org/subscribe.php">
+	<p>Please enter your email</p>
+	<input type="email" name="email">
+	<input type="submit" value="Submit" />
+</form>
+
+The above will check against a format of a E-mail adress
+
+If we wish to make a form that conforms against a URL:
+
+<form action="http://www.exmaple.org/profile.php">
+	<p>please enter your website address:</p>
+	<input type="url" name="website" />
+	<input type="submit" value="Submit" />
+</form>
+
+If we wish to create a form that acts as a search input, we can use the <input type="search"> as follows:
+
+<form action="http://www.example.org/search.php">
+	<p>Search:</p>
+	<input type="search" name="search" />
+	<input type="submit" value="Search" />
+</form>
+
+Gives a search field. If we wish to implement a default value, a greyed out value, we can do as follows:
+
+<form action="http://www.example.org/search.php">
+	<p>Search:</p>
+	<input type="search" name="search" placeholder="Enter Keyword" /> //The placeholder becomes the greyed out text
+	<input type="submit" value="Search" />
+</form>
+
+If we wish to create a format where we can "Leave info" akin to a review or such, we could use the following code:
+
+<html>
+	<head>
+		<title>Forms</title>
+	</head>
+	<body>
+		<form action="http://www.example.com/review.php" method="get">
+			<fieldset>
+				<legend>
+					Your details:
+				</legend>
+				<label>
+					Name:
+					<input type="text" name="name" size="30" maxlength="100">
+				</label>
+				<br />
+				<label>
+					Email:
+					<input type="email" name="email" size="30" maxlength="100">
+				</label>
+				<br />
+			</fieldset>
+			<br />
+			<fieldset>
+				<legend>
+					Your review:
+				</legend>
+				<p>
+					<label for="hear about">
+						How did you hear about us?
+					</label>
+					<select name="referrer" id="hear about">
+						<option value="google">Google</option>
+						<option value="friend">Friend</option>
+						<option value="advert">Advert</option>
+						<option value="other">Other</option>
+					</select>
+				</p>
+				<p>
+					Would you visit again?
+					<br />
+					<label>
+						<input type="radio" name="rating" value="yes" />
+						Yes
+					</label>
+					<label>
+						<input type="radio" name="rating" value="maybe" />
+						Maybe
+					</label>
+				</p>
+				<p>
+					<label for="comments">
+						Comments:
+					</label>
+					<br />
+					<textarea rows="4" cols="40" id="comments">
+					</textarea>
+				</p>
+				<label>
+					<input type="checkbox" name="subscribe" checked="checked" />
+					Sign me up for email updates
+				</label>
+				<br />
+				<input type="submit" value="Submit review" />
+			</fieldset>
+		</form>
+	</body>
+</html>
+
+Block elements in HTML5, are things that always start on a new line and has a 100% size by default, these are, amongst others:
+
+<h1>, <p>, <ul>, <li>
+
+Inline elements, will appear next line, after Box elements etc., They are as follows:
+
+<a>, <b>, <em> and <img>
+
+In HTML, we can use divs to create divisions of where we can modify stuff and use a controled environment for CSS Implementation:
+
+<div id="header">
+	<img src="images/logo.gif" alt="Amish Kapoor" />
+	<ul>
+		<li><a href="index.html">Home</a></li>
+		<li><a href="biography.html">Biography</a></li>
+		<li><a href="works.html">Works</a><li>
+		<li><a href="contanct.html">Contact</a></li>
+	</ul>
+</div><!-- End of header -->
+
+Further more, we can use something called <span> to create a smaller, controlled area of CSS for certain things:
+
+<p>Anish Kapoor won the Turner Prize in 1991 and exhibited at the <span class="gallery">Tate Modern</span> gallery in London in 2003</p>
+
+If we wish to import a piece of another website into a frame, we can use something called <iframe>, which is as follows:
+
+<iframe
+	width="450"
+	height="350"
+	src="http://maps.google.co.uk/maps?q=moma+new+york&amp;output=embed">
+</iframe>
+
+The above would paste in a link from google maps to have in our window to showcase locations etc.
+
+If we wish to omit scrollbars, we can se a attribute called seamless, which does not require a value, but can be set.
+
+The meta Tag in HTML can do a range of things: Denote if it's set to be destroyed after X amount of time, who the author of the site is, telling search engines
+about the website etc.
+
+Descriptions in the meta tag, should only be max 155 chars. It may come to be shown in Search Engines.
+
+The robots variable, can be set to noindex or nofollow - noindex causes your website to not appear in search engines, and nofollow means that no
+websites that you link to, is related in the result of searching for your website.
+
+What follows, is an example of how to declare meta contents:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Information about Your Pages</title>
+		<meta name="description" content="An essay on installation Art" /> //Description that can come to be displayed in Search Engines
+		<meta name="keywords" content="installation, art, opinion" /> //keywords, rarely used by Search engines to find your site
+		<meta name="robots" content="nofollow" /> //Done so that referals on your website is not included in search engines
+		<meta http-equiv="author" content="Jon Duckett" /> //http-equiv is a pair of data, with the equiv and it's respective value
+		<meta http-equiv="pragma" content="no-cache" /> //Prevents websites from caching this, meaning it won't be able to load it on a latter visit
+		<meta http-equiv="expires" content="Fri, 04 Apr 2014 23:59:59 GMT" /> //Expiration date of the cache of the website, must be given in this format
+	</head>
+	<body>
+	</body>
+</html>
+
+In HTML, there are some chars that are special cases and need to be written in a different way, as follows:
+
+< : &lt; or &#60;
+
+> : &gt; or &amp;
+
+& : &amp or &#38;
+
+" : &quot; or &#34;
+
+cent sign : &cent; or &#162;
+
+£ : &pound; or &#163;
+
+Yen sign : &yen; or &#165;
+
+€ : &euro; or &#8364;
+
+Copy right symbol : &copy; or &#169;
+
+Registered trademark : &reg; or &#174;
+
+TM : &trade; or &#8482;
+
+There are some other as well, but can't be arsed to list them
+
+What follows is an example of a half-shitty website made in HTML:
+
+<html>
+	<head>
+		<meta name="description" content="Telephone, email and directions for The Art Bookshop, London, UK" />
+		<title>Contact The Art Bookshop, London, UK</title>
+	</head>
+	<body>
+		<div id="header">
+			<h1>The Art Book Shop</h1>
+			<ul>
+				<li><a href="index.html">home</a></li>
+				<li><a href="index.html">new publications</a></li>
+				<li class="Current page"><a href="index.html">contact</a></li>
+			</ul>
+		</div><!-- End of header -->
+		<div id="content">
+			<p>Charing Cross Road, London, WC2, UK</p>
+			<p><span class="Contact">Telephone</span> 0207 946 0946</p>
+			<p><span class="Contact">Email</span><a href="mailto:book@example.com">books@example.com</a></p>
+			<iframe width="425" height="275" frameborder="0" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/maps?f-q&amp:source=s_q&amp:hl-en&amp:geocode etc."</iframe>
+		</div>
+		<p>&copy: The Art BookShop</p>
+	</body>
+</html>
+
+NOTE: Audio and Video has already been covered in the other notes.
+
+What follows, is an example of using CSS externally:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Introducing CSS</title>
+		<link href="css/example.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<h1>From garden to plate</h1>
+		<p>A <i>potager</i> is a french term for an ornamental veggie </p>
+		<h2>What to plant</h2>
+		<p>shit</p>
+	</body>
+</html>
+
+CSS File:
+
+body {
+	font-family: Arial, Verdana, sans-serif;}
+h1, h2 {
+	color: #ee3e80;}
+p {
+	color: #665544;
+}
+
+What follows, is an example of using a external CSS files:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Using External CSS</title>
+		<link href="css/style.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<h1>Potatoes</h1>
+		<p>There are dozens of different potatoes. N SHITTTTTTTTTTTTTTTTTTTTT</p>
+	</body>
+</html>
+
+The css file, is within the same folder, and specified as follows:
+
+body {
+	font-family: arial;
+	background-color: rgb(185,179,175);
+}
+h1 {
+	color: rgb(255, 255, 255);
+}
+
+Note: You can use internal CSS, but since it's integrated into multi paged websites to use CSS externally, then we should do that
+
+In CSS, the following selectors exist:
+
+* { //Selects everything in the document
+	
+}
+
+h1, h2, h3 { //Type selector, matches elements names
+	
+}
+
+.<class name>{ //Targets all elements that have the specified class name
+	
+}
+
+<element>.<class name>{ //Targets only said elements that have the specified class name
+	
+}
+
+#<name>{ //Targets specified ID
+	
+}
+
+<parent>><child> { //Targets the child elements of the specified parent, must be a direct descendant, i.e no nesting or likewise
+	
+}
+
+<parent> <child> { //Targets the child element of the specified parent, other elements can be between, meaning it can be a nested value
+	
+}
+
+<parent>+<element> { //Targets the next occurence of element after specified parent
+	
+}
+
+<parent>~<element> { //Targets all of the siblings that adhere to being said element, after occurence of parent
+	
+}
+
+There are a couple of rules in CSS:
+
+If two selectors are identical, the last one takes predecence.
+
+If a selector is more specific than another, that takes predecence above a less specific one
+
+If we wish to make something have high prio, so that it overrides all other designations of said element, we could note a !important, as follows:
+
+p b {
+	color: blue !important;
+}
+
+p b {
+	color: violet;
+}
+
+Of the two above, blue becomes the color of choise, due to the !important tag
+
+In CSS, we can cause elements to inherit from parent classes, such as Body, as follows:
+
+HTML FILE:
+
+<div class="page">
+	<h1>Potatoes</h1>
+	<p>There are dozens of different potato variaties.</p>
+	<p>Poop</p>
+</div>
+
+
+
+CSS FILE:
+
+body {
+	font-family: Arial, Verdana, Sans-serif;
+	color: #665544;
+	padding: 10px;
+}
+.page { //Just omitting the previous part of a class notation, means it searches for class notatiosn in the body
+	border: 1px solid #665544;
+	background-color: #efefef;
+	padding: inherit; //inherits padding from the body element
+}
+
+In CSS, we use C style commenting, in terms of /* this is a comment */
+
+The colors we can use in CSS, is either named, Hexadecimal or RGB scaled.
+
+An example of each:
+
+h1 {
+	color: DarkCyan;
+}
+h2 {
+	color: #ee3e80;
+}
+p {
+	color: rgb(100, 100, 90);
+}
+
+Note, the above is designations for foreground colors.
+
+To set background colors, we can do as follows:
+
+body {
+	background-color: rgb(200, 200, 200);
+}
+h1 {
+	background-color: DarkCyan;
+}
+h2 {
+	background-color: #ee3e80;
+}
+p {
+	background-color: white;
+}
+
+CSS overall treats each section as a square region which it applies modifications to
+
+In CSS, we can further more use Opacity, which can be designated in two ways, as follows:
+
+p.one{
+	background-color: rgb(0,0,0);
+	opacity: 0.5;
+}
+p.two{
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.5); //The 4:th, final value, is for opacity
+}
+
+Opacity is a % scale on 0.0 to 1.0, where we can define decimals to be the %, such as 0.15 being 15%, 0.1517 being 15.17% etc. etc.
+
+There is two sets more of colours, that are called hsl and hsla, as follows:
+
+body {
+	background-color: #C8C8C8;
+	background-color: hsl(0, 0%, 78%); //hue is an angle between 0 and 360 (color), saturation is %, lightness is % 
+}
+
+p{
+	background-color: #ffffff;
+	background-color: hsla(0,100%,100%,0.5); //hsla is hsl, except with transparency as the last argument
+}
+
+What follows, is an example of how to implement a scale of colours that ranges from blue to pink:
+
+<html>
+	<head>
+		<title>Color</title>
+		<style type="text/css">
+			body {
+				background-color: silver;
+				color: white;
+				padding: 20px;
+				font-family: Arial, Verdana, sans-serif;
+			}
+			h1{
+				background-color: #ffffff;
+				background-color: hsla(0, 100%, 100%, 0.5);
+				color: #64645A;
+				padding: inherit;
+			}
+			p{
+				padding: 5px;
+				margin: 0px;
+			}
+			<!-- What follows, is a list of 0 through 13 in p.<number> and colour declarations -->
+		</style>
+	</head>
+	<body>
+		<h1>pH Scale</h1>
+		<!-- What follows, are the p class declarations of 0 through 13 -->
+	</body>
+</html>
+
+In CSS, we can define font-family with the simple syntax:
+
+font-family: Georgia, Times, serif; //The general syntax is that each type is declared by a , seperator, attempting to use them in the order they are declared
+
+To define font-sizes, we can use pixels (px) or percentages (%)
+
+If it is regarding a font that the user does not have, and we have the license to use the font we are about to use, we can use @font-face as follows:
+
+@font-face{
+	font-family: 'ChunkFiveRegular';
+	src: url('fonts/chunkfive.eot');
+}
+
+Different browsers handle different formats, thus, to reach all, we would have to possibly provide additional formats:
+
+@font-face{
+	font-family: 'ChunkFiveRegular';
+	src: url('fonts/chunk/five.eot');
+	src: url('fonts/chunk/five.eot?#iefix') format('embeded opentype'), url('fonts/chunkfive.woff') format('woff'), etc.
+}
+
+Each url can be followed by format to produce their relevant format
+
+To make a text bold, we can use the font-weight attribute in CSS:
+
+.credits{
+	font-weight: bold;
+}
+
+We can also do italic, with font-style:
+
+.credits{
+	font-style: italic;
+}
+
+We can also transform text to uppercase or lowercase with text-transform: uppercase; or text-transofmr: lowercase;
+
+We can also capitalize text with text-transform: capitalize;
+
+We can also decorate text with underline, overline, line-through and blink, as follows:
+
+.credits{
+	text-decoration: underline; //can be None (removes all previous decorations), underline, overline, line-through, blink
+}
+
+We can increase or decrease line difference between lines, with the line-height attribute as follows:
+
+p {
+	line-height: 1.4em; //Sets the line-height difference to be 1.4 m's height
+}
+
+We can modify letter-spacing and word-spacing, as follows:
+
+h1, h1{
+	letter-spacing: 0.2em;  //Defines spacing between letters
+	word-spacing: 1.2em; //Defines spacing between words
+}
+
+In terms of text-align, there are 4 different values:
+
+text-align: left; //sets to left aligned text
+
+text-align: right; //Right
+
+text-align: center; //center
+
+text-align: justify; //Takes the full width of the box, except for last line. Creates equal spacing between each word
+
+If we wish to vertically align-stuff, we can do so with vertical-align, it accepts the following values:
+
+baseline
+
+sub
+
+super
+
+top
+
+text-top
+
+middle
+
+bottom
+
+text-bottom
+
+We can indent text, with the text-indent attribute:
+
+h1 {
+	background-image: url("images/logo.gif"); //A picture that gets put in the background, having the foreground as a layer that is on top of the background
+	background-repeat: no-repeat;
+	text-indent: -99999px; //can take negative values, can push off the website, but still be part of the html code for search engines
+}
+
+If we wish to apply shadows to our text, we can do that by virtue of the text-shadow attribute, which takes 4 values:
+
+p.one{
+	background-color: #eeeeee;
+	color: #666666;
+	text-shadow: 1px 1px 0px #000000; //the first value, is how much to left or right the shadow falls, the second is distance to top/bottom, third is blur (optional), 4th is colour
+}
+
+We can access the first letter or first line, in an element, with the :first-letter or :first-line as follows:
+
+p.intro:first-letter {
+	font-size: 200%;
+}
+p.intro:first-line {
+	font-weight: bold;
+}
+
+In CSS, we can create some interactive reactions to users clicking on stuff or hovering over stuff etc, with CSS, as follows:
+
+a:link { //Define the appearance of a link not visited yet
+	color: red;
+	text-decoration: none;
+}
+a:visited { //Define the appearance of a link that has been visited
+	color: black;
+}
+a:hover { //The interaction upon hovering over an element
+	color: red;
+	text-decoration: underline;
+}
+
+a:active { //When something is pressed or being clicked
+	color: cyan;
+}
+
+a:focus{ //applied when an element has focus
+}
+
+In CSS, we can select specific elements on a more detailed manner, as follows:
+
+p[class] //the [] matches against a specific value, this example targets any <p> element that has a attribute called class 	EXISTENCE
+
+p[class="dog"] //targets any <p> element that has a class attribue called dog 		EQUALITY
+
+p[class~="dog"] //Targets <p> elements that has a class attribute called dog, in a space seperated list of words 	SPACE
+
+p[attr^"d"] //Targets any <p> element that has a attribute that begins with d 	PREFIX
+
+p[attr*"do"] //Targets any <p> element that contains the letters "do" 		SUBSTRING
+
+p[attr$"g"] //Targets any <p> element that ends with $ 			SUFFIX
+
+In CSS and HTML, we can define the size of a Div, by virtue of accessing the box attribute:
+
+THE HTML
+
+<div>
+	<p> shit </p>
+</div>
+
+THE CSS
+
+div.box{
+	height: 300px;
+	width: 300px;
+	background-color: red;
+}
+p{
+	height: 75%;
+	width: 75%;
+	background-color: white;
+}
+
+In CSS and HTML, we can define the min-width, max-width, min-height and max-height. This is useful for making websites useful for phones etc, so they are sized properly:
+
+HTML
+
+<tr>
+	<td><img src="images/rhodes.jpg" width="200" height="100" alt="Fender Rhodes" /></td>
+	<td class="Description">some shitty description</td>
+	<td>$1400</td>
+</tr>
+
+CSS
+
+td.Description{
+	min-width: 450px;
+	max-width: 650px;
+	text-align: left;
+	padding: 5px;
+	margin: 0px;
+}
+
+Setting the above values correctly, can create a range for websites to display, both on phones and on computers
+
+We can do the same thing for height, with min-height, max-height.
+
+If there is a overflow of content, there are two different approaches we could use:
+
+p.one{
+	overflow: hidden; //Hides the overflown content
+}
+p.two{
+	overflow: scroll; //Makes it so that the user can scroll to see the rest of the content
+}
+
+There are three distinct parts of any element in HTML:
+
+a border, a margin and a padding.
+
+A border, is the outlining of the element
+
+margin is what goes outwards
+
+padding is what goes inwards
+
+We can use the above, to correct the behaviour of the text if we wish
+
+We can control the width of borders, with the border-width attribute, and can be set with the following:
+
+px //pixels
+
+thin 
+
+medium
+
+thick
+
+Further more, we can define which border we wish to attack:
+
+border-top-width
+border-right-width
+border-left-width
+border-bottom-width
+
+We can also define them as follows:
+
+border-width: 2px 1px 1px 2px; //top, right, bottom, left
+
+Beyond this, we can define borders in different patterns, as the following list tells:
+
+border-style: solid; //A solid line for a border
+
+border-style: dotted; //A dotted line for a border
+
+border-style: dashed; //a dashed line
+
+border-style: double; //A double lined line
+
+border-style: groove; //"carved"
+
+border-style: ridge; //"rising up from the screen"
+
+border-style: inset; //"embedded"
+
+border-style: outset; //"pushed out"
+
+border-style: hidden; //No border, can also be written with None
+
+We can individually set the attributes of specific sides of a border, by virtue of designations:
+
+border-top-style
+
+border-left-style
+
+border-right-style
+
+border-bottom-style
+
+We can also set the colour of specific border places if we wish, by virtue of specification as follows:
+
+border-top-color: <colour attribute>
+
+border-right-color: <colour attribute>
+
+border-left-color: <colour attribute>
+
+border-bottom-color: <colour attribute>
+
+We can also specify colours by virtue of their ordering in the border-color command:
+
+p.one{
+	border-color: #0088dd; //Colours the entire border
+}
+
+p.two{
+	border-color: #bbbbaa #11111111 #ee3e80 #0088dd; //Colours in order of top, right, bottom, left
+}
+
+A shorthand for border modification is just border:
+
+border: <width> <style> <colour>;
+
+Further more, we can do padding to adapt the padding of text:
+
+padding-top: <value>;
+padding-right: <value>;
+padding-bottom: <value>;
+padding-left: <value>;
+
+Or we can apply the padding just generally to an element:
+
+p.example{
+	padding: 10px;
+}
+
+We can also use the shorthand of specifying 4 values, in the order they come, as follows:
+
+padding: 10px 5px 3px 1px; //Order is top, right, bottom, left
+
+Further more, we can do margins: //Margins is the distance between boxes
+
+margin-top: <value>;
+margin-right: <value>;
+margin-bottom: <value>;
+margin-left: <value>;
+
+Can also just give it as a general value:
+
+p.example{
+	margin: 20px;
+}
+
+We can do the 4 following order as well:
+
+margin: 1px 2px 3px 4px; //Top, right, bottom, left
+
+Can also do 2 order:
+
+margin: 10px 20px; //first value is right and left, second is top and bottom
+
+If we wish to center an element of a page or a element in a element, we can set the right margin and left margin to Auto
+
+Examples of having centered margin for Text and Elements:
+
+body {
+	text-align: center;
+}
+p {
+	width: 300px;
+	padding: 50px;
+	border: 20px solid #0088dd;
+}
+p.example {
+	margin: 10px auto 10px auto;
+	text-align: left;
+}
+
+As per expected, we can change the value to be inline elements or block elements or not display at all:
+
+HTML 
+
+<ul>
+	<li>Home</li>
+	<li>Products</li>
+	<li class="coming soon">Services</li>
+	<li>About</li>
+	<li>Contact</li>
+</ul>
+
+CSS
+
+li { //Causes each li element to be seperated and follow suit of each other due to being inline
+	display: inline; 
+	margin-right: 10px;
+}
+li.coming-soon{
+	display: none;
+}
+
+We can turn off visibility of an element and turn it on, with the visibility: hidden; or visibility: visible; properties
+
+If we wish to paste in a image to place it on the corners of the said element and then modify the sides, we can do the following:
+
+<p class="one"></p>
+<p class="two"></p>
+<p class="three"></p>
+
+p.one {
+	-moz-border-image: url("images/dots.gif") 11 11 11 11 stretch; //take the picture, take 11 pixels for each corner, stretch out the elements across the sides
+	-webkit-border-image: url("images/dots.gif") 11 11 11 11 stretch; //Same as above, except without the moz-border attribute, both of these are good for older websites
+	border-image: url("images/dots.gif") 11 11 11 11 stretch;
+}
+
+p.two {
+	-moz-border-image: url("images/dots.gif") 11 11 11 11 round; //take the picture, take 11 pixels for each corner, stretch out the elements across the sides
+	-webkit-border-image: url("images/dots.gif") 11 11 11 11 round; //Same as above, except without the moz-border attribute, both of these are good for older websites
+	border-image: url("images/dots.gif") 11 11 11 11 round;
+}
+
+//The above example is the same as the other, except it uses the round syntax instead, which makes rounded elements instead of stretching it out
+
+The third option we could have, is repeat.
+
+We can further more, cause shadows to box elements, with box-shadow:
+
+p.one{
+	-moz-box-shadow: -5px -5px #777777;
+	-webkit-box-shadow: -5px -5px #777777;
+	box-shadow: -5px -5px #777777;
+}
+
+The moz-box and webkit-box is useful for other browsers
+
+The order of the elements, are as follows: 
+
+horizontal offset //negative values offsets to left
+
+vertical offset //negative values causes on top of the box positioning
+
+blur distance //if omitted, the line is solid
+
+spread of shadow //if positive, goes outwards, if negative, goes inwards
+
+if we define inset before all of these values, we end up with a shadow that goes inwards
+
+If we wish to round corners, we can use border-radius:
+
+border-top-right-radius: 	<value>px;
+border-bottom-right-radius: <value>px;
+border-bottom-left-radius:  <value>px;
+border-top-left-radius: 	<value>px;
+
+We can also shorthand them, if we wish:
+
+border-radius: 5px, 10px, 5px, 10px; //The order is top, right, bottom, left
+
+We can also define borders by virtue of border-radius:
+
+border-radius: <value>px <value>px; The closer the first value is to 100 and the second is to 0, the closer to just a circle we get
+
+What follows, is an example of making a titled Website where the top is a title, followed by under elements and three lined up pictures:
+
+<html>
+	<head>
+		<title>Boxes</title>
+		<style type="text/css">
+			body{
+				font-size: 80%;
+				font-family: "Courier New", Courier, monospace;
+				letter-spacing: 0.15em;
+				background-color: #efefef;
+			}
+			#page{
+				max-width:940px;
+				min-width:720px;
+				margin: 10px auto 10px auto;
+				padding: 20px;
+				border: 4px double #000;
+				background-color: #ffffff;
+			}
+			#logo{
+				width: 150px;
+				margin: 10px auto 25px auto;
+			}
+			ul {
+				width: 570px;
+				padding: 15px;
+				margin: 0px auto 0px auto;
+				border-top: 2px solid #000;
+				border-bottom: 1px solid #000;
+				text-align: center;
+			}
+			li {
+				display: inline;
+				margin: 0px 3px;
+			}
+			p {
+				text-align: center;
+				width: 600px;
+				margin: 20px auto 20px auto;
+				font-weight: normal;
+			}
+			a {
+				color: #000000;
+				text-transform: uppercase;
+				text-decoration: none;
+				padding: 6px 18px 5px 18px;
+			}
+			a:hover, a.on {
+				color: #cc3333;
+				background-color: #ffffff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="page">
+			<div id="logo">
+				<img src="images/logo.gif" alt="The Analog Specialists" />
+			</div>
+			<ul id="navigation">
+				<li><a href="#" class="on">Home</a></li>
+				<li><a href="#">For sale</a></li>
+				<li><a href="#">Repairs</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+			<p>
+				<img src="images/keys.jpg" alt="Fender Rhodes, Hohner Claviet and Wurlitizer EP200" />
+			</p>
+			<p>
+				some shitty description
+			</p>
+		</div>
+	</body>
+</html>
+
+When it comes to lists in CSS, we can modify ul and ol in different matters:
+
+ol:
+
+decimal //1 2 3
+
+decimal-leading-zero //01 02 03
+
+lower-alpha // a b c
+
+upper-alpha // A B C
+
+lower-roman // i. ii. iii.
+
+upper-roman // I II III
+
+ul:
+
+none //No designation
+
+disc //Round dot
+
+circle //hollow circle
+
+square //A square
+
+To se it, we can use the list-style-type, as follows:
+
+ol{
+	list-style-type: lower-roman;
+}
+
+We can further more, customize the points, with images, if we wish, as follows:
+
+HTML
+
+<h1>Index of translated poems</h1>
+<h2>Arthur Rimbad</h2>
+<ul>
+	<li>Ophelia</li>
+	<li>To Music</li>
+	<li>A Dream for Winter</li>
+	<li>Vowels</li>
+	<li>The Drunken Boat</li>
+</ul>
+
+CSS
+
+ul {
+	list-style-image: url("images/star.png"); //Each item in the ul list gets the respective img next to it
+}
+
+li {
+	margin: 10px 0px 0px 0px; //Creates a gap between each li item
+}
+
+We can also modify the indenture of the dot of lists, as with outside and inside:
+
+ul.example{
+	list-style-position: outside;
+}
+
+ul.example2{
+	list-style-position: inside;
+}
+
+The shorthand for modifying list elements, is the list-style:
+
+ul{
+	list-style: inside circle; //Allows shorthand for the other things such as form, position etc.
+}
+
+What follows, is an example of creating a HTML with a table and then modifying it, to become a reciet like structure:
+
+HTML
+
+<h1>First Edition Auctions</h1>
+<table>
+	<tr>
+		<th>Author</th>
+		<th>Title</th>
+		<th class="money">Reserve Price</th>
+		<th class="money">Current Bid</th>
+	</tr>
+	<tr>
+		<td>E.E. Cummings</td>
+		<td>Tulips & Chimneys</td>
+		<td class="money">$2.000.00</td>
+		<td class="money">$2.642.50</td>
+	</tr>
+	<tr class="even">
+		<td>Charles d'Orleans</td>
+		<td>Poemes</td>
+		<td class="money"></td>
+		<td class="money">$5.866.00</td>
+	</tr>
+	<tr>
+		<td>T.S. Eliot</td>
+		<td>Poems 1909 - 1925</td>
+		<td class="money">$1.250.00</td>
+		<td class="money">$8.499.35</td>
+	</tr>
+	<tr class="even">
+		<td>Sylvia Platin</td>
+		<td>The Colossus</td>
+		<td class="money"></td>
+		<td class="money">$1031.72</td>
+	</tr>
+</table>
+
+CSS
+
+body {
+	font-family: Arial, Verdana, sans-serif;
+	color: #111111;
+}
+table { //set the table to a set width
+	width: 600px;
+}
+th. td { //Give all inherited td of table heads padding
+	padding: 7px 10px 10px 10px;
+}
+th {
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-size: 90%;
+	border-bottom: 2px solid #111111;
+	border-top: 1px solid #999;
+	text-align: left;
+}
+th.even {
+	background-color: #efefef;
+}
+tr:hover {
+	background-color: #c3e6e5;
+}
+.money {
+	text-align: right;
+}
+
+The above setup gives the reciet like listing and structure as we wanted
+
+If we have empty cells in a table, we can define their visibility, as follows:
+
+table.example{
+	empty-cells: show; //Show their border
+}
+
+table.example2{
+	empty-cells: hide; //Hide their border
+}
+
+The third option, is to define inherit, which just inherits from the parent elements
+
+if we wish, we can put spacing between borders of boxes, or completely collapse the space, as follows:
+
+HTML
+
+<table class="one">
+	<tr>
+		<td>1</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>4</td>
+	</tr>
+</table>
+
+CSS
+
+td {
+	background-color: #0088dd;
+	padding: 15px;
+	border: 2px solid #000000;
+}
+table.one{
+	border-spacing: 5px 15px; //Horizontal and Vertical spacing
+}
+table.two{
+	border-collapse: collapse; //Removes distance between blocks
+}
+
+Assuming that we have 3 input boxes that we wish to stylize, we could do so, with the following CSS:
+
+input {
+	font-size: 120%;
+	color: #5a5854;
+	background-color: #f2f2f2;
+	border: 1px solid #bdbdbd;
+	border-radius: 5px;
+	padding: 5px 5px 5px 30px;
+	background-repeat: no-repeat;
+	background-position: 8px 9px;
+	display: block;
+	margin-bottom: 10px;
+
+}
+input:focus{
+	background-color: #ffffff;
+	border: 1px solid #blele4;
+}
+input#email{
+	background-image: url("images/email.png");
+}
+input#twitter{
+	background-image: url("images/twitter.png");
+}
+input#web{
+	background-image: url("images/web.png");
+}
+
+The :focus attribute is activated when a element is in focus
+
+If we wish to modify the graphics of a Register button, we could use the following CSS:
+
+input#submit{ //assume the Id of the input button is submit
+	color: #444444;
+	text-shadow: 0px 1px 1px #ffffff;
+	border-bottom: 2px solid #b2b2b2;
+	background-color: #b9e4e3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#beeae9), to(#a8cfce)); //Fix so that it supports all kinds of browsers
+	background: -moz-linear-gradient(top, #beeae9, #a8cfce);
+	background: -o-linear-gradient(top, #beeae9, #a8cfce);
+	background: -ms-linear-gradient(top, #beeae9, #a8cfce);}
+	input#submit:hover {
+		color: #333333;
+		border: 1px solid #a4a4a4;
+		border-top: 2px solid #b2b2b2;
+		background-color: #a0dbc4;
+		background: -webkit-gradient(linear, left top, left bottom, from(#a8cfce), to(#beeae9));
+		background: -moz-linear-gradient(top, #a8cfce, #beeae9);
+		background: -o-linear-gradient(top, #a8cfce, #beeae9);
+		background: -ms-linear-gradient(top, #a8cfce, #beeae9);
+	}
+
+What follows, is an example of CSS used to customize a fieldset and legend:
+
+fieldset{
+	width: 350px;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
+	padding: 20px;
+	text-align: right;
+}
+legend {
+	background-color: #efefef;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
+	padding: 10px 20px;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+Assume that we have a form with 2 values, one of which is a different length to the other, we can help structure them in the CSS as follows:
+
+div {
+	border-bottom: 1px solid #efefef;
+	margin: 10px;
+	padding-bottom: 10px;
+	width. 260px;
+}
+.title {
+	float: left;
+	width: 100px;
+	text-align: right;
+	padding-right: 10px;
+}
+.radio-buttons label {
+	float: none;
+}
+.submit {
+	text-align: right;
+}
+
+If we wish to define how a cursor interacts when we put them above elements, we can use the following list of elements:
+
+auto
+crosshair
+default
+pointer
+move
+text
+wait
+help
+url("cursor.gif")
+
+A useful tool for web development, is available at www.chrispederick.com/work/web-developer
+
+What follows, is an example of a Webpage that would be an alright traveling website:
+
+<html>
+	<head>
+		<title>Lists, Tables and Forms</title>
+		<style type="text/css">
+			body {
+				font-family: Arial, Verdana, sans-serif;
+				font-size: 90%;
+				color: #666;
+				background-color: #f8f8f8;
+			}
+			li {
+				list-style-image: url("images/icon-plus.png");
+			}
+			table {
+				border-spacing: 0px;
+			}
+			th. td{
+				padding: 5px 30px 5px 10px;
+				border-spacing: 0px;
+				font-size: 90%;
+				margin: 0px;
+			}
+			th. td{
+				text-align: left;
+				background-color: #e0e9f0;
+				border-top: 1px solid #f1f8fe;
+				border-bottom: 1px solid #cbd2d8;
+				border-right: 1px solid #cdb2d8;
+			}
+			tr.head th{
+				color: #fff;
+				background-color: #90b4d6;
+				border-bottom: 2px solid #547ca0;
+				border-right: 1px solid #749abe;
+				border-top: 1px solid #90b4d6;
+				text-align: center;
+				text-shadow: -1px -1px 1px #666;
+				letter-spacing: 0.15em;
+			}
+			td {
+				text-shadow: 1px 1px 1px #fff;
+			}
+			tr.even td, tr.even th {
+				background-color: #e8eff5;
+			}
+			tr.head th:first-child{
+				-webkit-border-top-left-radius: 5px;
+				-moz-border-radius-topright: 5px;
+				border-top-right-radius: 5px;
+			}
+			fieldset {
+				width: 310px;
+				margin-top: 20px;
+				border: 1px solid #d6d6d6;
+				background-color: #ffffff;
+				line-height: 1.6em;
+			}
+			legend {
+				font-style:italic;
+				color:#666666;
+			}
+			input[type="text"]{
+				width: 120px;
+				border: 1px solid #d6d6d6;
+				padding: 2px;
+				outline: none;
+			}
+			input[type="text"]:focus, input[type="text"]:hover {
+				background-color: #d0e2f0;
+				border: 1px solid #999;
+			}
+			input[type="submit"]{
+				border: 1px solid #006633;
+				background-color: #009966;
+				color: #FFFFFF;
+				border-radius: 5px;
+				padding: 5px;
+				margin-top: 10px;
+			}
+			input[type="submit"]:hover{
+				border: 1px solid #006633;
+				background-color: #00CC33;
+				color: #FFFFFF;
+				cursor: pointer;
+			}
+			.title {
+				float: left;
+				width: 160px;
+				clear: left;
+			}
+			.submit{
+				width:310px;
+				text-align: right;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Poetry Workshop</h1>
+		<p>Some description of shit</p>
+		<p>Second description of shit</p>
+		<ul>
+			<li>A Poetic Perspective</li>
+			<li>Walt Whitman at War</li>
+			<li>Found Poems and Outersider Poetry</li>
+		</ul>
+		<table>
+			<tr class="head">
+				<th></th>
+				<th>New York</th>
+				<th>Chicago</th>
+				<th>San Fran</th>
+			</tr>
+			<tr>
+				<th>A poetic Perspective</th>
+				<td>Sat. 4 Feb 2012<br />11 am - 2pm</td>
+				<td>Sat. 3 Mar 2012<br />11am -  2pm</td>
+				<td>Sat. 17 Mar 2012<br />11am - 2pm</td>
+			</tr>
+			<tr class="even">
+				<th>Walt Whitman At War</th>
+				<td>Sat. 7 Apr 2012<br />11am - 1pm</td>
+				<td>Sat. 5 May 2012<br />11am - 1pm</td>
+				<td>Sat. 19 May 2012<br />11am - 1pm</td>
+			</tr>
+			<tr>
+				<th>Found Poems &amp; Outsider Poetry</th>
+				<td>Sat. 9 Jun 2012<br />11am - 2pm</td>
+				<td>Sat. 7 Jul 2012<br />11am - 2pm</td>
+				<td>Sat. 21 Jul 2012<br />11am - 2pm</td>
+			</tr>
+			<tr class="even">
+				<th>Natural Death: An Exploration</th>
+				<td>Sat. 4 aug 2012<br />11am - 4pm</td>
+				<td>Sat. 8 Sep 2012<br />11am - 4pm</td>
+				<td>Sat. 15 Sep 2012<br />11am - 4pm</td>
+			</tr>
+		</table>
+		<form action="http://www.example.com/form.php" method="get">
+			<fieldset>
+				<legend>Register Your Interest</legend>
+				<p><label class="title" for="name">Your name:</label>
+					<input type="text" name="name" id="name"><br />
+					<label class="title" for="email">Your email:</label>
+					<input type="text" name="email" id="email"></p>
+				<p><label for="location" class="title">Your closest center:</label>
+					<select name="location" id="location">
+						<option value="ny">New York</option>
+						<option value="il">Chicago</option>
+						<option value="ca">San Francisco</option>
+					</select></p>
+				<span class="title">Are you a member?</span>
+				<label><input type="radio" name="member" value="yes" /> Yes</label>
+				<label><input type="radio" name="member" value="no" /> No</label></p>
+			</fieldset>
+			<div class="submit"><input type="submit" value="Register" /></div>
+		</form>
+	</body>
+</html>
+
+In HTML, every element is a block element that has a width and height. This can be changed, in terms of min-height and max-height etc.
+
+Some of the block elements, are as per follows:
+
+<h1> <p> <ul> <l1>
+
+Some of the inline elements, that just "flow" with the picture, are as follows:
+
+<img> <b> <i>
+
+In general, you can creation division for putting in elements, by virtue of defining divs, a div being a division, a "pen" to put stuff in.
+
+In CSS, there are 5 types of positionings:
+
+Normal
+
+Relative
+
+Absolute
+
+Fixed
+
+Floating
+
+Normal acts as per normal, one after another vertically down
+
+Relative refers to Indenture and stuff like that
+
+Absolute is when it's in relation to it's conatining element, causing it to overlap others and ignores all other elements in terms of spacing
+
+Fixed is when the position is absolute but in relation to the browser window, not the element containing it (Element stays despite browser scrolling)
+
+Floating is when you basically put a Element within it's own box of representation, where other stuff floats around it
+
+In terms of CSS positioning, the normal flow, is simply refered to as static:
+
+position: static;
+
+When we use the relative positioning, we can define offsets in terms of heights and left, right etc. In terms of setting stuff to be left oriented,
+it leads the element to cause space to it's left side:
+
+p.example{
+	position: relative;
+	top: 10px;
+	left: 100px;
+}
+
+An example of setting an absolute position so that it does not move and disregards other elements:
+
+h1 {
+	position: absolute; //Does not move and disregards other elements
+	top: 0px;
+	left: 500px; //500 px from the left ledge
+	width: 250px; //width of the header
+}
+p {
+	width: 450px; //has to be set so that it does not overlap the text
+}
+
+Example of a HTML and CSS that uses a Fixed Position of a header:
+
+HTML
+
+<body>
+	<h1>The evolution of the Bike</h1>
+	<p class="Example">Some shit </p>
+</body>
+
+CSS
+
+h1 {
+	position: fixed;
+	top: 0px;
+	left: 50px;
+	padding: 10px;
+	margin: 0px;
+	width: 100%;
+	background-color: #efefef;
+}
+p.example {
+	margin-top: 100px; //A margin to illustrate the difference between the top header elemenet
+}
+
+When we have positionings that can cause overlapping, such as relative, fixed or absolute - we can use something called z-index:
+
+h1{
+	position: fixed;
+	z-index:10; //Basically a layer index, the higher the higher prio it has to be the first one
+}
+p {
+	position: relative;
+}
+
+if we wish to make a element seperated or make it so that it floats apart from everything else, we can use float, according to the following example:
+
+HTML
+
+<h1>The Evolution of The Bike</h1>
+<blockquote>"Life is like a Bike, POOP YO FACE MODOFOKKA"</blockquote>
+<p>Shit shit shit</p>
+
+CSS
+
+blockquote{
+		float: right;
+		width: 275px;
+		font-size: 130%;
+		font-style: italic;
+		font-family: Georgia, Times, serif;
+		margin: 0px 0px 10px 10px;
+		padding: 10px;
+		border-top: 1px solid #665544;
+		border-bottom: 1px solid #665544;
+}
+
+if we wish to make seperated paragraphs, we could do as follows:
+
+body {
+	width: 750px;
+	font-family: Arial, Verdana, sans-serif;
+	color: #665544;
+}
+p {
+	width: 230px;
+	float: left;
+	margin: 5px;
+	padding: 5px;
+	background-color: #efefef;
+}
+
+If we wish to define so that a element is not allowed to touch the side of the element, we can define that with clear:
+
+/../ same as above
+
+.clear {
+	clear: left; //can be right, left or None. Right means do not touch right side of the containing box, left is left side of the box, None means no rule set
+}
+
+To account for overflow elements, we can set overflow:
+
+div {
+	border: 1px solid #665544;
+	overflow: auto; //handles the overflow
+	width: 100%;
+}
+
+If we wish to create multi-parted columns, we can use float for this, as follows:
+
+HTML
+
+<h1>The shit of Shit</h1>
+<div class="column1of2">
+	<h3>The first BIKE</h3>
+	<p>FUCK YOU</p>
+</div>
+<div class="column2of2">
+	<h3>BICYCLE MOTHERFUCKER</h3>
+</div>
+
+CSS
+
+.column1of2{
+	float: left;
+	width: 620px;
+	margin: 10px;
+}
+.column2of2{
+	float: left;
+	width: 300px;
+	margin: 10px;
+}
+
+The above will cause 2 columns 
+
+To create 3, we can do as follows:
+
+HTML
+
+<h1>DROP THE BASE</h1>
+<div class="column1of3">
+	<h3>THE FIRST BIKE</h3>
+</div>
+<div class="column2of3">
+	<h3>FURTHER MOTHERFUCKER</h3>
+</div>
+<div class"column3of3">
+	<h3>FOK U</h3>
+</div>
+
+CSS
+
+.column1of3, .column2of3, column3of3 {
+	width: 300px;
+	float: left;
+	margin: 10px;
+}
+
+In terms of CSS and HTML, there are Liquid and Fixed layouts, where Liquid adapts to different resolutions and sizes, whilst Fixed is set to a specific size.
+
+				Pros 						Cons
+Fixed:  Accurate, Control, static size  	Gaps, suited for Screens, a lot of vertical space taken
+
+Liquid: No gaps, adapted 					Can derivated from imagined design, can cause long lines on wide screens, can cause overflow
+
+An example of a fixed width layout, follows:
+
+HTML
+
+<body>
+	<div id="header">
+		<h1>Logo</h1>
+		<div id="nav">
+			<ul>
+				<li><a href="">Home</a></li>
+				<li><a href="">Products</a></li>
+				<li><a href="">Services</a></li>
+				<li><a href="">About</a></li>
+				<li><a href="">Contact</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="content">
+		<div id="feature">
+			<p>Feature</p>
+		</div>
+		<div class="article column2">
+			<p>column Two</p>
+		</div>
+		<div class="article column3">
+			<p>Column three</p>
+		</div>
+	</div>
+	<div id="footer">
+		<p>&copy; Copyright 2011</p>
+	</div>
+</body>
+
+CSS
+
+body{
+	width: 960px;
+	margin: 0 auto;
+}
+#content {
+	overflow: auto;
+	height: 100%;
+}
+#nav, #feature, #footer {
+	background-color: #efefef;
+	padding: 10px;
+	margin: 10px;
+}
+.column1, .column2, .column3 {
+	background-color: #efefef;
+	width: 300px;
+	float: left;
+	margin: 10px;
+}
+li {
+	display: inline;
+	padding: 5px;
+}
+
+Now assuming we'd like to have a liquid layout, we just gotta change the CSS:
+
+CSS
+
+body{
+	width: 90%;
+	margin: 0 auto;
+}
+#content {overflow: auto;}
+#nav, #feature, #footer{
+	margin: 1%;
+}
+.column1, .column2, .column3{
+	width: 31.3%;
+	float: left;
+	margin: 1%;
+}
+.column3{margin right: 0%;}
+li {
+	display: inline;
+	padding: 0.5em;
+}
+#nav, #footer {
+	background-color: #efefef;
+	padding: 0.5em 0;
+}
+#feature, .article {
+	height: 10em;
+	margin-bottom: 1em;
+	background-color: #efefef;
+}
+
+In CSS, we can use something called grids, to help us make layouts:
+
+One of the most common and useful grids, is called 960.GS Grid
+
+An example of using the 960.GS Grid:
+
+HTML
+
+	<head>
+		<title>Grid Layout</title>
+		<link rel="stylesheet" type="text/css" href="css/960_12_col.css" />
+		<style>See the right hand page</style>
+	</head>
+	<body>
+		<div class="container_12_clearfix">
+			<div id="header" class="grid_12">
+				<h1>Logo</h1>
+					<div id="nav">
+						<ul>
+							<li><a href="">Home</a></li>
+							<li><a href="">Products</a></li>
+							<li><a href="">Services</a></li>
+							<li><a href="">About</a></li>
+							<li><a href="">Contact</a></li>
+						</ul>
+					</div>
+			</div>
+			<div id="feature" class="grid_12">
+				<p>Feature</p>
+			</div>
+			<div class="article grid_4">
+				<p>Column One</p>
+			</div>
+			<div class="article grid_4">
+				<p>Column Two</p>
+			</div>
+			<div class="article grid_4">
+				<p>Column Three</p>
+			</div>
+			<div id="footer" class="grid_12">
+				<p>&copy; Copyright 2011</p>
+			</div>
+		</div>
+	</body>
+
+
+CSS
+
+* {
+	font-family: Arial, Verdana, sans-serif;
+	color: #665544;
+	text-align: center;
+}
+#nav, #feature, .article, #footer {
+	background-color: #efefef;
+	margin-top: 20px;
+	padding: 10px 0px 5px 0px;
+}
+#feature, .article {
+	height: 100px;
+}
+li {
+	display: inline;
+	padding: 5px;
+}
+
+The above Code will produce a general layout that is good for setting up stuff
+
+In HTML, we can use two methods to aquire CSS files, either by virtue of @import or just by link:
+
+HTML
+
+<html>
+	<head>
+		<title>Multiple Sheets yo</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" /> //For each CSS we wish to employ we can link it to respective CSS
+	</head>
+	<body>
+		//Stuff goes here
+	</body>
+</html>
+
+CSS
+
+@import url("table.css"); //imports the table.css
+@import url("shit.css");  //Imports the shit.css
+
+CSS etc.
+
+If we wish to include several links in the HTML to CSS, we could do as follows:
+
+<html>
+	<head>
+		<title>Some shitty title</title>
+		<link rel="stylesheet" type="text/css" href="css/site.css" />
+		<link rel="stylesheet" type="text/css" href="css/table.css" />
+		etc.
+	</head>
+	<body>
+		//Put shit here
+	</body>
+</html>
+
+What follows, is an example of relating several CSS files and stylizing a 960.gs grid layout:
+
+<html>
+	<head>
+		<title>Layout</title>
+		<link rel="stylesheet" type="text/css" href="css/960_12_col.css" />
+		<style type="text/css">
+			@font-face {
+				font-family: 'QuicksandBook';
+				src: url('fonts/Quicksand_Book-webfront.eot');
+				src: url('fonts/Quicksand_Book-webfront.eot?#iefix') format('embedded-opentype'),
+					url('fonts/Quicksand_Book-webfont.woff') format('woff'),
+					url('fonts/Quicksand_Book-webfont.ttf') format('truetype'),
+					url('fonts/Quicksand_Book-webfont.svg#QuicksandBook') format('svg');
+				font-weight: normal;
+				font-style: normal;
+			}
+			body{
+				color: #ffffff;
+				background: #413f3b url("images/bg.jpg");
+				font-family: Georgia, "Times New Roman", Times, serif;
+				font-size: 90%;
+				margin: 0px;
+				text-align: center;
+			}
+			a {
+				color: #b5clad;
+				text-decoration: none;
+			}
+			a:hover {
+				color: #ffffff;
+			}
+			.header {
+				background-image: url("images/bg-header.jpg");
+				padding: 0px 0px 0px 0px;
+				height: 100px;
+				position: fixed;
+				top: 0px;
+				width: 100%;
+				z-index: 50;
+
+			}
+			.nav {
+				float: right;
+				font-family: QuicksandBook, Helvetica, Arial, sans-serif;
+				padding: 45px 0px 0px 0px;
+				text-align: right;
+			}
+			.wrapper {
+				width: 960px;
+				margin: 0px auto;
+				background-image: url("images/bg-triangle.png");
+				background-repeat: no-repeat;
+				background-position: 0px 0px;
+				text-align: left;
+			}
+			.logo {
+				margin-bottom: 20px;
+			}
+			h1, h2 {
+				font-family: QuicksandBook, Helvetica, Arial, sans-serif;
+				font-weight: normal;
+				text-transform: uppercase;
+			}
+			h1 {
+				font-size: 240%;
+				margin-top: 140px;
+			}
+			.date{
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 75%;
+				color: #b5clad;
+			}
+			.intro{
+				clear: left;
+				font-size: 90%;
+				line-height: 1.4em;
+			}
+			.main-story{
+				background-image: url("images/triangles.png");
+				background-repeat: no-repeat;
+				background-position: 122px 142px;
+				height: 570px;
+			}
+			.more-articles{
+				border-top: 1px solid #ffffff;
+				padding: 10px;
+			}
+			.more-articles p {
+				border-bottom: 1px solid #807c72;
+				padding: 5px 0px 15px 0px;
+				font-size: 80%;
+			}
+			.more-articles p:last-child{ //We can access the last child if we wish
+				border-bottom: none;
+			}
+			.footer {
+				clear: both;
+				background: rgba(0, 0, 0, 0.2);
+				padding: 5px 10px;
+			}
+			.footer p {
+				font-family: Helvetica, Arial, sans-serif;
+				font-size: 75%;
+				text-align: right;
+			}
+			.footer a {
+				color: #807c72;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<div class="container_12">
+				<div class="grid_5">
+					<img src="images/logo.png" alt="Pedal Faster - The Modern Shitter" width="216" height="37" class="logo" />
+					<img src="images/header-triangle.png" alt="" width="116" height="100" />
+				</div>
+				<div class="nav grid_7">
+					<a href="">home</a> / <a href="">news</a> / <a href="">Archives</a> / <a href="">about</a> / <a href="">contact</a>
+				</div>
+			</div>
+		</div>
+		<div class="wrapper">
+			<div class="main-story container_12">
+				<div class="grid_6 push_6">
+					<h1><a href="">Fixed Gear Forever</a></h1>
+				</div>
+				<div class="intro grid_3 push_9">
+					<p class="date">16 APRIL 2011</p>
+					<p> SOME SHIT TEXT</p>
+				</div>
+			</div> //Main story
+			<div class="more-articles container_12">
+				<h2 class="grid_12"><a href="">More Articles</a></h2>
+				<div class="grid_3">
+					<img src="images/more1.jpg" alt="The road ahead" width="220" height="125" />
+					<p><a href="">On the road: from the fixed gear fanatic's point of view</a></p>
+					<p><a href="">Brand History: bla bla bla</a></p>
+					<p><a href="">Bla bla bla</a><p>
+				</div>
+				<div class="grid_3">
+					<img src="images/more2.jpg" alt="The road ahead" width="220" height="125" />
+					<p><a href="">Bla bla bla</a></p>
+					<p><a href="">bla bla bla</a></p>
+					<p><a href="">Bla bla bla</a><p>
+				</div>
+				<div class="grid_3">
+					<img src="images/more3.jpg" alt="The road ahead" width="220" height="125" />
+					<p><a href="">Bla bla bla</a></p>
+					<p><a href="">bla bla bla</a></p>
+					<p><a href="">Bla bla bla</a><p>
+				</div>
+				<div class="grid_3">
+					<img src="images/more4.jpg" alt="The road ahead" width="220" height="125" />
+					<p><a href="">Bla bla bla</a></p>
+					<p><a href="">bla bla bla</a></p>
+					<p><a href="">Bla bla bla</a><p>
+				</div>
+			</div>
+		</div>
+		<div class="footer clearfix">
+			<div class="container_12">
+				<p class="grid_12"><a href="">Bla bla bla</a></p>
+			</div>
+		</div>
+	</body>
+
+</html>
+
+We can of course control sizes in the CSS document, if we wish:
+
+img.large {
+	width: 500px;
+	height: 500px;
+}
+img.medium {
+	width: 250px;
+	height: 250px;
+}
+img.small { //images overall are accessed with the img, the class notation is to access a specific image
+	width: 100px;
+	height: 100px;
+}
+
+Of course, we can also have alignments on pictures, assuming they are floats:
+
+img.align-left {
+	float: left;
+	margin-right: 10px;
+}
+
+There are two ways we can center a image, which is inline by default:
+
+img.align-center{
+	display: block; //has to be a block first
+	margin: 0px auto; //Causes margin to be auto on both sides, making it so that the image is centered
+}
+img.medium{
+	width: 250px;
+	height: 250px;
+}
+
+We can of course put images in the background, to create background images:
+
+body {
+	background-image: url("images/pattern.gif"); //Designates a picture to be a background picture for said elemenet
+}
+
+
+if we wish, we can cause pictures to repeat, in terms of horizontal and vertical repeating. What follows, are some examples:
+
+body {
+	background-image: url("images/header.gif");
+	background-repeat: repeat-x; //repeat-x for horizontal, y for vertical, repeat for both, no-repeat for only print once
+	background-attachment: fixed; //Can be fixed or Scroll
+}
+
+If we wish to project a image to a certain part of the background, we can use the background-position attribute in CSS:
+
+example {
+	background-image: url("somepicture.gif");
+	background-repeat: no-repeat;
+	background-position: center top; //Can have the following range: left/center/right top/center/bottom
+	background-position: 50% 50% //Can also be used to denote the relative positioning of a image, by virtue of specifying distance from Origo in %
+}
+
+We can also just use the shorthand of background, with the following structure:
+
+background: //color, image, repeat, attachment, position
+
+In CSS, we can use something called Rollovers which causes the graphics of different interactions with elements to make them change:
+
+HTML
+
+<a class="button" id="add to basket">Add to Basket</a>
+<a class="button" id="framing options">Framing Options</a>
+
+CSS
+
+a.button {
+	height: 36px;
+	background-image: url("images/button-sprite.jpg");
+	text-indent: -999999px;
+	display: inline-block;
+}
+a#add-to-basket {
+	width: 174px;
+	background-position: 0px 0px;
+}
+a#framing-options {
+	width: 210px;
+	background-position: -175px 0px;
+}
+a#add-to-basket:hover {
+	background-position: 0px -40px;
+}
+a#framing-options:hover {
+	background-position: -175px -40px;
+}
+a#add-to-basket:active {
+	background-position: 0px -80px;
+}
+a#framing-options:active {
+	background-position: -175px -80px;
+}
+
+If we wish to create a background image with a Gradient, we could do as follows:
+
+#gradient {
+	/* Fallback color */
+	background-color: #66cccc;
+	/* Fallback image */
+	background-image: url(images/fallback-image.png);
+	/* FORE FIRE FAX */
+	background-image: -moz-linear-gradient(#336666, #66cccc); //We need to specify a gradient between two colours of which it will TRANSCEND BETWEEEEEEN
+	/* FOR CHROOOOOOOOOOOOOOOOOOOOOOOOOOME */
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#66cccc), to(#336666));
+	/* SAFARIIIIIIIIIIIIIIIIIIIIIIIIIII */
+	background-image: -webkit-linear-gradient(#336666, #66cccc);
+	/* OPERAAAAAAAAAAAAAAAAAA */
+	background-image: -o-linear-gradient(#336666, #66cccc);
+	height: 150px;
+	width: 300px;
+}
+
+An example of running a website with a background, a wallpaper
+
+<html>
+	<head>
+		<title>IMAGES YOOOOOOOO</title>
+		<style="text/css">
+			body {
+				color: #665544;
+				background-color: #d4d0c6;
+				background-image: url("images/backdrop.gif");
+				font-family: Georgia, "Times New Roman", serif;
+				text-align: center;
+			}
+			.wrapper {
+				width:720px;
+				margin: 0px auto;
+			}
+			.header {
+				margin: 40px 0px 20px 0px;
+			}
+			.entry{
+				width: 220px;
+				float: left;
+				margin: 10px;
+				height: 198px;
+				background-image: url("images/shadow.png");
+				background-repeat: no-repeat;
+				background-position: bottom;
+			}
+			figure {
+				display: block;
+				width: 202px;
+				height: 170px;
+				background-color: #e7e3d8;
+				padding: 9px;
+				text-align: left;
+			}
+			figure img {
+				width: 200px;
+				height: 150px;
+				border: 1px solid #d6d6d6;
+			}
+			figcaption {
+				background-image: url("images/icon.png");
+				padding-left: 20px;
+				background-repeat: no-repeat;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="header">
+				<img src="images/title.gif" alt="SOMETHING" width="465" height="122" />
+				<p> MENTAL WOOOOOOOOOOOOOOOOUNDS</p>
+			</div>
+			<div class="entry">
+				<figure><img src="images/print-01.jpg" alt="DAKKA" />
+					<figcaption>DAKKA</figcaption>
+				</figure>
+			</div>
+			<div class="Entry">
+				<figure><img src="images/print-02.jpg" alt="DAKKA DAKKA" />
+					<figcaption>WORSE</figcaption>
+				</figure>
+			</div>
+			etc.
+		</div>
+	</body>
+</html>
+
+in HTML5, we can also use <header> and <footer>, which is basically a header and a footer section
+
+<nav> is used for navigational stuff, like re-directs etc.
+
+An <article< element is usually something related to a article
+
+<aside> puts content on the side
+
+<section> acts as a grouping section
+
+<hgroup> acts as a grouping of headers
+
+<figure> is a showcasing a picture link
+
+<figcaption> is the text caption for said figure
+
+<div> acts as a division and divider for where content goes
+
+We can manually put things into a <a> link element to create our own link referal in it, as follows:
+
+<a href="introduction.html">
+	//stuff
+</a>
+
+What follows, is an example of actually having a HTML5 Layout that looks like a modern webpage:
+
+<html>
+	<head>
+		<title>HTML5 Layout</title>
+		<style type="text/css">
+			header, section, footer, aside, nav, article, figure, figcaption {
+				display: block;
+			}
+			body {
+				color: #666666;
+				background-color: #f9f8f6;
+				background-image: url("images/dark-wood.jpg");
+				background-position: center;
+				font-family: Georgia, times, serif;
+				line-height: 1.4em;
+				margin: 0px;
+			}
+			.wrapper{
+				width: 940px;
+				margin: 20px auto 20px auto;
+				border: 2px solid #000000;
+				background-color: #ffffff;
+			}
+			header {
+				height: 160px;
+				background-image: url(images/header.jpg);
+			}
+			h1 {
+				text-indent: -999999px;
+				width: 940px;
+				height: 130px;
+				margin: 0px;
+			}
+			nav. footer{
+				clear: both;
+				color: #ffffff;
+				background-color: #aeaca8;
+				height: 30px;
+			}
+			nav ul {
+				margin: 0px;
+				padding: 5px 0px 5px 30px;
+			}
+			nav li{
+				display: inline;
+				margin right: 40px;
+			}
+			nav li a {
+				color: #ffffff;
+			}
+			nav li a:hover, nav li a.current {
+				color: #000000;
+			}
+			section.courses{
+				float: left;
+				width: 659px;
+				border-right: 1px solid #eeeeee;
+			}
+			article {
+				clear: both;
+				overflow: auto;
+				width: 100%;
+			}
+			hgroup {
+				margin-top:40px;
+			}
+			figure {
+				float: left;
+				width. 290px;
+				height: 220px;
+				padding: 5px;
+				margin: 20px;
+				border: 1px solid #eeeeee;
+			}
+			figcaption {
+				font-size: 90%;
+				text-align: left;
+			}
+			aside {
+				width: 230px;
+				float: left;
+				padding: 0px 0px 0px 20px;
+			}
+			aside section a {
+				display: block;
+				padding: 10px;
+				border-bottom: 1px solid #eeeeee;
+			}
+			aside section a:hover {
+				color: #985d6a;
+				background-color : #efefef;
+			}
+			a {
+				color: #de6581;
+				text-decoration: none;
+			}
+			h1, h2, h3 {
+				font-weight: normal;
+			}
+			h2 {
+				margin: 10px 0px 5px 0px;
+				padding: 0px;
+			}
+			h3 {
+				margin: 0px 0px 10px 0px;
+				color: #de6581;
+			}
+			aside h2 {
+				padding: 30px 0px 10px 0px;
+				color: #de6581;
+			}
+			footer {
+				font-size: 80%;
+				padding: 7px 0px 0px 20px;
+			}
+		</style>
+		//if less than IE9
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<header>
+				<h1>YOKOURUH</h1>
+				<nav>
+					<ul>
+						<li><a href="" class="current">home</a></li>
+						<li><a href="">classes</a></li>
+						etc.
+					</ul>
+				</nav>
+			</header>
+			<section class="courses">
+				<article>
+					<figure>
+						<img src="images/bok-choi.jpg"" alt="BOK CHOIII" />
+						<figcaption>TASTE THIS</figcaption>
+					</figure>
+					<hgroup>
+						<h2>SHIT SHIT</h2>
+						<h3>SOME OTHER SHIT</h3>
+					</hgroup>
+					<p> SOME OTHER SHIIIIIIIIIIIIIIIET</p>
+				</article>
+				<article>
+					<figure>
+						<img src="images/teriyaki.jpg" alt="TERIYAKI MOFO" />
+						<figcaption>TERIYAKI LOL</figcaption>
+					</figure>
+					<hgroup>
+						<h2>SAUCES</h2>
+						<h3>SOME OTHER SHIT</h3>
+					</hgroup>
+					<p>POOP</p>
+				</article>
+			</section>
+			<aside>
+				<section class="popular recipies">
+					<h2>LOl</h2>
+					<a href="">LINKS GO HERE</a>
+				</section>
+				<section class="contact details">
+					<h2>CONTACTS</h2>
+					<a href="">LINKS GO HERE</a>
+				</section>
+			</aside>
+			<footer>
+				&copy: 2011 YOKO LOL
+			</footer>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,203 @@
+The following is the Jira Documentation for User types and roles:
+
+Licensed users manage customer requests in your instance of JIRA Service Desk.
+These are most likely your project administrators, service desk team members,
+employees and even contractors. They track and resolve your customers' requests,
+transition issues through workflows, and contribute to their team's service level
+agreements (SLAs).
+
+Unlicensed users raise requests and interact with service desk agents for free.
+These are your customers. They submit requests via your service desks's customer
+portal or email address, comment on requests, and read knowledge base articles.
+Customers do not require a license, so you can have an unlimited number of customers
+who can submit an unlimited number of requests, free of charge.
+
+Most of the information in these documents focuses on two licensed roles:
+administrators and agents. The administrator sets up and configures service
+desk projects. The agent works in these projects.
+
+Admins:
+
+Project administrators for your service desk can:
+
+Access all features in JIRA Service Desk
+
+Manage users and roles in service desk projects
+
+Set up customer portals, request types, queues, reports and SLAs.
+
+Perform all tasks that agents can
+
+Agents:
+
+Service desk team members who work on customer requests can:
+
+View the customer portal, queues, reports and SLA metrics for a project
+
+Add, edit, and delete customer-facing and internal comments on issues
+
+Add customers to a project
+
+Read knowledge base content
+
+Manage organizations (if allowed at the application level)
+
+Create knowledge base content (with a Confluence license)
+
+Customers:
+
+THe people you serve through your service desk can:
+
+Raise requests via the customer portal or email channel
+
+Track their requests in the customer portal
+
+Read knowledge base articles
+
+Approve other customer's requests
+
+SHare requests with other customers (if allowed by Customer Permissions)
+
+All this is free for your customers.
+
+How a service Desk Works:
+
+Here is how your customers and service desk agents work together to resolve a request:
+
+1. Your customer submits a request to your service agents through a portal or via email.
+
+2. A service desk agent sees the request in their JIRA Service Desk queue and looks into the issue.
+
+3. Your customer and other participants use the portal or email to discuss the request with your
+service desk agent, who works in JIRA Service Desk.
+
+4. Your agent completes the request and your customer is satisfied.
+
+Requests vs. Issues
+
+Your customers submit a request through the customer portal or by email. These requests
+become issues that your agents work on in their agent view.
+
+How customers see their requests in the customer portal:
+
+Help Center/ Office Administration R...
+<Issue name> <Status of Issue> 							<Reference-ID>
+
+<profile pic> Comment on this request.. 				People involved: Lily Williams
+
+Activity:
+Your requests status changed to Waiting for Customer. Today 12:11 PM <LATEST>
+
+Lily Williams Today 12:11 PM 							You can: Add a comment, Add attachment
+Hi,
+What is the name of the printer that youa re referring to?
+
+Cheers,
+Support
+
+Details: 		Today 11:09 AM
+Description
+I am trying to print on level 8, but the printer is not showing up in my list.
+
+Priority:
+Major
+
+How agents see those corresponding issues:
+
+<Reference-ID>
+
+Need system access
+
+Edit Comment 	Assign 	MoreV 		Resolve this issue 		Respond to customer 	Admin V 		Create KB article 	Export V
+Details: 													SLAs
+Type: 			Access 			Status: 		Waiting for Supp.. 		3:59 (Clock) Time to resolution:
+Priority: 		^ Major 						(View Workflow) 					 within 4h
+Components: 	Intranet 		Resolution: 	Unresolved
+Labels: 		new-account 											People
+																			Assigned: Unassigned
+																					  Assign to me
+
+Description:
+need to take SS's 														Reporter 	  Lily Williams
+																		Request Participants None
+Attachments:															Votes: 		  0
+					Drop files here to upload or browse. 				Watchers: 	  0 Start watching this issue
+
+Tempo 																	Service Desk Request
+	01/May/15-31/May/15 < Current > Report > [CALENDAR] [PEN]Log Work  		Request type: Request a new account
+	Date 		Description 				Worked 							Customer status: Waiting for Support
+																			Channel: 	Portal
+
+																			View customer request
+
+Activity
+	All 	Comments 	Work Log 	History 	ACtivity 	Transitions Dates
+There are no comments yet on this issue. 									Created: 	Just now
+																			Updated: 	Just now
+
+<Profile pic> Click to add comment 											Collaborators
+
+Administer JIRA Service Desk
+--------------------------------------------
+
+Get Started administering JIRA Service Desk
+
+Administer JIRA Service Desk
+
+Set up your service desk
+
+Create service desk request types
+
+Make queues for your team
+
+Add service desk agents
+
+Customize your service desk channels
+
+Bring your service desk to the next level
+
+Introduce customers to your service desk
+
+Explore a sample project
+
+----------------------------------
+
+Welcome to JIRA Service Desk for admins! In this tutorial, we will introduce you to your
+workspace and walk you through the process of setting up a service desk project for your
+team of agents and a corresponding customer-facing site (which we call the customer portal).
+
+We will be focusing on the basic JIRA Service Desk features and tasks to help you get up and
+running quickly. By the end of this tutorial, you will have:
+
+Set up 1 service desk project
+
+Added 3 agents
+
+Prepared your customer portal to receive customer requests
+
+A quick look at JIRA Service Desk:
+
+Queues
+
+As an admin, you will set up and configure queues for your agents. Your agents will then
+view and work on issues from the same tab:
+
+/// Jira 		Dashboards V 		Projects V 		Issues V 		Boards V 	Create 				Search (Magnifying glass) 	Megaphone 	(?)V 	(COG)V 		<Profile>V
+<Icon> 												All open 										(i) 	(PEN) Edit queue
+//Row of icons  Queues
+down 			All Open 	46 						Time to resolution 	T 	Key 	 Status 		Summary 			Created 		P 	Reporter 
+				Unassigned issues 4 				-28:51 (clock) 			MOIHD-73 OPEN 			Intranet down? 		16/Jul/17 			Ryan Lee
+				Assigned to me 42
+				> Waiting on me 14
+				Incidents 10
+				> Reported in the l.. 0
+				> Critical 	4
+				Service requests 30
+				> Due in 24h 0
+				Change 	4
+				> Ready for implementation 2
+				> Emergency change 0
+				Problem 2
+				> Completed last 3.. 0
+				Recently resolved 	38
+				+ New queue

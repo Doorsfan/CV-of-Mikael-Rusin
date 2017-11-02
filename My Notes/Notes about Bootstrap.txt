@@ -1,0 +1,1696 @@
+Bootstrap is a framework that allows integration of CSS, HTML and JS to help have unified framework.
+
+Generally, Bootstrap comes in three parts - css, js and img.
+
+Assuming we'd like to integrate Bootstrap into a HTML document, we could do as follows:
+
+<html>
+	<head>
+		<title>Bootstrap 101</title>
+	</head>
+	<body>
+		<h1>HELLO SIR</h1>
+		<script> src="js/bootstrap.min.js"></script>
+	</body>
+</html>
+
+By default, Bootstrap modifies a new things in the Normalize.css that follows along with it:
+
+background-color: Is set to white, only Body
+
+margins: removed
+
+Underlines: only on :hover
+
+The default bootstrap grid system uses 12 columns, where we can distribute them as we see fit, in the following example:
+
+<div class="row">
+	<div class="span8">...</div> //The total span of divs needs to be sum up to 12
+	<div class="span4">...</div>
+</div>
+
+We can offset columns by virtue of offset:
+
+<div class="row">
+	<div class="span2">...</div>
+	<div class="span7 offset2">...</div> //Pushes the span to the right by 2
+</div>
+
+To next spans, we just need to have a enough size of a span to account for the parent span:
+
+<div class="row">
+	<div class="span9">
+		Level 1 of Columns
+		<div class="row">
+			<div class="span6">Level 2</div> //6 + 3 amount to 9
+			<div class="span3">Level 2</div>
+		</div>
+	</div>
+</div>
+
+When it comes to fluid grid systems, you have 12 in column count, and fluid act just as per %, but the syntax is just slightly different:
+
+<div class="row-fluid">
+	<div class="span4">...</div>
+	<div class="span8">...</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span4">...</div>
+	<div class="span4 offset2>...</div>
+</div>
+
+When it comes to nesting, like we said, it comes down to the count of 12 instead of whatever the parent is:
+
+<div class="row-fluid">
+	<div class="span8">
+					<div class="row">
+						<div class="span6">...</div> //In the case of nesting a fluid row, the inner nest must be corespondant to 12, even if the parent is less
+						<div class="span6">...</div>
+					</div>
+	</div>
+</div>
+
+if we wish to have a fixed length cenetered layout, we can just do <div class="container">.. </div> where as of, if we wish to wrap everything in that container
+fluid, we can do : <div class="container-fluid">...</div>
+
+If we wish to include responsive design in our App, we have to include the responsive CSS to our Bootstrap meta:
+
+<html>
+	<head>
+		<title> My bootstrap</title>
+		<meta name="viewport" content="width=device.width, initial-scale=1.0">
+		<link href="/css/bootstrap.css" rel="stylesheet">
+		<link href="/css/bootstrap-responsive.css" rel="stylesheet">
+	</head>
+
+Responsive design refers to the idea of adapting to PC and Tablets/Phones, responding to what each elements strength/environment is.
+
+CSS does this by performing media queries to measure the browser viewport and then through conditionals load certain parts of the CSS
+
+Bootstrap supports 5 layouts in size:
+
+  Layout width 			Colum width 			Gutter width
+>=1200px 					70px 					30px //large screens
+
+>=980px 					60px 					20px //Default
+
+>=768px 					42px  					20px //Portrait Tablets
+
+<=767px 					fluid 					fluid //Phone to tablets
+
+<=480px 					fluid 					fluid //phone
+
+To add media queries to CSS, we can simply put @media and follow by the size constraint:
+
+@media (min-width: 1200px) {...} //large screens
+
+@media (min-width: 768px) and (max-width: 979) {...} //Portrait tablet to landscape and desktop
+
+@media (max-width: 767px) {...} 	// Landscape phone to portrait tablet
+
+@media (max-width: 480px) {...} 	// landscape phones and down
+
+If we use LESS to compile the CSS, we can process them all into one file:
+
+<link rel="stylesheet" href="base.css" />
+<link rel="stylesheet" media="(min-width: 1200px)" href="large.css" />
+<link rel="stylesheet" media="(min-width: 768px) and (max-width: 979px)" href="tablet.css" />
+<link rel="stylesheet" media="(max-width: 767px)" href="tablet.css" />
+<link rel="stylesheet" media="(max-width: 480px)" href="phone.css" />
+
+When it comes to bootstrap, it has a number of helper classes that helps to formulate formatting for different formats, as follows:
+
+class 				phones 				Tablets 			Desktop
+
+.visible-phone 		Visible 			Hidden 				Hidden
+
+.visible-tablet 	Hidden 				Visible 			Hidden
+
+.visible-desktop 	Hidden 				Hidden 				Visible
+
+.hidden-phone 		hidden 				Visible 			Visible
+
+.hidden-tablet 		visible 			Hidden 				Visible
+
+.hidden-desktop 	visible 			visible 			hidden
+
+In terms of Typography, Bootstrap uses Helvetia Neue, Helvetica, Arial and sans-serif (This is it's default stack of styles)
+
+If an error occurs in terms of finding styles, it resorts to sans-serif
+
+All header levels have been set in bootstrap, as follows:
+
+h1: 36px
+
+h2: 31px
+
+h3: 26px
+
+h4: 21px
+
+h5: 16px
+
+h6: 12px
+
+All body copy has a font-size set to 14 pixels, with line-height at 20 px. The <p> tag has a margin-bottom of 10 px, or half the line-height.
+
+if we wish to get a smaller element in bootstrap, we can add small after the name of the element
+
+h1 small{
+	font-size: 24px;
+	font-weight: normal;
+	line-height:1;
+	color:#999;
+}
+
+If we wish to add some emphasis to a paragraph, we can use the class="lead" to give the following:
+
+larger font size
+
+lighter weight
+
+taller line height
+
+example:
+
+<p class="lead">some shit</p>
+
+If we use the small modifier to body elements, their size shrinks to 85% of original size
+
+If we wish to make text strong, we can use the <strong> modifier
+
+To put emphasis,, we can use <em>
+
+Beyond this, bootstrap gives a number of helper classes for emphasis, as follows:
+
+<p class="muted">This content is muted</p> //Grey, faded
+<p class="text-warning">This content carries a warning class</p> //Yellow bright
+<p class="text-error">This content carries an error class</p> //Error red
+<p class="text-info">This content carries an info class</p> //Light blue
+<p class="text-success">This content carries a success class</p> //Green light
+<p>This is an <em>example</em> of using <strong>strong elements and Emphasis elemnets</strong></p>
+
+If we wish to put a abbrevation tag which causes a explaining element to appear upon tagged element, we can use the <abbr> tag:
+
+<abbr title="lol shit">This will display lol shit when hovered above</abbr>
+
+if we wish to add adress lines, we can use the <address> tag in conjunction with <br> tags:
+
+<address>
+	<strong>O'Reilly Media, Inc.</strong><br>
+	1005 Gravestein HWY North<br>
+	Sebastopol, CA 95472<br>
+	<abbr title="Phone">P:</abbr> <a href="+17078277000">(707) 827-7000</a>
+</address>
+
+<address>
+	<strong>Jake Spurlock</strong>
+	<a href="mailto:#">flast@oreilly.com</a>
+</address>
+
+To create blockquotes, we can use the <blockquote> tag:
+
+<blockquote>
+	<p>some shit</p> //The quote
+		<small>Dev of RSS <cite title="Source Title">Dave</cite></small> // creates a small quote section to denote who it was quoted from
+</blockquote>
+
+if we wish to set a quote to the right, we can do .pull-right on the tag, causing it to be pulled right
+
+IN bootstrap we ave ordered lists and unordered lists, but also definition lists:
+
+<dl>
+	<dt>A Term</dt>//The term of the definition that becomes header of the dd
+	<dd>The text of the definition</dd>
+</dl>
+
+If we wish to instead put the header element of the definition text, we can add class="dl-horizontal" to the dl tag
+
+If we wish to define stuff in a code format in bootstrap, we can use <code> or <pre>. <code> is for inline code, <pre> is for blocks of code.
+
+Whenever we define elements in <code> or <pre> we have to enclose them with unicode tags:
+
+&lt;//stuff &gt;
+
+In Bootstrap, we also have tables, with the usual tags:
+
+<table> //table declaration
+<thead> //container for <tr> to label table columns
+<tbody> //Container for <tr> in body
+<tr> //table row that can hold <th> or <td>
+<td> //default table cell
+<th> //for column labels within <thead>
+<caption> //Summary of what the table holds
+
+<table class="table">
+	<caption>...</caption>
+	<thead>
+		<tr>
+			<th>...</th>
+			<th>...</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>..</td>
+			<td>..</td>
+		</tr>
+	</tbody>
+</table>
+
+In Bootstrap, we can access 4 classes in CSS to modify tables:
+
+.table-striped //Adds stripes
+
+.table-bordered //borders around elements
+
+.table-hover //activates grey light background on hover
+
+.table-condensed //padding is cut to half
+
+The optional classes we can add for table rows, are as follows:
+
+.success //green
+
+.error //red
+
+.warning //yellow
+
+.info //blue
+
+What follows is an example of how to create forms, using bootstrap:
+
+<form>
+	<fieldset>
+		<legend>Legend</legend>
+			<label for="name">Label name</label>
+			<input type="text" id="name" placeholder="Greyed out placeholder in box.."> //ph text
+			<span class="help-block">Example block level help text here</span> //Support text under box
+			<label class="checkbox" for="checkbox">
+				<input type="checkbox" id="checkbox">
+				Text goes here //adds checkbox with said text
+			</label>
+		<button type="submit" class="btn">Submit</button> //Submit button with said text
+	</fieldset>
+</form>
+
+Whenever we refer to .<something> in these notes, it basically means class="<something>" in the relevant tag
+
+If we wish to have a inline button and rounded corners of the search field, we can add form-search:
+
+<form class="form-search">
+	<input type="text" class="input-medium search-query"> //Create a medium sized search query box
+	<button type="submit" class="btn">Search</button> //submit button
+</form>
+
+if we wish all of our encased elements to be inline, we can define them as form class="form-inline":
+
+<form class="form-inline">
+	<input type="text" class="input-small" placeholder="Email">
+	<input type="password" class="input-small" placeholder="Password">
+	<label class="checkbox">
+		<input type="checkbox">Remember me
+	</label>
+	<button type="submit" class="btn">Sign in</button>
+</form>
+
+An example of having a horizontal form in bootstrap:
+
+<form class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label" for="inputEmail">Email</label>
+		<div class="controls">
+			<input tytpe="text" id="inputEmail" placeholder="Email">
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="inputPassword">Password</label>
+		<div clas="controls">
+			<input type="text" id="inputPassword" placeholder="Password">
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<label class="checkbox">
+				<input type="checkbox">Rmember me
+			</label>
+			<button type="submit" class="btn">Sign in</button>
+		</div>
+	</div>
+</form>
+
+Bootstrap supports all forms of text field inputs, as follows:
+
+text
+
+password
+
+datetime
+
+datetime-local
+
+date
+
+month
+
+time
+
+week
+
+number
+
+email
+
+URL
+
+search
+
+tel
+
+color
+
+In general they are written as follows:
+
+<input type="text" placeholder="Text input">
+
+The default for both textarea and text inputs, is a light blue glow when selected
+
+If we wish to define a area of writing in, we can define a textarea:
+
+<textarea rows="3"></textarea>
+
+In bootstrap, we can define checkboxes to allow a unlimited amount of selection, whilst radio buttons allows for one:
+
+<label class="checkbox">
+	<input type="checkbox" value="">
+		some option goes here
+</label>
+
+<label class="radio">
+	<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+	This is option 1 of radio buttons
+</label>
+<label class="radio">
+	<input type="radio" name="optionsRadios1" id="optionRadios2" value="option">
+	option 2 lol
+</label>
+
+If we wish to have several checkboxes on the same line, we could use the .inline modifier to the said series:
+
+<label for="option1" class="checkbox inline">
+	<input id="option1" type="checkbox" id="inlineCheckbox1" value="option1">1
+</label>
+<label for="option2" class="checkbox inline">
+	<input id="option2" type="checkbox" id="inlineCheckbox2" value="option2">2
+</label>
+<label for="option3" class="checkbox inline">
+	<input id="option3" type="checkbox" id="inlineCheckbox3" value="option3">3
+</label>
+
+If we wish to make a dropdown select menu, we could define select:
+
+<select>
+	<option>1</option>
+	<option>2</option>
+</select>
+
+We can also add the multiple modifier to cause it to allow for several values selected:
+
+<select multiple="multiple">
+	<option>1</option>
+	<option>2</option>
+</select>
+
+If we wish, we could define prepend or append elements to the forms as well:
+
+<div class="input-prepend">
+	<span class="add-on">@</span>
+	<input class="span2" id="prependInput" type="text" placeholder="Username">
+</div>
+<div class="input-append">
+	<input class="span2" id="apepndInput" type="text">
+	<span class="add-on">.00</span>
+</div>
+
+Of course, we could just add them both before and aftwards to one element, to combine the effect of the two
+
+What follows is an example of just tossing on two buttons unto a form:
+
+<div class="input-append">
+	<input class="span2" id="appendedInputButtons" type="text">
+	<button class="btn" type="button">Search</button>
+	<button class="btn" type="button">options</button>
+</div>
+
+if we were to put them into a search form format, as follows, then we would end up with a structure that is two rounded buttons:
+
+<form class="form-search">
+	<div class="input-append">
+		<input type="text" class="span2 search-query">
+		<button type="submit" class="btn">Search</button>
+	</div>
+	<div class="input-prepend">
+		<button type="submit" class="btn">Search</button>
+		<input type="text" class="span2 search-query">
+	</div>
+</form>
+
+
+For input fields, there is a range of sizes we could use: .input-block-level, .input-mini, .input-small, .input-medium, .input-large, .input-xlarge, .input-xxlarge
+
+Examples:
+
+<input class="input-block-level" type="text" placeholder=".input-block-level">
+												^^
+												The pre-pended attribute to declaring a size for input fields, the value afterwards is the modifier
+
+We could also control sizing in terms of a range of spans, ranging from .span1 to .span12:
+
+<input class="span1" type="text" placeholder=".span1"> //Can have .span<value> up against 12
+
+If we were later to use select structures on these, with refering to the input classes that already exist with a .span<value>, they would then inherit the size of the span,
+unless overwritten specifically with a overwriting value
+
+We can further more use a tool that allows us to interact with the spacing and collapse whitespace, as follows:
+
+<div class="controls">
+	<input class="span5" type="text" placeholder=".span5">
+</div>
+<div class="controls controls-row">
+	<input class="span4" type="text" placeholder=".span4">
+	<input class="span1" type="text" placeholder=".span1">
+</div>
+
+The above code will render the range of span5 to be equal to the totalling of span4 and span1, putting htem next to each other, by virtue of the controls controls-row attribute
+
+If we wish for the data to be uneditable, we could add the uneditable-input tag, as follows:
+
+<span class="input-xlarge uneditable-input">Some value</span>
+
+If we wish to line up form controls, in horizontal forms, we can do as follows:
+
+<div class="form-actions">
+	<button type="submit" class="btn btn-primary">Save changes</button>
+	<button type="button" class="btn">Cancel</button>
+</div>
+
+If we wish to add helping text, we can have two forms: Inline or block element text, as follows:
+
+<input type="text"><span class="help-inline">Inline Help-text</span> //Allows for just one line inline of help text
+
+if we want a several line block version:
+
+<input type="text"><span class="help-block">A longer block that can be divided into several parts automatically</span>
+
+We can modify input sections to allow shadowing and other elements in terms of when they are focused upon:
+
+input{
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: box-shadow linear 0.2s; //Applies the linear shadow during a 0.2s period
+}
+input:focus{
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+<input class="input-xlarge" id="focusedInput" type="text" value="This is focused..">
+
+If we wish to disable a input, we can add the disabled attribute:
+
+<input class="input-xlarge" id="disableInput" type="text" placeholder="Disabled Input Here" disabled>
+
+bootstrap allows us to define different states for input fields, such as success, info, error etc:
+
+<div class="control-group warning">
+	<label class="control-label" for="inputWarning">Input with warning</label>
+	<div class="controls">
+		<input type="text" id="inputWarning">
+		<span class="help-inline">Something may have occured as an error</span>
+	</div>
+</div>
+<div class="control-group error">
+	<label class="control-label" for="inputError">Input with error</label>
+	<div class="controls">
+		<input type="text" id="inputError">
+		<span class="help-inline">Please correct the error!</span>
+	</div>
+</div>
+<div class="control-group success">
+	<label class="control-label" for="inputSuccess">Input was successful!</label>
+	<div class="controls">
+		<input type="text" id="inputSuccess">
+		<span class="help-inline">Woohoo!</span>
+	</div>
+</div>
+
+If we wish to decorate buttons in Bootstrap, we can do so, by virtue of designating them different class names, as follows:
+
+btn //Standard button
+
+btn btn-primary //A blue "primary" button design
+
+btn btn-info //light blue button
+
+btn-success //Green button
+
+btn btn-warning //Yellow button
+
+btn btn-danger //Danger button
+
+btn btn-inverse //Black and white button
+
+btn btn-link //Maintains button behaviour, but removes button elements from it
+
+To define a size, we can put a range of sizes:
+
+.btn-large
+
+.btn-small
+
+.btn-mini
+
+They can be put in, as follows:
+
+<p>
+	<button class="btn btn-large btn-primary" type="button">Large Button</button>
+	<button class="btn btn-large" type="button">large button</button>
+</p>
+
+Generally, the syntax is:
+
+btn <size-modifier> <button type>
+
+If we wish to have it be a block element, we can add the attribute of .btn-block:
+
+<button class="btn btn-large btn-block btn-primary" type="button">Block Button</button> //Spawns a primary button that is large and scaled to be block line width (100%)
+
+When it comes to the disabled attribute, it only applies normally to buttons. (As in, buttons get deactivated by the disabled attribute. Whilst, Links do not. JS 
+is needed for turning off links.)
+
+<a href="#" class="btn btn-large btn-primary disabled">primary link</a> //Greys out the large primary button, but since it's a link, it's not actually disabled
+
+<button type="button" class="btn btn-large btn-primary disabled" disabled="disabled">Primary Button</button> //Graphically "disable it" (grey it out)
+<button type="button" class="btn btn-large" disabled>button</button> //Actually disables the button function without JS
+
+images have three classes to add to their modification setup in bootstrap:
+
+.img-rounded //adds a border-radius: 6px to give the image rounded corners
+
+.img-circle //Makes the entire image rounded by adding border-radius 500px
+
+.img-polaroid //Makes it square by padding and grey border
+
+in Bootstrap we have access to a fat list of icons, which we can use as follows:
+
+<i class="icon-edit"></i> //an example
+
+if we wish to add the icon-white attribute, we could use the following:
+
+<i class="icon-edit icon-white"></i>
+
+We can also designate Groups of buttons, as follows:
+
+<div class="btn-toolbar">
+	<div class="btn-group">
+		<a class="btn" href="#"><i class="icon-align-left"></i></a>
+		<a class="btn" href="#"><i class="icon-align-center"></li></a>
+		<a class="btn" href="#"><i class="icon-align-right"></li></a>
+		<a class="btn" href="#"><i class="icon-align-justify"></li></a>
+	</div>
+</div>
+
+Spawns a setup of 4 buttons next to each other, without spacing
+
+An example of having a list of a few different icons and a misc section:
+
+<ul class="nav nav-list">
+	<li class="active"><a href="#"><i class="icon-home icon-white"></i>Home</a></li>
+	<li><a href="#"><i class="icon book"></i>library</a></li>
+	<li><a href="#"><i class="icon-pencil"></i>Applications</a></li>
+	<li><a href="#"><i class="i"></i>Misc</a></li> //Does not have a designated icon
+</ul>
+
+To create a dropdown-menu in bootstrap, we can do the following: Either import everything from a JS script, or we can modify them ourselves and customize them in BS
+
+<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+	<li><a tableindex="-1" href="#">Action</a></li>
+	<li><a tableindex="-1" href="#">Another Action</a></li>
+	<li><a tableindex="-1" href="#">Something Else</a></li>
+	<li class="divider"></li> //An empty space
+	<li><a tableindex="-1" href="#">Seperated link</a></li>
+</ul>
+
+if we wish to designate the dropdown menu to be right aligned, we could simply put in pull-right as well to the element, to make it right handed in contrast to the
+parent object:
+
+<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
+	...
+</ul>
+
+If we wish to make a sub-menu of a menu, we can use the dropdown-menu declaration as follows:
+
+<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+	...
+	<li class="dropdown-submenu">//Designate that a submenu is to occur
+		<a tabindex="-1" href="#">More options</a>
+		<ul class="dropdown-menu">
+			... //elements of the dropdown-menu
+		</ul>
+	</li>
+</ul>
+
+If we have multiple buttons that we wish to line up to create groups, we could use the btn-toolbar modification:
+
+<div class="btn-toolbar">
+	<div class="btn-group">
+		<a class="btn" href="#"><i class="icon-align-left"></i></a>
+		<a class="btn" href="#"><i class="icon-align-center"></i></a>
+		<a class="btn" href="#"><i class="icon-align-right"></i></a>
+		<a class="btn" href="#"><i class="icon-align-justify"></i></a>
+	</div>
+	<div class="btn-group">
+		//declarations of buttons in respective group
+	</div>
+	<div class="btn-group">
+		//etc
+	</div>
+</div>
+
+If we wish to stack a group of buttons vertically, we add the btn-group-vertical to the btn-group modifier:
+
+<div class="btn-group btn-group-vertical">
+	...
+</div>
+
+If we wish to cause a dropdown menu for buttons, we can do as follows:
+
+<div class="btn-group"> //begin with a button group
+	<button class="btn btn-danger">Danger</button> //Declare a button
+	<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"> //Declare that it has a dropdown toggle and modify it's data toggle to be a dropdown menu
+		<span class="caret"></span> //Designator that the button is a dropdown
+	</button>
+	<ul class="dropdown-menu">
+		<li><a href="#">Action</a></li> //Designate elements to the dropdown menu
+		<li class="divider"></li> //A empty list element
+		<li><a href="#">etc</a></li>
+	</ul>
+</div>
+
+
+If we wish to have a split button dropdown, we could do as follows:
+
+<div class="btn-group">
+	<button class="btn">Action</button>
+	<button class="btn dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu">
+		//insert links to the dropdown elements
+	</ul>
+</div>
+
+If we wish to make a dropup menu, we could just need to add it to the button class:
+
+<div class="btn-group dropup">
+	<button class="btn">Dropup</button>
+	<button class="btn dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu">
+		//links in the dropdown
+	</ul>
+</div>
+
+In bootstrap, we also have the active designation, that causes an element to be designated as active:
+
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="#">Home</a>
+	</li>
+	<li><a href="#">Profile</a></li>
+	<li><a href="#">Messages</a></li>
+</ul>
+
+To create a "Pill" navigation, instead of greying out the active name of the navigation, we can do as follows:
+
+<ul class="nav nav-pills">
+	<li class="active">
+		<a href="#">Home</a>
+	</li>
+	<li><a href="#">Profile</a></li>
+	<li><a href="#">Messages</a></li>
+</ul>
+
+if we declare a li element as disabled in context of a nav designations, it greys out the element and disables the hover interaction:
+
+<ul class="nav nav-pills">
+	...
+	<li class="disabled"><a href="#">Home</a></li>
+</ul>
+
+NOTE: The link is still clickable unless JS declares it as disabled, due to the fact that the HTML declares the markup, not the actual interactions
+
+If we wish to make a nav designation stacked on top of each other, we can use the nav-stacked attribute:
+
+<ul class="nav nav-tabs nav-stacked">
+	...
+</ul>
+
+or
+
+<ul class="nav nav-pills nav-stacked">
+	...
+</ul>
+
+To have a dropdown in terms of a Tabbed navigation, we can do as follows:
+
+<ul class="nav nav-tabs">
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown<b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu">
+	<li><a href="#">Action</a></li>
+	etc.
+	</ul>
+		</li>
+</ul>
+
+The same general idea applies to nav-pills:
+
+<ul class="nav nav-pills">
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b class="caret"></a>
+		<ul class="dropdown-menu">
+			//links
+		</ul>
+	</li>
+</ul>
+
+We can also make navigations lists, which means we create lists that are titled to be relevant for something:
+
+<ul class="nav nav-list">
+		<li class="nav-header">List Header</li>
+		<li class="active"><a href="/">Home</a></li>
+		<li><a href="#">Library</a></li>
+	<li><a href="#">Applications</a></li>
+	<li class="nav-header">Another header</li>
+	<li><a href="#">Profile</a></li>
+		<li><a href="#">Settings</a></li>
+	<li class="divider"></li>
+	<li><a href="#">Help</a></li>
+</ul>
+
+To create a horizontal divider, just make a li element with the class designation of "divider"
+
+If we wish, with bootstrap, we can create tabs that have differentiating content, as follows:
+
+<div class="tabbable">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#tab1" data-toggle="tab">Tab 1</a></li>
+		<li><a href="#tab2" data-toggle="tab">Tab 2</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab1">
+			<p>Some shit</p>
+		</div>
+		<div clas="tab-pane" id="tab2"> //It's ID becomes what we refer in terms of the href link
+			<p>Some other shit</p>
+		</div>
+	</div>
+</div>
+
+If we wish to add fade integration into the tab interaction, we access the <div class="tab-pane"> and add fade
+
+If we wish to put the content under the tabs, we could do as follows:
+
+<div class="tabbable tabs-below">
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab1">
+			<p>Some shit</p>
+		</div>
+		<div class="tab-pane" id="tab2">
+			<p>more shit</p>
+		</div>
+		<div class="tab-pane" id="tab3">
+			<p>even more shit</p>
+		</div>
+	</div>
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#tab1" data-toggle="tab">The data of tab 1 goes here</a></li>
+		<li><a href="#tab2" data-toggle="tab">Section B</a></li>
+		<li><a href="#tab3" data-toggle="tab">Section C</a></li>
+	</ul>
+</div>
+
+If we wish to put the tabs on the left, we use the tabs-left attribute of tabbable:
+
+<div class="tabbable tabs-left">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#tab1" data-toggle="tab">Tab 1 Tab</a></li>
+		<li><a href="#tab2" data-toggle="tab">Tab 2 Tab</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab1">
+			<p>Some shit</p>
+		</div>
+		<div class="tab-pane" id="tab2">
+			<p>Content of tab2</p>
+		</div>
+		<div class="tab-pane" id="tab3">
+			<p>Content of tab3</p>
+		</div>
+	</div>
+</div>
+
+
+To put them on the right side, we can use the tabs-right attribute:
+
+<div class="tabbable tabs-right">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#tab1" data-toggle="tab">Tab 1 Tab</a></li>
+		<li><a href="#tab2" data-toggle="tab">Tab 2</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab1">
+			<p>Some info</p>
+		</div>
+	</div>
+</div>
+
+If we wish to make a navbar, a navigational bar, we can do as follows:
+
+<div class="navbar">
+	<div class="navbar-inner">
+		<a class="brand" href="#">Title</a>
+		<ul class="nav">
+			<li class="active"><a href="#">Home</a></li>
+		</ul>
+	</div>
+</div>
+
+The above creates a basic navbar
+
+To add more links, we simply fill it up with more elements in the list:
+
+<div class="navbar">
+	<div class="navbar-inner">
+		<a class="brand" href"#">My Title</a>
+		<ul class="nav">	
+			<li class="active"><a href="#">Home</a></li>
+			<li><a href="#">First Link</a></li>
+			<li><a href="#">Second Link</a></li>
+			etc.
+		</ul>
+	</div>
+</div>
+
+We can also use navforms to designate forms:
+
+<form class="navbar-form pull-left"> //we can use pull-left or pull-right to designate position
+	<input type="text" class="span2" id="fname">
+	<button type="submit" class="btn">
+</form>
+
+If we wish to make a search field, we could do as follows:
+
+<form class="navbar-search" accept-charset="utf-8">
+	<input type="text" class="search query" placeholders="Search"> //placeholder designates the PH text to be Search
+</form>
+
+By default, the Bootstrap navbar is a block-level element, but we can modify it's positon with helper classes.
+
+if we wish to set the navbar to be a fixed position, we could do as follows:
+
+<div class="navbar navbar-fixed-top"> //Could change it to top or bottom, to make it scroll with the page, change fixed to static
+	<div class="navbar-inner">
+		<a class="brand" href="#">Title</a>
+		<ul class="nav">
+			<li class="active"><a href="#">Home</a></li>
+		</ul>
+	</div>
+</div>
+
+To retain so that the body does not get overwritten by the navbar, we should padd the body with 40px
+NOTE: is not nessecary if it's static instead of fixed
+
+We can also create responsive nav elements, that allows for collapsing of elements, as is shown by the following example:
+
+<div class="header">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> //the toggle is set to collapse the data, the target is the .nav-collapse div
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+
+			//We can leave the brand out, if we want it to be shown when other elements are collapsed
+			<a href="#" class="brand">Project Name</a>
+
+			//Everything we wish to collapse, can be added to the relevant div that is the target of the collapse
+			<div class="nav-collapse collapse">
+				//insert all the elements that are to be collapsed upon collapse call
+			</div>
+		</div>
+	</div>
+</div>
+
+
+If we wish to invert the colourscheme of the par, we can simply use invert to invert the colours:
+
+<div class="navbar navbar-inverse">
+	...
+</div>
+
+in bootstrap, we have a modifier to UL's called breadcrumb : it supports a helper class called divider that mutes colours and makes text smaller:
+
+<ul class="breadcrumb">
+	<li><a href="#">Home</a><span class="divider">&rarr;</span></li>
+	<li><a href="#">Dinner</><span class="divider">&arr;</span></li>
+	etc.
+</ul>
+
+If we wish to making a paging part, we could use a attribute called pagination:
+
+<div class="pagination">
+	<ul>
+		<li><a href="#">&laquo;</a></li> //Less than arrows
+		<li><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		etc.
+		<li><a href="#">&raquo;</a></li> //Greater than arrows
+	</ul>
+</div>
+
+We can of course modify the div which contains the pagination class, to use helper classes, such as:
+
+pagination-centered
+
+pagination-large
+
+pagination
+
+pagination-small
+
+pagination-mini
+
+Two examples of making simple pagers follows: (Switches that flips pages)
+
+<ul class="pager">
+	<li><a href="#">Previous</a></li>
+	<li><a href="#">Next</a></li>
+</ul>
+
+The above example puts them next to each other
+
+To put them in each respective side of the page, we can use the following:
+
+<ul class="pager">
+	<li class="previous">
+		<a href="#">&larr;Older</a>
+	</li>
+	<li class="next">
+		<a href="#">Newer &rarr;</a>
+	</li>
+</ul>
+
+We could also, of course, add the disabled help class designation to make it look "faded out"
+
+If we wish to decorate with labels and badges, we can use the following:
+
+<span class="label">Default</span>
+<span class="label label-success">Success</span> //The modifiers we can use are label-success, label-warning, label-info, label-important, label-inverse
+
+We can also use badges, which are rounded versions of labels:
+
+<span class="badge">1</span> 
+<span class="badge badge-success">Success</span> //We can use the same range as above, except with the badge- pre-pend instead of label-
+
+In Bootstrap, we also have something called Hero Units, which allows us for making showcases of "Large and important" showcases:
+
+<div class="hero-unit">
+	<h1>Hello! I'm a large title!</h1>
+	<p>What follows here is text right under the header above, lol</p>
+	<p><a class="btn btn-primary btn-large">Learn more</a></p>
+</div>
+
+We can also have page-headers, that puts text next to it:
+
+<div class="page-header">
+	<h1>Example of a Page header <small>Here is the following text</small></h1>
+</div>
+
+If we wish to create thumbnails, we can simple give the designated class "thumbnail" to a link declaration:
+
+<a href="#" class="thumbnail">
+	<img alt="Kittens!" style="" src="<some url>">
+</a>
+
+If we wish to add data under the thumbnails, we may do as follows:
+
+<ul class="thumbnails">
+	<li class="span4">
+		<div class="thumbnail">
+			<img data-src="holder.js/300x200" alt="300x200" style="">
+			<div class="caption">
+				<h3>Kittens!</h3>
+				<p>Something cute and fluffy!</p>
+				<p><a href="#" class="btn btn-primary">Click me!</a><a href="#" class="btn">No me!</a></p>
+			</div>
+		</div>
+	</li>
+	<li class="span4">
+		etc.
+	</li>
+</ul>
+
+If we wish to alert the user, we can use divs with the designated class of alert:
+
+<div class="alert"> //If we need more than one line, we can convert it to a block, by using alert-block
+	<a href="#" class="close" data-dismiss="alert">&times;</a> //If we wish to have a button that dismisses the alert, we can define a button that has the data-dissmis="alert"
+	<strong>Warning text goes here!</strong>
+</div>
+
+We could of course, add colour, by virtue of alert-error, alert-success or alert-info
+
+We can make progress bars as well:
+
+<div class="progress">
+	<div class="bar" style="width:60%;"></div> //Width of the bar is defined in %
+</div>
+
+We can do it striped:
+
+<div class="progress progress-striped">
+	<div class="bar" style="width: 20%"></div>
+</div>
+
+To make it animated, we simply add in active:
+
+<div class="progress progress-striped active">
+	<div class="bar" style="width: 40%;"></div>
+</div>
+
+If we wish to divide a bar, we can do so:
+
+<div class="progress">
+	<div class="bar bar-success" style="width: 35%"></div> //can do warning or danger as well, any elements written after this one is just appended on
+</div>
+
+In Bootstrap, we also have a simplified version of Media objects, as follows:
+
+<div class="media">
+	<a class="pull-left" href="#">
+		<img class="media-object" data-src="holder.js/64x64">
+	</a>
+	<div class="media-body">
+		<h4 class="media-heading">Media Heading</h4>
+		<p>...</p>
+		//nested Media object
+		<div class="media">
+			...
+		</div>
+	</div>
+</div>
+
+The following is an example of Listing media objects:
+
+<ul class="media-list">
+	<li class="media">
+		<a class="pull-left" href="#">
+			<img class="media-object" data-src="holder.js/64x64">
+		</a>
+		<div class="media-body">
+			<h4 class="media-heading">Media Heading</h4>
+			<p>...</p>
+
+			//nested media objects etc.
+			<div class="media">
+				...
+			</div>
+		</div>
+	</li>
+</ul>
+
+We can create sunken in parts, by using the "well" designation of classes:
+
+<div class="well">
+	...
+</div>
+
+Wells can be defined to be large or small:
+
+<div class="well well-small"> //or well-large
+	...
+</div>
+
+pull-left and pull-right act just as float: left; and float: right; in CSS
+
+if we for some reason need to clear content, we can do so with the clearfix:
+
+<div class="clearfix"></div>
+
+.clearfix {
+	*zoom:1;
+	&:before,
+	&:after {
+		display: table;
+		content: "";
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+To include JS into a HTML page, we can simply specify the script:
+
+//To reference
+<script src="assets/js/javaScript.js"></script>
+
+//To write JS to the page
+<script type="text/javaScript">
+	function js_alert{
+		alert("Page has loaded");
+	}
+</script>
+
+If we wish to add a ready check to make sure that hte page has loaded before we run the JS scripts, we can do as follows:
+
+$(document).ready(function(){
+	alert('Page has loaded');
+	//Once the page is ready, the alert will fire
+});
+
+If we wish to turn off the data-api,we can do as simple as follows:
+
+$('body').off('.data-api')
+
+if we need to turn off a specific plugin, we can do that simply by defining the name pre the .data-api:
+
+$('body').off('.alert.data-api') //Turns off the alert plug-in
+
+What follows are some API interactions:
+
+$('.btn.danger').button('toggle').addClass('active') //declares the danger button to be a toggle button with a active class
+
+In JS and HTML, a Modal is a window that is layered above the parent window:
+
+$('#myModal').modal() //Initialized with defaults
+$('#myModal').modal([keyboard: false]) //initialize with no keyboard
+$('#myModal').modal('show') //init and invoke show instantly
+
+The transitions plugin, allows us to do a wide array of things:
+
+sliding or fading in modals
+
+fading out tabs
+
+fading out alerts
+
+sliding carousel panes
+
+An example of creating a static modal, follows:
+
+<div class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+		&times;</button>
+		<h3>Modal header</h3>
+	</div>
+	<div class="modal-body">
+		<p>Some info</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn">Close</a>
+		<a href="#" class="btn btn-primary">Save Changes</a>
+	</div>
+</div>
+
+What follows, is an example of interacting with a Modal and how it works: //Note: Modals works on triggers and targeted triggers
+
+//The button trigger
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo</a>
+
+//Modal
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> //modal is for identifying the div as a modal, hide is to
+	<div class="modal-header"> 																							//hide content until ready, fade is to fade later
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3 id="myModalLabel">Modal header</h3>
+	</div>
+	<div class="modal-body">
+		<p>One shit thing</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button class="btn btn-primary">Save changes</button>
+	</div>
+</div>
+
+When we wish to call a modal, we simply need to use the following syntax:
+
+$("#myModal").modal(options)
+
+The options that we can use are as follows:
+
+data-backdrop="<boolean>" //Set to false to keep it up whilst user clicks outside of the window. we can omitt the data- part, but then it will run by JS
+
+data-keyboard="<boolean>" //Closes the modal when esc is hit, set to False to disable
+
+data-show="<boolean>" //shows the modal when initialized
+
+data-remote="<path>" //use content to inject here, valid href URL referals are considered to be loaded for instance
+
+We can interact in different ways with our modals:
+
+.modal(options) //Activates our modal with fed in options
+
+$('#myModal').modal({
+	keyboard:false
+})
+
+.modal('toggle') //Manually toggles a modal
+
+$('#myModal').modal('toggle')
+
+.modal('show') //Manually opens a modal
+
+$('#myModal').modal('show')
+
+.modal('hide') //manually closes a modal
+
+$('#myModal').modal('hide')
+
+modals support 4 events that can be hooked into the functions:
+
+show //Fires as the method is called
+
+shown //Fires when the modal has been shown to the user
+
+hide //Fires when the hide method is called
+
+hidden //Fires when the modal has finished being hidden
+
+An example of having a modal react when it becomes hidden:
+
+$('#myModal').on('hidden', function(){
+	alert('Something occured');	
+})
+
+What follows is an example of how to create a dropdown menu with data attributes:
+
+<li class="dropdown">
+	<a href="#" id="drop" role="button" class="dropdown-toggle" data-toggle="dropdown">Word<b class="caret"></b></a>
+	<ul class="dropdown-menu" role="menu" arial-labelledby="drop">
+		<li><a tableindex ="-1" href="#">Option 1</a></li>
+		<li><a tableindex ="-1" href="#">option 2</a></li>
+		<li><a tableindex ="-1" href="#">option 3</a></li>
+	</ul>
+</li>
+
+If we need to keep links intact (useful if the website does not activate JS), we can use the data-target attribute:
+
+<div class="dropdown">
+	<a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+		Dropdown
+		<b class="caret"></b>
+	</a>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+		...
+	</ul>
+</div>
+
+If we wish to activate dropdown by JS, we can use it as follows:
+
+$('.dropdown-toggle').dropdown()
+
+The dropdown-toggle has a simple method, that is just to display or hide the dropdown:
+
+$().dropdown('toggle')
+
+We can also use something called Scrollspy, which dynamically updates what section you are in, based on your relative position on the site:
+
+To use it, we must modify the body statement to include Scrollspy:
+
+<body data-spy="scroll" data-target=".navbar">...</body>
+
+In the navbar, we declare anchors for the Scrollspy to refer to:
+
+<div class="navbar">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="brand" href="#">Jake's BBQ</a>
+			<div class="nav-collapse">
+				<ul class="nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#pork">Pork</a></li>
+					<li><a href="#Beans">Beans</a></li>
+					<li><a href="#Chicken">Chicken</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+If we wish to use JS to activate the scrollspy(), we can do as follows:
+
+$('#navbar').scrollspy()
+
+When we call the scrollspy() in JS, we need to call the refresh method to update the DOM:
+
+$('[data-spy="scroll"]').each(function(){
+	var $spy = $(this).scrollspy('refresh')
+});
+
+Options in JS or data attributes, needs to be pre-set with data-<option>=<value>
+
+Scrollspy allows offset as a option:
+
+data-offset="" //Default value is 10, usually set to 50
+
+Beyond this, Scrollspy supports events
+
+To create toggleable tabs, we can use the following code:
+
+<ul class="nav nav-tabs">
+	<li><a href="#home" data-toggle="tab">Home</a></li>
+	<li><a href="#profile" data-toggle="tab">Profile</a></li>
+</ul>
+
+<div class="div content">
+	<div class="tab-pane active" id="home">...</id>
+</div>
+
+An example of using the Tabs:
+
+$('#myTab a').click(function(e) {
+	e.preventDefault();
+	$(this).tab('show');
+})
+
+What follows are ways to activate the tabs:
+
+$('#myTab a[href="#profile"]').tab('show'); //Select tab by name
+$('#myTab a:first').tab('show'); //Select the first tab
+$('#myTab a: last').tab('show'); //Select the last tab
+$('#myTab li:eq(2) a').tab('show'); //Select the 3rd element by index
+
+You can hook functions in by events, as follows:
+
+$('a[data-toggle="tab"').on('shown', function(e)) { //can take the value of 'shown' or 'show', show fires before shown, shown fires when shown
+	e.target //activated tab
+	e.relatedTarget//previous tab
+})
+
+if we wish to add tooltips to elements, we merely have to add the rel="tooltip" to the anchoring element:
+
+<a href="#" rel="tooltip" title="This is the tooltip">Tooltip Example</a> //Bootstrap api
+
+or
+
+$('#example').tooltip(options) //JS integration
+
+Of course, the Bootstrap API supports a range of Data API implementations, as follows:
+
+name 			value 				default 			desc
+
+data-animation: <boolean> 			true 				Applies CSS fade transition to the tooltip
+
+html 			<boolean> 			false 				Inserts HTML into the tooltip, if false, jQuery inserts data. Use if XSS attacks are a concern
+
+placement 		<string/function> 	'top' 				Specifies position of the tooltip (can be top, left, right, bottom)
+
+selector 		<string> 			false 				if specifided, will deligate the tooltips to said object
+
+title 			<string/function> 	"" 					The default if title attribute isn't present
+
+trigger 		<string> 			'hover' 			Defines what triggers the tooltip: click, hover, focus or manual
+
+delay 			<number/object> 	0 					Delays in ms. Object structure is: delay: { show: 500, hide: 100 }
+
+What follows, are some methods that are useful for tooltips:
+
+$().tooltip(options) //Attaches a tooltip handler to a element colleciton
+
+$('#element').tooltip('show') //Reveals a elements tooltip
+
+$('#element').tooltip('hide') //hides a elements tooltip
+
+$('#element').tooltip('toggle') //Toggles a elements tooltip
+
+$('#element').tooltip('destroy') //Hides and destroys a element's tooltip
+
+If we wish to modify a tooltip to allow for a bigger window upon hovering an element, we can use something called popover:
+
+//NOTE: it requires a tooltip to begin with
+
+<a href="#" class="btn" rel="popover" title="Using Popover" data-content:"Just add content to the data-content attribute.">Click me</a>
+
+If we wish to enable it with JS, we can do as follows:
+
+$('#example').popover(options);
+
+The options that popover can accept, are as follows:
+
+name 				type 				default 				desc
+
+animation 			boolean 			true 					CSS fade transition to the tooltip
+
+html 				boolean 			false 					inserts HTML into the popover, use if XSS attacks are a concern
+
+placement 			string 				function 				right
+
+trigger
+
+title
+
+function
+
+number 				object 				0 						Object structure for delay
+
+Some methods for popovers:
+
+$().popover(options) //initializes popover for a element collection
+
+$('#element').popover('show') //reveals an element's popover
+
+$('#element').popover('hide') //Hides the popover of the element
+
+$('#element').popover('toggle') //Toggles a element's popover
+
+$('#element').popover('destroy') //Destroy a element's popover
+
+To dismiss alerts, we can either use JS or via the Data API:
+
+$(".alert").alert() //js dismiss
+
+<a class="close" data-dismiss="alert" href="#">&times;</a>
+
+If we wish to close all alerts, we simply do:
+
+$(".alert").alert('close')
+
+Alerts accepts two form of events: close and closed
+
+$('my-alert').bind('closed', function() { //Closed can be closed or close, close implies when closing, closed implies after closing
+	//do something
+})
+
+we can modify button itneraction by the fact of modifying the text on it and disable stuff with it:
+
+<button type="button" class="btn btn-primary" data-loading-text="Loading...">Submit!</button>
+
+If we add the data-toggle:"button" to the button tag, we find that we can enable it again by single clicking on the button:
+
+<button type="button" class="btn btn-primary" data-toggle="button">Toggle</button>
+
+Buttons can act like checkboxes, as follows:
+
+<div class="btn-group" data-toggle="buttons-checkbox">
+	<button type="button" class="btn btn-primary">Left</button>
+</div>
+
+to enable buttons in .nav-tabs via JS:
+
+$('nav-tabs').button()
+
+Methods:
+
+$().button('toggle') //Toggles the push state
+
+when the button is in a loading state, it is disabled and the loading text repalces it's text:
+
+<button type="button" class="btn" data-loading-text="loading stuff...">..</button>
+
+If we wish to reset the state, we can do:
+
+$().button('reset')
+
+an example of resetting the text of a state for a button:
+
+<button type="button" class="btn" data-complete-text="finished!">...</button>
+
+<script>
+	$('.btn').button('complete')
+</script>
+
+An example of creating collapsable groups:
+
+<div class="accordion" id="accordion2">
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="accordion2" href="#collapseOne"></a>
+		</div>
+		<div id="collapseOne" class="accordion-body collapse in">
+			<div class="accordion-inner">
+				Some shit
+			</div>
+		</div>
+	</div>
+	div class="accordion-group">
+		<div class="accordion-heading">	
+			<a class="accordion-toggle" data-toggle="collapse" data-parents="accordion2" href="#collapseTwo">
+				second group to collapse
+			</a>
+		</div>
+	</div>
+	etc.
+</div>
+
+we can also use data attributes to set all data to be collapseable:
+
+<button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo">
+	simpel collapse
+</button>
+
+<div id="demo" class="collapse in">...</id>
+
+To make so that a element refers to it's selector, whatever that may be, we can do it with the DATA Api:
+
+data-parents="#selector";
+
+via JS
+
+$(".collapse").collapse()
+
+As per usual, Collapes accepts parent and toggle as options //parent being the parent element and toggle is wether toggle triggers it
+
+Methods is as per usual:
+
+$('#myCollapsible').collapse({
+	toggle: false
+})
+.collapse('toggle') //Causes toggle
+
+.collapse('show') //Shows collapsed element
+
+.collapse('hide') //hides said element
+
+The events it accepts is as per usual: show, shown, hide, hidden
+
+example:
+
+$('#myCollapsible').on('hidden', function(){
+	//Do some shit
+})
+
+if we wish to showcase a slideshow, we can use something called Carousel:
+
+<div id="myCarousel" class="carousel slide">
+	//items
+	<div class="carousel-inner">
+		<div class="active item">_</div>
+		<div class="item">_</div>
+		<div class="item">_</div>
+	</div>
+	//The nav
+	<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+	<a class="carousel-control right" href="myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+
+We can manually call the carousel if we want, with JS:
+
+$('.carousel').carousel()
+
+The carousel uses 2 options:
+
+name 			type 				default 			desc
+
+interval 		number 				5000 				Amount of time in MS betweens items autocycling. If false, carousel does not cycle
+
+pause 			string 				"hover" 			pauses the carousel on mouseenter and resumes the cycling of the carousel on mouseleave
+
+The options for a carousel are as follows:
+
+$('.carousel').carousel({
+	interval: 2000 
+})
+
+.carousel('cycle') //Starts cycling, from left to right
+
+.carousel('pause') //Pauses the cycling
+
+.carousel('number') //jumps to a specified index of the carousel items
+
+.carousel('prev') //previous carousel item
+
+.carousel('next') //Next carousel item
+
+The carousel supports 2 forms of events:
+
+slide //When the slide instance is initialized and slid //when carousel completes slide transition
+
+In Bootstrap, we can use something called Typeahead, which is akin to what Webbrowsers use when you are typing something and it tries to match
+against the elements of which are pre-defined to check against:
+
+<input 
+	type="text"
+	class="span3"
+	data-provide="typeahead"
+	data-items="4"
+	data-source="[ //The elements of which it will check against. Can be a JSON list or a Function
+				'Alabama',
+				'Alaska',
+				'Arizona',
+				'Arkansas',
+				'California',
+				...
+				]"
+>
+
+To call Typehead directly with JS, we can do:
+
+$('.typeahead').typeahead()
+
+What follows are the options that the Typeahead accepts:
+
+name 				type 				default 				Desc
+
+data-source 		array/function 		[] 						The source to query against. Must be a array of strings or a function. 
+
+items 				number 				8 						How many queries it should display in the dropdown
+
+minLength 			number 				1 						Min amount of chars needed to trigger autocomplete suggestions
+
+matcher 			function 			case insensitive 		The matcher running the query. Accepts a input, returns true if a match. access current query with this.query
+
+sorter 				function 			exact match, case insen,
+										case sen 				Sorts the results. Accepts a single argument
+
+updater 			function 			returns selected item 	Method used to return the selected item. Accepts one item as argument
+
+highlighter 		function 			highlights all default
+										matches 				method for highlighting items. Returns HTML. Accepts single argument
+
+If we wish, we can offset a div to have a fixed position:
+
+<div data-spy="affix" data-offset-top="200">
+	...
+</div>
+
+The option we can use for affix is:
+
+name 		Type 		Default 			desc
+
+offset 		n/fc/obj 	10 					If 1 number is provided, offset is top and left, To modify several values, use a object { x : 10 }
+
+//Bootstrap Done

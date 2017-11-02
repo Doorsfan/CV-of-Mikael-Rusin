@@ -1,0 +1,430 @@
+AGILE SOFTWARE DEVELOPMENT;
+
+Is a speedup process of trying to apply Software faster and create a integration between people to work with this.
+
+When we will be talking about Agile Software development, we need to establish several lines of which follow the process of each, in steps and associated pattern.
+
+TESTING FUNDAMENTALS;
+
+#1 Usability testing;
+Usability Testing is the science of observing the empirical interaction with products, in the people who are interacting with things, without explicit intervention.
+This science, is to observe and record, how users intuitively react with the product provided to them.
+
+//Records perception of product and usage, increasing usage and usability
+
+#2 Exploratory testing;
+Exploratory Testing is when you use assigned people, to test and interact with things, in contrast to heavy iterated Script testing by use of automated units or otherwise.
+
+//Reduces failure Rate
+
+#3 Unit Testing;
+Unit testing, is the practice of trying out your products, in different ways ; be that by Glass box testing or Black box testing.
+When you compound several pieces of testing, into a big part, it becomes a test suite. A test suite, is meant as a larger piece of testing if something acts as predicted.
+
+//Reduces Failure Rate
+
+#4 TDD;
+TDD stands for Test Driven Development.
+This is when you use a process, with heavy iteration of testing in your Process. 
+This can be described in the following matter;
+
+Write a "Single" unit test, describing an aspect of the program. //Declare something as Abstract and don't have it implemented yet
+Run the test, which will fail, because the program lacks that feature.
+Write "Just enough code" to have it pass //First take
+"Refactor" it, until it fits the critera of Rules of Simplicity // The code is verified by automated tests, contains no duplication, expresses each idea distinctly, composed of the minimum amount of components compatible with above
+
+//Note, the Rules of Simplicity suffer from that it contains points of Subjectivity
+
+BENEFITS; The benefits of TDD, is Reduced failure rate, at a small cost of Production time
+
+CONS for Individuals; Run too few tests, too many tests at once, too large tests, too trivial tests, tests for trivial code
+
+CONS for Teams; Partial adoption, poor maintnance of the test suite, abandoned test suites
+
+SKILL LEVELS AND EXPECTATIONS THERE OF;
+
+BEGINNER; Able to write a test unit prior to writing the corresponding Code, Able to write sufficient code to make a failing pass
+
+INTERMEDIATE; Writes explicit tests to track down Bugs, Breaks down big problems into several small sets of test units, Knows and can name a number of tactics to guide the writing of tests, 
+able to use abstraction to approach a problem without specific situational variables
+
+ADVANCED; Able to write a "Roadmap" for all the needed test suites for a Big problem, able to "Test-drive" different program approaches ; object-oriented, functiona, event-driven
+able to "Test drive" a variety of technical domains in computation, user interfaces, persistent Data access
+
+
+#5 Mocks (a.k.a Test Doubles);
+A mock is the technical term for a Class that checks functionality, without actual real life applicance testing.
+For instance, a Database can use a mock class, to verify that it's able to connect and produce answers, without connecting to a Live database
+
+BENEFIT; Allows you to Test that something works, without dependance on local variables that might change, based on situation
+
+CONS; Overusage distracts from actual development time
+
+#6 Acceptance Tests;
+Acceptance tests, are basically, the formal term for how a Software performs. If it fails, the software is concidered to not be accepted for use, yet.
+
+CONS; Customers and users must be part of the acceptance test to avoid overcomplication - relates to that Customers might put irrelevant demands on things that does not impact the actual performance of the Software
+
+BENEFITS; Better relations between customer and Developer, Clear grounds to what is expected, Decreases chanse of failure in terms of delivery
+
+COSTS; Requires a lot of effort to create automated acceptance tests, burdensome maintnance, may be intelligible to Customers/Domain experts
+
+
+#7 AtDD;
+
+//REST IS ON LAPTOP, FIND THERE, MIX WHEN POSSIBLE;
+
+#3 Continous Integration;
+
+The objective is to reduce the time and effort it takes to deploy each integration period
+
+Be able at any moment, to deliver a product that is up to standard
+
+To reach this, teams use an integration proceduer that is reproducible, "automated" ; Which is done by Version control tools, team policies, Conventions and tools specifically designed to achieve this.
+
+Signs of use;
+
+Usage of a version control tool happens ; (CVS, SVN, Git, etc.)
+
+An automated build and product release process
+
+instrumentation of the build process to trigger unit and acceptance tests "every time any changes is published to version control"
+
+In the event of even a single test failing, alerting the team of a "broken build" so that the team can return to a working baseline ASAP
+
+optionally, the use of a tool such as a continous integration server, which automates the process of integration, testing and reporting of test results
+
+The biggest telling, is how the team reacts to a broken build. If there is a broken build and they prioritize it, then they are fitting of the Description
+
+CONS; You can't do intermediate releases, because thoose end up being specifically painful.
+
+
+#4 Continuous Deployment;
+
+Continous Deployment is in the same line of thinking as Continous Integration.
+
+Except, allowing live users to use the new written lines of code, thus, having continuous deployment
+
+Of course, instrumentation is needed for this to be able to work, which leads to instruments that roll back deffect new features and return to a earlier state, requiring Human intervention
+
+BENEFITS; Earlier return from investments for each feature after it's developed, which reduces the need for large capital investments
+Earlier feedback from users on each new feature as it is released to production, which affords techniques such as parallel (or A/B) testing to determine which of two possible implementation is preffered by users
+
+COSTS; Relies on Extensive instrumentation to ensure that the functionality newly made available to users does not result in incidents, lowering externally percieved quality
+
+For the same reason, continous deployment relies on infrastructure that allows easily backing out new features when a defect has not been detected by autonomous tests
+
+Might lead to error in producing higher frequency of irrelevant things
+
+LINE #4, BROWN SQUIGGLE;
+
+#4 User Stories;
+
+In consulation with the customer or product owner, the team divides up the work to be done into functional increments called "user stories".
+
+Each user story is expected to yield, once implemented, a contribution to the value of the overall product, irrespective of the order of implementation,
+these and other assumptions as to the nature of user stories are captured by the INVEST formula.
+
+To make these assumptions tangible, user stories are refined into a physical form an index card or sticky note, on which a brief descriptive sentence is written to
+serve as a reminder of its value. This emphasizes the "atomic" nature of user stories and encourages direct physical manipulation: for instance, decisions about schedueling are
+made by physically moving around these "story cards".
+
+BENEFITS; Mitigates the risk of delayed feedback, all the more so if any of the following is true;
+
+increments are small
+
+software is released to production frequently
+
+for the customer or product owner, the option to change their mind on the details or the schedule priority of any user story not yet implemented
+
+for developers being given clear and precise acceptance criteria, and ongoing feedback as they complete work
+
+promoting a clear seperation of responsibilities between defining the "what" (province of the customer or product owner) and the "how" (province of the technical team), leveraging the skills/creativity of each
+
+COSTS; 
+
+Incremental development technically forces Automated Testing, due to amount of implimentations
+
+This is due to that earlier things must mesh and coherently work with earlier parts
+
+SKILL LEVELS;
+
+INDIVIDUALLY;
+
+BEGINNER; Able to start from another formalism for requirement (narrative document, use cases) and transpose that to user stores
+
+Knows at least one standard format for expressing user stories
+
+Able to illustrate a user story with an example (including user's goal, existing context, user's actions and expected outcomes)
+
+INTERMEDIATE; Able to divide up the functional goals of a development effort into user stories (possibly epics), ensuring no gaps are left
+
+knows several formats for expressing user stories and can choose the most appropiate one
+
+Able to express the acceptance criteria for a user story, in terms that will be directly usable as an automated acceptance test
+
+Knows or can identify the relevant user roles and populations and refers to them appropiately in user stories
+
+Can asses a user story using the INVEST checklist or an equivilant, and rephrase or split the user story as nessecary
+
+ADVANCED; Able to interpet so-called "non functional requirements" in terms of user stories
+
+Able to link user stories to higher level descriptions of project goals (e.g project charter) and to provide grounds for the relevance and business value of each user story
+
+AS A TEAM;
+
+BEGINNER;
+
+The team organizes project activites around user stories
+
+The team is able to obtain "just in time", the information on nessecary to implement user stories for instance by having access to the product owner or domain expert
+
+INTERMEDIATE;
+
+The team formalizes all activity as work on user stories, each team member can answer at any moment the question "What user story are you working on at the moment"
+
+ADVANCED;
+
+At any moment, any member of the team can answer the question "what is the most important user story in the backlog and why"
+
+#5 Story Splitting;
+
+Simply means to split User Stories into small enough fragments that they can be each done in one iteration
+
+#6 Story Mapping;
+
+Story Mapping is akin to building a skeleton amonst two axises, horizontal and vertical.
+
+The horizontal one, fills the baseline features and the bare minimum.
+
+The vertical ones, fill the depth of the features, and consists of things fleshing stuff out
+
+BENEFITS; Gives proper structure that allows you to avoid failure state of adding things that are not of value or not actually working
+
+#7 Personas;
+
+When a project calls for it, the developers can create fictional personalities that represent the users of the program, to be able to project the needs of the project unto them
+and answer questions, by roleplaying said people.
+
+BENEFITS; Personas act as an anchor, to keep the goals on a reasonable and realistic level
+
+#8 Backlog Grooming;
+
+Backlog grooming, is done during a Meeting of where they "groom" the backlog, i.e, remove unused user stories etc.
+
+This is to keep maintnance of the project and structure of the project.
+
+Also to update faulty information, or new information, etc. etc.
+
+
+LINE #5, RED HOOK;
+#1 Iterative Development;
+
+Iterative development simply means to Develop in iterations so that you can go back and look at previous parts of the project and correct it.
+
+It might also mean, to iterate in terms of having lengths of periods of which you iterate in. I.e, you work in segments of time.
+
+#2 Timebox;
+
+The Timebox technique, is simply saying "You have X amount of time to complete as much as you can, afterwards we look at what you accomplished"
+
+#3 Iteration;
+
+A iteration is a timebox, ranging from 1 to 4 weeks, usually.
+
+Is usually fixed, for it's given duration, during that project.
+
+Agile development bases itself on a Sequency of Iterations.
+
+#4 Daily Meeting;
+
+A daily meeting to keep everyone up to speed, usually maxing out at a 15 minute meeting.
+
+BENEFITS; Critical information does not "seep through the cracks", promotes team cohesion, short stand-up meetings are better than sit-down meetings
+
+#5 Three Questions;
+
+The questions which a daily meeting surrounds itself on, usually;
+
+What have you completed since the last meeting?
+
+What do you plan to complete by the next meeting?
+
+What is getting in your way?
+
+#6 Burndown Chart;
+
+A Burndown chart is a Graph of the remaining work on Vertical axis, and the time elapsed is on the Horizontal scale.
+
+BENEFITS; The idea is to create a clear goal and a motivator to confront issues sooner than later.
+
+#7 Task Board;
+
+A Taskboard is a board of tasks that is divided into 3 parts ; "To Do", "In Progress", "Done"
+
+Index cards are placed on tasks that the team is working on, to represent how things are faring.
+
+BENEFITS; Ensures proper information to the team, Acts as Focal point for the daily meeting (keeping focus on obstacles and progress), Easy to use and Deploy new elements on
+
+#8 Definition of Done;
+
+The team agrees upon the terms of what is considered to be completion
+
+SIGNS OF USAGE; If requested, they can point to the explicit definition they are using
+
+The team actually refers to the definition to justify decisions in terms of weight
+
+BENEFITS; The definition of done, provides a checklist which guides pre-implementation activities, discussions, estimations, design etc.
+
+The definition of Done limits the cost of Rework once a Feature has been accepted as "Done"
+
+having an explicit contract limits the risk of misunderstanding and conflict between the development team and the customer or product owner
+
+
+#9 Definition of Ready;
+
+The definition of ready uses the virtues of INVEST to  declare if something is ready to implement into an iteration or not
+
+BENEFITS; Sets clear goals so that projects always have directives, creates fallback that is agreed upon
+
+#10 Point Estimates;
+
+This is the measurement of when a project is to be delivered, in a scope of "Story Points", as in, how many poinst have been achieved and what iterations are left
+
+
+#11 Relative Estimation;
+
+Relative estimation is when you estimate the amount of time it takes, by taking a grouping of things and judging on the difficulty ; and comparing it to other things.
+
+BENEFITS; Allows you to avoid absolutes in terms of Time and other pitfalls made by attempts at exact evaluation
+
+According to Psychology, approximate claims, work a lot better than absolute ones, since absolutes are inflexible and can be wrong
+
+
+#12 Planning Poker;
+
+using stories cards and a assigned number of value, people can gather around a table and play their estimated value in terms of their own perception and then argue their reasons for choise
+
+BENEFITS; Keeps a clear trail of going forward, allows you to use the knowledge of everyone involved, allows insights in terms of risks and estimations
+
+
+#13 Backlog;
+
+A backlog is a log of features and/or technical features that need to be implemented to complete a project or a release
+
+The backlog defines what work needs to be done and what remains to be done, and needs to be groomed to be able to cover what it should entail
+
+LINE #6, YELLOW SQUIGGLY, FAR MOST LEFT;
+
+#1 Team;
+
+A team is considered to be a group of people working together as an entity, to take responsibility of the situation as a whole
+
+#2 Facilitation;
+
+Facilitation is a person who is desginated to put out the goals for the team to follow, instead of participating in discussions in a major degree
+
+#3 Heartbeat Retrospective;
+
+The team meets on a frequence of rythm of iterations, to reflect on the most significant events to have occured since the previous such meeting, and take decisions aiming
+at remediation or improvement
+
+These meetings follow a facilitated format, to get the input of all the members. 
+
+PITFALLS; Might be mistaken for just sitting and whining, emotional reflection should go towards making the project better
+
+Requires that all members feel comfortable to speak up
+
+Doing it wrong, wastes many valuable hours
+
+May result in too few or too many ideas to implement
+
+Empty repetition may occur
+
+USAGE; Having an observer to make sure the meetings occur correctly, is a good idea
+
+If this fails, just take the ideas and summarize them to use for the Team's wall
+
+BENEFITS; Allows performance increase over the duration of the project
+
+Promotes responsibility and promotes clarity of decisionmaking
+
+#4 Team Room;
+
+A space where the team is allocated and supplied with all the tools they need for development
+
+PITFALLS; has to be Seperated area that is dedicated towards the product
+
+BENEFITS; Allows spreading of information between thoose who knows and do not
+
+#5 Pair Programming;
+
+When 2 people program, one being the active one, the other one navigating. The expectation is that the people switch between each other, as things go on.
+
+#6 Niko Niko;
+
+This is also refered to as a Mood board, where one can note how one felt at the end of the workday.
+
+BENEFITS; Finding out how people feel, overall, and detecting failure of wellbeing.
+
+#7 Scrum of Scrums;
+
+Scrum of Scrums means to divide larger groups into smaller subsets of Agile teams, whilst electing a Ambassador for a team, for them to report what we need to work on etc.
+
+#8 Sustainable pace;
+
+Sustainable pace means that the team tries to agree upon a pace that can be kept indefenitly, and try to avoid Overtime as it is believed to be signs of Deficiency
+
+#9 Project charts;
+
+Creating a chart that pinpoints the goals, the steps and direction of the project.
+
+BENEFITS; Creates unity and clarity
+
+LINE #7, CUT THROUGH LINE, PROGRAMMING LINE;
+
+#1 Collective Ownership;
+
+Everyone owns the code to the Project, and are expected to contribute to it.
+
+BENEFITS; Reduces risk of that one person falls behind or stalls.
+
+Increases the chanse of that the project is a sum of technical decisions, not Social ones
+
+is a Favorable factor in the diffusion of technical knowledge
+
+Encourage each developer to feel responsible for the quality of the whole
+
+COSTS; Can be that no clear leader is declared, can also lead to Ineffective Interfaces and unclear interfaces
+
+#2 Frequent Releases;
+
+Frequent releases are done in Agile team contexts, to get feedback from users etc.
+
+In general, except for Web development, usually one release is per 4 to 6 iterations
+
+BENEFITS; Mitigates discovering delays late
+
+Validates the product earlier
+
+provides earlier information about the quality and stability of the product
+
+it allows for a quicker return on the economical investment of the product
+
+
+#3 Velocity;
+
+At the end of each iteration, the team summarizes the estimate associated with the user stories and define a total, which we call Velocity.
+
+This gives a rough estimate of the speed at which the product is produced.
+
+In terms of Calculations, only 0% complete or 100% Complete is counted.
+
+It also defines how much expected workload can be done.
+
+#4 Sign up;
+
+The process of allocating work, is when you stand together before a Billboard and sign up for a task, making responsibility clear.
+
+This usually happens during Daily meetings.
+

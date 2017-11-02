@@ -1,0 +1,1706 @@
+Introduction:
+
+The ease with which we recognize a face, understand spoken words, readhand written
+chars, identify our car keys, etc.
+
+1.1 Machine Perception
+
+It is natural that we should seek to design and build machines that can recognize
+patterns. From automated speech recognition, fingerprint id, optical char
+recog, DNA sequence id and much more, it is clear that reliable, accurate
+pattern recognition by machine would be immensely useful. Moreover,
+in solving the myriad problems required to build such systems, we gain
+deeper understanding and appreication for pattern recog in the natural
+world - most particularly in humans.
+
+For some apps, such as speech and visual recog, our design efforts
+may in fact be influenced by knowledge of how these are solved in nature,
+both in the algorithms we employ and the design of special purpose hardware.
+
+1.2 An Example
+
+To illustrate the complexity of some of the types of problems involved,
+let us consider the following imaginary and somewhat fanciful example.
+Suppose that a fish packing plant wants to automate the process of sorting
+incoming fish on a conveyer belt according to species.
+
+As a pilot project it is decided to try separate sea bass from
+salmon using optical sensing. We set up a camera, take some sample
+images and begin to note some physical differences between the two
+types of fish - length, lightness, width, number and shape of fins,
+position of the mouth, and so on.
+
+And these suggest features to explore for use in our classifier.
+We also notice noise or variations in the images - variations in
+lightning, position of the fish on the conveyer, even "static"
+due to the electronics of the camera itself.
+
+ModeL: Given that there truly are differences between the population
+of sea bass and that of salmon, we view them as having different models -
+different descriptions, which typically are mathematical in form.
+
+The overarching goal, and approach in pattern classification, is to
+hypothesize the class of these models, process the sensed data to eliminate
+noise (not due to the models), and for any sensed pattern choose the model
+that corresponds the best.
+
+Any techniques that further this aim should be in the conceptual toolbox
+of the designer of pattern recognition systems.
+
+PRE-PROCESSING:
+
+Our prototype system to perform this very specific task might well have the
+form shown in Fig 1.1. First the camera captures an image of a fish. Next,
+the camera's signals are preprocessed to simplify subsequent operations without
+loosing relevant information. In particular, we might use a segmantation operation
+in which the images of different fish are somehow isolated from one and another
+and from the background.
+
+Segmantation:
+
+The information from a single fish is then sent to a feature extractor, whose purpose
+is to reduce the data by measuring certain "features" or "Properties". 
+
+FEATURE EXTRACTION: 
+
+These features (or more precisely, the values of these features) are then passed 
+to a classifier that evaluates the evidence presented and makes a final decision
+to the species.
+
+THe preprocesser might automatically adjust for average light level, or threshhold
+the image to remove the background of the conveyer belt, and so forth. For the moment
+let us pass over how the images of the fish might be segmented and consider how the
+feature extractor and classifier might be designed.
+
+Suppose somebody at the fish plant tells us that a sea bass is generally longer than
+a salmon. These, then, give us our tentative models for the fish: sea bass have some
+typical length, and is greater than that of salmon.
+
+Then length becomes an obvious feature, and we might attempt to classify the fish
+merely by seeing whether or not the length l of a fish exceeds some critical value
+l*. To choose l* we could obtain some design or training samples different types of 
+fish, (somehow) make length measurements and inspect the results.
+
+Training Samples:
+
+Suppose that we do this, and obtain the histograms shown in Fig 1.2. These disappointing
+histograms over bear out the stateament that sea bass are somewhat longer than salmon,
+on average, but it is clear that this single criterion is quite poor; no matter how
+much we choose l*, we cannot reliably separate sea bass from salmon by length alone.
+
+Discouraged, but undettered by these unpromising results, we try another feature
+- the average lightness of the fish scales. Now we are very careful to eliminate
+variations in illumination, since they can only obscure the models and corrupt
+our new classifier.
+
+THe resulting histograms, shown in Fig 1.3, are much satisfactory - the classes
+are much better separated.
+
+COST:
+
+So far, we have tacitly assumed that hte consequences of our actions are equally
+costly; deiciding the fish was a sea bass when in fact it was a salmon, was just 
+as undesirable as the converse. Such a symmetry in the cost is often, but not invariably,
+the case. 
+
+For instance, a fish packing company we may know that our customers easily accept
+ocassional pieces of tasty salmon in their cans labeled as "sea bass", but they object
+vigoriously if a piece of sea bass appears in their cans labeled "salmon".
+
+If we want to stay in busniess, we should ajust our decision boundary to avoid
+antagonizing our customers, even if it means that more salmon makes its way into
+the cans of sea bass. In this case, then, we should move our decision boundary
+x* to smaller value of lightness, thereby reducing the number of sea bass that are
+classified as salmon. The more our customer object to getting sea bass with their
+salmon - i.e the more costly this type of error - the lower we should set the
+decision threshold X* in Fig 1.3
+
+Fig 1.1:
+
+THe object to be classified are first sensed by a transducer (camera), whose
+signals are preprocessed, then the features extracted and finally the classification
+emitted (here either "salmon" or "sea bass"). Although the information flow is often
+chosen to be from the sources to the classifier ("bottom-up"), some systems
+employ "top-down" flow as well, in which earlier levels of processing can be altered
+based on teh tentative or preliminary response in later levels.
+
+Yet others combine two or more stages into a unified step, such as simultaneously 
+segmentation and feature extraction.
+
+DECISION THEORY:
+
+Such considerations suggest that there is an overall single cost associated with
+our decision, and our true task is to make a decision rule (i.e, set a decision
+boundary) so as to minimize the cost. This is the central task of decision theory of which
+pattern classification is perhaps the most important subfield.
+
+Even if we know the costs associated with our decisions and choose the optimal
+decision boundary x*, we may be dissatisfied with the resulting performance.
+Our first impulse might be to seek yet a different feature on which to seperate
+the fish.
+
+Let us assume though, that no other single visual feature yields better performance
+than that based on lightness. To improve recognition, then, we must resort to the 
+use of more than one feature at a time.
+
+Figure 1.2: Histograms for length features for the two categories. no single TH
+value l* (decision boundary) will serve to unambigiously discriinate between the two
+categories using length alone, we will have some errors.
+
+The error value l* marked will lead to the smallest number of errors, on average.
+
+Figure 1.3:
+
+Hisograms for the lightness features for the two categories. No single TH value x*
+(decision boundary) will serve to unambigiously discrimate between the two categories;
+using lightness alone, we will have some errors. The value x* marked will lead to the
+smallest number of errors, on average.
+
+Figure 1.4: The two features of lightness and width for sea bass and salmon.
+THe dark line might serve as a decision boundary of our classifier. Overall
+classification error on the data shown is lower than if we use only one feature
+as in Fig 1.3, but there will still be some errors.
+
+In our search for other features, we might try to capitalize on the observation
+that sea bass are typically wider than salmon. Now we have two features for classifying
+fish, the lightness x1 and the width x2. If we ignore how these features might be
+measure in practice, we realize that the feature extractor has thus reduced the
+image of each fish to a point or feature vector x in a two-dimensional feature
+space, where:
+
+x = [x1 x2]
+
+Our problem now is to partition the feature space into two regions, where for 
+all patterns in one region we will call the fish a sea bass, and all points
+in the other we call it a salmon.
+
+Suppose that we measure the feature vectors for our samples and obtain the scattering
+of points shown in Fig 1.4. This plot suggests the following rule for seperating the
+fish: Classify the fish as sea bass if its feature vector falls above the decision
+boundary shown, and as salmon otherwise.
+
+DECISION BOUNDARY:
+
+This rule appears to do a good job of separating our samples, and suggest that
+perhaps incorporating yet more features would be desirable. Besides the lightness
+and width of the fish, we might include some shape parameter, such as the vertex
+angle of the dorsal fin, or the placement of the eyes (as expressed as a proportion of
+the mouth-to-tail distance), and so on.
+
+How do we know, beforehand, which of these features will work the best? Some features
+might be redundant : for instance, if the eye clor of all fish correlated perfectly
+with width, then classification performance need not be improved if we also include
+eye color as a feature.
+
+Even if the difficulty or computational cost in attaining more features is of no concern,
+might we ever have too many features.
+
+Suppose that others features are too expensive or expensive to measure, or provide
+little improvement (or possibly even degrade the performance) in the approach described 
+above, and that we are forced to make our decision based on the two features in Fig 1.4
+. If our models were extremely complicated, our classifier would have a decision boundary
+more complex than the simple straight line.
+
+In the case all the training patterns would be seperated prefectly, as shown in Fig 1.5.
+
+Figure 1.5: Overly complex models for the fish will lead to decision boundaries
+that are complicated. While such decision may lead to perfect classification
+of our training samples, it would lead to poor performance on future patterns.
+
+The novel test point marked ? is evidently most likely a salmon, where as the
+complex decision boundary shown leads it to be misclassified as a sea bass.
+
+GENERALIZATION:
+
+training patterns would be seperated perfectly, as shown in Fig 1.5. With such
+a "solution", though our satisfaction would be premature because the central
+aim of designing a classifier is to suggest actions when presented with novel
+patterns, i.e, fish not yet seen. This is the issue of generalization. It is unlikely
+that the complex decision boundary in Fig 1.5, would provide good generalization, since
+it seems to be "tuned" to the particular training samples, rather than some underlying
+characteristics or true model of all the sea bass and salmon that will have to be 
+separated.
+
+Naturally, one approach would be to get more training samples for obtaining a 
+better estimate of the true underlying characteristics, for instance the probability
+distributions of categories. In most pattern recognition problems, however, the 
+amount of such data we can obtain easily is often quite limited. Even with a vast
+amount of training data in a continous feature space though, if we followed the
+approach in Fig 1.5 our classifier would give a horrendously complicated decision
+boundary - one that would be unlikely to do well on novel patterns.
+
+Rather, then, we might seek to "simplify" the recognizer motivated by a belief that
+the underlying models will not require a decision boundary that is as complex as
+that in Fig 1.5. Indeed, we might be satisfied with the slightly poorer performance
+on the training samples if it means that our classifier will have a better performance
+on novel patterns.
+
+But if designing a very complex recognizer is unlikely to give good generalization,
+precisely how should we quantify and favor simpler classifiers?
+
+How would our system automatically determine that the simple curve in Fig 1.6 is preferable
+to the manifestly simpler straight line in Fig 1.4 or the complicated boundary in Fig 1.5?
+
+Assuming that we somehow manage to optimize this tradeoff, can we then predict how well our
+system will generalize to new patterns? These are some of the central problems in statistical
+pattern recognition.
+
+For the same incoming patterns, we might need to use a drastically different cost function,
+and this will lead to different actions altogether.
+
+Figure 1.6: The decision boundary shown might represent the optimal tradeoff between performance
+on the training set and simplicity of classifier.
+
+We might for instance, wish instead to separate the fish based on their sex - all females (of
+either species) from all males if we wish to sell roe. Alternatively, we might wish to cull
+the damaged fish (to prepare separately for cat food) and so on. Different decision tasks may
+require features and yield boundaries quite different from those useful for our original
+categorization problem.
+
+This makes it quite clear that our decisions are fundamentally task or cost specific, and that
+creating a single general purpose artificial pattern recognition device - i.e one capable of
+acting accurately based on a wide variety of tasks - is a profoundly difficult challenge. This,
+too, should give us added appreciation of the ability humans to switch rapidly and fluidly
+between pattern recognition tasks.
+
+Since classification is, at base, the task of recovering the model that generated the patterns,
+different classification techniques are useful depending on the type of candidate models themselves.
+In statistical pattern recognition we focus on the statistical properties of the patterns (generally
+expressed in probability densities), and this will command most of our attention in this book.
+
+Here the model for a pattern may be a single specific set of features, though the actual pattern
+sensed has been corrupted by some form of random noise. Ocassionally it is claimed that neural
+pattern recognition (or neural network pattern classification) should be considered its own discipline,
+but despite its somewhat different intellectual pedigree, we will consider it a close descendant
+of statistical pattern recognition, for reasons that will become clear.
+
+If instead the model consists of some set of crisp logical rules, then we employ the methods of
+syntactic pattern recognition, where rules or grammars describe our decision. For example we might
+wish to classify an English sentence as grammatical or not, and here statistical descriptions
+(word frequencies, word correlations, etc.) are inappropiate.
+
+It was nessecary in our fish example, to choose our features carefully and hence achieve a representation
+(as in Fig 1.6) that enabled reasonably successful pattern classification. A central aspect in
+virtually every pattern recognition problem is that of achieving such a "good" representation,
+one in which the structural relationships among the components is simply and naturally revealed,
+and one in which the true (unknown) model of the patterns can be expressed.
+
+In some cases patterns should be represented as vectors of real-valued numbers, in others ordered
+lists of attributes, in yet others descriptions of parts and their relations, and so forth.
+We seek a representation in which the pattern that lead to the same action are somehow "close"
+to one another, yet "far" from those that demand a different action.
+
+The extent to which we create or learn a proper representation and how we quantify near and far
+apart will determine the success of our pattern classifier. A number of additional characteristics
+are desirable for the representation. We might wish to favor a small number of features, which
+might lead to simpler decision regions, and a classifier easier to train.
+
+We might also wish to have features that are robust, i.e relativily insensitive to noise
+or other errors. In practical applications we might need the classifier to act quickly
+or use few electronic components, memory or processing steps.
+
+ANALYSIS BY SYNTHESIS
+
+A central technique, when we have insufficient training data, is to incorporate knowledge of
+the problem domain. Indeed the less the training data the more important it such knowledge,
+for instance how the patterns themselves were produced.
+
+One method that takes this notion to its logical extreme is that of analysis by synthesis,
+where in the ideal case one has a model of how each pattern is generated. Consider speech
+recognition. Admist the manifest acoustic variability among the possible "dee"s that might
+be uttered by different people, one thing they have in common is that they were all produced
+by lowering the jaw slightly, opening the mouth, placing the tongue tip against the root of
+the mouth after a certain delay, and so on.
+
+We might assume that "all" the acoustic variation is due to the happenstance of whether the
+talker is male or female, old or young, with different overall pitches, and so forth.
+At some deep level, such a "physiological" model (or so called, "motor" model) for production
+of the utterance is appropiate and different (say) from that for "doo" and indeed all other
+utterances.
+
+If this underlying model of production can be determined from the sound (and that is a very big
+if), then we can classify the utterance by how it was produced. That is to say, the production
+representation may be the "best" representation for classification.
+
+Our pattern recognition systems should then analyze (and hence classify) the input pattern based
+on how one would have to synthesize that pattern. The trick is, of course, to recover the generating
+parameters from the sensed pattern.
+
+Consider the difficulty in making a recognizer of all type of chairs - standard office chair,
+contemporary living room chair, beanbag chair, and so forth - based on an image. Given the
+astounding variety in the number of legs, material, shape and so on, we might despair of ever
+finding a representation that reveals the unity within the class of chair.
+
+Perhaps the only such unifying aspect of chairs is functional: a chair is a stable artifact that
+supports a human sitter, including back support. Thus we might try to deduce such functional
+properties from the image, and the property "can support a human sitter" is very indirectly
+related to the orientation of the larger surfaces, and would need to be answered in the affirmative
+even for a beanbag chair.
+
+Of course, this requires some reasoning about the properties and naturally touches upon computer
+vision rather than pattern recognition proper.
+
+Without going to such extremes, many real world pattern recognition systems seek to incorporate
+at least some knowledge about the method of production of the patterns or their functional use
+in order to insure a good representation, though of course the goal of the representation is 
+classification, not reproduction. 
+
+For instance, in optical character recognition (OCR) one might
+confidently assume that handwritten characters are written as a sequence of strokes, and first try
+to recover a stroke representation from the sensed image, and then deduce the character from the
+identified strokes.
+
+>> THE SUB-PROBLEMS OF PATTERN CLASSIFICATION
+
+1.2.1 Related fields
+
+Pattern classification differs from classical statistical hypothesis testing, wherein the
+sensed data are used to decide whether or not to reject a null hypothesis in favor of some
+alternative hypothesis. Roughly speaking, if the probability of obtaining the data given some
+null hypothesis falls below a "significance" threshold, we reject the null hypothesis in favor
+of the alternative. 
+
+For typical values of this criteria, there is a strong bias or prediction
+in favor of the null hypothesis; even though the alternate hypothesis may be more probable,
+we might not be able to reject the null hypothesis.
+
+Hypothesis testing is often used to determine whether a drug is effective, where the
+null hypothesis is that it has no effect. Hypothesis testing might be used to determine
+whether the fish on the conveyor belt belong to a single class (the null hypothesis)
+or from two classes (the alternative). In contrast, given some data, pattern classification
+seeks to find the most probable hypothesis from a set of hypotheses - "this fish is probably
+a salmon".
+
+IMAGE PROCESSING
+
+Pattern classification differs, too, from image processing. In image processing, the input
+is an image and the output is an image. Image processing processing steps often include
+rotation, contrast enhancement and other transformation which preserve all the original
+information.
+
+Feature extraction, such as finding the peaks and valleys of the intensity, lose information
+(but hopefully preserve everything relevant to the task at hand.)
+
+As just described, feature extraction takes in a pattern and produces feature values. The number
+of features is virtually always chosen to be fewer than the total necessary to describe the
+complete target of interest, and this leads to a loss in information.
+
+In acts of associative memory, the system takes in a pattern and emits another pattern which
+is representative of a general group of patterns. It thus reduces the information somewhat,
+but rarely to the extent that pattern classification does.
+
+ASSOCIATIVE MEMORY
+
+In short, because of the crucial role of a decision in pattern recognition information,
+it is fundamentally an information reduction process. The classification step represents
+an even more radical loss of information, reducing the original several thousands bits
+representing all the color of each of several thousand pixels down to just a few bits
+representing the chosen category (a single bit in our fish example).
+
+1.3 The Sub-problems of Pattern Classification
+
+We have alluded to some of the issues in pattern classification and we now turn to a more
+explicit list of them. In practice, these typically require the bulk of the research and
+development effort. Many are domain or problem specific, and their solution will depend
+upon the knowledge and insights of the designer.
+
+Nevertheless, a few are of sufficient generality, difficulty and interest that they warrant
+explicit consideration.
+
+1.3.1 Feature Extraction
+
+The conceptual boundary between feature extraction and classification proper is somewhat
+arbitrary: an ideal feature extractor would yield a representation that makes the job of
+the classifier trivial; conversely, an omnipotent classifier would not need be help of a
+sophisticated feature extractor.
+
+The distinction is forced upon us for practical, rather than theoretical reasons. Generally
+speaking, the task of feature extraction is much more problem and domain dependant than is
+classification proper, and thus requires knowledge of the domain. A good feature extractor
+for sorting fish would surely be of little use for identifying fingerprints, or classifying
+photomicrographs of blood cells.
+
+How do we know which features are most promising? Are there ways to automatically learn
+which features are best for the classifier? How many shall we use?
+
+1.3.2 Noise
+
+The lightning of the fish may vary, there could be shadows cast by neighboring equipment,
+the conveyor belt might shake - all reducing the reliability of the feature values actually
+measured. We define noise in very general terms: any property of the sensed pattern due not
+to the true underlying model but instead randomness in the world or the sensors.
+
+All non-trivial decision and pattern recognition problems involve noise in some form.
+In some cases it is due to the transduction in the signal and we may consign to our
+preprocessor the role of cleaning up the signal, as for instance visual noise in our
+video camera viewing the fish.
+
+An important problem is knowing somehow whether the variation in some signal is noise
+or instead to complex underlying models of the fish. How then can we use this information
+to improve our classifier?
+
+1.3.3 Overfitting
+
+In going from Fig 1.4 to Fig 1.5 in our fish classification problem, we were, implicitly,
+using a more complex model of a sea bass and of salmon. That is, we were adjusting the 
+complexity of our classifier. While an overly complex model may allow perfect classification
+of the training samples, it is unlikely to give good classification of novel patterns -
+a situation known as overfitting.
+
+One of the most important areas of research in statistical pattern classification is 
+determining how to adjust the complexity of the model - not so simple that it cannot
+explain the differences between the categories, yet not so complex as to give poor
+classification on novel patterns. Are there principled methods for finding the best 
+(intermediate) complexity for a classifier?
+
+1.3.4 Model Selection
+
+We might have been unsatisfied with the performance of our fish classifier in Figs.
+1.4 & 1.5 and thus jumped to an entirely different class of model, for instance one
+based on some function of the number and position of the fins, the color of the eyes,
+the weight, the shape of the mouth, and so on.
+
+How do we know when a hypothesized model differs significantly from the true model
+underlying our patterns, and thus a new model is needed? In short, how are we to
+know to reject a class of models and try another one?
+
+Are we as designers reduced to random and tedious trial and error in model selection,
+never really knowing whether we can expect improved performance? Or might there be
+principled methods for knowing when to jettison one class of models and invoke another?
+Can we automate the process?
+
+1.3.5 Prior Knowledge
+
+In one limited sense, we have already seen how prior knowledge - about the lightness
+of the different fish categories helped in the design of a classifier by suggesting
+a promising feature.
+
+Incorporating prior knowledge can be far more subtle and difficult. In some applications
+the knowledge ultimately derives from information about the production of patterns, as
+we saw in analysis-by-synthesis. In others the knowledge may be about the form of the
+underlying categories, or specific attributes of the patterns, such as the fact that
+a face has two eyes, one nose and so on.
+
+1.3. THE SUB-PROBLEMS OF PATTERN CLASSIFICATION
+
+1.3.6 Missing Features
+
+Occlusion
+
+Suppose that during classification, the value of one of the features cannot be determined,
+for example the width of the fish because of occlusion by another fish (i.e, the other fish
+is in the way). How should the categorizer compensate? Since our two-feature recognizer never
+had a single-variable threshold value x* determined in anticipation of the possible absence
+of a feature (cf., Fig. 1.3), how shall it make the best decision using only the feature
+present?
+
+The naive method, of merely assuming that the value of the missing feature is zero or the
+average of the values for the training patterns, is provably non-optimal. Likewise,
+we ocassionally have missing features during the creation or learning in our recognizer.
+How should we train a classifier or use one when some features are missing?
+
+1.3.7 Mereology
+
+We effortlessly read a simple word such as BEATS. But consider this: Why did not
+we read instead other words that are perfectly good subsets of the full pattern,
+such as BE, BEAT, EAT, AT, and EATS? Why do not they enter our minds, unless
+explicitly brought to our attention? Or when we saw the B why did not we read a
+P or an I, which are "there" within the B?
+
+Converely, how is it that we can read the two unsegmented words in POLYPONY
+without placing the entire input into a single word category?
+
+This is the problem of subsets and supersets - formally part of mereology,
+the study of part/whole relationships. It is closely related to that of
+prior knowledge and segmentation. In short, how do we recognize or group
+together the "proper" number of elements - neither too few nor too many?
+
+It appears as though the best classifiers try to incorporate as much of the
+input into the categorization as "makes sense", but not too much. How can
+this be done?
+
+1.3.8 Segmentation
+
+In our fish example, we have tacitly assumed that the fish were isolated, separated
+on the conveyor belt. In pratice, they would often be abutting or overlapping, and
+our system would have to determine where one fish ends and the next begins - the
+individual patterns have to be segmented.
+
+If we have already recognized the fish then it would be easier to segment them.
+But how can we segment the images before they have been categorized or categorize
+them before they have been segmented?
+
+It seems we need a way to know when we have switched from one model to another,
+or to know when we just have background or "no category". How can this be done?
+Segmentation is one of the deepest problems in automated speech recognition.
+
+We might seek to recognize the individual sounds (e.g, phonemes, such as "ss",
+"k", ...), and then put them together to determine the word. But consider two
+nonesense words, "sklee" or "skloo". Speak them aloud and notice that for
+"skloo" you push your lips forwards (so-called "rounding" in anticipation of the
+upcoming "oo") before you utter the "ss". Such rounding influences the sound
+of the "ss", lowering the frequency spectrum compared to the "ss" sound in
+"sklee" - a phenomenon known as anticipary coarticulation.
+
+Thus, the "oo" phoneme reveals its presence in the "ss" earlier than the
+"k" and "l" which nominally occur before the "oo" itself. How do we
+segment the "oo" phoneme from the others when they are so manifestly
+intermingled?
+
+Or should we even try? Perhaps we are focusing on groupings of the wrong
+size, and that the most useful unit for recognition is somewhat larger,
+as we saw in subsets and supersets (Sect. 1.3.7). A related problem occurs
+in connected cursive handwritten character recognition: How do we know
+where one character "ends" and the next one "begins"?
+
+1.3.9 Context
+
+We might be able to use context - input-dependent information other than from
+the target pattern itself - to improve our recognizer. For instance, it might
+be known for our fish packing plant that if we are getting a sequence of salmon,
+that is highly likely that the next fish will be a salmon (since it probably
+comes from a boat that just returned from a fishing area rich in salmon).
+
+Thus, if after a long series of salmon our recognizer detects an ambiguous
+pattern (i.e, one very close to the nominal decision boundary), it may
+nevertheless be best to categorize it too as a salmon. We shall see how such
+a simple correlation amongst patterns - the most elementary form of context
+ might be used to improve recognition. But how, precisely, should we
+ incorporate such information?
+
+Context can be highly complex and abstract. The utterance "jeetyet?" may seem
+nonsensical, unless you hear it spoken by a friend in the context of the 
+cafeteria at lunchtime - "did  you eat yet?". How can such a visual and temporal
+context influence your speech recognition?
+
+1.3.10 Invariances
+
+In seeking to achieve an optimal representation for a particular pattern classification
+task, we confront the problem of invariances. In our fish example, the absolute
+position on the conveyor belt is irrelevant to the category and thus our representation
+should also be insensitive to absolute position of the fish.
+
+Here we seek a representation that is invariant to the transformation of translation
+(in either horizontal or vertical directions).
+
+Likewise, a speech recognition problem, it might be required only that we be able to
+distinguish between utterances regardless of the particular moment they were 
+uttered; here the "translation" invariance we must ensure is in time.
+
+The "model parameters" describing the orientation of our fish on the conveyor
+belt are horrendously complicated - due as they are to the sloshing of water,
+the bumping of neighboring fish, the shape of the fish net, etc. -
+and thus we give up hope of ever trying to use them.
+
+These parameters are irrelevant to the model parameters that interest us anyway,
+i.e, the ones associated with the differences between the fish categories.
+Thus here we try to build a classifier that is invariant to transformation
+such as rotation.
+
+Orientation
+
+The orientation of the fish on the conveyor belt is irrelevant to its category.
+Here the transformation of concern is a two-dimensional rotation about the camera's
+line of sight. A more general invariance would be for rotations about an arbitrary
+line in radical variation as the cup is rotated to an arbitrary angle - the handle
+may become hidden, the bottom of the inside volume come into view, the circular lip
+appear oval or a straight line or even obscured, and so forth.
+
+How might we insure that our pattern recognizer is invariant to such complex
+changes?
+
+Size
+
+The overall size of an image may be irrelevant for categorization. Such differences
+might be due to variation in range to the object; alternative we may be genuinly
+unconcerned with differences between sizes - a young, small salmon is still a salmon.
+
+1.3 THE SUB-PROBLEMS OF PATTERN CLASSIFICATION
+
+RATE
+
+For patterns that have inherent temporal variation, we may want our recognizer to be
+insensitive to the rate at which the pattern evolves. Thus a slow hand wave and
+a fast hand wave may be considered as equivalent. Rate variation is a deep problem
+in speech recognition, of course - not only do different individuals talk at different
+rates, but even a single talker may vary in rate, causing the speech signal to change
+in complex ways.
+
+Likewise, cursive handwriting varies in complex ways as the writer speeds up - the 
+placement of dots on the i's and cross bars on the t's and f's, are the first casualties
+of rate increase, while the appearance of I's and e's are relativily inviolate. How
+can we make a recognizer that changes its representation for some categories differently
+from that for others under such rate variation.
+
+A large number of highly complex transformation arise in pattern recognition, and 
+many are domain specific. We might wish to make our handwritten optical character
+recognizer insensitive to the overall thickness of the pen line, for instance.
+
+DEFORMATION
+
+Far more severe are transformation such as non-rigid deformations that arise in
+three-dimensional object recognition, such as the radical variation in the image
+of your hand as you grasp an object or snap your fingers. Similarly, variations
+in illumination or the complex effects of cast shadows may be need to be taken
+into account.
+
+The symmetries just described are continuous - the pattern can be translated,
+rotated, sped up, or deformed by an arbitrary amount. In some pattern recognition
+applications other - discrete - symmetries are relevant, such as flips left-to-right
+or top-to-bottom.
+
+DISCRETE SYMMETRY
+
+In all of these invariances the problem arises: How do we determine wheter an
+invariance is present? How do we efficiently incorporate such knowledge into our
+recognizer?
+
+1.3.11 Evidence Pooling
+
+In our fish example we saw how using multiple features could lead to improved
+recognition. We might imagine that we would do better if we had several
+component classifiers. If these categorizers agree on a particular pattern,
+there is no difficulty. But suppose they disagree. How should a "super" classifier
+pool the evidence from the component recognizers to achieve the best decision?
+
+Imagine calling in ten experts for determining if a particular fish is diseased or
+not. While nine agree that the fish is healthy, one expert does not. Who is right?
+It may be that the lone dissenter is the only one familiar with the particular very
+rare symptoms in the fish and is in fact correct.
+
+How would the "super" categorizer know when to base a decision on a minority opinion,
+even from an expert in one small domain who is not well qualified to judge throughout
+a broad range of problems?
+
+1.3.12 Costs and Risks
+
+We should realize that a classifier rarely exists in a vacuum. Instead, it is generally
+to be used to recommend actions (put this fish in this bucket, put that fihsi n that
+bucket), each action having an associated cost or risk. Conceptually, the simplest
+such risk is the classification error: what percentage of new patterns are called the
+wrong category.
+
+However, the notion of risk is far more general, as we shall see. We often design
+our classifier to recommend actions that minimize some total expected cost or 
+risk. Thus, in some sense, the notion of category itself derives from the cost
+or task. How do we incorporate knowledge about such risks and how will they affect
+our classification decision?
+
+Finally, can we estimate the total risk and thus tell whether our classifier is 
+acceptable even before we field it? Can we estimate the lowest possible risk
+of any classifier, to see how close our meets this ideal, or whether the problem
+is simply too hard overall?
+
+1.3.13 Computational Complexity
+
+Some pattern recognition problems can be solved using algorithms that are highly
+impractical. For instance, we might try to hand label all possible 20 x 20
+binary pixel images with a category label for optical character recognition,
+and use table lookup to classify incoming patterns.
+
+Although we might achieve error-free recognition, the labeling time and
+storage requirements would be quite prohibitive since it would require
+a labeling time and storage requirements would be quite prohibitive
+since it would require a labeling each of 2^20*20 which is about 10^120
+patterns.
+
+Thus the computational complexity of different algorithms is of importance,
+especially for practical applications. In more general terms, we may ask
+how an algorithm scales as a function of the number of feature dimensions,
+or the number of patterns or the number of categories.
+
+What is the tradeoff between computational ease and performance? In some
+problems we know we can design an excellent recognizer, but not within
+the engineering constraints. How can we optimize within such constraints?
+
+We are typically less concerned with the complexity of learning, which is
+done in the laboratory, than the complexity of making a decision, which is
+done with the fielded application.
+
+While computational complexity generally correlates with the complexity of the
+hypothesized model of the patterns, these two notions are conceptually different.
+
+This section has catalogued some of the central problems in classification. It has
+been found that the most effective methods for developing classifiers involve learning
+from examples, i.e, from a set of patterns whose category is known. Throughout this
+book, we shall see again and again how methods of learning to relate to these 
+central problems, and are essential in the building of classifiers.
+
+1.4 Learning and Adaptation
+
+In the broadest sense, any method that incorporates information from training
+samples in the design of a classifier employs learning. Because nearly all
+practical or interesting pattern recognition problems are so hard that we
+cannot guess classification decisions ahead of time, we shall spend the great
+majority of our time here considering learning.
+
+Creating classifiers then involve posit some general form of model, or form
+of the classifier, and using training patterns to learn or estimate the 
+unknown parameters of the model.
+
+Learning refers to some form of algorithm for reducing the error on a set
+of training data. A range of gradient descent algorithms that alter a classifier's
+parameters in order to reduce an error measure now permeate the field of
+statistical pattern recognition, and these will demand a great deal of
+your attention.
+
+Learning comes in several general forms.
+
+1.4.1 Supervised Learning
+
+In supervised learning, a teacher provides a category label or cost for each
+pattern in a training set, and we seek to reduce the sum of the costs for
+these patterns.
+
+How can we be sure that a particular learning algorithm is powerful enough to
+learn the solution to a given problem and that it will be stable to parameter
+variations?
+
+1.5 CONCLUSION
+
+How can we determine if it will converge in finite time, or scale reasonably with
+the number of training patterns, the number of input features or with the perplexity
+of the problem? How can we insure that the learning algorithm appropiately favors
+"simple" solutions (as in Fig, 1.6) rather than complicated ones (as in Fig 1.5)?
+
+1.4.2 Unsupervised Learning
+
+In unsupervised learning or clustering there is no explicit teacher, and the system
+forms clusters or "natural groupings" of the input patterns. "Natural" is always defined
+explicitly or implicitly in the clustering system itself, and given a particular set
+of patterns or cost function, different clustering algorithms lead to different clusters.
+
+Often the user will set the hypothesized number of different clusters ahead of time,
+but how should this be done? How do we avoid inappropiate representations?
+
+1.4.3 Reinforcement Learning
+
+The most typical way to train a classifier is to present an input, compute its tentative
+category label, and use the known target category label to improve the classifier.
+For instance, in optical character recognition, the input might be an image of a character,
+the actual output of the classifier the category label "R", and the desired output a
+"B."
+
+CRITIC
+
+In reinforcement learning or learning with a critic, no desired category signal is given;
+instead, the only teaching feedback is that the tentative category is right or wrong.
+This is analogous to a critic who merely states that something is right or wrong, but does
+not specifically say HOW it is wrong.
+
+(Thus only binary feedback is given to the classifier; reinforcement learning also describes
+the case where a single scalar signal, say some number between 0 and 1, is given by the
+teacher.) In pattern classification, it is most common that such reinforcement is binary
+- either the tentative decision is correct or it is not.
+
+(Of course, if our problem involves just two categories and equal costs for errors, then
+learning with a critic is equivalent to standard supervised learning.) How can the system
+learn which are important for such non-specific feedback?
+
+1.5 Conclusion
+
+At this point the reader may be overwhelmed by the number, complexity and magnitude of these
+sub-problems. Further, these sub-problems are rarely addressed in isolation and they are
+invariably interrelated. Thus for instance in seeking to reduce the complexity of our classifier,
+we might affect its ability to deal with invariance.
+
+We point out, though, that the good news is at least three fold: 1) there is an "existence proof"
+that many of these problems can indeed be solved - as demonstrated by humans and other biological
+systems
+
+2) mathematical theories solving some of these problems have in fact been discovered, and finally
+
+3) there remain many fascinating unsolved problems providing oppurtunities for progress.
+
+Summary by Chapters
+
+The overall organization of this book is to address first those cases where a great deal of
+information about the models is known (such as the probability densities, category labels,
+...) and to move, chapter by chapter; toward problems where the form of the distributions are
+unknown and even the category membership of training patterns is unknown.
+
+We begin in Chap. ?? (Bayes decision theory) by considering the ideal case in which the 
+probability structure underlying the categories is known perfectly. While this sort of
+situation rarely occurs in practice, it permits us to determine the optimal (Bayes)
+classifier against which we can compare all other methods.
+
+Moreover in some problems it enables us to predict the error we will get when we
+generalize to novel patterns. In Chap. ?? (Maximum Likelihood and Bayesian Parameter
+Estimation) we address the case when the full probability structure underlying the
+categories is not known, but the general forms of their distributions are - i.e,
+the models.
+
+Thus the certainty about a probability distribution is represented by the values of
+some unknown parameters and we seek to determine these parameters to attain the
+best categorization. In Chap. ?? (Nonparametric techniques) we move yet further
+from the Bayesian ideal, and assume that we have no prior parameterized knowledge
+about the underlying probability structure.
+
+In essence our classification will be based on information provided by training
+samples alone. Classic techniques such as the nearest-neighbor algorithm and
+potentional functions play an important role here.
+
+We then in Chap. ?? (Linear Discriminant Functions) return somewhat toward the
+general approach of parameter estimation. We shall assume that the so-called
+"discriminant functions" are of a very particular form - viz., linear -
+in order to derive a class of incremental training rules.
+
+Next, in Chap. ?? (Nonlinear Discriminants and Neural Networks) we see how some
+of the ideas from such linear discriminants can be extended to a class of very
+powerful algorithms such as backpropagation and others for multilayer neural 
+networks; these neural techniques have a range of useful properties that have
+made them a mainstat in contemporary pattern recognition research.
+
+In Chap. ?? (Stochastic Methods) we discuss stimulated annealing by the Boltzmann
+learning algorithm and other stochastic methods. We explore the behavior of
+such algorithms with regard to the matter of local minima that can plague other
+neural methods. Chapter ?? (Non-metric Methods) moves beyond models that are
+statistical in nature to ones that can be best descrived by (logical) rules.
+
+Here we discuss tree-based algorithms such as CART (which can also be applied
+to statistical data) and syntactic based methods, such as grammar based, which
+are based on crisp rules.
+
+Chapter ?? (Theory of Learning) is both the most important chapter and the most
+difficult one in the book. Some of the results described there, such as the
+notion of capacity, degrees of freedom, the relationship between expected error
+and training set size, and computational complexity are subtle but nevertheless
+crucial both theoretically and practically.
+
+In some sense, the other chapters can only be fully understood (or used) in light
+of the results presented here; you cannot expect to solve important pattern classification
+problems without using the material from this chapter.
+
+We conclude in Chap. ?? (Unsupervised Learning and Clustering), by addressing the case
+when input training patterns are not labeled, and that our recognizer must determine
+the cluster structure. We also treat a related problem, that of learning with a critic,
+in which the teacher provides only a single bit of information during the presentation
+of a training pattern - "yes", that the classification provided by the recognizer is
+correct, or "no", it is not. Here algorithms for reinforcement learning will be
+presented.
+
+1.5. BIBLIOGRAPHICAL AND HISTORICAL REMARKS
+
+Bibliographical and Historical Remarks
+
+Classification is among the first crucial steps in making sense of the blooming
+buzzing confusion of sensory data that intelligent systems confront. In the wester
+world, the foundations of pattern recognition can be traced to Plato, later extended
+by Aristotle, who distinguished between an "essential property" (which would be
+shared by all members in a class or "Natural kind" as he put it) from an "accidental
+property" (which could differ among members in the class).
+
+Pattern recognition can be cast as the problem of finding such essential properties
+of a category. It has been a central theme in the discipline of philosophical
+epistemology, the study of the nature of knowledge. A more modern treatment of some
+philosophical problems of pattern recognition, relating to the technical matter in
+the current book can be found in [22, 4, 18]. In the eastern world, the first Zen
+patriarch, Bodhiharma, would point at things and demand students to answer
+"What is that?" as a way of confronting the deepest issues in mind, the identity
+of objects and the nature of classification and decision.
+
+A delightful and particularly insightful book on the foundations of artificial
+intelligence, including pattern recognition, is [9].
+
+Early technical treatments by Minsky [14] and Rosenfeld [16] are still valuable,
+as are a number of overviews and reference books [5]. The modern literature on
+decision theory and pattern recognition is now overwhelming, and comprises dozens
+of journals, thousands of books and conference proceedings and innumerable articles;
+it continues to grow rapidly.
+
+While some disciplines such as statistics [7], machine learning [17] and neural
+networks [8], expand the foundations of pattern recognition, others, such as
+computer vision [6, 19] and speech recognition [15] rely on it heavily.
+Perceptual Psychology, Cognitive Science [12], Psychobiology [21] and Neuroscience
+[10] analyze how pattern recognition is achieved in humans and other animals.
+
+The extreme view that everything in human cognition - including rule-following and
+logic - can be reduced to pattern recognition is presented in [13]. Pattern recog
+techniques have been applied in virtually every scientific and technical discipline.
+
+Chapter 2
+
+Bayesian decision theory
+
+2.1 Introduction
+
+Bayesian decision theory is a fundamental statistical approach to the problem of
+pattern classification. This approach is based on quantifying the tradeoffs
+between various classification decisions using probability and the costs taht
+accompany such decisions.
+
+It makes the assumption that the decision problem is posed in probabilistic terms,
+and that all of the relevant probability values are known. In this chapter, we develop
+the fundamentals of this theory, and show how it can be viewed as being simply a
+formalization of common-sense procedures; in subsequent chapters we will consider the
+problems that arise when the probabilistic structure is not completely known.
+
+While we will give a quite general, abstract development of Bayesian decision theory
+in Sect. ??, we begin our discussion with a specific example. Let us reconsider the
+hypothetical problem posed in Chap. ?? of designing a classifier to separate two
+kind of fish: sea bass and salmon. Suppose that an observer watching fish arrive
+along the conveyor belt finds it hard to predict what type will emerge next and
+that the sequence of types of fish appears to be random.
+
+In decision-theoretic terminology we would say that as each fish emerges nature is one
+or the other of the two possible states: either the fish is a sea bass or the fish is
+a salmon. We let w denote the state of nature, with w = w1 for sea bass and w = w2
+for salmon.
+
+STATE OF NATURE
+
+Because the state of nature is so unpredictable, we consider w to be a variable that
+must be described probablistically.
+
+If the catch produced as much sea bass as salmon, we would say that the next fish
+is equally likely to be sea bass or salmon. More generally, we assume that there is
+some a priori probability (or simply prior) P(w1) that the next fish is sea bass,
+and some prior probability P(w2) that is salmon.
+
+PRIOR
+
+If we assume that there are no other types of fish relevant here, then P(w1) and P(w2)
+sum to one. These prior probabilities reflect our prior knowledge of how likely we are
+to get a sea bass or salmon before the fish actually appears. It might, for instance,
+depend upon the time of year or the choice of fishing area.
+
+Suppose for a moment that we were forced to make a decision about the type of fish that
+will appear next without being allowed to see it. For the moment, we shall assume that
+any incorrect classification entails the same cost or consequence, and that the only
+information we are allowed to use is the value of the prior probs.
+
+DECISION RULE
+
+If a decision must be made with so little information, it seems logical to use the
+following decision rule: Decide w1 if P(w1) > P(w2), otherwise decide w2.
+
+This rule makes sense if we are to judge just one fish, but if we are to judge many
+fish, using this rule repeatedly may seem a bit strange. After all, we would always
+make the same decision even though we know that both types of fish will appear.
+
+How well it works depends upon the values of the prior probabilities. If P(w1)
+is very much greater than P(w2), our decision in favor of w1 will be right
+most of the time. If P(w1) = P(w2), we only have a 50:50 of being right.
+
+In general, the probability of error is the smaller of P(w1) and P(w2) and we shall
+see later that under these conditions no other decision rule can yield a larger
+probability of being right.
+
+In most circumstances we are not asked to make decisions with so little information.
+In our example, we might for instance use a lightness measurement x to improve
+our classifier. Different fish will yield different lightness readings and we express
+this variability in probalistic terms; we consider x to be a continuous random variable
+whose distribution depends on the state of nature, and is expressed as p(x|w1).* This
+is the class-conditional probability density function.
+
+Strictly speaking, the probability density function p(x|w1) should be written as
+px(x|w1) to indicate that we are speaking about a particular density function for
+the random variable X. This more elaborate subscripted notation makes it clear
+that px(*) and py(*) denote two different functions, a fact that is obscured when
+writing p(x) and p(y). 
+
+Since this potentional confusion rarely arises in practice, we have elected to
+adopt the simpler notation.
+
+Readers who are unsure of our notation or who would like to review probability
+theory should see Appendix ??. This is the probability density function for x
+given that the state of nature is w1. (It is also sometimes called state-conditional
+probability density). Then the difference between p(x|w1) and p(x|w2) describes the
+difference in lightness between populations of sea bass and salmon. (Fig. 2.1)
+
+Suppose that we know both the prior probabilities P(w(j)) and the conditional
+densities p(x|w(j)). Suppose further that we measure the lightness of a fish
+and discover that its value is x. How does this measurement influence our
+attitude concerning the true state of nature - that is, the category of the
+fish?
+
+We note first that the (joint) probability density of finding a pattern that 
+is in category w(j) and has feature value x can be written two ways:
+
+p(w(j),x) = P(w(j)|x)p(x) = p(x|w(j))P(w(j)). Rearranging these lead us to
+the answer to our question, which is called Bayes formula:
+
+(1):
+
+P(w(j)|x) = P(x|w(j)P(w(j)))/p(x)
+
+where in this case of two categories:
+
+p(x) = 2(DELTA)j=1(p(x|w(j))P(w(j)))
+
+Baye's formula can be expressed informally in English by saying that:
+
+posterior = likelihood x prior / evidence
+
+We generally use an upper-case P(*) to denote a probability mass function and
+a lower-case p(*) to denote a probability density function.
+
+2.1 INTRODUCTION
+
+POSTERIOR 
+
+Baye's formula shows that by observing the value of x we can convert the prior probability
+P(w(j)) to a posteriori probability (or posterior) probability P(w(j)|x) 
+
+The probability of state of nature being w(j) given that feature value x has been measured.
+We call p(x|w(j)) the likelihood of w(j) with respect to x (a term chosen to indicate that,
+other things being equal, the category w(j) for which p(x|w(j)) is large is more "likely" to be
+the true category).
+
+Notice that it is the product of the likelihood and the prior probability that is most important
+in determining the psterior probability; the evidence factor, p(x), can be viewed as merely a scale
+factor that guarantees that the posterior probabilities sum to one, as all good probabilities must.
+The variation of P(w(j)|x) with x is illustrated in Fig 2.2 for the case P(w1) = 2/3 and P(w2) = 1/3
+
+p(x|w(i))
+0.4
+|
+|      -----
+|     / 	\
+0.3  / 		 \
+|   / 		  \
+|  / 		   \ etc.
+| /
+0.2
+|
+|
+|
+0.1
+|
+|
+|
+------------------------------------------------------------> x
+10 		11 		12 		13 		14 		15 		etc.
+
+Figure 2.1: Hypothetical class-conditional probability density functions show the
+probability density of measuring a particular feature value x given the pattern is
+in category w(i). If x represents the length of a fish, the two curves might describe
+the difference in length of populations of two types of fish. Density functions are
+normalized, and thus the area under each curve is 1.0.
+
+If we have an observation x for which P(w(1)|x) is greater than P(w(2)|x), we would
+naturally be inclined to decide that the true state of nature is w(1). Similarly,
+if P(w(2)|x) is greater than P(w(1)|x), we would be inclined to choose w(2). To justify
+this decision procedure, let us calculate the probability of error whenever we make a decision.
+Whenever we observe a particular x:
+
+P(error|x) = {P(w(1)|x) if we decide w(2)
+			  P(w(2)|x) if we decide w(1)}
+
+Clearly, for a given x we can minimize the probability of error by deciding w1 if
+P(w1|x) > P(w2|x) and w2 otherwise. Of course, we may never observe exactly the
+same value of x twice. Will this rule minimize the average probability of error?
+
+Yes, because the avg. probability of error is given by:
+
+P(error) = RANGE(-INF, INF) P(error,x) dx = RANGE(-INF, INF) P(error|x)p(x) dx
+
+Figure 2.2: Posterior probabilities for the particular priors P(w1)	 = 2/3 and P(w2) =
+1/3 for the class-conditional probability densisites shown in Fig 2.1. Thus in this case,
+given that a pattern is measured to have feature value x = 14, the probability it is
+in category w2 is roughly 0.08, and that it is in w1 is 0.92. At every x, the posteriors
+sum to 1.0.
+
+and if for every x we insure that P(error|x) is as small as possible, then the integral
+must be as small as possible. Thus we have justified the following Baye's deicison rule
+for minimizing the probability of error:
+
+BAYE'S DECISION RULE
+
+Decide w1 if P(w1|x) > P(w2|x); otherwise decide w2,
+
+and under this rule Eq. 4 becomes:
+
+P(error|x) = min[P(w1|x),P(w2|x)].
+
+EVIDENCE
+
+This form of the decision rule emphasizes the role of the posterior probabilities.
+By using Eq. 1, we can instead express the rule in terms of the conditional and prior
+probabilities. First note that the evidence, p(x), in Eq. 1 is unimportant as far as
+making a decision is concerned. It is basically just a scale factor that states how
+frequently we will actually measure a pattern with feature value x; its presence in
+Eq. 1 assures us that P(w(1)|x) + P(w(2)|x) = 1. By eliminating this scale factor,
+we obtain the following completely equivalent decision rule:
+
+Decide w(1) if p(x|w(1))P(w(1)) > p(x|w(2))P(w(2)); Otherwise decide w(2).
+
+Some additional insight can be obtained by considering a few special cases.
+If for some x we have p(x|w(1)) = p(x|w(2)), then that particular observation
+gives us no information about the state of nature; in this case, the decision
+hinges entirely on the prior probabilities. On the other hand, if P(w(1)) = P(w(2))
+, then the states of nature are equally probable; in this case the decision is
+based entirely on the likelihoods p(x|w(j)). In general, both of these factors
+are important in making a decision, and the Bayes decision rule combines them
+to achieve the minimum probability of error.
+
+2.2 Bayesian Decision Theory - Continuous Features
+
+We shall now formalize the ideas just considered, and generalize them in four ways:
+
+By allowing the use of more than one feature
+
+By allowing more than two states of nature
+
+By allowing actions other than merely deciding the state of nature
+
+By introducing a loss function more general than the probability of error.
+
+These generalizations and their attendant notational complexities should not obscure
+the central points illustrated in our simple example. Allowing the use of more 
+than one feature merely requires replacing the scalar x by the feature vector x,
+where x is in a d-dimensional Euclidean space R^d, called the feature space.
+
+Feature Space
+
+Allowing more than than two states of nature provides us with a useful generalization
+for a small notational expense. Allowing actions other than classification primarily
+allows the possibility of rejection, i.e, of refusing to make a decision in close cases;
+this is a useful option if being indecisive is not too costly. Formally, the loss
+function states exactly how costly each action is, and is used to convert a probability
+determination into a decision.
+
+Cost functions let us treat situations in which some kinds of classification mistakes are
+more costly than others, although we often discuss the simplest case, where all errors are
+equally costly. With this as a preamble, let us begin the more formal treatment.
+
+Loss Function
+
+Let w(1), ..., w(e), be the finite set of e states of natures ("categories") and a(1), ..., a(a)
+be the finite set of a possible actions. The loss function Lambda(a(i)|w(j)) describes the loss
+incurred for taking action a(i), when the state of nature is w(j). Let the feature vector
+be a d-component vector-valued random variable, and let p(x|w(j)) be the state-conditional
+probability density function for x - the probability density function for x conditioned on
+w(j) being the true state of nature.
+
+As before, P(w(j)) describes the prior probability that nature is in state (w(j)). Then the
+posterior probability P(w(j)|x) can be computed from p(x|w(j)) by Baye's formula:
+
+P(w(j)|x) = p(x|w(j))P(w(j))/p(x)
+
+Where the evidence is now:
+
+p(x) = (e SIGMA** (j = 1))*p(x|w(j))P(w(j))
+
+** The big E without a middle -
+
+Suppose that we observe a particular x and that we contemplate taking action a(i).
+If the true state of nature is w(j), by definition we will incur the loss DELTA(a(i)|w(j)).
+Since P(w(j)|x) is the probability that the true state of nature is w(j), the expected
+loss associated with taking action a(i) is merely:
+
+R(a(i)|x) = (e(SIGMA**) (j = 1)) * DELTA(a(i)|w(j))P(w(j)|x)
+
+** the big E without a middle -
+
+RISK
+
+In decision-theoretic terminology, an expected loss is called a risk, and R(a(i)|x) is
+called the conditional risk. Whenever we encounter a particular observation x, we can
+minimize our expected loss by selecting the action that minimizes the conditional risk.
+
+We shall now show that this Bayes decision procedure actually provides the optimal
+performance on an overall risk.
+
+DECISION RULE
+
+Stated formally, our problem is to find a decision rule against P(w(j)) that minimizes
+the overall risk. A general decision rule is a function a(x) that tells us which action
+to take for every possible observation. To be more specific, for every x the decision
+function a(x) assumes one of the a values a1, ..., a(a). The overall risk R is the 
+expected loss associated with a given decision rule.
+
+Since R(a(i)|x) is the conditional risk associated with action a(i), and since the decision
+rule specifies the action, the overall risk is given by:
+
+R = FUNCTION OF (R(a(x)|x)p(x) dx)
+
+where dx is our notation for a d-space volume element, and where the integral extends over
+the entire feature space. Clearly, if a(x) is chosen so that R(a(i)(x)) is as small as 
+possible for every x, then the overall risk will be minimized. This justifies the following
+statement of the Bayes decision rule: To minimize the overall risk, compute the
+conditional risk:
+
+R(a(i)|x) = (e(SIGMA)j=1)*DELTA(a(i)|w(j))P(w(j)|x)
+
+BAYES RISK
+
+for i = 1,...,a and select the action a(i) for which R(a(i)|x) is minimum.* The resulting
+minimum overall risk is called the Bayes risk, denoted R*, and is the best performance
+that can be achieved.
+
+2.2.1 Two-Category Classification
+
+Let us consider these rules when applied to the special case of two-category classification
+problems. Here action a(i) corresponds to deciding that the true state of nature is
+w(1), and action a(2) corresponds to deciding that it is w(2). For notational simplicity,
+let DELTA(i*j) = DELTA(a(i)|w(j)) be the loss incurred for deciding w(i) when the true
+state of nature is w(j). If we write out the conditional risk given by Eq. 13, we obtain:
+
+R(a(1)|x) = DELTA(11)P(w(1)|x) + DELTA(12)P(w(2)|x) and
+R(a(2)|x) = DELTA(21)P(w(1)|x) + DELTA(22)P(w(2)|x)
+
+There are a variety of ways of expressing the minimum-risk decision rule, each having
+its own minor advantages. The fundamental rule is to decide w(1) if R(a(1)|x) < R(a(2)|x).
+In terms of the posterior probabilities, we decide w(1) if:
+
+(DELTA(21) - DELTA(11))P(w(1)|x)>(DELTA(12) - DELTA(22)P(w(2)|x))
+
+Note that if more than one action minimizes R(a|x). It does not matter which of these
+actions is taken, and any convenient tie-breaking rule can be used.
+
+Ordinarily, the loss incurred for making an error is greater than the loss incurred for
+being correct, and both of the factors DELTA(21) - DELTA(11) and DELTA(12) - DELTA(22)
+are positive.
+
+Thus, in practice, our decision is generally determined by the more likely state of nature,
+although we must scale the posterior probabilities by the loss differences. By employing
+Bayes' formula, we can replace the posterior probabilities by the prior probabilities
+and the conditional densities.
+
+This results in the equivalent rule, to decide w(1) if:
+
+(DELTA(21) - DELTA(11))p(x|w(1))P(w(1) > (DELTA(12) - DELTA(22))p(x|w(2))P(w(2))
+
+and w(2) otherwise.
+
+Another alternative, which follows at once under the reasonable assumption that
+DELTA(21) > DELTA(11), is to decide w(1) if:
+	
+	p(x|w(1))/p(x|w(2)) > (DELTA(12) - DELTA(22))/(DELTA(21) - DELTA(11)) * P(w(2))/P(w(1))
+
+LIKELIHOOD RATIO
+
+This form of the decision rule focuses on the x-dependence of the probability densities.
+We can consider p(x|w(j)) a function of w(j) (i.e, the likelihood function), and then form
+the likelihood ratio p(x|w(1))/p(x|w(2)). Thus the Bayes decision rule can be interpreted
+as calling for deciding w(1) if the likelihood ratio exceeds a TH value that is independant
+of the observation x.
+
+2.3 Minimum-Error-Rate Classification
+
+In classification problems, each state of nature is usually associated with a different
+one of the c classes, and the action a(i) is usually interpreted as the decision that the
+true state of nature is w(i). If action a(i) is taken and the true state of nature is w(j),
+then the decision is correct if i = j, and in error if i != j.
+
+If errors are to be avoided, it is natural to seek a decision rule that minimizes the 
+probability of error, i.e, the error rate. The loss function of interest for this case
+is hence the so-called symmetrical or zero-one loss function.
+
+ZERO ONE LOSS
+
+DELTA(a(i)|w(j)) = {0 -> i = j, 1 -> i != j, 	i,j = 1, ...,c.}
+
+This loss function assign no loss to a correct decision, and assign a unit loss to any
+error; thus, all errors are equally costly.* The risk corresponding to this loss function
+is precisely the average probability of error, since the conditional risk is:
+
+R(a(i)|x) = (e(SIGMA)j=1) * DELTA(a(i)|w(j)) * P(w(j)|x)
+		  
+		  = (SIGMA)j != i * P(w(j)|x)
+
+		  = 1 - P(w(i)|x)
+
+We note that other loss functions, such as quadratic and linear-difference, find greater use
+in regression tasks, where there is a natural ordering on the predictions and we can meaningfully
+penalize predictions that are "more wrong" than others.
+
+and P(w(i)|x) is the conditional probability that action a(i) is correct. The Bayes decision
+rule to minimize risk calls for selecting the action that minimizes the conditional risk.
+Thus, to minimize the average probability of error, we should select the i that maximizes
+the posterior probability P(w(i)|x). In other words, for minimum error rate:
+
+	Decide w(i) if P(w(i)|x) > P(w(j)|x) 	for all j != i
+
+This is the same rule as in Eq. 6.
+
+We saw in Fig. 2.2, some class-conditional probability densities and the posterior
+probabilities: Fig 2.3 shows the likelihood ratio p(x|w(1))/p(x|w(2)) for the same
+case. In general, this ratio can range between 0 and INFINITY.
+
+The TH value 0(a) marked is from the same prior probabilities but with zero-one
+loss function. Notice that this leads to the same decision boundaries as in Fig
+2.2, as it must. If we penalize mistakes in classifying w(1) patterns as w(2)
+more than the converse (i.e, DELTA(21) > DELTA(12)), then Eq. 17 leads to the
+TH 0(b) marked.
+
+Note that the range of x values for which we classify a pattern as w(1) gets smaller
+as it should.
+
+p(x|w(1))/p(x|w(2))
+^
+|
+|
+|
+| 0(b)
+| 0(a)
+|
+|
+--------------------------------------------> x
+R(2) 	R(1) 	R(2) 	R(1)
+
+Figure 2.3: The likelihood ratio p(x|w(1))/p(x|w(2)) for the distributions shown in
+Fig. 2.1. If we employ a zero-one or classification loss, our decision boundaries
+are determiend by the threshold 0(a). If our loss function penalizes miscategorizing
+w(2) as w(1) patterns more than the converse, (i.e, DELTA(12) > DELTA(21)), we get the
+larger TH b(0), and hence R(1) becomes smaller.
+
+2.3.1 *Minimax Criterion
+
+Sometimes we must design our classifier to perform well over a range of prior probialities.
+For instance, in our fish categorization problem we can imagine that whereas the physical
+properties of lightness and width of each type of fish remain constant, the prior probabilities
+might vary widely and in an unpredictable way, or alternatively, we want to use the
+classifier in a different plant where we do not know the prior probabilties.
+
+A reasonable approach is then to design our classifier that the worst overall risk for any
+value of the priors is as small as possible - That is, minimize the maximum possible overall
+risk.
+
+2.3 MINIMUM ERROR-RATE CLASSIFICATION
+
+In order to understand this, we let R(1) denote that (as yet unknown) region in feature
+space where the classifier decides w(1) and likewise for R(2) and w(2), and then write our
+overall risk Eq. 12 in terms of conditional risks:
+
+R = FUNCTION(R1)[DELTA(11)*P(w(1))*p(x|w(1)) + DELTA(12)*P(w(2))*p(x|w(2))] dx
+
++
+
+FUNCTION(R2)[DELTA(21)*P(w(1))*p(x|w(1)) + DELTA(22)*P(w(2))*p(x|w(2))] dx.
+
+We use the fact that P(w(2)) = 1 - P(w(1)) and that FUNCTION(R1) p(x|w(1)) dx = 1 - FUNCTION(R2) p(x|w(1)) dx
+to rewrite the risk as:
+
+= R(mm), minimax risk
+
+R(P(w(1))) = DELTA(22)	 + (DELTA(12) - DELTA(22)) FUNCTION(R1)* p(x|w(2)) dx
+
++
+
+P(w(1))[(DELTA(11) - DELTA(22)) - (DELTA(21) - DELTA(11)) FUNCTION (R2) p(x|w(1)) dx - (DELTA(12) - DELTA(22))
+FUNCTION(R1) p(x|w(2)) dx]
+
+= 0 for minmax solution
+
+THis equation shows that once the decision boundary is set (i.e, R1 and R2 determined), the overall risk is
+linear in P(w(1)). If we can find a boundary such that the constant of proportionality is 0, then the risk
+is independent of priors. This is the minimax solutions, and the minimax risk, R(mm), can be read from Eq. 22:
+
+MINIMAX RISK
+
+R(mm) = DELTA(22) + (DELTA(12) - DELTA(22)) FUNCTION(R1) p(x|w(2)) dx
+	  = DELTA(11) + (DELTA(21) - DELTA(11)) FUNCTION(R2) p(x|w(1)) dx
+
+Figure 2.4 illustrates the approach. Briefly stated, we search for the prior for which the Bayes risk is
+maximum, the corresponding decision boundary gives the minimax solution. The value of the minimax risk,
+R(mm), is hence equal to the worst Bayes risk. In practice, finding the decision boundary for minimax
+risk may be difficult, particularly when distributions are complicated.
+
+Nevertheless, in some cases the boundary can be determined analytically. (Problem 3)
+
+The minimax criterion finds greater use in game theory then it does in traditional pattern recognition.
+In game theory, you have a hostile opponent who can be expected to take an action maximally detrimental
+to you. Thus it makes great sense for you to take an action (e.g, make a classification) where your costs
+- due to your opponent's subsequent actions - are minimized.
+
+CHAPTER 2. BAYESIAN DECISION THEORY
+
+P(error)
+4|
+ |
+ |
+ |
+3|
+ |
+2|------------------------------------------------------------	 
+
+//Intersection of points on graphs in the above picture do occur, but i cba drawing that.
+
+Figure 2.4: The curve at the bottom shows the minimum (Bayes) error as a function of prior
+probability P(w(1)) in a two-category classification problem of fixed distributions.
+
+For each value of the priors (e.g, P(w(1)) = 0.25) there is a corresponding optimal decision
+boundary and associated Bayes error rate. For any (fixed) such boundary, if the priors are then
+changed, the probability of error will change as a linear function of P(w(1)) (shown by the
+dashed line). The maximum such error will occur at an extreme value of the prior, here at 
+P(w(1)) = 1. To minimize the maximum of such error, we should design our decision boundary for
+the maximum Bayes error (here P(w(1)) = 0.6), and thus the error will not change as a function
+of prior, as shown by the solid red horizontal line.
+
+2.3.2 *Neyman-Pearson Criterion
+
+In some problems, we may wish to minimize the overall risk subject to a constraint; for instance,
+we might wish to minimize the total risk subject to the constraint FUNCTION R(a(i)|x) dx < constant
+for some particular i.
+
+Such a constraint might arise when there is a fixed resource that accompanies one particular
+action a(i), or when we must not misclassify pattern from a particular state of nature (w(i))
+more than some limited frequency. For instance, in our fish example, there might be some 
+goverment regulation that we must not misclassify more than 1% of salmon as Sea bass.
+
+We might then seek a decision that minimizes the chance of classifying a sea bass as a salmon
+subject to this condition.
+
+We generally satisfy such as Neyman-Pearson criterion by adjusting decision-boundaries numerically.
+However, for Gaussian and some other distributions, Neyman-Pearson solutions can be found analytically
+(Problem 5 & 6). We shall have cause to mention Neyman-Pearson criteria again in Sect. 2.8.3 on
+operating characteristics.
+
+2.4 CLASSIFIERS, DISCRIMINANTS AND DECISION SURFACES
+
+2.4 Classifiers, Discriminant Functions and Decision Surfaces
+
+2.4.1 The Multi-Category Case
+
+There are many different ways to represent pattern classifiers. One of the most useful is in
+terms of a set of discriminant functions g(i)(x), i = 1, ..., c. The classifier is said to
+assign a feature vector x to class w(i) if:
+
+	g(i)(x) > g(j)(x) for all j != i
+
+Thus, the classifier is viewied as a network or machine that computes c discriminant functions
+and selects the category corresponding to the largest discriminant. A network representation
+of a classifier is illustrated in Fig. 2.5.
+
+				Action (e.g, classification)
+				^ ^ ^
+			>>>>> ^ <<<<<<<<<<<<<<<<<
+			^     ^<< 				^
+DISCRIMANT g(1)(x) g(2)(x) 			g(c)(x) 	Costs
+FUNCTIONS
+
+INPUT 		x(1) 	x(2) 	x(3) 	... 	x(d)
+
+The inputs map to the Discriminant functions
+
+Figure 2.5: The functional structure of a general statistical pattern classifier which
+includes d inputs and c discriminant functions g(i)(x). A subsequent step determines which
+of the discriminant values is the maximum, and categorizes the input pattern accordingly.
+The arrows show the direction of the flow of information, though frequently the arrows
+are omitted when the direction of flow is self-evident.
+
+A Bayes classifier is easily and naturally represented in this way. For the 
+general case with risks, we can let g(i)(x) = -R(a(1)|x(1)) since the maximum
+discriminant function will then correspond to the minimum conditional risk.
+
+For the minimum-error-rate case, we can simplify things further by taking g(i)(x) = P(w(1)|x),
+so that the maximum discriminant function corresponds to the maximum posterior
+probability.
+
+Clearly, the choice of discriminant functions is not unique. We can always multiply
+all the discriminant functions by the same positive constnat or shift them by the same
+additive constant without influencing the decision.
+
+Most generally, if we replace every g(i)(x) by f(g(i)(x)), where f(*) is a monotonically
+increasing function, the resulting classification is unchanged. This observation can
+lead to significant analytical and computational simplifications. In particular, for 
+minimum-error-rate classification, any of the following choices gives identical classification
+results, but some can be much simpler to understand or to compute than others.
+
+CHAPTER 2. BAYESIAN DECISION THEORY
+
+g(1)(x) = P(w(i)|x) = p(x|w(i))P(w(i)) / e(SIGMA)j=1 p(x|w(i))P(w(j)) //25
+
+g(i)(x) = p(x|w(j))P(w(i)) //26
+
+g(i)(x) = ln p(x|w(i)) + ln P(w(i)) //27
+
+where ln denotes natural logarithm.
+
+Even though the discriminant functions can be written in a variety of forms, the decision
+rules are equivalent. The effect of any decision rule is to divide the feature space
+into c decision regions, R(1),...,R(c). If g(i)(x) > g(j)(x) for all j != i, then x is in
+R(i),and the decision rule calls for us to assign x to w(i). The regions are separated
+by decision boundaries, surfaces in feature space where ties occur among the largest
+discriminant functions (Fig. 2.6.)
+
+Figure 2.6: In this two-dimensional two-category classifier, the probability densities
+are Gaussian (with 1/e ellipses shown), the decision boundary consists of two hyper-bolas,
+and thus the decision region R(2) is not simply connected.
+
+2.4.2 The Two-Category Case
+
+While the two-category case is just a special instance of the multicategory case, it has
+traditionally received separate treatment. Indeed, a classifier that places a pattern
+in one of only two categories has a special name - a dichotomizer.* Instead of using
+two discriminant functions g(1) and g(2) and assigning x to w(1) if g(1) > g(2), it is more
+common to define a single discriminant function:
+
+g(x) (TRIPPLE BIND) g(1)(x) - g(2)(x), //28
+
+and to use the following decision rule: Decide w(1) if g(x) > 0; otherwise decide w2.
+Thus, a dichotomizer can be viewed as a machine that computes a single discriminant
+function g(x), and classifies x according to the algebraic sign of the result. Of the
+various forms in which the minimum-error-rate discriminant function can be written,
+the following two (derived from Eqs. 25 & 27) are partiuclarly convenient:
+
+g(x) = P(w(1)|x) - P(w(2)|w) 	//29
+
+g(x) = ln(p(x|w(1))/p(x|w(2))) + ln(P(w(1))/P(w(2))) 	//30
+
+2.5 The Normal Density
+
+The structure of a Bayes classifier is determined by the conditional densities p(x|w(i))
+as well as by the prior probabilities. Of the various density functions that have been
+investigated, none has received more attention than the multivariate normal or Gaussian
+density.
+
+To a large extent, this attention is due to its analytical tractability. However, the
+multivariate normal density is also an appropiate model for an important situation, viz,
+the case where the feature vetors x for a given class w(i) are continuous valued, randomly
+corrupted versions of a single typical or prototype vector (NANO)(i). IN this section we
+provide a brief exposition of the multivariate normal density, focusing on the properties
+of greatest interest for classification problems.
+
+EXPECTATION
+
+First, recall the definition of the expected value of a scalar function f(x), defined
+for some density p(x):
+	
+	E[f(x)] (TRIPLE BIND) INF (RANGE) NEGATIVE INF f(x)p(x)dx //31
+
+If we have samples in a set D from a discrete distribution, we must sum over all
+samples as
+	
+	E[f(x)] = SIGMA(z€D) f(x)P(x)
+
+where P(x) is the probability mass at x. We shall often have call to calculate expected
+values - by these and analogous equations defined in higher dimensions (see Appendix Secs.
+??, ?? & ??)*
+
+A classifier for more than two categories is called a polychotomizer
+
+We will often use somwhat loose engineering terminology and refer to a single point as a
+"sample.". Statisticans, though, always refer to a sample as a collection of points, and discuss
+ a "sample of size n". When taken in context, there are rarely ambiguity in such usage.
+
+2.5.1 Univariate Density
+
+We begin with the continuous univariate normal or Gaussian density,
+	
+	p(x) = 1/(SQUARE ROOT)*2pia*exp[-1/2(x-(nano)/a)^2]
+
+for which the expected value of x (an average, here taken over the feature space) is
+	
+	nano (TRIPLE BIND) E[x] = INF (range) -INF xp(x) dx,
+
+VARIANCE
+
+and where the expected squared deviation or variance is
+	
+	a^2 (TRIPLE BIND) E[(x - nano)^2] = INF(range)-INF (x - nano)^2p(x)dx
+
+MEAN
+
+The univariate normal density is completely specified by two parameters: its mean
+nano and variance a^2. For simplicity, we often abbreviate Eq. 33 by writing 
+p(x) ~ N(nano, a^2) to say that x is distributed normally with mean nano and 
+variance a^2. Samples from normal distribution tend to cluster about the mean,
+with a spread related to the standard deviation a (Fig 2.7)
+
+2.5% 															2.5%    x
+nano - 2*o 		nano - o 		nano 		nano + o 		nano + 2*o
+
+								p(x)
+
+Figure 2.7:A univariate normal distirbution has roughly 95% of its area in the range
+[x - nano] <= 2*a, as shown. The peak of the distribution has value p(nano) = 1/(SQUARE ROOT)2*pi*a
+
+ENTROPY
+
+There is a deep relationship between the normal distirbution and entropy. We shall consider
+entropy in greater detail in a later chapter, but for now, we merely state that
+the entropy of a distribution is given by
+
+H(p(x)) = - RANGE p(x) ln p(x) dx,
+
+NAT BIT
+
+and measured in nats. If a log^2 is used instead, the unti is the bit. The entropy is a
+non-negative quantity that describes the fundamental uncertainty in the values of points
+selected randomly from a distribution. It can be shown that the normal distribution has
+the maximum entropy of all distributions having a given mean and variance (problem 20).
+
+Moreover, as stated by the Central Limit Theorem, the aggregate effect of a large number
+of small, independent random disturbances will lead to a Gaussian distribution.
+Because many patterns - form fish to handwritten characters to speech sounds - can be viewed
+as some ideal or prototype pattern corrupted by a large number of random processes,
+the Gaussian is often a good model for the actual probability distribution.
+
+2.5.2 Multivariate Density
+
+The general multivariate normal density in d dimensions is written as
+
+p(x) = (1/(2pi)^d/2[SIGMA]^1/2)exp [-1/2(x - nano)^t(SIGMA^-1(x - nano))]
+
+where x is a d-component column vector, nano is the d-component mean vector,
+SIGMA is the d-by-d covariance matrix, [SIGMA] and SIGMA^-1 are its determinant
+and inverse, respectively, and (x - nano)^t is the transpose of x - nano.* Our
+notation for the inner product is:
+
+COVARIANCE MATRIX
+
+a^t*b = d(SIGMA)t=1*a^t*b^t
+
+INNER PRODUCT
+
+and often called a dot product.
+
+For simplicity, we often abbreviate Eq. 37 as p(x) ~ N(nano, SIGMA). Formally,
+we have:
+
+nano (TRIPLE BIND) E[x] = RANGE(xp(x) dx)
+
+and
+
+SIGMA (TRIPLE BIND) E[(x - nano)(x - nano)^t] = RANGE(x - nano)(x - nano)^tp(x) dx,
+
+where the expected value of a vector or a matrix is found by taking the expected values
+of its components. In other words, if x(1) is the i:th component of x, nano^1 the ith
+component of nano, and a^ij the ijth component of sigma, then:
+
+nano^1 = E[x^1]
+
+and
+
+a^ij = E[(x^1 - nano(i)(x^j - nano^j))]
+
+The covariance matrix SIGMA is always symmetric and positive semidefinite. We shall
+restrict our attention to the case in which SIGMA is positive definite, so that the
+determinant of SIGMA is strictly positive. The diagonal elements a^nano are variances
+of the respective x^1 (i.e, a^(vector(2-1))) and the off-diagonal elements a^ij are the
+covariances of x^i and  x^j. We would expect a positive covariance for the length and
+weight features of a population of fish, for instance.
+
+COVARIANCE
+
+If x^i, and x^j are statistically independent, a^ij = 0. 
+
+STATISTICAL INDEPENDENCE
+
+The mathematical expressions for the multivariate normal density are greatly simplified
+by employing the concepts and notation of linear algebra. Readers who are unsure of our
+notation or who would like to review linear algebra should see respective appendix.
+
+If sample vectors are drawn from a linear subspace, |SIGMA| = 0 and p(x) is degenerate.
+This occurs, for example, when one component of x has zero variance, or when two components
+are identical or multiples of one another.
+
+If all the off-diagonal elements are zero, p(x) reduces to the product of the univariate
+normal densities for the components of x.
+
+Linear combinations of jointly normally distirbuted random variables, independent or not,
+are normally distirbuted. IN particular, if A is a d-by-k matrix and y = A^t*x is a 
+k-component vector, then p(y) ~ N(A^t*nano,A^t(SIGMA)A), as illustrated in fig 2.8.
+In the special case where k = 1 and A is a unit-length vector a, y = (a^t)*x is a scalar
+that represents the projection of x onto a line in the direction of a: in that case,
+a^t*SIGMA(a) is the variance of the projection of x onto a.
+
+IN general, then, knowledge of the covariance matrix allows us to calculate the dispersion
+of the data in any direction, or in any subspace.
+
+
+
+//Move on to Testing Due to school patterns, keep this on backburn.

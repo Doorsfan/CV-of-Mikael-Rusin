@@ -1,0 +1,3459 @@
+WordPress Semantics
+
+As with many software packages, WordPress has its own lingo or jargon. This article will
+introduce you to some of the terminology used in WordPress.
+
+Introduction to WordPress Terminology
+
+WordPress was created by the developer as weblogging or blogging software.
+A blog, as defined in the Codex Glossary, is an online journal, diary or
+serial, published by a person or group of people.
+
+Many blogs are personal in nature, reflecting the opinions and interests
+of the owner. But, blogs are are now important tools in the world of
+news, business, politics and entertainment.
+
+Blogs are a form of a Content Management System (CMS) which Wikipedia
+calls "a system used to organize and facilitate collaborative content 
+creation." Both blogs and Content Management Systems can perform the
+role of a website (site for short).
+
+A website can be thought of as a collection of articles and information
+about a specific subject, service, or product, which may not be a personal
+reflection of the owner. More recently, as the role of WordPress has expanded,
+WordPress Developers have begun using the more general term site, in place of
+blog.
+
+Terminology Related to Content
+
+The term Word in WordPress refers to the words used to compose posts.
+Posts are the principal element (or content) of a blog. The posts are
+the writings, compositions, discussions, musings and yes, the rantings
+of the blog's owner and guest authors. Posts, in most cases, are the
+reasons a blog exists, without posts, there is no blog.
+
+To facilitate the post writing process, WordPress provides a full featured
+authoring tool with modules that can be moved, via drag-and-drop, to fit
+the needs of all authors. The Dashboard QuickPress module makes it easy
+to quickly write and publish a post. There is no excuse for not writing.
+
+Integral to a blog are the pictures, images, sounds and movies, otherwise
+know as media. Media enhances, and gives life to a blog's content.
+WordPress provides an easy to use method of inserting Media directly
+into posts, and a method to upload Media that can be later attached to
+posts, and a Media Manager to manage those various Media.
+
+An important part of the posting process is the act of assigning those
+posts to categories. Each post in WordPress is filed under one or more
+categories. Categories can be hiearchical in nature, where one category
+acts as a parent to several child, or grandchild, categories.
+
+Thoughtful categorization allows posts of similar content to be grouped,
+thereby aiding viewiers in the navigation, and use of a site. In addition
+to categories, terms or keywords called tags can be assigned to each post.
+Tags act as as another navigation tool, but are not hierchial in nature.
+
+Both categories and tags are part of a system called taxonomies. If categories
+and tags are not enough, users can also create custom taxonomies that allow
+more specific identification of posts or pages or custom post types.
+
+In turn, post categories and tags are two of the elements of what's called
+post meta data. Post meta data refers to the information associated with
+each post and includes the author's name and date posted as well as the
+post categories.
+
+Post meta data also refers to Custom Fields where you assign specific
+words, or keys, that can describe posts. But, you cannot mention post
+meta data without discussing the term meta.
+
+Generally, meta means "information about"; in WordPress, meta usually
+refers to administrative-type information. So, besides post meta data,
+Meta is the HTML tag used to describe and define a web page to the outside
+world, like meta tag keywords for search engines.
+
+Also, many WordPress-based sites offer a Meta section, usuallly found in
+the sidebar, with links to login or register at that site. And, do not
+forget Meta Rules: The rules defining the general protocol to follow
+in using this Codex, or Meta, as in the MediaWiki namespace that refers
+to administrative functions within Codex. That is a lot of meta!
+
+After a post is made public, a blog's reader will respond, via comments,
+to that post, and in turn, authors will reply. Comments enable the communication
+process, that give-and-take, between author and reader. Comments are the
+life-blood of most blogs.
+
+Finally, WordPress also offers two other content management tools 
+called Pages and custom post types. Pages often present static information,
+such as "About Me", or "Contact Us", Pages. Typically "timeless" in nature,
+Pages should not be confused with posts.
+
+A page is allowed to be commented upon, but a Page cannot be categorized.
+A custom post type refers to a type of structured data that is different
+from a post or a page. Custom post types allow users to easily create and
+manage such things as portfolios, projects, video libraries, podcasts,
+quotes, chats, and whatever a user or developer can imagine.
+
+Terminology Related to Design
+
+A WordPress Theme is the overall design of a site and encompasses color,
+graphics and text. A Theme is sometimes called the skin or template,
+but it is not really. A skin and template are really website paint jobs.
+
+A WordPress Theme is where code meets design, allowing a site to change
+based upon specific conditions set by the site administrator.
+
+Installation of WordPress Themes is made easy with the Themes Menu on the
+Administration Panels. Simply search for a new Theme from within the official
+WordPress Theme Directory and activate it with a few clicks. 
+
+You can also preview your site before installing and activating the Theme
+to see what your site will look like with that WordPress theme.
+
+The flexibility of WordPress is apparent when discussing terminology related
+to the design of a WP site. At the core of WordPress, developers created
+a programming structure named The Loop to handle the processing of posts.
+The Loop is the critical PHP program code used to display posts.
+
+Anyony wanting to enhance and customize WordPress will need to understand the
+mechanics of The Loop.
+
+Along with The Loop, WordPress developers have created Template Tags which are
+a group of PHP functions that can be invoked by designed to perform an action
+or display specific information. It is the Template Tags that form the basis of
+the Template Files. 
+
+Template (files) contain the programming pieces, such as Template Tags, that control
+the structure and flow of a WordPress site.
+
+These files draw information from your WordPress MySQL database and generate the 
+HTML code which is sent to the web browser. A Template Hierachy, in essence the
+the order of processing, dictates how Templates control almost all aspects of the
+output, including Headers, Sidebars and Archives.
+
+Archives are a dynamically generated list of posts, and are typically grouped by
+date, category, tag or author.
+
+As the capabilities of WordPress have improved, developers have added tools that
+allow users to easily manage a site's look and functionality:
+
+Widgets provides an easy way to add little programs, such as the current weather, to a
+sidebar..
+
+Menus make it easy to define the navigation buttons that are typically present near
+the top of a site's pages.
+
+The Background tool allows the user to change the background image and color of a site.
+
+The Header tool gives the user control of images displayed at the top of a site's various
+pages.
+
+Post Formats allow the user to control the display of a specific post (i.e, display this
+post as an Aside or as a quote or as a gallery).
+
+Developers and users are encouraged to explore the latest default WordPress Themes named
+by the year in which they are released. Twenty-Eleven WordPress Theme, rightly called a
+showcase Theme, introduced many of the above features. It emphasized the use of the Child
+Theme concepts to shield a theme from getting overwritten during a WordPress update.
+
+The Twenty-Thirteen Theme was designed to take advantage of Formats. The Twenty-Fourteen
+WordPress Theme is a magazine-style Theme. It includes a customizable, grid font-page
+template, custom author Page template, and the use of tags to feature content on the
+front page of the site rather than sticky posts or categories, further stretching the
+boundaries of what is possible with WordPress Themes.
+
+Plugins are custom functions created to extend the core functionality of WordPress.
+The WordPress developers have maximized flexibility and minimized code bloat by allowing
+outside developers the opportunity to create their own useful add-on features. As
+evidenced by the WordPress Plugin Directory, there is a Plugin to enhance virtually
+every aspect of WordPress.
+
+A Plugin management tool makes it extremely easy to find and install Plugins directly
+from the official directory.
+
+Terminology for the Administrator
+
+Another set of terms to examine are those involving the Administration of a WordPress
+site. A comprehensive set of Administration Panels enables users to easily administer
+and monitor their blog. A WordPress administrator has a number of powers which include
+requiring a visitor to register in order to participate in the blog, who can create new
+posts, whether comments can be left, and if files can be uploaded to the blog.
+
+An Administrator also defines Links and the associated Link Categories which are
+an important part of a blog's connection to the outside world.
+
+Some of the main administrative responsibilities of a WordPress blog involve adding,
+deleting, and managing Registered Users. Administrering users means controlling 
+Roles and Capabilities, or permissions. 
+
+Roles control what functions a registered user can perform as those functions can range
+from just being able to login at a blog to performing the role administrator.
+
+Another chief concern for the blog administrator is Comment Moderation. Comments, also called
+discussions, are responses to posts left for the post author by the visits and represent an
+important part of "the give and take" of a blog. But Comments must be patrolled for Spam and
+other malicious intentions. The WordPress Administration Comments SubPanel simplifies that
+process with easy-to-use screens which add, change, and delete Comments.
+
+And not to be forgotten is the obligation for an administrator to keep their WordPress current
+to insure that the latest features, bugs, and security fixes are in effect. To accommodate 
+administrators. WordPress has a simple Upgrade Tool to download and install the latest version
+of WordPress. There is no excuse to not upgrade.
+
+The Terminology of Help
+
+The final set of jargon relates to helping you with WordPress. First and foremost is the hanging
+Help tab that is displayed under each of the Administration SubPanels. That contextual help describes
+the function and use of the current SubPanel and provides links to other help topics.
+
+And, there are other help resources available to WordPress users: Getting More Help, Finding WordPress
+Help, Troubleshooting, and WordPress FAQ (frequently asked questions) are good starting points.
+Also, Getting Started with WordPress will jump start readers into the world of WordPress and the
+excellent WordPress Lessons provide in-depth tutorials on many of the aspects of using WordPress.
+
+Among the most important resources is the WordPress Support Forum where knowledgeable volunteers
+answer your questions and help solve any problems related to WordPress. And, of course, this Codex
+which is filled with hundreds of articles designed to make your WordPress experience a success.
+
+History of the WordPress Name
+
+Besides the technical terminology of WordPress, it is also interesting to know the history of
+the name, WordPress. The name "WordPress" was originally coined by Christine Tremoulet (see
+related post) in response to developer Matthew Mullenweg's desire to associate his new software
+project with printing presses. In this sense, press refers to the world of reporters, journalists,
+columnists, and photographers. An aptly chosen name, because WordPress serves as the printing
+press that enables its users to publish their words.
+
+Introduction to Blogging
+
+What is a "blog"?
+
+"Blog" is an abbreviated version of "weblog", which is a term used to describe websites that
+maintain an ongoing chronicle of information. A blog features diary-type commentary and links
+to articles on other websites, usually presented as a list of entires in reverse chronological
+order.
+
+Blogs range from the personal to the political, and can focus on one narrow subject or a whole
+range of subjects.
+
+Many blogs focus on a particular topic, such as web design, home staging, sports, or
+mobile technology. Some are more eclectic, presenting links to all types of other
+sites. And others are more like personal journals, presenting the author's daily life
+and thoughts.
+
+Generally speaking (although there are exceptions) blogs tend to have a few things in
+common:
+
+A main content area with articles listed chronologically, newest on top. Often,
+the articles are organized into categories.
+
+An archive of older articles.
+
+A way for people to leave comments about the articles
+
+A list of links to other related sites, sometimes called a "blogroll"
+
+One or more "feeds" like RSS. Atom or RDF files.
+
+	Main Content Area 		[RSS ICON] Feeds
+
+Publication Date -> 03/23/2011 		article: comments 		Archive of Older Articles
+
+		Newest		03/20/2011 		article: comments 		Tags
+
+					03/19/2011 		article: comments 		Blogroll
+
+		Oldest 		12/01/2010 		article: comments 		Related sites: //list of links
+
+Some blogs may have additional features beyond these. Watch this <short video> for a simple 
+explanation for what a blog is.
+
+Here are some professional bloggers point of view on what is a blog. //LINK
+
+What is a "blogger"?
+
+A blogger is a person who owns or runs a blog or a person who maintains the blog.
+That is, posting articles or new posts, information, sharing the most up-to-date
+news, opinions and case studies to name but a few. Such entries are known as 
+blog posts.
+
+The Blog Content
+
+Content is the raison dêtre for any website. Retail sites feature a catalog of products.
+University sites contain information about their campuses, curriculum, and faculty.
+News sites show the latest news stories. For a personal blog, you might have a bunch of
+observation or reviews. Without some sort of updated content, there is little reason to
+visit a website more than once.
+
+On a blog, the content consists of articles (also sometimes called "posts" or "entries")
+that the author(s) writes. Yes, some blogs have multiple authors, each writing his/her
+own articles. Typically, blog authors compose their articles in a web-based interface,
+built into the blogging system itself.
+
+Some blogging systems also support the ability to use stand-alone "weblog client"
+software, which allows authors to write articles offline and upload them at a later
+time.
+
+Comments
+
+Want an interactive website? Would it not be nice if the readers of a website could leave
+comments, tips or impressions about the site or a specific article? With blogs, they
+can. Posting comments is one of the most exciting features of blogs.
+
+Most blogs have a method to allow visitors to leave comments. There are also nifty ways
+for authors of other blogs to leave comments without even visiting the blog. Called
+"pingbacks" or "trackbacks", they can inform other bloggers whenever they cite an
+article from another site in their own articles. All this ensures that online conversations
+can be maintained painlessly among various site users and websites.
+
+The Difference Between a Blog and CMS?
+
+Software that provides a method of managing your website is commonly called a CMS or
+"Content Management System". Many blogging software programs are considered a specific
+type of CMS. They provide the features required to create and maintain a blog, and
+can make publishing on the internet as simple as writing an article, giving it a title,
+and organizing it under (one or more) categories.
+
+While some CMS programs offer vast and sophisticated features, a basic blogging tool
+provides an interface where you can work in an easy and, to some degree, intuitive manner
+while it handles the logistics involved in making your composition presentable and publicly
+available.
+
+In other words, you get to focus on what you want to write, and the blogging tool takes
+care of the rest of the site management.
+
+WordPress is one such advanced blogging tool and it provides a rich set of features.
+Through its Administration Screen, you can set options for the behavior and presentation
+of  your weblog.
+
+Via said Administration Screen, you can easily compose a blog post, push a button, and be
+published on the internet, instantly. WordPress goes to great pains to see that your 
+blog posts look good, the text looks great, and the html it generates conforms to
+web standards.
+
+If you're just starting out, read Getting Started with WordPress, which contains information
+on how to get WordPress set up quickly and effectively, as well as information on 
+performing basic tasks within WordPress, like creating new posts or editing existing ones.
+
+Things Bloggers Need to Know
+
+In addition to understanding how your specific blogging software works, such as WordPress,
+there are some terms and concepts you need to know.
+
+Archives
+
+A blog is also a good way to keep track of articles on a site. A lot of blogs feature an
+archive based on dates (like a monthly or yearly archive). The front page of a blog may
+feature a calendar of dates linked to daily archives.
+
+Archives can also be based on categories featuring all the articles related to a specific
+category.
+
+It does not stop there, you can also archive your posts by author or alphabetically.
+The possibilities are endless. This ability to organize and present articles in a composed
+fashion is much of what makes blogging a popular personal publishing tool.
+
+Feeds
+
+A Feed is a function of special software that allows "Feedreaders" to access a site automatically
+looking for a new content and then post updates about that new content to another site. This
+provides a way for users to keep up with the latest and hottest information posted on different
+blogging sites.
+
+Some Feeds include RSS (alternately defined as "Rich Site Summary" or "Really Simple Syndication")
+, Atom or RDF files, Dave Shea, author of the web design weblog Mezzoblue has written a 
+comprehensive summary of feeds.
+
+Syndication
+
+A feed is a machine readable (usually XML) content publication that is updated regularly.
+Many webpages publish a feed (usually RSS, but also possibly Atom and RDF and so on, as
+described above). There are tools out there that call themselves "feedreaders".
+
+What they do is they keep checking spcified blogs to see if they have been updated, and
+when the blogs are updated, they display the new post and a link to it, with an excerpt
+(or the whole contents) of the post.
+
+Each feed contains items that are published over time.
+
+When checking a feed, the feedreader is actuallly looking for new items. New items are
+automatically discovered and downloaded for you to read, so you do not have to visit
+all the blogs you are interested in.
+
+All you have to do with these feedreaders is to add the link to the RSS feed of all the 
+blogs you are interested in. The feedreader will then inform you when any of the blogs
+have new posts in them.
+
+Most blogs have these "Syndication feeds" available for the readers to use.
+
+Managing Comments
+
+One of the most exciting features of blogging tools are the comments. This hightly
+interactive feature allows users to comment upon article posts, link to your posts,
+and comment on and recommend them. These are known as trackbacks and pingbacks.
+
+We will also discuss how to moderate and manage comments and how to deal with the
+annoying trend in "comment spam" when unwanted comments are posted to your blog:
+
+Trackbacks
+
+Pingbacks
+
+Using Pingbacks and Trackbacks
+
+Comment Moderation
+
+Comment Spam
+
+Trackbacks
+
+Trackbacks were originally developed by SixApart, creators of the MovableType blog package.
+SixApart has a good introduction to trackbacks:
+
+In a nutshell, TrackBack was designed to provide a method of notification between websites:
+it is a method of person A saying to person B, "This is something you may be interested in."
+To do that, person A sends a TrackBack ping to person B.
+
+A better explanation is this:
+
+Person A writes something on their blog.
+
+Person B wants to comment on Person A's blog, but wants her own readers to see what
+she had to say, and be able to comment on her own blog.
+
+Person B posts on her own blog and sends a trackback to Person A's blog.
+
+Person A's blog receives the trackback, and displays it as a comment to the original post.
+This comment contains a link to Person B's post.
+
+The idea here is that more people are introduced to the conversation (both Person A's and
+Person B's readers can follow links to other's post), and that there is a level of authenticity
+to the trackback comments because they originated from another weblog.
+
+Unfortunately, there is no actual verification performed on the incoming trackback, and indeed,
+they can even be faked.
+
+Most trackbacks send to Person A only a small portion (called an "excerpt") of what Person B
+had to say. This is meant to act as a "teaser", letting Person A (and his readers) see more of
+what Person B had to say, and encouraging them all to click over to Person B's site to read
+the rest (and possibly comment).
+
+Person B's trackback to Person A's blog generally gets posted along with all the comments.
+This means that Person A can edit the contents of the trackback on his own server, which means
+that the whole idea of "authenticity" is not really solved. (Note: Person A can only edit the
+contents of the trackback on his own site. He cannot edit the post on Person B's site that
+sent the trackback).
+
+SixApart has published an official trackback specification.
+
+Pingbacks
+
+Pingbacks were designed to solve some of the problems that people saw with trackbacks. That is why
+the official pingback documentation sounds so much like the description of a trackback:
+
+For example, Yvonne writes an interesting article on her Web log. Kathleen reads Yvonne's article
+and comments about it, linking back to Yvonne's original post. Using pingback, Kathleen's software
+can automatically notify Yvonne that her post has been linked to, and Yvonne's software can then
+include the information on her site.
+
+The best way to think about pingbacks is as remote comments:
+
+Person A posts something on his blog.
+
+Person B posts on her own blog, linking to Person A's post. This automatically sends a pingback
+to Person A when both have pingback enabled blogs.
+
+Person A's blog receives the pingback, then automatically goes to Person B's post to confirm that
+the pingback did, in fact, originate there.
+
+The pingback is generally displayed on Person A's blog as simply a link to Person B's post.
+it is commonly believed that pingbacks do not send any content, as tracbacks do. This is not
+correct. If you get a pingback, you will see an excerpt from that blog in the Edit Comments
+section of your dashboard.
+
+THe issue is that very few themes display these excerpts from pingbacks. The default Wordpress
+themes, for example, do not display pingbacks excerpts.
+
+In fact, there is only one significant difference between pingbacks and trackbacks: Pingbacks
+and trackbacks use drastically different communication technologies (XML-RPC and HTTP POST,
+respecitvely). But that difference is important because trackbacks have become the target of
+so much spam.
+
+The automatic verification process introduces a level of authenticity, making it harder to fake
+a pingback.
+
+Some feel that trackbacks are superior because readers of Person A's blog can at least see some
+of what Person B has to say, and then decide if they want to read more (and therefore click over
+to Person B's blog). Others feel that pingbacks are superior because they create a verifiable
+connection between posts.
+
+Using Pingbacks and Trackbacks
+
+Comments on blogs are often criticized as lacking authority, since anyone can post anything using
+any name they like: there's no verification process to ensure that the person is who they claim to
+be. Trackbacks and Pingbacks both aim to provide some verification to blog commenting.
+
+To enable trackbacks and pingbacks, in the Discussion Settings of your Administration Screen,
+select these items under 'Default article settings'.
+
+Attempt to notify any blogs linked to from the article.
+
+Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.
+
+Selecting one option and not the other would not be neighborly.
+
+Once enabled, trackbacks and pingbacks from other sites will appear in your Administration Screen
+just like other comments, but on your post pages, they will appear according to your theme's
+design.
+
+Once enabled, pingbacks are sent automatically when you publish your post, you do not have to do
+anything. To send trackbacks, you will need to find the trackback URL somewhere on the post page
+you are linking to.
+
+If you cannot find one, try to determine if the site supports pingbacks. If it does, you should
+not send trackbacks as well. Copy/paste the trackback URL into the Send Trackbacks field on your
+Add New Post screen. If you do not see this field, go to the screen options and select the 
+Send Trackbacks options.
+
+Note that selecting this does not send trackbacks, it only displays the field called Send Trackbacks.
+When you publish your post, trackbacks will be sent to the URLs you pasted into the field. This field
+will also show the status of trackbacks and pingbacks on your Edit Post screen.
+
+If there is someone that wants to send a trackback to your WordPress blog because their blogging software
+does not support pingbacks, your trackback URL they should insert into their post edit screen is your
+blog post's permalink with "trackback"/appended to the end.
+
+If their software support pingbacks, they do not need to do anything, the process is automatic.
+
+Comment Moderation
+
+Comment Moderation is a feature which allows the website owner and author to monitor and control the
+comments on the different article posts, and can help in tackling comment spam. It lets you moderate
+comments & you can delete unwanted comments, approve cool comments and make other decisions about
+the comments.
+
+Comment Spam
+
+Comment Spam refers to useless comments (or trackbacks, or pingbacks) to posts on a blog. These are
+ofte irrelevant to the context value of the post. They can contain one or more links to other websites
+or domains. Spammers use Comment Spam as a medium to ger higher page rank for their domains in Google,
+so that they can sell those domains at ah igher price sometimes in the future or to obtain a higher
+rank in search results for an existing website.
+
+SPammers are relentless, because there can be substansial money involved, they work hard at said thing.
+THey build automated robots to rapidly submit their spam to the same or multiple weblogs. Many webloggers,
+especially beginners, sometimes feel overwhelmed by spam.
+
+There are solutions, though, to avoid Comment Spam. WordPress includes many tools for combating 
+Comment Spam. With a little up front effort, Comment Spam can be managable and certainly no
+reason to give up weblogging.
+
+Pretty Permalinks
+
+Permalinks are the permanent URLs to your individual weblog posts, as well as categories and other
+lists of weblog postings. A permalink is what another weblogger will use to refer to your article
+(or section), or how you might send a link to your story in an e-mail message.
+
+Because others may link to your individual postings, the URL to that article should not change.
+Permalinks are intended to be permanent (valid for a long time).
+
+"Pretty" Permalinks is the idea that URLs are frequently visible to the people who click them,
+and should therefore be crafted in such a way that they make sense, and not be filled with 
+incomprihensible parameters. The best Permalinks are "hackable", meaning a user might modify
+the link text in their browser to navigate to another section or listing of the weblog.
+
+For example, this is how the default Permalink to a story might look in a default WordPress
+installation:
+
+/index.php?p=423
+
+How is a user to knwo what p stands for? Wher edid the number 423 come from?
+
+In contrast, here is a well-structured, "Pretty" Permalink which could link to the same article,
+once the installation is configured to modify permalinks:
+
+/archives/2003/05/23/my-cheese-sandwich/
+
+One can easily guess that the Permalink includes the date of the posting, and the title, just
+by looking at the URL. One might also guess that hacking the URL to be /archives/2003/05/
+would get a list of all possible postings from May of 2003 (cool!). For more information on
+possible Permalink patterns in WordPress, see Using Permalinks.
+
+Blog by email
+
+Some blogging tools offer the ability to email your posts directly to your blog, all without
+direct interaction through the blogging tool interface. WordPress offers this cool feature.
+Using email, you can now send in your post content to a pre-determined email address and voila.
+Your post is published.
+
+Post Slugs
+
+If you are using Pretty Permalinks, the Post Slug is the title of your article post within the
+link. The blogging tool software may simplify or truncate your title into a more appropiate form
+for using a link. A title such as "I'll make a Wish" might be truncated to "ill-make-a-wish".
+In WordPress, you can change the Post Slug to something else, like "make-a-wish", which sounds
+better than a wish made when sick.
+
+Excerpt
+
+Excerpts are condensed summaries of your blog posts, with blogging tools being able to handle
+these in various ways. In WordPress, Excerpts can be specifically written to summarize the post,
+or generated automatically by using the first few paragraphs of a post or using the post up
+to a specific point, assigned by you.
+
+Plugins
+
+Plugins are cool bits of programming scripts that add additional functionality to your blog.
+These are often features which either enhance already available features or add them to your
+site.
+
+WordPress offers simple and easy ways of adding Plugins to your blog. From the Administration
+SCreen, there is a PLugins Screen. You can easily search, install and activate Plugins from
+this screen.
+
+Glossary
+
+This document is designed to offer definitons of various terms, exclusive to WordPress,
+that users may not be familiar with.
+
+If you are a contributor please do not add defintions for generic terms (API, PHP, JavaScript, etc...).
+
+Absolute Path //Full path
+
+The complete location of a file or directory within a computer filesystem. An absolute
+path starts at the root directory (or drive letter) and continues up the directory hierarchy
+until the specific file or directory is reached. This contrasts with a relative path, which
+does not start at the root directory.
+
+THe syntax of absolute paths differ by operating system. On Microsoft Windows, they begin
+with a drive letter use a backslash to separate directory names (though forward slashes
+can be used as well). Absolute paths on macOS and Linux lack drive letters and use a forward
+slash as the dir separator.
+
+Examples:
+
+Windows: C:\Users\Matt\www\blog\images\icecream.jpg
+macOS: /Users/Matt/www/blog/images/icecream.jpg
+Linux: /home/Matt/www/blog/images/icecream.jpg
+
+To find the absolute filesystem path of the directory containing a web
+page, copy the code below into a new text file, save the file as path.php
+(thus making a simple PHP web page) and moves that file to your web server.
+Then direct your web browser to the URL address of that file (e.g, http://www.example.com/path.php)
+
+<?php
+echo getcwd();
+?>
+
+See also: Path (computing) at Wikipedia (lol)
+
+Absolute URI //Full URI
+
+A URI that contains the complete location of a resource (as opposed to a relative URI).
+
+Examples:
+
+http://www.example.com/blog/images/icecream.jpg
+ftp://ftp.example.com/users/h/harriet/www/
+
+Action
+
+In WordPress, an Action is a PHP function that is executed at specific points throughout the
+WordPress Core.
+
+Developers can create a custom Action using the Action API to add or remove code from an
+existing Action by specifying any existing Hook. This process is called "hooking".
+
+For example: A developer may want to add code to the footer of a Theme. This could
+be accomplished by writing new function, then Hooking it to the wp_footer Action.
+
+Custom Actions differ from custom Filters because custom Actions allow you to add
+or remove code from existing Actions. Whereas custom Filters allow you to replace
+specific data (such as variable) found within an existing Action.
+
+See also: Filter, Hook, Terminology Confusion
+Related Articles: Actions, Action Reference, add_action()
+Forum posts: Filters vs. Actions Discussion and Explanation
+
+Admin Bar
+
+An area of the screen just above your site that gives you quick access to features
+such as adding a new post or editing your profile. It is only visible if you are 
+logged in.
+
+The admin bar concept was added to WP in Version 3.1 and was replaced by the Toolbar
+in WordPress v3.3. To turn it on or off, open the Dashboard and navigate to Administration
+> Users > Your Profile.
+
+Related articles: Toolbar
+See also: Your Profile SCreen
+
+AJAX
+
+AJAX is a technique that web pages use to have hte server perform certain processing
+without reloading the web page. For example, when you approve a comment in a WordPress
+blog, WordPress uses AJAX to change the comment's status, and you see the change without
+having to reload the Comments screen.
+
+Related article: AJAX
+External link: AJAX (Wikipedia)
+
+Apache:
+Apache is short for Apache HTTP Server Project, a robust, commercial-grade featureful,
+and freely-available open source HTTP Web server software produced by the Apache Software
+Foundation. It is the most commonly used web server on the internet, and is available on
+ many platforms, including Windows, and Mac OS X, Apache server as a great foundation
+ for publishing WordPress-powered sites.
+
+API:
+//Just going to skip basic ones
+
+Atom:
+A format for syndicating content on news-like sites, viewable by Atom-aware programs
+called news readers or aggregators.
+
+See also: News reader, RSS, RDF
+External links: Atom (standard) at Wikipedia.
+
+Autosave:
+
+When you are writing or editing your posts and pages, the changes you make are automatically
+saved every 2 minutes. In the lower right corner of the editor, you will see a notification
+of when the entry was last saved to the DB. Autosaves are automatically enabled for all posts
+and pages. There is only one autosave for each post/page.
+
+Each new autosave overwrites the previous autosave in the DB.
+
+Related articles: Revision Management
+External links: WordPress.com Support - Autosave
+
+Avatar:
+
+An avatar is a graphic image for a users profile pic.
+
+See also: Gravatar
+Related articles: Using Gravatars
+External links: Avatar (computing) at Wikipedia
+
+Back End:
+
+The back end is the area authorized users can sign into to add, remove and modify content
+on the website. This may also be referred to as "WordPress", "admin" or the "admin area".
+
+Binaries:
+
+Binaries refer to compiled computer programs, or executables. Many open source projects,
+which can be re-compiled from source code, offer pre-compiled binaries for the most popular
+platforms and operating systems.
+
+Blog:
+
+A blog or weblog, is an online journal, diary, or serial published by a person or group
+of people.
+
+Blogs are typically used by individiuals or peer groups, but are ocassionally used by companies
+or organizations as well. In the corporate area, the only adopters of the blog format so far
+have tended to be design firms, web media companies, and other "bleeding edge" tech firms.
+
+Blogs often contain public as well as private content. Depending on the functionality of the
+CMS software that is used, some authors may restrict access - through the use of accounts
+or passwords - to content that is too personal to be published quickly.
+
+Blogging:
+
+Blogging is the act of writing in one's blog. To blog something is to write about something in
+one's blog. This sometimes involves linking to something the authors finds interesting on the
+internet.
+
+Blogosphere:
+
+The blogosphere is the subset of internet web sites which are, or realte to, blogs.
+
+See also: Blog, Blogroll
+
+Blogroll:
+
+A blogroll is a list of links to various blogs or news sites. Often a blogroll is "rolled"
+by a service which tracks updates (using feeds) to each site in the list and provides the
+list in a form which aggregates update information.
+
+The default blogroll (aka links) included in WordPress was removed in v 3.5
+
+See also: Blog, blogosphere, Feed, news reader
+External links: News aggregator at Wikipedia
+
+Bookmarklet:
+
+A bookmarklet (or favelet) is a "faux" bookmark containing scripting code, usually written
+in JS, that allows the user to perform a function.
+
+Examples:
+
+The WordPress Press This bookmarklet allows a user to quickly blog whichever website he/she
+is currently viewing.
+
+The delicious.com bookmarklets allows a user to quickly post a link to his/her delicious.com
+bookmarks list.
+
+Tantek's favelets
+
+Category:
+
+Each postin WordPress can be filed under one or more categories. Thoughtful categorization allows
+posts to be grouped with others of similar content and aids in the navigation of a site.
+
+Please note that a post category should not be confused with a link category, which is used
+to classify and manage links.
+
+Capabilities:
+
+A capability is permission to perform one or more types of task. Each user of a WordPress site
+might have some permissions but not others, depending on their role. For example, users who
+have the Author role usually have permission to edit their own posts (the "edit_posts" capability),
+but not permission to edit other user's posts (the "edit_others_posts" capability).
+
+WordPress comes with six roles and over fifty capabilities in its role-based access system.
+Plugins can modify the system.
+
+Related article: Roles and Capabilities
+External link: Role-based access control (Wikipedia)
+
+CGI:
+
+CGI (Common Gateway Interface) is a specification for server-side communication scripts designed
+to transfer information between a web server and a web-client (browser). Typically, HTML pages that
+collect data via forms use CG/ programming to process the form data once the client submits it.
+
+Character Entity:
+
+A character entity is a method used to display special characters normally reserved for use in HTML.
+For example, the less than (<) and greater than (>) are used as part of the HTML tag structure,
+so both symbols are reserved for that use. But, if you need to display those symbols on your site,
+you can use character entities. For example:
+
+Use &lt; for the less than (<) symbol
+
+use &gt; for the greater than (>) symbol
+
+Related articles: Fun Character Entities
+
+Character Set:
+
+A character set is a collection of symbols (letters, numbers, punctuation and special characters),
+when used together, represent meaningful words in a language. Computers use an encoding scheme so
+members of a character set are stored within a numeric value (e.g 0=A, 1=B, 2=C, 3=D). In addition,
+a collation determines the order (i.e alphabetic) to use when sorting the character set.
+
+By default, WordPress uses the Unicode UTF-8 (utf8) charset set for the WordPress MySQL db tables,
+created during the installation process. Beginning with version 2.2, the database character set
+(and collation) is defined in the wp-config.php file.
+
+See also: Collation
+Related articles: Editing wp-config.php, Converting Database Character Sets
+External links: Character set at Wikipedia, Unicode at Wikipedia, UTF-8 at Wikipedia,
+Character sets and collation at MySQL.
+
+chmod:
+
+The permissions in Unix/Linux shell.
+
+Class:
+
+Classes are groupings of CSS styles which can be applied to any HTML element. For classes in
+PHP, see the Class (Computing) article at Wikipedia and PHP Manual: Classes and Objects.
+
+Related articles: CSS, Blog Design and Layout
+
+Codex:
+
+The Codex is the series of articles that show users how to use WordPress. WordPress users
+contribute to documentation of the Codex by will.
+
+Collation:
+
+Collation refers to the order used to sort the letters, numbers and symbols of a given character
+set. For example, because WordPress, by default, uses the UTF-8 (utf8) character set, and when
+the WordPress MySQL database tables are created during the installation process, MySQL assigns
+utf8_general_ci collation to those tables. Beginning with Version 2.2, the collation (and
+character set) used by WordPress is defined in the wp-config.php file.
+
+See also: Charset
+Related articles: Edigin wp-config.php, Converting Database Character Sets
+External links: Collation at Wikipedia, Character set at Wikipedia, UTF-8 at Wikipedia, Character
+sets and collation at MySQL.
+
+Comments:
+
+Comments are a feature of blogs which allow readers to respond to posts. Typically readers simply provide
+their own thoughts regarding the content of the post, but users may also provide links to other resources,
+generate discussion, or simply compliment the author for some shit.
+
+You can control and regulate comments by filters for language and content. Comments can be queued
+for approval before they are visible on the web site. This is sueful in dealing with comment spam.
+
+See also: Blog
+Related articles: Comment-related plugins, Dealing with comments spam, Setting Discussion SubPanel
+External links: Hyperlink at Wikipedia
+
+Content:
+
+Content consists of text, images, or other information shared in posts. This is seperate from the structural
+design of a web site, which provides a framework into which the content is inserted, and the presentation
+of a site, which involves graphic design. A Content Management System changes and updates content,
+rather than the structural or graphical design of a website.
+
+Content Management System:
+
+A Content Management System, or CMS, is software for facilitating the maintnance of content, but not
+design, on a web site. A blogging tool is an example of a Content Management System.
+
+cPanel:
+
+cPanel is a popular web-based administration tool that many hosting providers provide to allow users
+to configure their own accounts using an easy-to-use interface.
+
+Related articles: Using cPanel, Adding New Themes by using cPanel
+External links: cPanel website
+
+CSS:
+
+CSS or Cascading Style Sheets is a W3C open standards programming langauge for specifying how a web
+page is presented. It allows web site designers to create and layout for a web site independently 
+of its content.
+
+Related articles: CSS, Blog Design and Layout
+External links: CSS at W3C, Open standards at Wikipedia, W3C.org
+
+CVS:
+
+CVS stands for Concurrent Versions System and is the software that used be used to coordinate
+WP development. AS of Feburary 2005, this function is carried out by Subversion (SVN).
+
+For more info about subversioning, see Using Subversion.
+
+Dashboard:
+
+In WordPress, a Dashboard is the main administration scene for a site (a weblog), or for a 
+network of sites. It summarizes information about the site or network, and also external information,
+in one or more widgets that the Dashboard user can enable, disable and move around.
+
+Related articles: Dashboard Screen
+
+Database:
+
+A database in computing terms is software used to manage information in a organized fashion. WordPress
+uses the MySQL or MariaDB relational database management system for storing and retrieving the content
+of your blog, such as posts, comments and so on.
+
+Related articles: Database Description, Backing Up Your Database
+
+Database Version:
+
+In WordPress, the database version is a number taht increases every time changes are made to the way
+WordPress organizes the data in its database. It is not the same as the version of the database
+software, MySQL or MariaDB.
+
+For example, the database version in WordPress 3.3 was 19470, and the database version in WordPress
+3.3.1 did not change. This tells anyone planning to use backed-up data from the old version that they
+do not need to check for changes in the structure of the data.
+
+WordPress stores its database version in the database, as the option named "db_version" in every WordPress
+site's "wp_options" table. (The table name prefix "wp_" may be missing or different in some cases).
+
+Related articles: Database Description, How do you force a database upgrade?
+
+Default theme:
+
+Every installation of WordPress has a default theme. The default theme is sometimes called the fallback
+theme, because if the active theme is for some reason lost or deleted, WordPress will fallback to using
+the default theme.
+
+The WordPress default themes have been:
+
+Up to version 2.9.2 the default theme was the WordPress Default theme (sometimes called Kubrick) and was
+located in the wp-content/themes/default folder.
+
+Version 3.0 - The Twenty Ten theme
+
+Version 3.2 - the Twenty Eleven theme
+
+Version 3.5 - The Twenty Twelve theme
+
+etc.
+
+Deprecated:
+
+Deprecated functions or template tags are no longer supported, and will soon be obsolete.
+
+DNS:
+
+DNS, the domain name system, is the system that maps domain names to IP addresses. When you use
+a web browser to visit a website, your browser first extracts the site's domain name from the URL.
+Then it uses the DNS to find the IP address for that domain name. then it connects to taht IP.
+
+DOM:
+
+DOM (Document Object Model) is a standard, platform-independent interface that allows programmers
+to dynamically access HTML and XML to control the content and structure of documents. DOM connects
+programming scripts to web pages.
+
+External links: DOM at wikipedia, Dom at w3c.org
+
+Domain Name:
+
+A domain name is a name used for identification purposes on the Internet. In WordPress a domain 
+usually identifies a server where WordPress is installed. To make this work, the Internet's domain
+name system (DNS) maps the domain name to a server's IP address.
+
+For example, the domain name example.com maps to the IP address 192.0.43.10. Many domain names
+can map to the same IP address, allowing a single server to run many websites. For example,
+the domain names www.example.com and example.net also map to the IP address of 192.0.43.10
+
+Draft:
+
+The draft post status is for WordPress posts which are saved, but as yet unpublished. A draft post
+can only be edited through the Administration Panel, Write Post SubPanel by users of equal or
+greater User Level than the post's author.
+
+Excerpt:
+
+An excerpt is a condensed description of your blog post and refers to the summary entered in the
+Excerpt field of the Administration > Posts > Add New SubPanel. The excerpt is used to describe
+your post in RSS feeds and is typically used in displaying search results.
+
+The excerpt is sometimes used in displaying the Archives and Category views of your posts.
+Use the Template Tag the_excerpt() to display the contents of this field.
+
+Note that if you do not enter information into the Excerpt field when writing a post, and you
+use the_excerpt() in your theme template files, WordPress will automatically display the first
+55 words of the post's content.
+
+An excerpt should not be confused with the teaser, which refers to words before the:
+
+<!--more-->
+
+in a post's content. When typing a long post, you can insert the:
+<!--more-->
+
+Quicktag after a few sentences to act as a cut-off point. When the post is displayed,
+the teaser, followed by a hyperlink (such as Read the rest of this entry...), is displayed.
+
+Your visitor can then click on that link to see the full version of your post. The Template
+Tag, the_content() should be used to display the teaser.
+
+Related articles: Customizing the Read More, Excerpt
+
+Feed:
+
+A feed is a function of special software that allows "Feedreaders" to access a site automatically
+looking for new content and then posting the information above new content and updates to another
+site.
+
+This provides a way for users to keep up with the latest and hottest information posted on different
+blogging sites. Some Feeds include RSS (alternately defined as "Rich Site Summary" or "Really Simple
+Syndication"), Atom or RDF files. Dave Shea, author of the web design weblog Mezzoblue has written a
+comprehensive summary of feeds. Feeds generally are based on XML tech.
+
+Feed Reader:
+
+The role of FeedReader is to gather and display the webfeed from various website to one place.
+
+Filter:
+
+In WordPress, a Filter is a function that is associated with an existing Action by specifying
+any existing Hook.
+
+Developers can create custom Filters using the Filter API to replace code from an existing
+Action. This process is called "hooking".
+
+Custom Filters differ from custom Actions because custom Actions allow you to add or remove
+code from existing Actions. Whereas custom Filters allow you to replace specific data (such
+as a variable) found with an existing Action.
+
+See also: Action, Hook, Terminology Confusion
+Related Articles: Filters, Filter Reference, add_filter()
+
+Footer area:
+
+A footer area is a horizontal area provided by a theme for displaying information other
+than the main content of the web page. Themes may provide one or more footer areas below
+the content. Footer areas usually contain widgets that an administrator of the site can
+customize.
+
+In a theme, footer areas are generated by a template file, typically named sidebar-footer.php
+
+See also: Sidebar
+Related articles: Templates, Customizing Your Sidebar, Stepping Into Templates, Template Hierarchy
+
+Front End:
+
+The front end is what your visitors see and interact with when they come to your Website, www.YourSite.com
+
+FTP:
+
+FTP, or File Transfer Protocol, is a client-server protocol for transferring files. It is one way to download
+files, and the most common way to upload files to a server.
+
+An FTP client is a program which can download files from, or upload files to, an FTP server.
+
+You may need to use an FTP client to upload your WordPress files to your web server, particularly
+if you use a hosting provider.
+
+Related articles: FTP clients, Uploading WordPress to a remote host, Using FileZilla.
+
+NOTE: You can tie Git parsing into relation of FTP services like FileZilla to load up things that only changed
+and merge to the said file server, to which we skip the bottleneck of same document working.
+
+Gallery:
+
+As defined by Andy Skelton, Gallery, introduced with WordPress 2.5, is specifically an exposition
+of images attached to a post. In that same vein, an upload is "attached to a post" when you upload
+it while editing a post.
+
+In the uploader there is a "Gallery" tab that shows all the uploads attached to the post you are 
+editing. When you have more than one attachment in a post, you should see at the bottom of the
+Gallery tab a button marked "Insert gallery". That button inserts a shortcode "[gallery]" into the
+post. 
+
+WordPress replaces that shortcode with an exposition of all images attached to that post. Non-image
+file types are excluded from the gallery.
+
+Note: If you do not see the "Insert Gallery" button, it may be because you have not attached two
+images to the post.
+
+The pretty URLs for attachments are made only after you have published the post and should be composed
+as the post permalink plus the attachment slug.
+
+Related articles: Gallery Shortcode, Shortcode API.
+
+NOTE: Shortcodes can be interested to read up on, in terms of said API and usage
+
+gettext:
+
+The gettext system is a set of tools and standards for language translation, used by WordPress
+to provide versions in many languages. In WordPress a text string for translation may have a 
+domain and a context. 
+
+For example, a plugin might specify its own domain for translations, and a context might help
+translators to provide different translations of the same English world or phrase in different
+parts of the user interface.
+
+Related Articles: WordPress in Your Language, Translating WordPress, l18n for WordPress Developers
+External Links: gettext (Wikipedia), GNU gettext
+
+GMT:
+GMT ("Greenwhich Mean Time"), the time at the Royal Observatory in Greenwhich, England) is the old
+name of the time zone form which all other time zones were measured. It has been replaced by UTC
+("Universal Time, Coordinated"), but for most practical purposes UTC and GMT are the same, so the
+term GMT is still commonly used.
+
+External links: Greenwhich Mean Time, Time zone, UTC (Wikipedia)
+
+Gravatar:
+
+A gravatar is a globally recognized avatar (a graphic image or picture that represents a user).
+Typically a user's gravatar is associated with their email address, and using a service such as
+Gravatar.com. The site owner to can configure their site so that a user's gravatar is displayed
+along with their comments.
+
+See also: Avatar
+Relacted articles: How to Use Gravatars in WordPress, Using Gravatars
+External links: Gravatar at Wikipedia
+
+GUI:
+
+GUI stands for Graphical User Interface, pronounced as "gooey". It is an interface that allows
+users to point the mouse or cursor to graphical icons.
+
+Hack:
+
+A hack is a bit of code written to customize or extend the functionality of a software product.
+Older versions of WordPress used a hack-based extension system, but versions 1.2 and above
+of WordPress use a Plugin API with hooks for extensions.
+
+See also: Hacking, Plugin
+Related articles: Changelog, Plugin API
+External links: Open source at Wikipedia
+
+Hacking:
+
+Hacking is the process of writing code for, or contributing code to, a piece of software.
+
+There is some controversy surrounding the meaning of this term. It began as a benign term meaning
+to "exercise proficiency" or "to alert or improve", but the popular media have since construed it
+to mean "to break into a computer system, usually with malicious intent.". Many in the computer
+industry have begun trying to 'take back' the word from its popular mutation, and many have
+adopted the term cracking to replace the malicious interpretation.
+
+Because of the desire to reclaim the word, you will often find the term used in conjunction with
+open source projects, intended in its benign form. For more information about the history of the
+term, please see Wikipedia's article on Hacker.
+
+See also: Hack
+Related articles: Plugins
+
+Header Image:
+
+A Header Image is a wide picture that appears at the top of a WordPress website.
+
+Hook:
+
+Hooks are specified, by the developer, in Actions and Filters. Here is a (hopefully) complete
++list of all existing Hooks within WordPress.
+
+Because Hooks are required by Actions and Filter you may hear the phrase "Action Hooks" and "Filter
+Hooks" used from time to time.
+
+In technical and strict terms: a Hook is an event, i.e event as understood by Observer pattern,
+invoked by the do_action() or apply_filters() call that afterwards triggers all the action or filter
+functions, previously hooked to that event using add_action() or add_filter(), respectively.
+
+See also: Action, Filter
+Related articles: Hooks, Actions and Filters, Plugin API/Hooks
+
+Plugin API/Action Reference:
+
+This is (hopefully) a comprehensive list of action hooks available in WordPress version 2.1 and above.
+For more information:
+
+To learn more about what filter and action hooks are, see Plugin API.
+
+To learn about writing plugins in general, see Writing a Plugin.
+
+For a reference list of filter hooks, see Plugin API/Filter Reference.
+
+For information about filter and action hooks in previous versions of WordPress,
+see Plugin API/Hooks 2.0.x
+
+(If you want to add or clarify this documentation, please follow the style of the
+existing entries. Describe when the action runs and if the action function takes
+args, describes the args).
+
+Actions Run During a Typical Request:
+
+These actions are called when a logged-in user opens the home page in Version 3.3.1.
+This list may show only the first time each action is called, and in many cases no
+function is hooked to the action.
+
+Themes and plugins can cause actions to be called multiple times and at differing times
+during a request. As proof of this, you can see action calls specific to the Twenty
+Eleven theme on this list.
+
+Cron tasks may also fire when a user visits the site, adding additional action calls.
+This list should be viewed as a guide line or approximation of WordPress action execution
+order and not a concrete specification.
+
+Actions are called within the function do_action(), except those marked (ref array),
+which are called with the function do_action_ref_array().
+
+muplugins_loaded: 		After must-use plugins are loaded
+
+registered_taxonomy: 	For category, post_tag, etc.
+
+registered_post_type: 	For post, page, etc.
+
+plugins_loaded: 		After active plugins and pluggable functions are loaded
+
+sanitize_comment_cookies
+
+setup_theme
+
+load_textdomain: 		For the default domain
+
+after_setup_theme: 		Generally used to initialize theme settings/options. This is the first
+						action hook available to themes, triggered immediately after the active
+						theme's functions.php file is loaded.
+
+						add_theme_support() should be called here, since the init action hook
+						is too late to add some features. At this stage, the current user is
+						not yet authenticated.
+
+auth_cookie_malformed
+
+auth_cookie_valid
+
+set_current_user
+
+init: 					Typically used by plugins to initialize. The current user is already authenticated by this time.
+|
+-> widgets_init: 		Used to register sidebars. Fired at 'init' priority 1 (and so before 'init' actions with priority > 1)
+
+register_sidebar 		For each sidebar and footer area
+
+wp_register_sidebar_ 	For each widget
+widget
+
+wp_default_scripts 		(ref array)
+
+wp_default_styles 		(ref array)
+
+admin_bar_init
+
+add_admin_bar_menus
+
+wp_loaded 				After WordPress is fully loaded
+
+parse_request 			Allows manipulation of HTTP request handling (ref array)
+
+send_headers 			Allows customization of HTTP headers (ref array)
+
+parse_query 			After query variables are set (ref array)
+
+pre_get_posts 			Exposes the query-variables object before a query is executed (Ref array)
+
+posts_selection
+
+wp 						After WP object is set up (ref array)
+
+template_redirect
+
+get_header
+
+wp_enqueue_scripts
+
+twentyeleven_enqueue_color_scheme (Specific to Twenty Eleven)
+
+wp_head
+
+wp_print_styles
+
+wp_print_scripts
+
+get_search_form
+
+loop_start: 		(ref array)
+
+the_post: 			(ref array) Allows modification of the post object immediately after query
+
+get_template_part_content: Template part for the content
+
+loop_end: 			(ref array)
+
+get_sidebar
+
+dynamic_sidebar
+
+get_search_form
+
+pre_get_comments: 	(ref array)
+
+wp_meta
+
+get_footer
+
+get_sidebar: 	This 'sidebar' is a footer area
+
+twentyeleven_credits: (Specific to Twenty Eleven)
+
+wp_footer
+
+wp_print_footer_scripts
+
+admin_bar_menu: 	(ref array)
+
+wp_before_admin_bar_render
+
+wp_after_admin_bar_render
+
+shutdown: 		PHP execution is about to end
+
+Actions Run During an Admin Page Request
+
+These actions are run when a logged-in user opens the Posts page in Version 3.3.1. This list shows only
+the first time an action is called, and in many cases no function is hooked to the action. Each admin page
+has a different list of actions depending upon the purpose of the page and the plugins installed.
+
+This list should be viewed as a guide line or approximation, and not a concrete specification.
+
+In these actions, (hookname) depends on the page. For the Posts page it is edit.php, or for a theme's
+Background page it is appearance_page_custom-background.
+
+Actions are called with the function do_action(), except those marked (ref array), which are called
+with the function do_action_ref_array().
+
+muplugins_loaded: 		After must-use plugins are loaded
+
+registered_taxonomy: 	For category, post_tag, etc.
+
+registered_post_type: 	For post, page, etc.
+
+plugins_loaded: 		After active plugins and pluggable functions are loaded
+
+sanitize_comment_cookies
+
+setup_theme
+
+load_textdomain: 		For domain default
+
+after_setup_theme: 		At this stage, the current user is not yet authenticated.
+
+load_textdomain: 		For domain twentyeleven
+
+auth_cookie_valid
+
+set_current_user
+
+init: 					Typically used by plugins to initialize. The current user is already authenticated by this time.
+|
+> widgets_init: 		Used to register sidebars. This is fired at 'init', with a priority of 1.
+
+register_sidebar: 		For each sidebar
+
+wp_register_sidebar_widget: 	For each widget
+
+wp_default_scripts: 	(ref array)
+
+wp_default_styles: 		(ref array)
+
+admin_bar_init
+
+add_admin_bar_menus
+
+wp_loaded: 				After WordPress is fully loaded
+
+auth_cookie_valid
+
+auth_redirect
+
+_admin_menu: 			See also: _user_admin_menu, _network_admin_menu
+
+admin_menu: 			See also: user_admin, network_admin_menu
+
+admin_init
+
+current_screen
+
+load-(page)
+
+send_headers: 			Where custom HTTP headers can be added
+
+pre_get_posts: 			Exposes the query-variables object beore a query is executed. (ref array)
+
+posts_selection
+
+wp: 					After WP object is set up (ref array)
+
+admin_xml_ns
+
+admin_xml_ns
+
+admin_enqueue_scripts
+
+admin_print_styles-(hookname)
+
+admin_print_styles
+
+admin_print_scripts-
+
+(hookname)
+
+admin_print_scripts
+
+wp_print_scripts
+
+admin_head-(hookname)
+
+admin_head
+
+adminmenu
+
+in_admin_header
+
+admin_notices
+
+all_admin_notices
+
+(hookname)
+
+restrict_manage_posts
+
+the_post: 				(ref array)
+
+pre_user_query: 		(ref array)
+
+in_admin_footer
+
+admin_footer
+
+admin_bar_menu 			(ref array)
+
+wp_before_admin_bar_render
+
+wp_after_admin_bar_render
+
+admin_print_footer_scripts
+
+admin_footer-(hookname): 	Admin page footer
+
+shutdown: 				PHP execution is about to end
+
+wp_dashboard_setup: 	Allows customization of admin Dashboard
+
+Post, Page, Attachment and Category Actions (Admin):
+
+post_submitbox_misc_actions:
+	Runs when an editing page gets generated to add some content (eg. fields) to the submit box (where the
+	publish button is shown). No function arguments.
+
+add_attachment
+	Runs when an attached file is first added to the database. Action function arguments: attachment ID.
+
+add_category
+	Same as create_category
+
+category_add_form_fields
+	Runs when category add form is cerated in admin. Useful to add a field in this form before the submit button.
+
+category_edit_form
+	Runs when category edit form is created in admin. useful to add a new field to this form.
+
+clean_post_cache
+	Runs when post cache is cleaned. Action function arguments: post ID. See clean_post_cache().
+
+create_category
+	Runs when a new category is created. Action function arguments: category ID.
+
+delete_attachment
+	Runs just before an attached file is deleted from the database. Action function arguments: attachment ID.
+	(Prior to version 2.8 this hook was triggered after attachment was deleted).
+
+delete_category
+	Runs just after a category is deleted from the database and its corresponding links/posts are updated
+	to remove the category. Action function arguments: category ID.
+
+wp_trash_post
+	Runs when a post or page is about to be trashed. Action function arguments: post or page ID.
+
+trashed_post
+	Runs just after a post or page is trashed. Action function arguments: post or page ID.
+
+untrash_post
+	Runs just before undeletion, when a post or page is restored. Action function arguments:
+	post or page ID.
+
+untrashed_post
+	Runs just after undeletion, when a post or page is restored. Action function arguments:
+	post or page ID.
+
+before_delete_post
+	Runs when a post or page is about to be deleted. Comments, attachments and metadata are
+	still available. Action function arguments: post or page ID.
+
+delete_post
+	Runs when a post or page is about deleted. Comments, attachments and metadata are 
+	already deleted. Action function arguments: post or page ID.
+
+deleted_post
+	Runs just after a post or page is deleted. Action function arguments: post or page ID.
+
+edit_attachment
+	Runs when an attached file is edited/updated to the database. Action function arguments:
+	attachment ID.
+
+edit_category
+	Runs when a category is updated/edited, including when a post or blogroll link is added/deleted
+	or its categories are updated (which causes the count for the category to update). Action function
+	arguments: category ID.
+
+edit_post
+	Runs when a post or page is updated/edited, including when a comment is added or updated (which causes
+	the comment count for the post to update). Action function arguments: post or page ID.
+
+pre_post_update:
+	Runs just before a post or page is updated. Action function arguments: post or page ID.
+
+post_updated
+	Runs after a post or page is updated. Action function arguments: post or page ID, WP_Post object
+	of the post before the update and after the update.
+
+transition_post_status
+	Runs when any post status transition occurs. Action function arguments: $new_status, $old_status,
+	$post object. (see also Post Status Transition)
+
+(old_status)_to_(new status)
+	Runs when a post changed status from $old_status to $new_status. Action function arguments:
+	$post object. (See also Post Status Transition)
+
+(status)_(post_type)
+	Runs when a post of type $post_type is transitioned to $status from any other status.
+	Action function arguments: post ID, $post object (See also Post Status Transitions)
+
+publish_post (not deprecated)
+	Runs when a post is published, or if it is edited and its status is changed to "published".
+	This action hook conforms to the (status)_(post_type) action hook type. Action functions
+	arguments: post ID, $post object. (See also Post Status Transitions.)
+
+publish_page
+	Runs when a page is published, or if it is edited and its status is changed to "published".
+	This action hook conforms to the (status)_(post_type) action hook type. Action function
+	arguments: post ID, $post object. (See also Post Status Transitions).
+
+publish_phone
+	Runs just after a post is added via email. Action function argument: post ID.
+
+publish_future_post
+	Runs when a future post or page is published. Action function arguments: post ID.
+
+save_post
+	Runs whenever a post or page is created or updated, which could be from an import,
+	post/page edit form, xmlrpc, or post by email. Action function arguments: post ID and
+	post object. Runs after the data is saved to the database.
+
+	Note that post ID may reference a post revision and not the last saved post.
+	Use wp_is_post_revision() to get the ID of the real post.
+
+updated_postmeta
+	Runs when a metadata has been updated
+
+wp_insert_post
+	Same as save_post, runs immediately afterwards.
+
+xmlrpc_publish_post
+	Runs when a post is published via XMLRPC request, or if it is edited via XMLRPC
+	and its status is "published". Action function arguments: post ID.
+
+Taxonomy and Terms
+	create_term
+		Runs after a new term is created, before the term cache is cleaned.
+
+	created_term
+		Runs after a new term is created, and after the term cache has been cleaned.
+
+	created_$taxonomy
+		Runs after a new term is created for a specific taxonomy
+
+	add_term_relationship (Since version 2.9.0)
+		Runs before an object-term relationship is added.
+
+	added_term_relationship (Since version 2.9.0)
+		Runs before an object-term relationship is added.
+
+	set_object_terms (Since version 2.8.0)
+		Runs after an object's terms have been set.
+
+	edit_terms (Since version 2.9.0)
+		Runs before the given terms are edited.
+
+	edited_terms
+		Runs after saving taxonomy/category change in the database.
+
+	edit_term_taxonomy
+		Runs before a term-taxonomy relationship is updated.
+
+	edited_term_taxonomy
+		Runs after a term-taxonomy relationship is updated.
+
+	edit_term_taxonomies (Since version 2.9.0)
+		Runs before a term to delete's children are reassigned a parent.
+
+	edit_$taxonomy
+		Runs after a term is edited for a specific taxonomy.
+
+	edited_$taxonomy
+		Runs after a term in a specific taxonomy is edited, and after the term cache
+		has been cleaned.
+
+	pre_delete_term (Since version 4.1.0)
+		Runs before any modifications are made to posts or terms.
+
+	delete_term_taxonomy (Since version 2.9.0)
+		Runs before a term taxonomy ID is deleted from database (after having change children's term).
+
+	deleted_term_taxonomy (Since version 2.9.0)
+		Runs after a term taxonomy ID is deleted.
+
+	delete_term (Since version 2.5.0)
+		Runs after a term is deleted from the database and the cache is cleaned. (Parameters: $Term_ID, $Term_taxonomy_ID,
+		$Taxonomy_slug, $already_deleted_term)
+
+	delete_$taxonomy (Since version 2.3.0)
+		Runs after a term in a specific taxonomy is deleted. (Parameters: $Term_ID, $Term_taxonomy_ID, $already_deleted_term)
+
+	deleted_$taxonomy
+		Runs after a term in a specific taxonomy is deleted, and after the term has been cleaned.
+
+	delete_term_relationships (Since version 2.9.0)
+		Runs before an object-term relationship is deleted.
+
+	deleted_term_relationships (Since version 2.9.0)
+		Runs after an object-term relationship is deleted.
+
+	clean_object_term_cache (Since version 2.5.0)
+		Runs after the object term cache has been cleaned.
+
+	clean_term_cache (Since version 2.5.0)
+		Runs after each taxonomy's term cache has been cleaned.
+
+	split_shared_term (Since version 4.2.0)
+		Runs after a previously shared taxonomy term is split into two separate terms.
+
+Comment, Ping, and Trackback Actions
+	
+	comment_closed
+		Runs when the post is marked as not allowing comments while trying to display comment
+		entry form. Action function argument: post ID.
+
+	comment_id_not_found
+		Runs when the post ID is not found while trying to display comments or comment entry form.
+		Action function argument: post ID.
+
+	comment_flood_trigger
+		Runs when a comment flood is detected, just before wp_die is called to stop the
+		comment from being accepted. Action function arguments: time of previous comment,
+		time of current comment.
+
+	comment_(old status)_to_(new status)
+		Runs when a comment status transition occurs. Action function arguments: Comment object.
+
+	comment_on_draft
+		Runs when the post is a draft while trying to display a comment entry form or comments.
+		Action function argument: post ID.
+
+	comment_post
+		Runs just after a comment is saved in the database. Action function arguments: comment ID,
+		approval status ("spam", or 0/1 for disapproved, approved)
+
+	edit_comment
+		Runs after a comment is updated/edited in the database. Action function arguments:
+		comment ID.
+
+	delete_comment
+		Fires immediately before a comment is deleted from the database. Action function arguments:
+		comment ID.
+
+	deleted_comment
+		Fires immediately after a comment is deleted from the database. Action function arguments:
+		comment ID.
+
+	trash_comment
+		Fires immediately before a comment is sent to the Trash. Action function: comment ID.
+
+	trashed_comment
+		Fires immediately after a comment is sent to Trash. Action function arguments: comment ID.
+
+	untrash_comment
+		Fires immediately before a comment is restored from the Trash. Action function arguments:
+		comment ID.
+
+	untrashed_comment
+		Fires immediately after a comment is restored from the Trash. Action function arguments:
+		comment ID.
+
+	spam_comment
+		Fires immediately before a comment is marked as Spam. Action function arguments:
+		comment ID.
+
+	spammed_comment
+		Fires immediately after a comment is marked as Spam. Action function arguments:
+		comment ID.
+
+	unspam_comment
+		Fires immediately before a comment is unmarked as Spam. Action function arguments:
+		comment ID.
+
+	unspammed_comment
+		Fires immediately after a comment is unmarked as Spam. Action function arguments:
+		comment ID.
+
+	pingback_post
+		Runs when a ping is added to a post. Action function argument: comment ID.
+
+	pre_ping
+		Runs before a ping is fully processed. Action function arguments: array of the
+		post links to be processed, and the "pung" setting for the post.
+
+	trackback_post
+		Runs when a trackback is added to a post. Action function argument: comment ID.
+
+	wp_blacklist_check
+		Runs to check whether a comment should be blacklisted. Action function arguments:
+		author name, author email, author URL, comment text, author IP address, author's
+		user agent (browser). Your function can execute a wp_die to reject the comment,
+		or perhaps modify one of the input arguments so that it will contain one of the
+		blacklist keywords set in the WordPress options.
+
+	wp_insert_comment
+		Runs whenever a comment is created.
+
+	wp_set_comment_status
+		Runs when the status of a comment changes. Action function arguments: comment ID,
+		status string indicating the new status ("delete", "approve", "spam", "hold")
+
+Blogroll Actions
+	
+	add_link
+		Runs when a new blogroll link is first added to the database. Action function arguments:
+		link ID.
+
+	delete_link
+		Runs when a blogroll link is deleted. Action function arguments: link ID.
+
+	edit_link
+		Runs when a blogroll link is edited. Action function arguments: link ID.
+
+Feed Actions
+	
+	atom_entry
+		Runs just after the entry information has been printed (but before closing the entry tag) for each blod
+		entry in an atom feed.
+
+	atom_head
+		RUns just after the blog information has been printed in an atom feed, just before the first entry
+
+	atom_ns
+		Runs inside the root XML element for an atom feed (to add namespaces)
+
+	commentrss2_item
+		Runs just after a single comment's information has been printed in a comment feed (but before the
+		closing item tag). Action function arguments: comment ID, post ID.
+
+	do_feed_(feed)
+		Runs when a feed is generated, where feed is the type of feed (rss2, atom, rdf, etc.).
+		Use priority less than 10 to run BEFORE printing the feed. Action function argument:
+		true (the feed is for comments) or false (it is for posts).
+
+	rdf_header
+		Runs just after the blog information has been printed in an RDF feed, just before the first entry.
+
+	rdf_item
+		Runs just after the entry information has been printed (but before closing the item tag) for each blog
+		entry in a RDF feed.
+
+	rdf_ns
+		Runs inside the root XML element in an RDF feed (to add namespaces)
+
+	rss_head
+		Runs just after the blog information has been printed in an RSS feed, just before the first entry.
+
+	rss_item
+		runs just after the entry information has been printed (but before closing the item tag) for each
+		blog entry in an RSS feed.
+
+	rss2_head
+		Runs just after the blog information has been printed in an RSS 2 feed, just before the first entry.
+
+	rss2_item
+		Runs just after the entry information has been printed (but before closing the item tag) for each blod
+		entry in an RSS 2 feed.
+
+	rss2_ns
+		Runs inside the root XML element in an RSS 2 feed (to add namespaces).
+
+Template Actions
+	
+	after_setup_theme
+		Runs during a themes initialization. Is generally used to perform basic setup,
+		registration, and init actions for a theme.
+
+	comment_form
+		Runs at the bottom of a comment form rendered by comment_form(), right before the 
+		closing </form>. Action function argument: the post ID.
+
+	comment_form_after
+		Runs after the comment form is rendered by comment_form(), right after the closing </div>.
+
+	do_robots
+		Runs when the template file chooser determines that it is a robots.txt request
+
+	do_robotstxt
+		Runs in the do_robots() function before it prints out the Disallow lists for the
+		robots.txt file.
+
+	get_footer
+		Runs when the template calls the get_footer() function, just before the footer.php
+		template file is loaded
+
+	get_header
+		Runs when the template calls the get_header() function, just before the header.php
+		template file is loaded.
+
+	switch_theme
+		Runs when the blog's theme is changed. Action function argument: name of the new theme.
+		If used in a theme, it only works if the theme that adds action is the one being disabled.
+
+	after_switch_theme
+		Runs when the blog's theme is changed. Action function argument: name of the new theme.
+		If used in a theme, it only works if the theme that adds action is the one being enabled.
+		Can be used to run certain code when enabling a theme.
+
+	load-themes.php
+		Runs when the theme is activate or deactivate (replace by an other)
+
+	template_redirect
+		Runs before the determiniation of the template file to be used to display the requested page.
+
+	wp_footer
+		Runs when the template calls the wp_footer() function, generally near the bottom of the blog page.
+
+	wp_head
+		Runs when the template calls the wp_head() function. This hook is generally placed near the
+		top of a page template between <head> and </head>. This hook does not take any params.
+
+	wp_meta
+		Runs when the sidebar.php template file calls the wp_meta() function, to allow the plugin to
+		insert content into the sidebar.
+
+	wp_print_scripts
+		Runs just before WordPress prints registered JavaScript scripts into the page header.
+
+Administrative Actions
+	
+	activate_(plugin file name)
+		Runs when the plugin is first activated. See Function_Reference/register_activation_hook
+
+	activity_box_end
+		Runs at the end of the activity box on the admin Dashboard screen.
+
+	add_category_form_pre
+		Runs before the add category form is put on the screen in the admin menus.
+
+	add_option_(option_name)
+		Runs after a WordPress option has been added by the add_option() function. Action function
+		arguments: option name, option value. You must add an action for the specific options that
+		you want to respond to, such as 'add_option_foo' to respond when option "foo" has been added.
+
+	add_option
+		Runs before an option gets added to the database
+
+	added_option
+		Runs after an option has been added.
+
+	admin_head
+		Runs in the HTML <head> section or the admin panel.
+
+	admin_head-(page_hook) or admin_head-(plugin_page)
+		Runs in the HTML <head> section of a specific admin page or the admin panel of a plugin-generated page.
+
+	admin_init
+		Runs at the beginning of every admin page before the page is rendered. See wp-admin/admin.php, wp-admin/admin-post.php,
+		and wp-admin/admin-ajax.php
+
+	admin_footer-(plugin_page)
+		Runs at the end of the <body> section of the admin panel of a plugin-generated page.
+
+	admin_post_(action)
+		also: admin_post_nopriv_(action) - Runs a handler for an unspecified GET or POST request.
+
+	admin_footer
+		Runs at the end of the admin panel inside the body tag.
+
+	admin_enqueue_scripts
+		Runs in the HTML header so a plugin or theme can enqueue JavaScript and CSS to all
+		admin pages.
+
+	admin_print_scripts
+		Runs in the HTML header so a plugin can add a JavaScript scripts to all admin pages
+
+	admin_print_scripts-(page_hook) or admin_print_scripts-(plugin_page)
+		Runs to print JavaScripts scripts in the HTML head section of a specific plugin-generated admin
+		page. The (page_hook) is returned when using any of the functions that add plugin menu items to
+		the admin menu: add_management_page(), add_options_page(),
+		etc. Example:
+
+		function myplugin_menu() {
+			if ( function_exists('add_management-page')) {
+				$page = add_management_page('myplugin', 'myplugin', 'manage_options', 'myplugin_slug',
+		'myplugin_admin_page');
+				add_action( "admin_print_scripts-$page", 'myplugin_admin_head');
+
+			}
+		}
+
+	admin_print_styles
+		Runs in the HTML header so a plugin can add CSS/Stylesheets to all admin pages.
+
+	admin_print_styles-(page_hook) or admin_print_style-(plugin_page)
+		Runs when styles should be enqueued with wp_enqueue_style() for a particular admin page.
+		Use the return value of a function such as add_submenu_page() to determine the value of
+		(page_hook).
+
+	check_passwords
+		Runs to validate the double-entry of password when creating a new user. Action function
+		arguments: array of login name, first password, second password.
+
+	dbx_page_advanced
+		Runs at the bottom of the "advanced" section on the page editing screen in the admin menus.
+
+	dbx_page_sidebar
+		Runs at the bottom of the sidebar on the page editing screen in the admin menus.
+
+	dbx_post_advanced
+		Runs at the bottom of the "advanced" section on the post editing screen in the admin menus.
+
+	dbx_post_sidebar
+		Runs at the bottom of the sidebar on the post editing screen in the admin menus. Use add_meta_box()
+		in WordPress 2.5 and higher.
+
+	deactivate_(plugin file name)
+		Runs when a plugin is deactivated
+
+	delete_option_(option_name)
+		Runs after a WordPress option has been deleted by the delete_option() function. Action function
+		arguments: option name. You must add an action for the specific options that you want to respond
+		to, such as 'delete_option_foo' to respond when option "foo" has been deleted.
+
+	delete_option
+		Runs before an option gets deleted from the database
+
+	deleted_option
+		Runs after an option has been deleted.
+
+	delete_user
+		Runs when a user is deleted. Action function arguments: user ID.
+
+	edit_category_form
+		Runs after the add/edit category form is put on the screen (but before the end of the HTML form tag).
+
+	edit_category_form_pre
+		Runs before the edit category form is put on the screen in the admin menus.
+
+	edit_tag_form
+		Runs after the add/edit tag form is put on the screen (but before the end of the HTML form tag)
+
+	edit_tag_form_pre
+		Runs before the edit tag form is put on the screen in the admin menus.
+
+	edit_form_top
+		Runs inside the form before the title on WordPress post edit screen (and Custom Post Types),
+		but after the initial hidden fields (user_ID, action, etc.)
+
+	edit_form_after_title
+		Runs after the title on WordPress post edit screen (and Custom Post Types) but before the built
+		in WordPress content area.
+
+	edit_form_after_editor
+		Runs just after the WordPress post editor but before all other meta boxes, also available in
+		Custom Post Types.
+
+	edit_form_advanced
+		Runs just before the "advanced" section of the post editing form in the admin menus.
+
+	edit_page_form
+		Runs just before the "advanced" section of the page editing form in the admin menus.
+
+	edit_user_profile
+		Runs near the end of the user profile editing screen in the admin menus.
+
+	load-(page)
+		Runs when an administration menu page is loaded. This action is not usually added directly -
+		see Adding Administration Menus for more detail of how to add main menus. If you do not
+		want to use it directly, the return value from add_options_page() and similar functions
+		gives you the "(page)" part of the action name.
+
+	login_form
+		Runs just before the end of the login form.
+
+	login_head
+		Runs just before the end of the HTML head section of the login page.
+
+	lost_password
+		Runs before the "retrieve your password by email" form is printed on the login screen.
+
+	lostpassword_form
+		Runs at the end of the form used to retrieve a user's password by email, to allow a plugin
+		to supply extra fields.
+
+	lostpassword_post
+		runs when the user has requested an email message to retrieve their password, to allow a plugin
+		to modify the PHP $_POST variable before processing.
+
+	manage_link_custom_column
+		Runs when there is an unknown column name for the blogroll managing admin screen. Action function
+		arguments: column name, link ID. See also filter manage_link_columns in the Plugin API/Filter Reference,
+		which adds custom columns.
+
+	manage_posts_custom_column
+		Runs when there is an unkown column name for the managing posts admin screen. Action function arguments:
+		column name, post ID. See also filter manage_posts_columns in the Plugin API/Filter Reference, which
+		adds custom columns. (see Scompt's tutorial for examples and use).
+
+	manage_pages_custom_column
+		Runs when there is an unknown column name for the managing pages admin screen. Action function
+		arguments: column name, page ID. See also filter manage_pages_columns in the Plugin API/Filter
+		Reference, which adds custom columns.
+
+	manage_media_custom_column
+		Runs when there is an unknown column name for the managing media admin screen. Action function
+		arguments: column name, page ID. See also filter manage_media_columns in the Plugin API/Filter
+		Reference,w hich adds custom columns.
+
+	manage_{$post_type}_posts_custom_column
+		Runs when there is an unknown colum name for the managing custom post type admin screen.
+		Action function arguments: column name, post ID. See also filter manage_${post_type}_posts_columns
+		in the Plugin API/Filter Reference, which adds custom columns for custom post types.
+
+	password_reset
+		Runs before the user's password is reset to a random new password
+
+	personal_options_update
+		Runs when a user updates personal options from the admin screen.
+
+	plugins_loaded
+		Runs after all plugins have been loaded.
+
+	profile_personal_options
+		Runs at the end of the Personal Options section of the user profile
+		editing screen.
+
+	profile_update
+		Runs when a user's profile is updated. Action function argument: user ID.
+
+	quick_edit_custom_box
+		Runs when there is an unknown column name when creating the quick editor.
+
+	register_form
+		Runs just before the end of the new user registration form.
+
+	register_post
+		Runs before a new user registration request is processed.
+
+	restrict_manage_posts
+		Runs before the list of posts to edit is put on the screen in the admin
+		menus.
+
+	retrieve_password
+		Runs when a user's password is retrieved, to send them a reminder email.
+		Action function argument: login name.
+
+	set_current_user
+		Runs after the user has been changed by the default wp_set_current_user() function.
+		Note that wp_set_current_user() is also a "pluggable" function, meaning that plugins
+		can override it; see Plugin API).
+
+	show_user_profile
+		Runs near the end of the user profile editing screen.
+
+	sidebar_admin_page
+		Runs after the main content on the widgets admin page.
+
+	sidebar_admin_setup
+		Runs early when editing the widgets displayed in sidebars.
+
+	simple_edit_form
+		Runs at the end of the "simple" post editing form in the admin menus (by default the
+		simple form is used only for bookmarklets -- it does not have the "advanced" sections)
+
+	update_option_(option_name)
+		Runs after a WordPress option has been updated by the update_option(). Action function
+		arguments: old option value, new option value. You must add an action for the specific
+		options that you want to respond to, such as 'update_option_foo' to respond when option
+		"foo" has been updated.
+
+	update_option
+		Runs before an option gets updated to the database
+
+	updated_option
+		Runs after an option has been updated.
+
+	upload_files_(tab)
+		Runs to print a screen on the upload files admin screen; "tab" is the name of the custom
+		action tab. Define custom tabs using the wp_upload_tabs filter (see Plugin API/Filter Reference)
+
+	user_new_form
+		Runs near the end of the "Add New" user screen. Action function argument: Passes the string
+		"add-existing-user" on multisite or "add-new-user" on single site and for network admins.
+
+	user_profile_update_errors
+		Runs just before updated user details are commited to the database.
+
+	wpmu_new_user
+		Runs when a user's profile is first created in a Multisite environment. Action function argument:
+		user ID. If not in Multisite then use user_register.
+
+	user_register
+		Runs when a user's profile is first created. Action function argument: user ID.
+
+	welcome_panel
+		Allows you to hide the Welcome Panel in the Dashboard. This is also a smart filter, which hides
+		the related Screen Option.
+
+	wp_ajax_(action)
+		also: wp_ajax_nopriv_(action) - Runs to do an unknown type of AJAX request handler.
+
+	wp_authenticate
+		Runs to authenticate a user when they log in. Action function argument: array with user
+		name and password.
+
+	wp_login
+		Runs when a user logs in.
+
+	wp_logout
+		Runs when a user logs out.
+
+Dashboard "Right Now" Widget Actions
+	
+	right_now_content_table_end
+		Adds table rows at the bottom the content column of the Right Now Dashboard widget.
+
+	right_now_table_end
+		Called after displaying the number of Spam comments in the Discussion column of the Right Now
+		Dashboard widget.
+
+	right_now_discussion_table_end
+		Called after displaying the number of Spam comments and after the right_now_table_end action in
+		the Discussion column of the Right Now Dashboard widget.
+
+	right_now_end
+		Called after the current version information is displayed on the Right Now Dashboardwidget.
+		(Note: In v3.4, this is actually rightnow_end. See ticket #21046)
+
+	activity_box_end
+		Last action called on the Right Now Dashboard widget.
+
+Advanced Actions
+	
+	This section contains actions related to the queries WordPress uses to figure out what posts
+	to display, the WordPress loop, activating plugins, and other fundamental-level WordPress code.
+
+	activated_plugin
+		Runs any time any plugin is successfully activated
+
+	add_meta_boxes
+		Runs when "edit post" page loads (3.0+)
+
+	network_admin_notices
+		Runs after the admin menu is printed to network admin screens.
+
+	user_admin_notices
+		Runs after the admin menu is printed to user admin screens.
+
+	admin_notices
+		Runs after the admin menu is printed to screens that are not network
+		or user-admin screens.
+
+	all_admin_notices
+		Runs after the admin menu is printed to all screens
+
+	blog_privacy_selector
+		Runs after the default blog privacy options are printed on the screen.
+
+	check_admin_referer
+		Runs in the default check_admin_referrer() function after the nonce has been checked
+		for security purposes, to allow a plugin to force WordPress to die for extra security
+		reasons. Note that check_admin_referrer is also a "pluggable" function, meaning that
+		plugins can override it; see Plugin API).
+
+	check_ajax_referer
+		Runs in the default check_ajax_referer() function (which is called when an AJAX request goes
+		to the wp-admin/admin-ajax.php script) after the user's login and password have been successfully
+		validated from cookies, to allow a plugin to force WordPress to die for extra security reasons.
+
+		Note that check_ajax_referer is also a "pluggable" function, meaning that plugins can override
+		it; Plugin API).
+
+	customize_controls_enqueue_scripts
+		Triggered after the WP Theme Customizer after customize_controls_init was called, its actions/callbacks
+		executed, and its own styles and scripts enqueued, so you can use this hook to register your own
+		scripts and styles for WP Theme Customizer. For use with the Theme Customization API (as of Version 3.4)
+
+	customize_register
+		Runs on every request, allowing developers to register new theme options and controls for use with the
+		Theme Customization API (as of Version 3.4)
+
+	customize_preview_init
+		Allows you to enqueue assets (such as javascript files) directly in the Theme Customizer only.
+		For use with the Theme Customization API (as of Version 3.4)
+
+	deactivated_plugin
+		Runs any time any plugin is successfully de-activated
+
+	generate_rewrite_rules
+		Runs after the rewrite rules are generated. Action function arguments: WP_Rewrite object
+		($wp_rewrite) by reference. Note that it is easier to use the rewrite_rules_array filter
+		instead of this action, to modify the rewrite rules.
+
+	init
+		Runs after WordPress has finished loading but before any headers are sent. Useful for intercepting
+		$_GET or $_POST triggers.
+
+	loop_end
+		Runs after the last post of the WordPress loop is processed.
+
+	loop_start
+		Runs before the first post of the WordPress loop is processed.
+
+	network_admin_menu
+		Runs when the basic menu structure is prepared for the Network administration page.
+		(Administration Menus)
+
+	parse_query
+		Runs at the end of query parsing in the main query or any instance of WP_Query, such as query_posts,
+		get_posts, or get_children. Action function arguments: WP_Query object by reference.
+
+	parse_request
+		Runs after the query request is parsed inside the main WordPress function wp. Action function argument:
+		WP object ($wp) by reference.
+
+	pre_get_posts
+		Runs before a query is executed in the main query or any instance of WP_Query, such as query_posts(),
+		get_posts(), or get_children(). This hook is called after the query variable object is created, but
+		before the query is actually run, and can be used to alter the primary query before it is run.
+		Also see is_main_query(). Action function arguments: WP_Query object by reference.
+
+	sanitize_comment_cookies
+		Runs after cookies have been read from the HTTP request.
+
+	send_headers
+		Runs after the basic HTTP headers are sent inside the main WordPress function wp(). Action function
+		argument: WP object ($wp) by reference.
+
+	shutdown
+		Runs when the page output is complete.
+
+	update_(meta_type)_meta
+		Runs when a metadata gets saved.
+
+	ugprader_process_complete
+		Runs when the plugin downloader/upgrader class finishes running
+
+	wp_loaded
+		This hook is fired once WP, all plugins and the theme are fully loaded and instansiated.
+
+	wp
+		Executes after the query has been parsed and post(s) loaded, but before any template execution,
+		inside the main WordPress function wp(). Useful if you need to have access to post data but
+		 cannot use templates for output. Action function argument: WP object($wp) by reference.
+
+Further Reading:
+	Writing a Plugin - description of how to write a plugin
+	Plugin API - article on how to use filters and actions
+	Plugin API/Filter Reference - reference list for filter hooks
+	Plugin Resources - comprehensive list of plugin-related resources
+	Hooks Database - documentation for all hooks in the official WordPress Code Reference
+	WordPress Hooks Database, a database of all WordPress's hooks, showing which version they
+	come from and linking to the source code spots that use them.
+
+Understanding Source Code:
+
+The best way to understand what a hook does, is to look at where it occurs in the source code.
+
+Action hooks look like this: do_action( "hook_name" )
+Filter hooks look like this: apply_filters( "hook_name", "what_to_filter" )
+
+Remember, this hook may occur in more than one file. Moreover, the hook's context may change from version
+to version.
+
+Plugin API/Filter Reference
+
+This article contains an extensive (but not 100% comprehensive) list of the filter hooks available
+for use in plugin development in Version 2.1 and above of WordPress. For more info:
+
+To learn more about what filter and action hooks are, see Plugin API.
+To learn about writing plugins in general, see Writing a Plugin.
+For a reference list of action hooks, see Plugin API/Action Reference.
+
+For information about filter and action hooks in previous versions of WordPress, see Plugin API/Hooks 2.0.x
+For an automatically-generated list of all WordPress hooks, see the WordPress Hooks Database
+
+Note: If you want to add to or clarify this documentation, please follow the style of the existing entries.
+Describe what data the filter is applied to, and if the filter function takes additional arguments, describe
+the argument list.
+
+Post, Page, and Attachment (Upload) Filters
+
+See also #Category and Term Filters, #Author and User Filters, #Link Filters, #Date and Time Filters,
+and #Administrative Filters below
+
+Database Reads:
+
+Filters in this section are applied to information read from the database, prior to displaying on a page
+or editing screen.
+
+attachment_fields_to_edit
+	applied to the form fields to be displayed when editing an attachment. Called in the get_attachment_fields_to_edit
+	function. Filter function arguments: an array of form fields, the post object.
+
+attachment_icon
+	applied to the icon for an attachment in the get_attachment_icon function. Filter function arguments:
+	icon file as an HTML IMG tag, attachment ID.
+
+attachment_innerHTML
+	applied to the title to be used for an attachment if there is no icon, in the get_attachment_innerHTML
+	function. Filter function arguments: inner HTML (defaults to the title), attachment ID.
+
+author_edit_pre
+	applied to post author prior to display for editing
+
+body_class
+	applied to the classes for the HTML <body> element. Called in the get_body_class function.
+	Filter function arguments: an array of class names and an array of additional class names
+	that were added to the first array.
+
+content_edit_pre
+	applied to post content prior to display for editing
+
+content_filtered_edit_pre
+	applied to post content filtered prior to display for editing
+
+excerpt_edit_pre
+	applied to post excerpt prior to display for editing.
+
+date_edit_pre
+	applied to post date prior to display for editing.
+
+date_gmt_edit_pre
+	applied to post date prior to display for editing.
+
+get_attached_file
+	applied to the attached file information retrieved by the get_attached_file function.
+	Filter function arguments: file information, attachment ID.
+
+get_enclosed
+	applied to the enclosures list for a post by the get_enclosed function.
+
+get_pages
+	applied to the list of pages returned by the get_pages function. Filter function arguments:
+	list of pages (each item of which contains a page data array), get_pages function argument list (telling
+	which pages were requested).
+
+get_pung
+	applied to the list of pinged URLs for a post by the get_pung function.
+
+get_the_archive_title
+	applied to the archive's title in the get_the_archive_title function.
+
+get_the_excerpt
+	applied to the post's excerpt in the get_the_excerpt function.
+
+get_the_guid
+	applied to the post's GUID in the get_the_guid function.
+
+get_to_ping
+	applied to list of URLs to ping for a post by the get_to_ping function.
+
+icon_dir
+	applied to the template's image directory in several functions. Basically allows a plugin
+	to specify that icons for MIME types should come from a different location.
+
+icon_dir_uri
+	applied to the template's image directory URI in several functions. Basically allows a plugin
+	to specify that icons for MIME types should come from a different location
+
+image_size_names_choose
+	applied to the list of image sizes selectable in the Media Library. Commonly used to make
+	custom image sizes selectable.
+
+mime_type_edit_pre
+	applied to post mime type prior to display for editing.
+
+modified_edit_pre
+	applied to post modification date prior to display for editing.
+
+modified_gmt_edit_pre
+	applied to post modification gmt date prior to display for editing.
+
+no_texturize_shortcodes
+	applied to registered shortcodes. Can be used to exempt shortcodes from the
+	automatic texturize function.
+
+parent_edit_pre
+	applied to post parent id prior to display for editing
+
+password_edit_pre
+	applied to post password prior to display for editing
+
+post_class
+	applied to the classes of the outermost HTML element for a post. Called in the
+	get_post_class function. Filter function arguments: an array of class names,
+	an array of additional class names that were added to the first array, and the
+	post ID.
+
+prepend_attachment
+	applied to the HTML to be prepended by the prepend_attachment function.
+
+protected_title_format
+	Used to change or manipulate the post title when the post is password protected.
+
+private_title_format
+	Used to change or manipulate the post title when it's status is private
+
+sanitize_title
+	applied to a post title by the sanitize_title function, after stripping out HTML tags.
+
+single_post_title
+	applied to the post title when used to create a blog page title by the wp_title and single_post_title
+	functions.
+
+status_edit_pre
+	applied to post status prior to display  for editing
+
+the_content
+	applied to the post content retrieved from the database, prior to printing on the screen (also used
+	in some other operations, such as trackbacks).
+
+the_content_rss
+	applied to the post content prior to including in an RSS feed. (Deprecated)
+
+the_content_feed
+	applied to the post content prior to including in an RSS feed.
+
+the_editor_content
+	applied to post content before putting it into a rich editor window.
+
+the_excerpt
+	applied to the post excerpt (or post content, if there is no excerpt) retrieved from the database,
+	prior to printing on the screen (also used in some other operations, such as trackbacks).
+
+the_excerpt_rss
+	applied to the post excerpt prior to including in an RSS feed.
+
+the_password_form
+	applied to the password form for protected posts.
+
+the_tags
+	applied to the tags retrieved from the database, prior to printing on the
+	screen.
+
+the_title
+	applied to the post title retrieved from the database, prior to printing on the screen
+	(also used in some other operations, such as trackbacks).
+
+the_title_rss
+	applied to the post title before including in an RSS feed (after first filtering with the_title).
+
+title_edit_pre
+	applied to post title prior to display for editing.
+
+type_edit_pre
+	applied to post type prior to display for editing.
+
+wp_dropdown_pages
+	applied to the HTML dropdown list of WordPress pages generated by the wp_dropdown_pages function.
+
+wp_list_pages
+	applied to the HTML list generated by the wp_list_pages function.
+
+wp_list_pages_excludes
+	applied to the list of excluded pages (an array of page IDs) in the wp_list_pages function.
+
+wp_get_attachment_metadata
+	applied to the attachment metadata retrieved by the wp_get_attachment_metadata function.
+	Filter function arguments: meta data, attachment ID.
+
+wp_get_attachment_thumb_file
+	applied to the attachment thumbnail file retrieved by the wp_get_attachment_thumb_file
+	function. Filter function arguments: thumbnail file, attachment ID.
+
+wp_get_attachment_thumb_url
+	applied to the attachment thumbnail URL retrieved by the wp_get_attachment_thumb_URL function.
+	Filter function arguments: thumbnail URL, attachment ID.
+
+wp_get_attachment_url
+	applied to the attachment URL retrieved by the wp_get_attachment_url function. Filter function
+	arguments: URL, attachment ID.
+
+wp_mime_type_icon
+	applied to the MIME type icon for an attachment calculated by the wp_mime_type_icon function.
+	Filter function arguments: icon URI calculated, MIME type, post ID.
+
+wp_title
+	applied to the blog page title before sending to the browser in the wp_title function.
+
+Database Writes
+
+Filters in this section are applied to information prior to saving to the database.
+
+add_ping
+	applied to the new value of the pinged field on a post when a ping is added, prior to saving
+	the new information in the database
+
+attachment_fields_to_save
+	applied to fields associated with an attachment prior to saving them in the database. Called in
+	the media_upload_form_handler function. Filter function arguments: an array of post attributes,
+	an array of attachment fields including the changes submitted from the form.
+
+attachment_max_dims
+	applied to the maximum image dimensions before reducing an image size, Filter function input
+	(and return value) is either false (if no maximum dimensions have been specified) or a two-item
+	list (width, height).
+
+category_save_pre
+	applied to post category comma_separated list prior to saving it in the database (also used for
+	attachments)
+
+comment_status_pre
+	applied to post comment status prior to saving it in the database (also used for attachments)
+
+content_filtered_save_pre
+	applied to filtered post content prior to saving it in the database (also used for attachments)
+
+content_save_pre
+	applied to post content prior to saving it in the database (also used for attachments)
+
+excerpt_save_pre
+	applied to post excerpt prior to saving it in the database (also used for attachments)
+
+image_save_pre (deprecated)
+	use image_editor_save_pre instead.
+
+jpeg_quality (deprecated)
+	use wp_editor_set_quality or WP_image_Editor::set_quality() instead.
+
+name_save_pre (Deprecated)
+	applied to post name prior to saving it in the database (also used for attachments)
+
+phone_content
+	applied to the content of a post submitted by email, before saving
+
+ping_status_pre
+	applied to post ping status prior to saving it in the database (also used for attachments)
+
+post_mime_type_pre
+	applied to the MIME type for an attachment prior to saving it in the database.
+
+status_save_pre
+	applied to post status prior to saving it in the database.
+
+thumbnail_filename
+	applied to the file name for the thumbnail when uploading an image.
+
+title_save_pre
+	applied to post title prior to saving it in the database (also used for attachments)
+
+update_attached_file
+	applied to the attachment information prior to saving in post metadata in the update_attached_file
+	function. Filter function arguments: attachment information, attachment ID.
+
+wp_create_thumbnail (deprecated)
+
+wp_delete_file
+	applied to an attachment file name just before deleting
+
+wp_generate_attachment_metadata
+	applied to the attachment metadata array before saving it in the database.
+
+wp_save_image_file (deprecated)
+	use wp_save_image_editor_file instead.
+
+wp_thumbnail_creation_size_limit
+	applied to the size of the thumbnail when uploading an image. Filter function
+	arguments: max file size, attachment ID, attachment file name.
+
+wp_thumbnail_max_size_length
+	applied to the size of the thumbnail when uploading an image. Filter function
+	arguments: image side max size, attachment ID, attachment file name.
+
+wp_update_attachment_metadata
+	applied to the attachment metadata just before saving in the wp_update_attachment_metadata
+	function. Filter function arguments: meta data, attachment ID.
+
+Comment, Trackback, and Ping Filters
+
+See also #Author and User Filters, #Link Filters, #Date and Time Filters, and #Administrative Filters below.
+
+Database Reads
+
+Filters in this section are applied to information read from the database, prior to displaying on a page
+or editing screen.
+
+comment_excerpt
+	applied to the comment excerpt by the comment_excerpt function. See also get_comment_excerpt
+
+comment_flood_filter
+	applied when someone appears to be flooding your blog with comments. Filter function arguments:
+	already blocked (true/false, whether a previous filtering plugins has already blocked it; set to
+	true and return true to block this comment in a plugin); time of previous comment, time of current
+	comment.
+
+comment_post_redirect
+	applied to the redirect location after someone adds a comment. Filter function arguments: redirect
+	location, comment info array.
+
+comment_text
+	applied to the comment text before displaying on the screen by the comment_text function, and in the
+	admin menus.
+
+comment_text_rss
+	applied to the comment text prior to including in an RSS feed.
+
+comments_array
+	applied to the array of comments for a post in the comments_template function. Filter function arguments:
+	array of comment information structures, post ID.
+
+comments_number
+	applied to the formatted text giving the number of comments generated by the comments_number function.
+	See also get_comments_number.
+
+get_comment_excerpt
+	applied to the comment excerpt read from the database by the get_comment_excerpt function (which is also
+	called by comment_excerpt. See also comment_excerpt)
+
+get_comment_ID
+	applied to the comment ID read from the global $comments variable by the get_comment_ID function.
+
+get_comment_text
+	applied to the comment text of the current comment in the get_comment_text function, which is also
+	called by the comment_text function.
+
+get_comment_type
+	applied to the comment type ("comment", "trackback", or "pingback") by the get_comment_type function (which
+	is also called by comment_type)
+
+get_comments_number
+	applied to the comment count read from the $post global variable by the get_comments_number function
+	(which is also called by the comments number function: see also comments_number filter)
+
+post_comments_feed_link
+	applied to the feed URL generated for the comments feed by the comments_rss function.
+
+Database Writes
+
+Filters in this section are applied to information prior to saving to the database.
+
+comment_save_pre
+	applied to the comment data just prior to updating/editing comment data. Function arguments:
+	comment data data, with indices "comment_post_ID", "comment author", "comment_author_email",
+	"comment_author_url", "comment_content", "comment_type" and "user_ID".
+
+pre_comment_approved
+	applied to the current comment's approval status (true/false) to allow a plugin to override.
+	Return true/false and set first argument to true/false to approve/disapprove the comment,
+	and use global variables such as $comment ID to access information about this comment.
+
+pre_comment_content
+	applied to the content of a comment prior to saving the comment in the database.
+
+preprocess_comment
+	applied to the comment data prior to any other processing, when saving a new comment in the
+	database. Function arguments: comment data arrray, with indices "comment_post_ID", "comment_author",
+	"comment_author_email", "comment_author_url", "comment_content", "comment_type" and "user_ID".
+
+wp_insert_post_data
+	applied to modified and unmodified post data in wp_insert_post() prior to update or insertion
+	of post into database. Function arguments: modified and extended post array and sanitized
+	post array.
+
+Category and Term Filters
+
+See also #Administrative Filters below
+
+Database Reads
+
+Filters in this section are applied to information read from the database, prior to displaying
+on a page or editing screen.
+
+category_description
+	applied to the "description" field categories by the category_description and wp_list_categories
+	functions. Filter function arguments: description, category ID when called from category_description;
+	description, category information array (all fields from the category table for that particular category)
+	when called from wp_list_categories.
+
+category_feed_link
+	applied to the feed URL generated for the category feed by the get_category_feed_link function.
+
+category_link
+	applied to the URL created for a category by the get_category_link function. Filter function arguments:
+	link URL, category ID.
+
+get_ancestors
+	applied to the list of ancestor IDs returned by the get_ancestors function (which is in turn used by many
+	other functions). Filter function arguments: ancestor IDs array, given object ID, given object type.
+
+get_categories
+	applied to the category list generated by the get_categories function (which is in turn used by many other functions).
+	Filter function arguments: category list, get_categories options list.
+
+get_category
+	applied to the category information that the get_category function looks up, which is basically an array of all the fields
+	in WordPress's category table for a particular category ID.
+
+list_cats
+	called for two different purposes:
+
+	1. the wp_dropdown_categories function uses it to filter the show_option_all and show_option_none arguments
+	(which are used to put options "All" and "None" in category drop-down lists). No additional filter function
+	arguments.
+
+	2. the wp_list_categories function applies it to the category names. Filter function arguments: category name,
+	category information list (all fields from the category table for that particular category).
+
+list_cats_exclusions
+	applied to the SQL WHERE statement giving the categories to be excluded by the get_categories function.
+	Typically, a plugin would add to this list, in order to exclude certain categories or groups of categories
+	from category lists. Filter function arguments: excluded category WHERE clause, get_categories options list.
+
+single_cat_title
+	applied to the category name when used to create a blog page title by the wp_title and single_cat_title
+	functions.
+
+the_category
+	applied to the list of categories (an HTML list wiht links) created by the get_the_category_list function.
+	Filter function arguments: generated HTML text, list separator being used (empty string means it is a default
+	LI list), parents argument to get_the_category_list.
+
+the_category_rss
+	applied to the category list (a list of category XML elements) for a post by the get_the_category_rss function,
+	before including in an RSS feed. Filter function arguments are the list text and the type ("rdf" or "rss" generally).
+
+wp_dropdown_cats
+	applied to the drop-down category list (a text string containing HTML option elements) generated by the
+	wp_dropdown_categories function.
+
+wp_list_categories
+	applied to the category list (an HTML list) generated by the wp_list_categories function.
+
+wp_get_object_terms
+	applied to the list of terms (an array of objects) generated by the wp_get_object_terms function,
+	which is called by a number of category/term related functions, such as get_the_terms and get_the_category.
+
+Database Writes
+
+Filters in this section are applied to information prior to saving to the Database.
+
+pre_category_description
+	applied to the category description prior to saving in the database.
+
+wp_update_term_parent
+	filter term parent before update to term is applied, hook to this filter to see if it will cause a hierarchy loop.
+
+edit_terms
+	(actually an action, but often used like a filter) hooked in prior to saving taxonomy/category change in the database.
+
+pre_category_name
+	applied to the category name prior to saving in the database.
+
+pre_category_nicename
+	applied to the category nice name prior to saving in the database.
+
+Link Filters
+
+Note: This section contains filters related to links to posts, pages, archives, feeds, etc. For blogroll links, see the
+#Blogroll Filters section below.
+
+attachment_link
+	applied to the calculated attachment permalink by the get_attachment_link function. Filter function arguments:
+	link URL, attachment ID.
+
+author_feed_link
+	applied to the feed URL generated for the author feed by the get_author_rss_link function.
+
+author_link
+	applied to the author's archive permalink created by the get_author_posts_url function. Filter function
+	arguments: link URL, author ID, author's "nice" name. Note that get_author_posts_url is called within
+	functions wp_list_authors and the_author_posts_link
+
+comment_reply_link
+	applied to the link generated for replying to a specific comment by the get_comment_reply_link function
+	which is called within function comments_template. Filter function arguments: link (string), custom options (array),
+	current comment (object), current post (object).
+
+day_link
+	applied to the link URL for a daily archive by the get_day_link function. File function arguments: URL, year, month
+	number, day number
+
+feed_link
+	applied to the link URL for a feed by the get_feed_link function. Filter function arguments: URL, type of feed (e.g.
+	"rss2", "atom", etc.)
+
+get_comment_author_link
+	applied to the HTML generated for the author's link on a comment, in the get_comment_author function
+	(which is also called by comment_author_link. Action function arguments: user name)
+
+get_comment_author_url_link
+	applied to the HTML generated for the author's link on a comment, in the get_comment_author_url_link function
+	(which is also called by comment_author_link).
+
+month_link
+	applied to the link URL for a monthly archive by the get_month_link function. Filter function arguments:
+	URL, year, month number.
+
+page_link
+	applied to the calculated page URL by the get_page_link function. Filter function arguments: URL, page ID.
+	Note that there is also an internal filter called _get_page_link that can be used to filter the URLS of
+	pages that are not designated as the blog's home page (same arguments).
+
+	Note that this only applies to WordPress pages, not posts, custom post types, or attachments.
+
+post_link
+	applied to the calculated post permalink by the get_permalink function, which is also called by the
+	the_permalink, post_permalink, previous_post_link, and next_post_link functions. Filter function
+	arguments: permalink URL, post data list.
+
+	Note that this only applies to WordPress default posts, and not custom post types (nor pages or
+	attachments).
+
+post_type_link
+	applied to the calculated custom post type permalink by the get_post_permalink function
+
+the_permalink
+	applied to the permalink URL for a post prior to printing by function the_permalink
+
+year_link
+	applied to the link URL for a yearly archive by the get_year_link function. Filter function arguments:
+	URL, year.
+
+tag_link
+	applied to the URL created for a tag by the get_tag_link function. Filter function arguments: link URL,
+	tag ID.
+
+term_link
+	applied to the URL created for a term by the get_term_link function. Filter function arguments: term link
+	URL, term object and taxonomy slug.
+
+Date and Time Filters
+
+See also #Link Filters above
+
+get_comment_date
+	applied to the formatted comment date generated by the get_comment_date function (which is also called by comment_date)
+
+get_comment_time
+	applied to the formatted comment time in the get_comment_time function (which is also called by comment_time)
+
+get_the_modified_date
+	applied to the formatted post modification date generated by the get_the_modified_date function (which is also
+	called by the the_modified_date function)
+
+get_the_modified_time
+	applied to the formatted post modification time generated by the get_the_modified_time and get_post_modified_time
+	functions (which are also called by the the_modified_time function)
+
+get_the_time
+	applied to the formatted post time generated by the get_the_time and get_post_time functions (which are also called
+	by the the_time function)
+
+the_date
+	applied to the formatted post date generated by the the_date function
+
+the_modified_date
+	applied to the formatted post modification date generated by the the_modified_date function.
+
+the_modified_time
+	applied to the formatted post modification time generated by the the_modified_time function.
+
+the_time
+	applied to the formatted post time generated by the the_time function.
+
+the_weekday
+	applied to the post day weekday name generated by the the_weekday function.
+
+the_weekday_date
+	applied to the post date weekday name generated by the the_weekday_date function. Function arguments
+	are the weekday name, before text, and after text (before text and after text are added to the weekday
+	name if the current post's weekday is different from the previous post's weekday)
+
+Author and User Filters
+
+See also #Link Filters and #Administrative Filters sections.
+
+login_body_class
+	Allows filtering of the body class applied to the login screen in login_header()
+
+login_redirect
+	applied to the redirect_to post/get variable during the user login process.
+
+user_contactmethods
+	applied to the contact methods fields on the user profile page. (old page is here: contactmethods)
+
+Database Reads
+
+Filters in this section are applied to information read from the database, prior to displaying
+on a page or editing screen.
+
+author_email
+	applied to comment author's email address retrieved from the database by the comment_author_email
+	function. See also get_comment_author_email
+
+comment_author
+	applied to the comment author's name retrieved from the database by the comment_author function.
+	See also get_comment_author
+
+comment_author_rss
+	applied to the comment author's name prior to including in an RSS feed.
+
+comment_email
+	applied to the comment author's email address retrieved from the database by the
+	comment_author_email_link function.
+
+comment_url
+	applied to the comment author's URL retrieved from the database by the comment_author_url function
+	(see also get_comment_author_url)
+
+get_comment_author
+	applied to the comment author's name retrieved from the database by get_comment_author, which is also called
+	by comment_author. See also comment_author
+
+get_comment_author_email
+	applied to the comment author's email address retrieved from the database by get_comment_author_email, which is
+	also called by comment_author_email. See also author_email
+
+get_comment_author_IP
+	applied to the comment author's IP address retrieved from the database by the get_comment_author_IP function,
+	which is also called by comment_author_IP.
+
+get_comment_author_url
+	applied to the comment author's URL retrieved from the database by the get_comment_author_url function, which is
+	also called by comment_author_url. See also comment_url
+
+login_errors
+	applied to the login error message printed on the login screen.
+
+login_headertitle
+	applied to the title for the login header URL (Powered by WordPress by default) printed on the login screen.
+
+login_headerurl
+	applied to the login header URL (points to wordpress.org by default) printed on the login screen.
+
+login_message
+	applied to the login message printed on the login screen
+
+role_has_cap
+	applied to a role's capabilities list in the WP_Role->has_cap function. Filter function arguments are the
+	capabilities list to be filtered, the capability being questioned, and the role's name.
+
+sanitize_user
+	applied to a user name by the sanitize_user function. Filter function arguments: user name (after some cleaning
+	up), raw user name, strict (true or false to use strict ASCII or not)
+
+the_author
+	applied to a post author's displayed name by the get_the_author function, which is also called by the
+	the_author function
+
+the_author_email
+	applied to a post author's email address by the the_author_email function.
+
+user_search_columns
+	applied to the list of columns in the wp_users table to include in the WHERE clause inside
+	WP_User_Query.
+
+Database Writes
+	Filters in this section are applied to information prior to saving to the database
+
+	pre_comment_author_email
+		applied to a comment author's email address prior to saving the comment in the DB
+
+	pre_comment_author_name
+		applied to a comment author's user name prior to saving the comment in the DB
+
+	pre_comment_author_url
+		applied to a comment author's URL prior to saving the comment in the database.
+
+	pre_comment_user_agent
+		applied to the comment author's user agent prior to saving the comment in the database.
+
+	pre_comment_user_ip
+		applied to the comment author's IP address prior to saving the comment in the database.
+
+	pre_user_id
+		applied to the comment author's user ID prior to saving the comment in the database
+
+	pre_user_description
+		applied to the user's description prior to saving in the database
+
+	pre_user_display_name
+		applied to the user's displayed name prior to saving in the database.
+
+	pre_user_email
+		applied to the user's email address prior to saving in the database.
+
+	pre_user_first_name
+		applied to the user's first name prior to saving in the database
+
+	pre_user_last_name
+		applied to the user's last name prior to saving in the database
+
+	pre_user_login
+		applied to the user's login name prior to saving in the database
+
+	pre_user_nicename
+		applied to the user's "nice name" prior to saving in the database
+
+	pre_user_nickname
+		applied to the user's nickname prior to saving in the database
+
+	pre_user_url
+		applied to the user's URL prior to saving in the database
+
+	registration_errors
+		applied to the list of registration errors generated while 
+		registering a user for a new account
+
+	user_registration_email
+		applied to the user's email address read from the registration page,
+		prior to trying to register the person as a new user
+
+	validate_username
+		applied to the validation result on a new user name. Filter function
+		arguments: valid (true/false), user name being validated.
+
+Blogroll Filters
+	
+	Note: This section contains filters related to blogroll links. For filters related to links
+	to posts, pages, categories, etc. see section #Link Filters above.
+
+	get_bookmarks
+		applied to link/blogroll database query results by the get_bookmarks function. Filter
+		function arguments: database query results list, get_bookmarks arguments list.
+
+	link_category
+		applied to the link category by the get_links_list and wp_list_bookmarks functions
+		(as of WordPress 2.2)
+
+	link_description
+		applied to the link description by the get_links and wp_list_bookmarks functions
+		(as of WordPress 2.2)
+
+	link_rating
+		applied to the link rating number by the get_linkrating function
+
+	link_title
+		applied to the link by the get_links and wp_list_bookmarks functions
+		(as of WordPress 2.2)
+
+	pre_link_description
+		applied to the link description prior to saving in the database
+
+	pre_link_image
+		applied to the link image prior to saving in the database
+
+	pre_link_name
+		applied to the link name prior to saving in the database
+
+	pre_link_notes
+		applied to the link notes prior to saving in the database
+
+	pre_link_rel
+		applied to the link relation information prior to saving in the database.
+
+	pre_link_rss
+		applied to the link RSS URL prior to saving in the database
+
+	pre_link_target
+		applied to the link target information prior to saving in the database
+
+	pre_link_url
+		applied to the link URL prior to saving in the database
+	
+Blog Information and Option Filters
+
+	all_options
+		applied to the option list retrieved from the database by the get_alloptions function.
+
+	all_plugins
+		applied to the list of plugins retrieved for display in the plugins list table.
+
+	bloginfo
+		applied to the blog option information retrieved from the database by the bloginfo function,
+		after first retrieving the information with the get_bloginfo function. A second argument
+		$show gives the name of the bloginfo option that was requested. 
+
+		Note that bloginfo("url"), bloginfo("directory") and bloginfo("home") do NOT use this
+		filtering function (see bloginfo_url)
+
+	bloginfo_rss
+		applied to the blog option information by function get_bloginfo_rss (which is also called from
+		bloginfo_rss), after first retrieving the information with the get_bloginfo function, stripping
+		out HTML tags, and converting characters appropiately. A second argument $show gives the name
+		of the bloginfo option that was requested.
+
+	bloginfo_url
+		applied to the output of bloginfo("url"), bloginfo("directory") and bloginfo("home") before returning
+		the information.
+
+	loginout
+		applied to the HTML link for logging in and out (generally placed in the sidebar) generated by the
+		wp_loginout function
+
+	lostpassword_url
+		applied to the URL that allows users to reset their passwords
+
+	option_(option name)
+		applied to the option value retrieved from the database by the get_option function, after unserializing
+		(which decodes array-based options). To use this filter, you will need to add filters for specific options
+		names, such as "option_foo" to filter the output of get_option("foo").
+
+	pre_get_space_used
+		applied to the get_space_used() function to provide an alternative way of displaying storage space used.
+		Returning false from this filter will revert to default display behavior (used wp_upload_dir() directory
+		space in megabytes)
+
+	pre_option_(option name)
+		applied to the option value retrieved from the database by the get_alloptions function, after unserializing
+		(which decodes array-based options). To use this filter, you will need to add filters for specific options
+		names, such as "pre_option_foo" to filter the option "foo".
+
+	pre_update_option_(option name)
+		applied the option value before being saved to the database to allow overriding the values to be stored.
+		To use this filter, you will need to add filters for specific options names, such as "pre_update_option_foo"
+		to filter the option "foo".
+
+	register
+		applied to the sidebar link created for the user to register (if allowed) or visit the admin panels
+		(if already logged in) by the wp_register function.
+
+	upload_dir
+		applied to the directory to be used for uploads calculated by the wp_upload_dir function. Filter function
+		argument is an array with components "dir" (the upload directory path), "url" (the URL of the upload directory),
+		and "error" (which you can set to true if you want to generate an error).
+
+	upload_mimes
+		allows a filter function to return a list of MIME types for uploads, if there is no MIME list input
+		to the wp_check_filetype function. Filter function argument is an associated list of MIME types
+		whose component names are file extensions (separated by vertical bars) and values are the corresponding
+		MIME types.
+
+General Text Filters
+	
+	attribute_escape
+		applied to post text and other content by the attribute_escape function, which is called in many
+		places in WordPress to change certain characters into HTML attributes before sending to the browser.
+
+	js_escape
+		applied to JavaScript code before sending to the browser in the js_escape function.
+
+	sanitize_key
+		applied to key before using it for your settings field, or other needs, generated by sanitize_key
+		function.
+
+Administrative Filters
+	
+	The filters in this section are related to the administration screens of WordPress, including content
+	editing screens.
+
+	admin_user_info_links
+		applied to the user profile and info links in the WordPress admin quick menu.
+
+	autosave_interval
+		applied to the interval for auto-saving posts.
+
+	bulk_actions
+		applied to an array of bulk items in admin bulk action dropdowns.
+
+	bulk_post_updated_messages
+		applied to an array of bulk action updated messages.
+
+	cat_rows
+		applied to the category rows HTML generated for managing categories in the
+		admin menus.
+
+	comment_edit_pre
+		applied to comment content prior to display in the editing screen.
+
+	comment_edit_redirect
+		applied to the redirect location after someone edits a comment in the admin menus.
+		Filter function arguments: redirect location, comment ID.
+
+	comment_moderation_subject
+		applied to the mail subject before sending email notifying the administrator of the need
+		to moderate a new comment. Filter function arguments: mail subject, comment ID. Note that
+		this happens inside the default wp_notify_moderator function, which is a "pluggable" function,
+		meaning that plugins can override it; see Plugin API.
+
+	comment_moderation_text
+		applied to the body of the mail message before sending email notifying the administrator
+		to moderate a new comment. Filter function arguments: mail body text, comment ID. Note that
+		this happens inside the default wp_notify_moderator function, which is a "pluggable"
+		function, meaning that plugins can override it: see Plugin API.
+
+	comment_notification_headers
+		applied to the mail headers before sending email notifying the post author of a new comment.
+		Filter function arguments: mail header text, comment ID. Note that this happens inside the default
+		wp_notify_postauthor function, which is a "pluggable" function, meaning that plugins can
+		override it; see Plugin API.
+
+	comment_notification_subject
+		applied to the mail subject before sending email notifying the post author of a new comment.
+		Filter function arguments: mail subject, comment ID. Note that this happens inside the default
+		wp_notify_postauthor function, which is a "pluggable" function, meaning that plugins can
+		override it; see Plugin API.
+
+	comment_notification_text
+		applied to the body of the mail messages before sending email notifying the post author of a new
+		comment. Filter function arguments: mail body text, comment ID. Note that this happens inside the
+		default wp_notify_postauthor function, which is a "pluggable" function, meaning that plugins
+		can override it; see Plugin API.
+
+	comment_row_actions
+		applied to the list of action links under each comment row (like Reply, Quick Edit, Edit).
+
+	cron_request
+		Allows filtering of the URL, key and arguments passed to wp_remote_post() in spawn_cron().
+
+	cron_schedules
+		applied to an empty array to allow a plugin to generate cron schedules in the wp_get_schedules
+		function.
+
+	custom_menu_order
+		used to activate the 'menu_order' filter.
+
+	default_content
+		applied to the default post content prior to opening the editor for a new post.
+
+	default_excerpt
+		applied to the default post excerpt prior to opening the editor for a new post.
+
+	default_title
+		applied to the default post title prior to opening the editor for a new post.
+
+	editable_slug
+		applied to the post, page, tag, or category slug by the get_sample_permalink function.
+
+	explain_once_(verb)-(noun)
+		allow a filter function to define text to be used to explain a nonce that is otherwise
+		not explained by the WordPress core code. You will need to define specific verb/noun
+		filters to use this. For instance, if your plugin defines a nonce for updating a tag,
+		you would define a filter for "explain_nonce_update-tag". Filter function arguments:
+		text to display (defaults to a generic, "Are you sure you want to do this message?")
+		and extra information from the end of the action URL.
+
+		In the example here, your function might simply return the string "Are you sure you
+		want to update this tag?"
+
+	format_to_edit
+		applied to post content, excerpt, title and password by the format_to_edit function,
+		which is called by the admin menus to set up a post for editing. Also applied to when
+		editing comments in the admin menus.
+
+	format_to_post
+		applied to post content by the format_to_post function, which is not used in WordPress
+		by default.
+
+	manage_edit-${post_type}_columns
+		applied to the list of columns to print on the manage posts screen for a custom post type.
+		Filter function argument/return value is an associative array where the element key is the
+		name of the column, and the value is the header text for that column.
+
+		See also action manage_${post_type}_posts_custom_column, which puts the column information
+		into the edit screen.
+
+	manage_link-manager_columns
+		was manage_link_columns until wordpress 2.7. applied to the list of columns to print on the
+		blogroll management screen. Filter function argument/return value is an associative list where
+		the element key is the name of the column, and the value is the header text for that column.
+
+		See also action manage_link_custom_column, which puts the column information into the edit
+		screen.
+
+	manage_posts_columns
+		applied to the list of columns to print on the manage posts screen. Filter function argument/return
+		vlaue is an associative array where the element key is the name of the column, and the value
+		is the header text for that column.
+
+		See also action manage_posts_custom_column, which puts the column information into the edit screen.
+		(See Scrompt's tutorial for examples and use).
+
+	manage_pages_columns
+		applied to the list of columns to print on the manage pages screen. Filter function argument/return
+		value is an associative array where the element key is the name of the column, and the value is
+		the header text for that column. See also action manage_pages_custom_column, which puts the column
+		information into the edit screen.
+
+	manage_users_columns
+
+	manage_users_custom_column
+
+	manage_users_sortable_columns
+
+	media_row_actions
+		applied to the list of action links under each file in the Media Library (like View, Edit).
+
+	menu_order
+		applied to the array for the admin menu order. Must be activated with the 'custom_menu_order'
+		filter before.
+
+	nonce_life
+		applied to the lifespan of a nonce to generate or verify the nonce. Can be used to generate
+		nonces which expire ealier. The value returned by the filter should be in seconds.
+
+	nonce_user_logged_out
+		applied to the current user ID to generate or verify a nonce when the user is logged out.
+
+	plugin_row_meta
+		add additional links below each plugin on the plugins page.
+
+	postmeta_form_limit
+		applied to the number of post-meta information items shown ono the post edit screen.
+
+	post_row_actions
+		applied to the list of action links (like Quick Edit, Edit, View, Preview) under each post
+		in the Posts > All Posts section.
+
+	post_updated_messages
+		applied to the array storing user-visible administrative messages when working with posts,
+		pages and custom post types. This filter is used to change the text of said messages, not
+		to trigger them. See "customizing the messages" in the register_post_type documentation.
+
+	pre_upload_error
+		applied to allow a plugin to create an XMLRPC error for uploading files
+
+	preview_page_link
+		applied to the link on the page editing screen that shows the page preview at the
+		bottom of the screen.
+
+	preview_post_link
+		applied to the link on the post editing screen that shows the post preview at the
+		bottom of the screen.
+
+	richedit_pre
+		applied to post content by the wp_richedit_pre function, before displaying in the
+		rich text editor. 
+
+	schedule_event
+		applied to each recurring and single event as it is added to the cron schedule.
+
+	site-screen-option
+		Filter a screen option value before it is set.
+
+	show_password_fields
+		applied to the true/false variable that controls whether the user is presented with
+		the oppurtunity to change their password on the user profile screen (true means
+		to show password changing fields; false means do not).
+
+	terms_to_edit
+		applies to the CSV of terms (for each taxonomy) that is used to show which terms are
+		attached to the post.
+
+	the_editor
+		applied to the HTML/DIV created to house the rich text editor, prior to printing it
+		on the screen. Filter function argument/return value is a string.
+
+	user_can_richedit
+		applied to the calculation of whether the user's browser has rich editing capabilities,
+		and whether the user wants to use the rich editor, in the user_can_richedit function.
+		Filter function argument and return value is true/false if the current user can/cannot
+		use the rich editor.
+
+	user_has_cap
+		applied to a user's capabilities list in the WP_User->has_cap function (which is called
+		by the current_user_can function). Filter function arguments are the capabilities list to
+		be filtered, the capability being questioned, and the argument list (which has things such
+		as the post ID if the capability is to edit posts, etc.)
+
+	wp_handle_upload_prefilter
+		applied to the upload information when uploading a file. File function argument: array
+		which represents a single element of $_FILES.
+
+	wp_handle_upload
+		applied to the upload information when uploading a file. Filter function argument:
+		array with elements "file" (file name), "url", "type".
+
+	wp_revisions_to_keep
+		alters how many revisions are kept for a given post. Filter function arguments:
+		number representing desired revisions saved (default is unlimited revisions),
+		the post object.
+
+	wp_terms_checklist_args
+		applied to arguments of the wp_terms_checklist() function. Filter function argument:
+		array of checklist arguments, post ID.
+
+	wp_upload_tabs
+		applied to the list of custom tabs to display on the upload management admin screen.
+		Use action upload_files_(tab) to display a page for your custom tab (see Plugin API/Action
+		Reference)
+
+	media_upload_tabs
+		applied to the list of custom tabs to display on the upload management admin screen.
+		Use action upload_files_(tab) to display a page for your custom tab (see Plugin API/Action Reference).
+
+	plugin_action_links_(plugin file name)
+		applied to the list of links to display on the plugins page (beside the active/deactive links)
+
+	views_edit-post
+		applied to the list posts eg All (30)|Published (22)|Draft (5)| Pending(2) | Trash (1)
+
+Rich Text Editor Filters
+	
+	These filters modify the configuration of the rich text editor, TinyMCE.
+
+	mce_spellchecker_languages
+		applied to the language selection available in the spell checker.
+

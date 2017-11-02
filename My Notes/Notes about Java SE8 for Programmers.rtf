@@ -1,0 +1,4961 @@
+HOW A PROGRAM IS COMPILED;
+
+//Phase 1; Write the Code
+
+//Phase 2; Compilation;
+
+We compile the code, then the JVM (The java Virtual machine), executes the Bytecodes.
+
+//We can also invoke direct commands to the JVM, by simply beginning with java;
+
+java welcome
+
+//Which, in a CMD, would run the java class program of Welcome, if it finds it in the current directory
+
+//Phase 3; We load in the Data to the primary memory;
+
+//Phase 4; Bytecode verification
+
+//Phase 5; Execution;
+
+During execution, there is 2 phases of Parsing and execution
+
+#1: Source code -> Bytecode
+
+During this time, the JVM searches for hotspots ; i.e, spots where the same code is executed frequently.
+It will use these, to compile them directly to machine code, for speeding up purposes.
+
+#2: Using a JiT (just in time process), the Compiler translates bytecode into Machine Code
+
+Bytecode -> Machine code
+
+
+Directory Paths:
+There are ways to refer to directory paths in java. What follows, is an example of a code what does just that;
+
+//imports
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
+public class FileAndDirectoryInfo{
+	public static void main(String[] args) throws IOException{
+	    Scanner input = new Scanner(System.in);
+
+	    System.out.println("Enter file or directory name:");
+
+	    Path path = Paths.get(input.nextLine());
+
+	    if(Files.exists(path)){
+	    System.out.printf("%n%s exists %n"), path.getFileName());
+	    System.out.printf("%s a directory%n", path.isAbsolute() ? "Is" : "Is not");
+	    System.out.printf("Last modified: %s%n", Files.getLastModifiedTime(path));
+	    System.out.printf("Size: %s%n", Files.size(path));
+	    System.out.printf("Path: %s%n", path);
+	    System.out.printf("Absolute path: %s%n", path.toAbsolutePath());
+
+	    if (Files.isDirectory(path))
+	    {
+	        System.out.printf("%nDirectory contents: %n");
+	        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path);
+
+	        for (Path p : directoryStream)
+	            System.out.println(p);
+	        }
+	    }
+	    else
+	    {
+	        System.out.printf("%s does not exist%n", path);
+	    }
+
+	}
+}
+
+An example of the usage of this ,is as follows;
+
+Enter file or directory name:
+c:\examples\ch15
+
+ch15 exists
+Is a directory
+Is an absolute path
+Last modified: 2013-11-08T19:50:00.838256Z
+Size: 4096
+Path: c:\examples\ch15
+Absolute path: c:\examples\ch15
+
+Directory contents:
+C:\examples\ch15\fig15_02
+C:\examples\ch15\fig15_12_13
+C:\examples\ch15\SerializationApps
+C:\exmaples\ch15\TextFileApps
+
+Enter file or directory name:
+C:\examples\ch15\fig15_02\FileAndDirectoryInfo.java
+
+FileAndDirectoryInfo.java exists
+Is not a directory
+Is an absolute path
+Last modified: 2013-11-08T19:59:01.848255Z
+Size: 2952
+Path: C:\examples\ch15\fig15_02\FileAndDirectoryInfo.java
+Absolute path: C:\examples\ch15\fig15_02\FileAndDirectoryInfo.java
+
+WRITING TO A FILE;
+
+What follow is an example of Code written to Write to a File and handle exceptions there of;
+
+import java.io.FileNotFoundException;
+import java.lang.SecurityException;
+import java.util.Formatter;
+import java.util.FormatterClosedException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+public class CreatTextFile
+{
+	private static Formatter output;
+
+	public static void main(String[] args){
+	    openFile();
+	    addRecords();
+	    closeFile();
+	}
+
+	public static void openFile()
+	{
+	    try{
+	        output = new Formatter("clients.txt");*                              *//NAME OF THE TEXT FILE GOES HERE
+	    }
+	    catch(SecurityException securityException) //SecurityException is the type of Exception that occurs when we try to write to a File that is either protected or unaccessible
+	    {
+            System.err.println("Writer permission: Denied. Terminating.");
+            System.exit(1); //Terminates due to input of 1
+	    }
+
+	    catch(FileNotFoundException fileNotFoundException)
+	    {
+	        System.err.println("404, could not find the file. Terminating.");
+	        System.exit(1);
+	    }
+	}
+}
+
+public static void addRecords(){
+	Scanner input = new Scanner(System.in);
+	System.out.printf("%s%n%s%n? ", "Enter account number, first name, last name and balance.", "Enter end-of-file indicator to end input.");
+
+	while(input.hasNext()){
+	try{
+	    output.format("%d %s %s %.2f%n", input.nextInt(), input.next(), input.nextDouble()); //The 2 f stands for a Float with 2 decimals
+	}
+	catch (FormatterClosedException formatterClosedException)
+	{
+	    System.err.println("Error writing to file. Terminating.");
+	    break;
+	}
+	catch (NoSuchElementException elementException){
+	    System.err.println("Invalid input. Please try again");
+	    input.nextLine(); //Discards input by just skipping one line of input
+	}
+	System.out.print("? ");
+
+	}
+}
+
+public static void closeFile(){
+	{
+	    if (output != null){
+	        output.close();
+	    }
+	}
+}
+
+This would give us the output of the following;
+
+Enter account number, first name, last name and balance.
+Enter end-of-file indicator to end input.
+
+? 100 Bob Blue 24.98
+? 200 Steve Green -345.67
+? 300 Pam White 0.00
+? 400 Sam Red -42.16
+? 500 Sue Yellow 224.62
+? ^Z
+
+The ^Z is a end of file indicator in terms of input
+
+NOTE ON SYSTEM.EXIT;
+If you have a input of 1 into a System.exit, it means it exited with an Error.
+Whilst a input of 0, means it exited clean.
+
+READING FROM A FILE;
+What follow is a Code example of reading from a file and parsing the information
+
+import java.io.IOException;
+import java.lang.IllegalStateException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+public class ReadTextFile
+{
+	private static Scanner input;
+
+	public static void main(String[] args){
+	    openFile();
+	    readRecords();
+	    closeFile();
+	}
+
+	public static void openFile(){
+	    try{
+	        input = new Scanner(Paths.get("clients.txt"));
+	    }
+	    catch (IOException ioException)
+	    {
+	        System.err.println("Error opening file. Terminating.");
+	        System.exit(1);
+	    }
+	}
+
+	public static void readRecords(){
+	    System.out.printf("%-10s%-12s%-12s%10s%n", "Account", "First Name", "Last Name", "Balance");
+	    try{
+	        while (input.hasNext())
+	        {
+	            System.out.printf("%-10d%-12s%-12s%10, 2f%n", input.nextInt(), input.next(), input.next(), input.nextDouble());
+	        }
+	    }
+	    catch(NoSuchElementException elementException)
+	    {
+	        System.err.println("File improperly formed. Terminating.");
+	        System.exit(1);
+	    }
+
+	    catch(IllegalStateException stateException)
+	    {
+	        System.err.println("Error reading from file. Terminating.");
+	    }
+	}
+
+	public static void closeFile(){
+	    if (input != null)
+	        input.close();
+	}
+}
+
+//What follows is an Example of returnign values from different accoutns based on a Enum first;
+
+public enum MenuOption
+{
+	ZERO_BALANCE(1), 
+	CREDIT_BALANCE(2),
+	DEBT_BALANCE(3),
+	END(4);
+
+	private final int value;
+
+	private MenuOption(int value){
+	    this.value = value;
+	}
+}
+
+
+import java.io.IOException;
+import java.lang.IllegalStateException;
+import java.nio.file.Paths;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+public class CreditInquiry
+{
+	private final static MenuOption[] choices = MenuOption.values();
+
+	public static void main(String[] args){
+	    MenuOption accountType = getRequest();
+
+	    while(accountType != MenuOption.END)
+	    {
+	        switch (accountType)
+	        {
+	            case ZERO_BALANCE:
+	                System.out.printf("%nAccounts with zero balances:%n");
+	                break;
+	            case CREDIT_BALANCE:
+	                System.out.printf("%nAccounts with credit balances:%n");
+	                break;
+	            case DEBIT_BALANCE;
+	                System.out.printf("%nAccounts with debit balances:%n");
+	                break;
+
+	        }
+
+	        readRecords(accountType);
+	        accountType = getRequest();
+	    }
+	}
+
+	private static MenuOption getRequest()
+	{
+	    int request = 4;
+
+	    System.out.printf("%nEnter request%n%s%n%s%n%s%n%s%n")
+
+	    try{
+	        Scanner input = new Scanner(System.in);
+
+	        do{
+	            System.out.printf("%n? ");
+	            request = input.nextInt();
+
+	        }
+	        while((request < 1) || (request > 4));
+	    }
+	    catch(NoSuchElementException noSuchElementException)
+	    {
+	        System.err.println("Invalid input. Terminating.");
+	    }
+	    return choices[request - 1];
+
+	    }
+
+	private static void readRecords(MenuOption accountType)
+	{
+	    try(Scanner input = new Scanner(Paths.get("clients.txt")))
+	    {
+	        while (input.hasNext())
+	        {
+	            int accountNumber = input.nextInt();
+	            String firstName = input.next();
+	            String lastName = input.next();
+	            double balance = input.nextDouble();
+
+	            if(shouldDisplay(accountType, balance))
+	                System.out.printf("%-10d%-12s%-12s%10.2f%n", accountNumber, firstName, lastName, balance);
+	            else
+	                input.nextLine(); //Discard the rest
+	        }
+	    }
+	    catch (NoSuchElementException | IllegalStateException | IOException e)
+	    {
+	        System.err.println("Error processing file. Terminating.");
+	        System.exit(1);
+	    }
+	}
+
+
+	private static boolean shouldDisplay(MenuOption accountType, double balance)
+	{
+	    if((accountType == MenuOption.CREDIT_BALANCE) && (balance < 0))
+	        return true;
+	    else if ((accountType == MenuOption.DEBIT_BALANCE) && (balance > 0))
+	        return true;
+	    else if ((accountType == MenuOption.ZERO_BALANCE) && (balance == 0))
+	        return true;
+
+
+	    return false;
+	}
+}
+
+//This would give the following output;
+
+Enter Request
+1 - List accounts with zero balance
+2 - List accounts with credit balance
+3 - List accoutns with debit balance
+4 - Terminate program
+
+? 1
+
+Accounts with zero balances:
+300    Pam    White        0.00
+
+Enter request
+1 - List accounts with zero balances
+2 - List accounts with credit balances
+3 - List accounts with debit balances
+4 - Terminate program
+
+? 2
+
+Accounts with credit balances:
+200     Steve        Green        -345.67
+400     Sam          Red          -42.16
+
+Enter request
+1 - List accounts with zero balances
+2 - List accounts with credit balances
+3 - List accounts with debit balances
+4 - Terminate program
+
+? 3
+
+Accounts with debit balances:
+100    Bob        Blue            24.98
+500    Sue        Yellow         224.62
+
+Enter request
+1 - List accounts with zero balances
+2 - List accounts with credit balances
+3 - List accoutns with debit balances
+4 - Terminate program
+
+? 4
+
+WRITING INFORMATION FROM A SERIALIZED OBJECT:
+
+import java.io.Serializable;
+
+public class Account implements Serilizable
+{
+	private int account;
+	private String firstName;
+	private String lastName;
+	private double balance;
+
+	public Account()
+	{
+	    this(0, "", "", 0.0); //We can call upon the constructor in the class, and have it here, instead of initializing with a default constructor
+	}
+
+	public Account(int account, String firstName, String lastName, double balance)
+	{
+	    this.account = account;
+	    this.firstName = firstName;
+	    this.lastName = lastName;
+	    this.balance = balance;
+	}
+
+	public void setAccount(int acct)
+	{
+	    this.account = account;
+	}
+
+	public int getAccount()
+	{
+	    return account;
+	}
+
+	public void setFirstName(String firstName)
+	{
+	    this.firstName = firstName;
+	}
+
+	public String getFirstName()
+	{
+	    return firstName;
+	}
+
+	public void setLastName(String lastName)
+	{
+	    this.lastName = lastName;
+	}
+
+	public String getLastName()
+	{
+	    return lastName;
+	}
+
+	public void setBalance(double balance)
+	{
+	    this.balance = balance;
+	}
+
+	public double getBalance()
+	{
+	    return balance;
+	}
+}
+
+//NOTE: CHECK THAT WHATEVER TYPE YOU ARE SERIALIZING, IS SERIALIZABLE - OTHERWISE, PUT IT IN A WRAPPER CLASS SO THAT YOU CAN SERIALIZE IT
+
+//What follows is an example of how to write a method that Serializes objects and put them into a File format that we call .ser**
+//** There is no standard file extension for Serialized Data, thus, we just write .ser
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+public class CreateSequentialFile
+{
+	private static ObjectOutputStream output;
+	public static void main(String[] args)
+	{
+	    openFile();
+	    addRecords();
+	    closeFile();
+	}
+
+	public static void openFile()
+	{
+	    try
+	    {
+	        output = new ObjectOutputStream(Files.newOutputStream(Paths.get("clients.ser")));
+	    }
+	    catch(IOException ioException)
+	    {
+	        System.err.println("Error opening file. Terminating.");
+	        System.exit(1);
+	    }
+	}
+
+	public static void addRecords()
+	{
+	    Scanner input = new Scanner(System.in);
+
+	    System.out.printf("%s%n%s%n? ", "Enter account number, first name, last name and balance.", "Enter end-of-file indicator to end input.");
+
+	    while(input.hasNext())
+	    {
+	        try
+	        {
+	            Account record = new Account(input.nextInt(), input.next(), input.next(), input.nextDouble());
+
+	            output.writeObject(record);
+	        }
+	        catch (NoSuchElementException elementException)
+	        {
+	            System.err.println("Invalid input. Please try again.");
+	            input.nextLine();
+	        }
+	        catch (IOException ioException)
+	        {
+	            System.err.println("Error writing to file. Terminating");
+	            break;
+	        }
+	        System.out.println("?  ");
+
+	    }
+	}
+
+	public static void closeFile(){
+	    try
+	    {
+	        if(output != null)
+	            output.close();
+	    }
+	    catch (IOException ioException)
+	    {
+	        System.err.println("Error closing the file. Terminating.");
+	    }
+	}
+}
+
+//What follows, is an example of how to Read from a Serialized file, with a InputStream, instead of a OutputStream
+
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class ReadSequentialFile
+{
+	    private static ObjectInputStream input;
+
+	    public static void main(String[] args){
+	        openFile();
+	        readRecords();
+	        closeFile();
+	    }
+
+	    public static void openFile()
+	    {
+	        try
+	        {
+	            input = new ObjectInputStream(Files.newInputStream(Paths.get("clients.ser")));
+	        }
+	        catch(IOException ioException)
+	        {
+	            System.err.println("Error opening file.");
+	            System.exit(1);
+	        }
+	    }
+
+	    public static void readRecords()
+	    {
+	        System.out.printf("%-10%-12s%-12s%10s%n", "Account", "First Name", "Last Name", "Balance");
+
+	        try{
+	            while(true){
+	                Account record = (Account) input.readObject();
+
+	                System.out.printf("%-10d%-12s%-12s%10.2f%n", record.getAccount(), record.getFirstName(), record.getLastName(), record.getBalance());
+	            }
+	        }
+	        catch(EOFException endOfFileException)
+	        {
+	            System.out.printf("No more records%n");
+	        }
+	        catch(ClassNotFoundException classNotFoundException)
+	        {
+	            System.err.println("Invalid object-type. Terminating.");
+	        }
+	        catch(IOException ioException)
+	        {
+	            System.err.println("Error reading from file. Terminating.");
+	        }
+
+	    }
+
+	    public static void closeFile()
+	    {
+	        try
+	        {
+	            if(input != null)
+	                input.close();
+	        }
+	        catch(IOException ioException)
+	        {
+	            System.err.println("Error closing file. Terminating.");
+	            System.exit(1);
+	        
+	        }
+	    }
+}
+
+//This is still a very basic presentation of Serilization
+
+//The output we would get, is as follows;
+
+Account    First Name    Last Name    Balance
+100        Bob           Blue         24.98
+200        Steve         Green      -345.97
+300        Pam           White         0.00
+400        Pam           Red         -42.16
+500        Sue           Yellow      224.62
+
+No more records
+
+//CREATING A FILE CHOOSER
+
+//In this section, we are going to cover two different types of File Choosers. One, is based on JavaFX, the other, is based on java Swing.
+//First, we'll start with the Swing one. It's decrepid, but it's useful to write anyway
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.swing.JFileChooser; //This is for Swing specifically
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+public class JFileChooserDemo extends JFrame
+{
+	private final JTextArea outputArea;
+
+	public JFileChooserDemo() throws IOException
+	{
+	    super("JFileChooser Demo");
+	    outputArea = new JTextArea();
+	    add(new JScrollPane(outputArea)); //This is mostly for Swing, but the principle is the same, it makes the outputArea scrollable
+
+	    analyzePath(); //we define this method to be able to process the path which the user provides
+
+	}
+
+	public void analyzePath() throws IOEXception
+	{
+	    Path path = getFileDirectoryPath();
+
+	    if(path != null && Files.exists(path))
+	    {
+	        StringBuilder builder = new StringBuilder(); //We use a STringbuilder to modify the String value
+	        builder.append(String.format(%s:%n, path.getFileName()));
+	        builder.append(String.format("%s a directory%n", File.isDirectory(path) ? "Is" : "Is not"));
+	        builder.append(String.format("%s an absolute path%n", path.isAbsolute() ? "Is" : "Is not");
+	        builder.append(String.format("Last modified: %s %n", Files.getLastModifiedTime(path)));
+	        builder.append(String.format("Size: %s%n", Files.size(path)));
+	        builder.append(String.format("Path: %s%n", path));
+	        builder.append(String.format("Absolute Path: %s%n", path.toAbsolutePath()));
+
+	        if(Files.isDirectory(path))
+	        {
+	            builder.append(String.format("%nDirectory contents:%n"));
+
+	            DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path);
+
+	            for(Path p : directoryStream)
+	                builder.append(String.format("%s%n", p));
+	        }
+
+	        outputArea.setText(builder.toString());
+	        
+	    }
+	    else
+	    {
+	        JOptionPane.showMessageDialog(this, path.getFileName() + " does not exist.", "ERROR", JOptionsPane.ERROR_MESSAGE);
+	    }
+	}
+
+	private Path getFileOrDirectoryPath()
+	{
+	    JFileChooser fileChooser = new JFileChooser();
+
+	    fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+	    int result = fileChooser.showOpenDialog(this);
+
+	    if (result == JFileChooser.CANCEL_OPTION)
+	        System.exit(1);
+
+	    return fileChooser.getSelectedFile().toPath();
+	}
+}
+
+//Now we just make a Simple class to call upon the FileChooser
+
+import java.io.IOException;
+import javax.swing.JFrame;
+
+public class JFileChooserTest
+{
+	public static void main(String[] args) throws IOException{
+        JFileChooserDemo application = new JFileChooserDemo();
+        application.setSize(400, 400);
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        application.setVisible(true);
+	}
+}
+
+//This was for the decrepid Swing version. Now, we are going to make one that is relevant for the FX version, which is the newest one.
+
+//What follows is an example of how to setup javaFX so that you can select files and open files
+
+//WARNING, LONG TEXT FOLLOWS
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+public final class FileChooserSample extends Application {
+	private Desktop desktop = Desktop.getDesktop();
+
+	@Override
+	public void start(final Stage stage){
+	    stage.setTitle("File Chooser Sample");
+
+	    final FileChooser fileChooser = new FileChooser();
+	    final Button openButton = new Button("Open a picture..");
+	    
+
+	    openButton.setOnAction( //Can open one file at a time
+	        new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(final ActionEvent e){
+	                configureFileChooser(fileChooser);
+	                File file = fileChooser.showOpenDialog(stage);
+	                if(file != null){
+	                    openFile(file);
+	                }
+	            }
+	        });
+
+	    
+
+
+	    final GridPane inputGridPane = new GridPane();
+
+	    GridPane.setConstraints(openButton, 0, 1);
+	    GridPane.setConstraints(openMultipleButton, 1, 1);
+	    inputGridPane.setHgap(6);
+	    inputGridPane.setVgap(6);
+	    inputGridPane.getChildren().addAll(openButton, openMultipleButton);
+
+	    final Pane rootGroup = new VBox(12);
+	    rootGroup.getChildren().addAll(inputGridPane);
+	    rootGroup.setPadding(new Insets(12, 12, 12, 12));
+
+	    stage.setScene(new Scene(rootGroup));
+	    stage.show();
+
+
+	}
+
+	public static void main(String[] args){
+	    Application.launch(args);
+	}
+
+	private static void configureFileChooser(
+	    final FileChooser fileChooser) {
+	        fileChooser.setTitle("Choose a Text File");
+	        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+	        //Sets the initial Directory
+
+	        fileChooser.getExtensionsFilter().addAll(
+	            new FileChooser.ExtensionFilter("All TxtFiles", "*.*"), new FileChooser.ExtensionFilter(".txt", "*.txt"), new FileChooser.ExtensionFilter("RTF", "*.RTF"));
+	            new FileChooser.ExtensionFilter("All TxtFiles", "*.*"), new FileChooser.ExtensionFilter(".DOC", "*.DOC"));
+	            
+	            //Creates Extension filters that sorts file type based on a Regex
+	    }
+
+	private void openFile(File file){
+	    try
+	    {
+	        dekstop.open(file);
+	    }
+	    catch(IOException ex) {
+	    //Creates a Logger file and logs the problem
+	        Logger.getLogger(FileChooserSample.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+}
+
+//The above is for JavaFX where we can do a File Opener
+
+DATA STREAMS:
+
+We read data in streams. Usually we read data in Aggregated forms of byte streams that form the primitive types, such as int, double etc.
+
+We can both write and read, primitive data types, to and from a form of Data Stream.
+
+
+BUFFERS/BUFFERING:
+
+The idea behind IO operations is that we want it to be smooth, but reading and collecting data for each value of Data, through IO operations, is slow.
+Thus, Buffers/Buffering, is when you have a Container, where you put all the data, let it fill up - And when it's full, we do a IO operation to move all the data.
+
+This way, instead of having tons of IO operations, we optimize with having a Few "Chunk" IO's, which enhances performance immensely.
+
+We can also force the material of the buffer by calling the flush method of the Stream object.
+
+STRING COMPARISONS:
+
+What follows is an example of how to construct a set of code that compares String values
+
+public class StringCompare
+{
+	public static void main(String[] args){
+	    String s1 = new String("Hello");
+	    String s2 = "goodbye";
+	    String s3 = "Happy Birthday";
+	    String s4 = "happy birthday";
+
+	    System.out.printf("s1 - %s%ns3 = %s%ns4 = %s%n%n", s1, s2, s3, s4);
+
+	    if(s1.equals("hello"))
+	        System.out.println("s1 equals \"hello\"");
+	    else
+	        System.out.println("s1 does not equal \"hello\"");
+
+	    if(s1 == "hello") //Will always be false, since they refer to different instances of objects
+
+	    System.out.println("s1 is the same object as \"hello\"");
+
+	    else
+	        System.out.println("s1 is not the same object as \"hello\"");
+
+	    //Test the equality with ignoring case
+	    if(s3.equalsIgnoreCase(s4))
+	        System.out.printf("%s equals %s with case ignored%n", s3, s4)
+	    else
+	        System.out.println("s3 does not equal s4");
+
+	    //test compareTo
+	    System.out.printf("%ns1.compareTo(s2) is %d", s1.compareTo(s2));
+	    System.out.printf("%ns2.compareTo(s1) is %d", s2.compareTo(s1));
+	    System.out.printf("%ns1.compareTo(s1) is %d", s1.compareTo(s1));
+	    system.out.printf("%ns3.compareTo(s4) is %d", s3.compareTo(s4));
+	    System.out.printf("%ns4.compareTo(s3) is %d%n%n", s4.compareTo(s3));
+
+	    //Test regionMatches with case sensitivity on
+
+	    if(s3.regionMatches(0, s4, 0, 5))
+	        System.out.println("The first 5 characters of S3 and S4, are identical.");
+	    else
+	        System.out.println("The first 5 characters of S3 and S4, are not identical.");
+
+	    //Test regionMatches with case sensitivity off
+
+	    if(s3.regionMatches(true, 0, s4, 0 , 5))
+	        System.out.println("First 5 characters of s3 and s4 match with case ignored");
+	    else
+	        System.out.println("The first 5 characters of S3 and S4, do not match, in any case.");
+
+	}
+}
+
+//What follows is examples of the String methods of startsWith and endsWith
+
+public class StringStartEnd
+{
+	public static void main(String[] args){
+	    String[] strings = {"started", "starting", "ended", "ending"};
+
+
+	    for (String string : strings)
+	    {
+	        if(string.startsWith("st"))
+	            System.out.printf("\"%s\" starts with \"st\"%n", string);
+	    }
+
+	    System.out.println();
+
+	    for(String string : strings)
+	    {
+	        if(string.startsWith("art", 2))
+	            System.out.printf("\"%s\" starts with \"art\" at position 2%n", string);
+	    }
+
+	    System.out.println();
+
+	    for(String string : strings)
+	    {
+	        if(string.endsWith("ed"))
+	            System.out.printf("\"%s\" ends with \"ed\"%n", string);
+	    
+	    }
+	}
+}
+
+//From this, we would get the output of
+
+"started" starts with "st"
+"starting" starts with "st"
+
+"started" starts with "art" at position 2
+"starting" starts with "art" at position 2
+
+"started" ends with "ed"
+"ended" ends with "ed"
+
+public class StringIndexMethods
+{
+	public static void main(String[] args)
+	{
+	    String letters = "abcdefghijklmabcdefghijklm";
+
+	    //index of to find the index of specific characters
+
+	    System.out.printf("'c' is located at index %d%n", letters.indexOf('c'));
+	    System.out.printf("'a' is located at index %d%n", letters.indexOf('a', 1)); //We can put a 1 to find the second occurance of a, the first beginning at 0
+	    System.out.printf("'$' is located at index %d%n%n", letters.indexOf('$'));
+
+	    //lastIndex of to find the last index of a specific character
+
+	    System.out.printf("Last 'c' is located at index %d%n", letters.lastIndexOf('c'));
+	    System.out.printf("Last 'a' is located at index %d%n", letters.lastIndexOf('a', 25)); //25 happens to be the length of the letters string, in this case.
+
+	    System.out.printf("Last '$' is located at index %d%n%n", letters.lastIndexOf('$')); //When a character is not found as an index, -1 is returned as value
+
+	    System.out.printf("\"def\" is located at index %d%n", letters.indexOf("def"));
+	    System.out.printf("\"def\" is located at index %d%n", letters.indexOf("def", 7)); //Starts looking from the 7th index
+
+	    System.out.printf("\hello\" is located at index %d%n", letters.indexOf("hello")); //returns -1, because it does not exist in the String
+
+
+	    //lastindex of to find the last index of a specific substring
+
+	    System.out.printf("Last \"def\" is located at index %d%n", letters.lastIndexOf("def"));
+	    System.out.printf("Last \"def\" is located at index %d%n", letters.lastIndexOf("def", 25)); //25 happens to be the length of the letters string, in this case
+	    System.out.printf("Last \"hello\" is located at index %d%n, letters.lastIndexOf("hello")); //return -1, because it does not exist in the String
+	}
+}
+
+The output we would get is as follows;
+
+'c' is located at index 2
+'a' is located at index 13
+'$' is located at index -1
+
+Last 'c' is located at index 15
+Last 'a' is located at index 13
+Last '$' is located at index -1
+
+"def" is located at index 3
+"def" is lcoated at index 16
+"hello" is located at index -1
+
+Last "def" is located at index 16
+Last "def" is located at index 16
+Last "hello" is located at index -1
+
+//Extracting Substrings from Strings
+
+public class SubString
+{
+	public static void main(String[] args)
+	{
+	    String letters = "abcdefghijklmabcdefghijklm";
+
+	    //from index 20 to end
+
+	    System.out.printf("Substring from index 20 to end is \"%s\"n", letters.substring(20));
+	    System.out.printf("%s \"%s\"%n", "Substring from index 3 up to but not including 6 is", letters.substring(3,6));
+	}
+}
+
+//From this, we would get;
+
+Substring from 20 to end is "hijklm"
+Substring from index 3 up to, but not including 6 is "def"
+
+
+//Contacinating Strings
+
+public class StringConcatination
+{
+	public static void main(String[] args){
+	    String s1 = "Happy ";
+	    String s2 = "Birthday";
+
+	    System.out.printf("s1 = %s%ns2 = %s%n%n", s1, s2);
+	    System.out.printf("Result of s1.concat(s2) = %s%n", s1.concat(s2));
+	    System.out.printf("s1 after concatenation = %s%n", s1);
+	}
+}
+
+s1 = Happy
+s2 = Birthday
+
+Result of s1.concat(s2) = Happy Birthday
+s1 after Concatenation = Happy
+
+//replace, toLowerCase, toUpperCase, trim and toCharArray
+
+public class StringMiscellaneous2
+{
+	public static void main(String[] args)
+	{
+	    String s1 = "hello";
+	    String s2 = "GOODBYE";
+	    String s3 = "    spaces    ";
+
+	    System.out.printf("s1 = %s%ns2 = %s%ns2 = %s%n%n", s1, s2, s3);
+
+	    //Replace method
+	    System.out.printf("Replace 'l' with 'L' in s1: %s%n%n", s1.replace('l', 'L'));
+
+	    System.out.printf("s1.toUpperCase() = %s%n", s1.toUpperCase());
+	    System.out.printf("s1.toLowerCase() = %s%n%n", s2.toLowerCase());
+
+	    //Trim
+
+	    System.out.printf("s3 after trim = \"%s\"%n%n", s3.trim());
+
+	    //toCharArray method
+
+	    char[] charArray = s1.toCharArray();
+	    System.out.print("s1 as a character array = ");
+
+	    for(char character : charArray)
+	        System.out.print(character);
+
+	    System.out.println();
+	}
+}
+
+This would give us the output of;
+
+s1 = hello
+s2 = GOODBYE
+s3 =    spaces    
+
+Replaces 'l' with 'L' in s1: heLLo
+
+s1.toUpperCase() = HELLO
+s2.toLowerCase() = goodbye
+
+s3 after trim = "spaces"
+
+s1 as a character array = hello
+
+//IN CASE OF SEVERAL THREADS NEEDING ACCESS TO THE SAME STRING VALUE, USE STRINGBUFFER, NOT STRINGBUILDER
+
+//%s%d etc. is placeholders for said types, where %s is String, %d is int
+//%n is like /n, except %n is platform independant, whilst /n is not.
+//USE %n AS PLACEHOLDER VALUE
+
+//valueOf
+
+public class StringValueOf
+{
+	public static void main(String[] args)
+	{
+	    char[] charArray = {'a', 'b', 'c', 'd', 'e', 'f'};
+	    boolean booleanValue = true;
+	    char characterValue = 'Z';
+	    int integerValue = 7;
+	    long longvalue = 1000000000L;
+	    float floatValue = 2.5f;
+	    double doubleValue = 33.333;
+	    Object objectRef = "hello"; //Puts a string to a Object reference
+
+	    System.out.printf("char array - %s%n", String.valueOf(charArray));
+	    System.out.printf("part of char array = %s%n", String.valueOf(charArray, 3, 3));
+
+	    System.out.printf("boolean = %s%n", String.valueOf(booleanValue));
+	    System.out.printf("char = %s%n", String.valueOf(characterValue));
+	    System.out.printf("int = %s%n", String.valueOf(integerValue));
+	    System.out.printf("long = %s%n", String.valueOf(longValue));
+	    System.out.printf("float = %s%n", String.valueOf(floatValue));
+	    System.out.printf("double = %s%n", String.valueOf(doubleValue));
+	    System.out.printf("Object = %s%n", String.valueOf(objectRef));
+	}
+}
+
+char array = abcdef
+part of char array = def
+boolean = true
+char = Z
+int = 7
+long = 10000000
+float = 2.5
+double = 33.333
+Object = hello
+
+//STRINGBUILDER NOTE ; Increasing the size dynamically takes a lot of time. To increase performance, if you expect a large amount, have a Large start cap.
+
+public class StringBuilderConstructors
+{
+	public static void main(String[] args)
+	{
+	    StringBuilder buffer1 = new StringBuilder();
+	    StringBuilder buffer2 = new StringBuilder(10);
+	    StringBuilder buffer3 = new StringBuilder("hello");
+
+	    System.out.printf("buffer1 = \"%s\"%n", buffer1);
+	    System.out.printf("buffer2 = \"%s\"%n", buffer2);
+	    System.out.printf("buffer3 = \"%s\"%n", buffer3);
+
+	}
+}
+
+buffer1 = ""
+buffer2 = ""
+buffer3 = "hello"
+
+//Modifying Stringbuilder length, capacity (how many it can hold without allocating more memory), ensureCapacity (ensures capacity)
+
+public class StringBuilderCapLen
+{
+	public static void main(String[] args)
+	{
+	    StringBuilder buffer = new StringBuilder("Hello, how old are you?");
+
+	    System.out.printf("buffer = %s%nlength = %d%ncapacity = %d%n%n", bufffer.toString(), buffer.length(), buffer.capacity());
+
+	    buffer.setLength(10);
+	    System.out.printf("New length = %d%nbuffer = %s%n", buffer.length(), buffer.toString());
+	}
+}
+
+Buffer = Hello, how are you?
+length = 19
+capacity = 35
+
+New Capacity = 75
+
+New Length = 10
+buffer = Hello, how
+
+//StringBuilder - charAt, setCharAt, getChars and Reverse 
+
+public class StringBuilderChars
+{
+	public static void main(String[] args)
+	{
+	    StringBuilder buffer = new StringBuilder("hello there");
+
+	    System.out.printf("buffer = %s%n", buffer.toString());
+
+	    System.out.printf(Character at 0: %s%nCharacter at 4: %s%n%n, buffer.charAt(0), buffer.charAt(4));
+
+	    char[] charArray = new char[buffer.length()];
+	    buffer.getChars(0, buffer.length(), charArray, 0);
+	    System.out.print("The characters are: ");
+
+	    for(char character: charArray)
+	        System.out.print(character);
+
+	    buffer.setCharAt(0, 'H');
+	    buffer.setCharAt(6, 'T');
+	    System.out.printf("%n%nbuffer = %s%n", buffer.toString()); 
+	}
+}
+
+//This would give the output of
+
+buffer = hello there
+Character at 0: h
+Character at 4: o
+
+The characters are: hello there
+
+buffer = Hello There
+
+buffer = erehT olleH
+
+//Stringbuilder - Append methods
+
+public class StringBuilderAppend
+{
+	public static void main(String[] args){
+	    Object objectRef = "hello";
+	    String string = "goodbye";
+	    char[] charArray = {'a', 'b', 'c', 'd', 'e', 'f'};
+	    boolean booleanValue = true;
+	    char characterValue = 'Z';
+	    int integerValue = 7;
+	    long longValue = 1000000000L;
+	    float floatValue = 2.5f;
+	    double doubleValue = 33.333;
+
+	    StringBuilder lastBuffer = new StringBuilder("last buffer");
+	    StringBuilder buffer = new StringBuilder();
+
+	    buffer.append(objectRef)
+	          .append("%n")
+	          .append(string)
+	          .append("%n")
+	          .append(charArray, 0, 3)
+	          .append("%n")
+	          .append(booleanValue)
+	          .append("%n")
+	          .append(characterValue)
+	          .append("%n")
+	          .append(integerValue)
+	          .append("%n")
+	          .append(longValue)
+	          .append("%n")
+	          .append(floatValue)
+	          .append("%n")
+	          .append(doubleValue)
+	          .append("%n")
+	          .append(lastBuffer);
+
+
+	    System.out.printf("Buffer contains%n%s%n", buffer.toString());
+	}
+}
+
+//This would give us the output of;
+
+buffer contains
+hello
+goodbye
+acbdef
+abc
+true
+Z
+7
+1000000000
+2.5
+33.33333
+last buffer
+
+//Insertion and Deletion Methods
+
+public class StringBuilderInsertDelete
+{
+	public static void main(String[] args)
+	{
+	    Object objectRef = "hello";
+	    String string = "goodbye";
+	    char[] charArray = {'a', 'b', 'c', 'd', 'e', 'f'};
+	    boolean booleanValue = true;
+	    char characterValue = 'K';
+	    int integerValue = 7;
+	    long longValue = 10000000;
+	    float floatValue = 2.5;
+	    double doubleValue = 33.333;
+	    Stringbuilder buffer = new StringBuilder();
+
+	    buffer.insert(0, objectRef);
+	    buffer.insert(0, "  ");
+	    buffer.insert(0, charArray);
+	    buffer.insert(0, "  ");
+	    buffer.insert(0, charArray, 3, 3);
+	    buffer.insert(0, "  ");
+	    buffer.insert(0, booleanValue);
+	    buffer.insert(0, "  ");
+	    buffer.insert(0, characterValue);
+	    buffer.insert(0, "  ");
+	    buffer.insert(0, integerValue);
+	    buffer.insert(0, "  ");
+	    buffer.insert(0, longValue);
+	    buffer.insert(0, "  ");
+	    buffer.insert(0, floatValue);
+	    buffer.insert(0, "  ");
+	    buffer.insert(0, doubleValue);
+
+	    System.out.printf("buffer after inserts:%n%s%n%n", buffer.toString());
+
+	    buffer.deleteCharAt(10); //Delete 5 in 2.5
+	    buffer.delete(2, 6); //delete the .333 in the 33.333
+
+	    System.out.printf("buffer after deletes:%n%s%n", buffer.toString());
+
+	}
+}
+
+The output we get, is the following;
+
+buffer after inserts:
+33.333 2.5 1000000
+7  K  true  def  abcdef  goodbye  hello
+
+buffer after deletes:
+33 2.  100000000 7  K  true  def abcdef goodbye hello
+
+
+//the Class, Character
+
+//here follow some examples of operations on the case of a Character
+
+import java.util.Scanner;
+
+public class StaticCharMethods
+{
+	public static void main(String[] args)
+	{
+	    Scanner scanner = new Scanner(System.in);
+
+	    System.out.println("Enter a character and press enter");
+	    String input = scanner.next();
+	    char c = input.charAt(0);
+
+	    System.out.printf("is defined: %b%n", Character.isDefined(c));
+	    System.out.printf("is digit: %b%n", Character.isDigit(c));
+	    System.out.printf("is first character in a Java identifier: %b%n", Character.isJavaIdentifierStart(c));
+	    System.out.printf("is part of a Java identifier: %b%n", Character.isJavaIdentifierPart(c));
+	    System.out.printf("is letter: %b%n", Character.isLetter(c));
+	    System.out.printf("is lower case: %b%n", Character.isLowerCase(c));
+	    System.out.printf("is letter or digit: %b%n", Character.isLetterOrDigit(c));
+	    System.out.printf("is lower case: %b%n", Character.isUpperCase(c));
+	    System.out.printf("to upper case: %s%n", Character.toUpperCase(c));
+	    System.out.printf("to lower case: %s%n", Character.toLowerCase(c));
+	}
+}
+
+//The output we would get, is as follows;
+
+Enter a Character and press Enter
+A
+is defined: true
+is digit: false
+is first character in a Java identifier: true
+is part of a Java identifier: true
+is letter: true
+is letter of digit: true
+is lower case: false
+is upper case: true
+to upper case: A
+to lower case: a
+
+Enter a Character and press Enter
+8
+is defined: true
+is digit: true
+is firt character in a Java identifier: false
+is part of a java identifier: true
+is letter: false
+is letter or digit: true
+is lower case: false
+is upper case: false
+to upper case: 8
+to lower case: 8
+
+Enter a character and press Enter
+$
+is defined: true
+is digit: false
+is first character in a Java identifier: true
+is part of a Java identifier: true
+is letter: false
+is letter or digit: false
+is lower case: false
+is upper case: false
+to upper case: $
+to lower case: $
+
+//isDefined:
+Checks to see if the Character is part of the Unicode
+
+//isDigit:
+Checks to see if the Character is a Digit
+
+//isJavaIdentifierStart
+Checks to see if a Character can be used as the first character of a Identifier.
+
+i.e, if the character is A character, _ or a $, then it returns true. Otherwise, false.
+
+//isJavaIdentifierPart
+Checks to see if a character c is a character that can be used in an identifier in Java - That is,
+a digit, a letter, an underscore or a dollar sign.
+
+//The other are self explanitory.
+
+//Converting to different Radix:
+//We can convert characters to different sets of radix, which makes it so that there is a number basis for different letters and their number co-respondents.
+
+import java.util.Scanner;
+
+public class StaticCharMethods2
+{
+	public static void main(String[] args)
+	{
+	    Scanner scanner = new Scanner(System.in);
+
+	    System.out.println("Please enter a Radix:");
+	    int radix = scanner.nextInt();
+
+	    System.out.printf("Please choose one:%n1 - - %s%n2 - - %s%n", "Convert digit to character", "Convert character to digit");
+	    int choise = scanner.nextInt();
+
+	    switch(choise)
+	    {
+	        case 1:
+	            System.out.println("Enter a digit:");
+	            int digit = scanner.nextInt();
+	            System.out.printf("Convert digit to character: %s%n", Character.forDigit(digit, radix));
+	            break;
+	        case 2:
+	            System.out.println("Enter a character:");
+	            char character = scanner.next().charAt(0);
+	            System.out.printf("Convert character to digit: %s%n", Character.digit(character, radix));
+	            break;
+	    }
+	}
+}
+
+//The output, we'd get here, is illustrated below:
+
+Please enter a radix:
+16
+Please choose one:
+1 - - Convert digit to character
+2 - - Convert character to digit
+
+2
+Enter a character:
+A
+Convert character to digit: 10
+
+Please enter a radix:
+16
+Please choose one
+1 - - Convert radix to character
+2 - - Convert character to digit
+1
+Enter a digit:
+13
+Conver digit to character: d
+
+//char value and toString
+
+public clas OtherCharMethods
+{
+	public static void main(String[] args)
+	{
+	    Character c1 = 'A';
+	    Character c2 = 'a';
+
+	    System.out.printf("c1 = %s%nc2 = %s%n%n", c1.charValue(), c2.toString());
+
+	    if(c1.equals(c2))
+	        System.out.println("c1 and c2 are equals.");
+	    else
+	        System.out.println("c1 and c2 are not equal%n");
+	}
+}
+
+
+//This would give the output of:
+
+c1 = A
+c2 = a
+
+c1 and c2 are not equal
+
+//Tokenizing a String;
+
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class TokenTest
+{
+	public static void main(String[] args)
+	{
+
+	 Scanner scanner = new Scanner(System.in);
+	 System.out.println("Enter a senence and press Enter");
+	 String sentance = scanner.nextLine();
+
+	 String[] tokens = sentance.split(" ");
+	 System.out.printf("Number of elements: %d%nThe tokens are:%n", tokens.length());
+
+	 for(String token : tokens)
+	     System.out.println(token);
+	}
+}
+
+//The output that we would get from this, is as follows:
+
+Enter a sentence and press Enter
+This is a sentance with seven tokens
+Number of elements: 7
+The tokens are:
+This
+is
+a
+sentance
+with
+seven
+tokens
+
+//REGEX:
+
+\d - Any digit
+\w - Any word character
+\s - any white-space character
+\D - any nondigit
+\W - any nonword character
+\S - any non-whitespace character
+
+//What follows is an example of usage of REGEX
+
+public class ValidateInput
+{
+	public static boolean validateFirstName(String firstName)
+	{
+	    return firstName.matches("[A-Z][a-zA-Z]*");
+	}
+
+	public static boolean validateLastName(String lastName)
+	{
+	    return lastName.matches("[a-zA-z] + (['-][a-zA-Z]+)*");
+	}
+
+	public static boolean validateAdress(String adress)
+	{
+	    return address.matches("\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)"); 
+	}
+
+	//Checks for occurance of at least 1 number, followed by at least 1 white space, followed by either 1+ occurance of a word, or white space + 1+ occurance of a word
+
+	public static boolean validateCity(String city)
+	{
+	    return city.matches("([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)");
+	}
+	//Checks for a 1+ occurance of a word, or 1+ word + whitespace + word +1 occurance
+
+	public static boolean validateState(String state)
+	{
+	    return state.matches("([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)"); //the \\s, means any white-space character, which means that it forces the usage of a Whitespace there.
+	}
+
+	public static boolean validateZip(String zip)
+	{
+	    return zip.matches("\\d{5}"); //This is the Regex for putting 5 numbers in Succession
+	}
+
+	public static boolean validatePhone(String phone)
+	{
+	    return phone.matches("[1-9]\\d{2}-[1-9]\\d{2}-\\d{4}"); //This is a Regex, that checks for numbers, in succesion of 2 numbers (\\d is digit, {2} is group of 2 elements)
+	}
+
+
+}
+
+//What follows, is an example using the above regex matches
+
+import java.util.Scanner;
+
+public class Validate
+{
+	public static void main(String[] args)
+	{
+	    Scanner scanner = new Scanner(System.in);
+	    System.out.println("Please enter first name:");
+	    String firstName = scanner.nextLine();
+	    System.out.println("Please enter last name:");
+	    String lastName = scanner.nextLine();
+	    System.out.println("Please enter address:");
+	    String address = scanner.nextLine();
+	    System.out.println("Please enter city:");
+	    String city = scanner.nextLine();
+	    System.out.println("Please enter state:");
+	    String state = scanner.nextLine();
+	    System.out.println("Please enter zip:");
+	    String zip = scanner.nextLine();
+	    System.out.println("Please enter phone:");
+	    String phone = scanner.nextLine();
+
+	    System.out.println("%nValidate Result:");
+
+	    if(!ValidateInput.validateFirstName(firstName))
+	        System.out.println("Invalid first name");
+	    else if(!ValidateInput.validateLastName(lastName))
+	        System.out.println("Invalid last name");
+	    else if(!ValidateInput.validateAddress(address))
+	        System.out.println("Invalid Address");
+	    else if(!ValidateInput.validateCity(city))
+	        System.out.println("Invalid city");
+	    else if(!ValidateInput.validateState(state))
+	        System.out.println("Invalid zip code");
+	    else if(!ValidateInput.validatePhone(phone))
+	        System.out.println("Invalid phone number");
+	    else
+	        System.out.println("Valid input. Thank you.");
+	}
+}
+
+The output will look like as follows;
+
+Please enter first name:
+Jane
+Please enter last name:
+Doe
+Please enter address:
+123 Some Street
+Please enter city:
+Some City
+Please enter state:
+SS
+Please enter zip:
+123
+Please enter phone:
+123-456-7890
+
+Validate result:
+Invalid zip code
+
+//We get invalid zip code because the zip is 3 numbers, instead of 5
+
+Please enter first name:
+Jane
+Please enter last name:
+Doe
+Please enter address:
+123 Some Street
+Please enter city:
+Some City
+Please enter state:
+SS
+Please enter zip:
+12345
+Please enter phone:
+123-456-7890
+
+Validate result:
+Valid input. Thank you.
+
+//The symbols are for quantities, as far as regex goes.
+
+The * Operator attempts to find 0 or more, occurances of said regex. thus, it can match empty strings.
+
+The + Operator, attemps to find 1 or more, occurances of said regex. thus, it does not match empty strings.
+
+//in terms of Regex, since \ is a escape character, we must use two, thus, when we check for at least one occurance of a number, we can use \\d+
+
+//the | or operator works as per usual in Regex
+
+The ? operator, attemps to find 0 or 1, occurance of said regex.
+
+the {n} is finding the regex N times.
+
+the {n,} is finding the regex, at least, n times.
+
+the {n, m} is finding the regex, at least n times, and max m times.
+
+the ? operator, in terms of regex, does a match as few times as possible.
+
+//Replacing Substrings and Splitting Strings
+
+import java.util.Arrays;
+
+public class RegexSubstitution
+{
+	public static void main(String[] args)
+	{
+	    String firstString = "This sentance ends in 5 stars *****";
+	    String secondString = "1, 2, 3, 4, 5, 6, 7, 8";
+	    System.out.printf("Original String 1: %s%n", firstString);
+
+	    firstString = replaceAll("\\*", "^");
+
+	    firstString = replaceAll("stars", "carets");
+
+	    System.out.printf("\"carets\" substituted for \"stars\": %s%n", firstString);
+
+	    System.out.printf("Every word replaced by \"word\": %s%n%n", firsString.replaceAll("\\w+", "word"));
+
+	    System.out.printf("Original String 2: %s%n", secondString);
+
+	    for(int i = 0; i < 3 ; i++){
+	        secondString = secondString.replaceFirst("\\d", "digit");
+	    }
+
+	    System.out.printf("First 3 digits replaced by \"digit\" : %s%n", secondString);
+
+	    System.out.print("String split at commas: ");
+	    String[] results = secondString.split(",\\s*"); //if there is a comma, make a split on it.
+	    System.out.println(Arrays.toString(results));
+
+	}
+}
+
+//The output we'd get from this, is as follows;
+
+Original String 1: This sentance ends in 5 stars *****
+^ substituted for *: This sentence ends in 5 stars ^^^^^
+"carets" substituted for "stars": This sentance ends in 5 carets ^^^^^
+Every word replaced by "word": word word word word word word
+^^^^^
+
+Original String 2: 1, 2, 3, 4, 5, 6, 7, 8
+First 3 digits replaced by "digit" : digit, digit, digit, 4, 5, 6, 7, 8
+String split at commas: ["digit", "digit", "digit", "4", "5", "6", "7", "8"]
+
+
+//Pattern and Matcher for Regex
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RegexMatches
+{
+	public static void main(String[] args)
+	{
+	    Pattern expression = Pattern.compile("J.*\\d[0-35-9]-\\d\\d-\\d\\d");
+
+	    Strign string1 = "Jane's Birthday is 05-12-75\n" + "Dave's Birthday is 11-04-68\n" + "Joe's Birthday is 12-17-77";
+
+	    Matcher matcher = expression.matcher(string1);
+
+	    while(matcher.find())
+	        System.out.println(matcher.group());
+	}
+}
+
+//COLLECTIONS
+
+//A collection is a Set of Data, with references to other Objects. Usually the collection contains Objects that have a is-a relationship to the data type in the Collection
+
+Collection : This is the root interface in the collections hiearchy from which interfaces Set, Queue and List are derived.
+Set: A collection that does NOT contain duplicates.
+List: A collection that is ordered, that CAN contain duplicates.
+Map: A collection that associates keys to values and CANNOT contain duplicates. Map does not derive from Collection.
+Queue: Typically this is like a first-in and first-out type of collection that models a waiting line ; other orders can be specified.
+
+Generic Collections: These are much akin to an ArrayList with a Specific type, except it's a collection with a specific type.
+
+//There are two different types of collections:
+
+Interface Collection //This is an interface called Collection
+
+and
+
+Class Collections //This is a class, called Collections
+
+Interface Collection: 
+This collection contains operations to be performed on an entire collection - for operations such as adding, clearing and comparing objects in a collection.
+
+NOTE: Collections can be converted to Arrays.
+
+The Interface Collection also contains a method that can return a Iterator Object, which allows a program to walk through the collection and remove elements from it
+during the iteration.
+
+Collection also contains methods to see if a Collection is empty or it's Size. Much like an Array.
+
+//NOTE: Most Collection implementations provide a constructor that takes a Collection argument, allowing a new Collection to be constructed with the elements of the provided
+collection.
+
+The class Collections contains Methods such as Search, sort and the capability of performing other actions. There are also wrapper methods for the Collections class,
+that allows you to treat a collection as a synchronized collection or an unmodifiable collection. 
+
+Synchronized collections are useful for multi-threading purposes, allowing interaction of several threads upon a Collection at once.
+
+The reason Synchronized Collections are useful in this respect, is because they return a Synchronized version for the threads to process upon, which makes it so that
+the threads don't try to access the same parts and do the same operations on the same given elements.
+
+Unmodifiable Collections are useful for the purpose of having a collection being viewed. This is useful in situations where a Collection is to be viewed, and not be able to be modified.
+
+LISTS:
+A list (Sometimes called a sequence), is a ordered collection that can contain duplicate elements. They start with the 0 Index, much akin to Arrays/ArrayLists.
+Lists has a few methods to search on specific ranges, work on specific indexes and to return a ListIterator to access the elements.
+
+The interface List, is implented by Arraylist, LinkedList and Vector.
+
+Putting in a Element in between different indexes, is an inefficient operation in terms of ArrayLists and Vectors (They support this action.), since you'd have to move the rest, which can become costly, in terms of if it's a big Collection.
+
+A LinkedList, supports efficient addition or removal of elements, but is not nearly as effective on jumping to a certain index, as say an ArrayList.
+
+ArrayList and Vector are nearly identical in operations, except a Vector is a Synchronized Version, pretty much - Which allows interaction of several threads - But it's also worse, performancewise - Thus, Vectors are only to be used in Multiple Thread interaction situations, whilst ArrayLists are left to the rest.
+
+There are also Synchronization wrappers, that can add synchronization to unsynchronized lists.
+
+LinkedLists can be used to create stacks, queues and deques (double-ended queues, pronounced "decks")
+
+//What follows, is an example of how to use Arraylists in conjunction with a Iterator
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+public class CollectionTest
+{
+	public static void main(String[] args)
+	{
+	    String[] colors = {"MAGNETA", "RED", "WHITE", "BLUE", "CYAN"};
+	    List<String> list = new ArrayList<String>();
+
+	    for(String color : colors)
+	        list.add(color);
+
+	    String[] removeColors = {"RED", "WHITE", "BLUE"};
+	    List<String> removeList = new ArrayList<String>();
+
+	    for(String color : removeColors)
+	        removeList.add(color);
+
+	    System.out.println("ArrayList: ");
+
+	    for(int count = 0; count < list.size() ; count++)
+	        System.out.printf("%s", list.get(count));
+
+
+	    removeColors(list, removeList);
+
+	    System.out.printf("%n%nArrayList after calling removeColors:%n");
+
+	    for(String color: list)
+	        System.out.printf("%s", color);
+	}
+
+	//NOTE: Using printf allows more precision and more ease, than that of a simple System.out.print statement.
+
+	private static void removeColors(Collection<String> collection1, Collection<String> collection2)
+	{
+	    Iterator<String> iterator = collection1.iterator();
+
+	    while(iterator.hasNext())
+	    {
+	        if(collection2.contains(iterator.next()))
+	            iterator.remove();
+	    }
+	}
+}
+
+//This would give us the output of:
+
+ArrayList:
+MAGNETA RED WHITE BLUE CYAN
+
+ArrayList after calling removeColors:
+MAGNETA CYAN
+
+//An easier way to write ArrayList declarations, is as follows;
+
+List<String> list = new ArrayList<>();
+
+//What follows, is an example of how to interact with LinkedLists
+
+import java.util.List;
+import java.util.LinkedList;
+import java.util.ListIterator;
+
+public class ListTest
+{
+	public static void main(String[] args)
+	{
+	    String[] colors = {"black", "yellow", "green", "blue", "violet", "silver"};
+	    List<String> list1 = new LinkedList<>();
+
+	    for(String color : list1)
+	        list1.add(color);
+
+	    String[] colors2 = {"gold", "white", "brown", "blue", "gray", "silver"};
+	    for(String color : list2)
+	        list2.add(color);
+
+	    list1.addAll(list2);
+	    list2 = null; //Release resources
+	    printList(list1);
+
+	    convertToUppercaseStrings(list1); //defined later
+	    printList(list1); //defined later
+
+	    System.out.printf("%nDeleting elements 4 to 6...");
+	    removeItems(list1, 4, 7); //defined later
+
+	    printList(list1); //defined later
+
+	    printRevertedList(list1); // defined later
+
+	}
+
+	private static void printList(List<String> list)
+	{
+	    System.out.printf("%nlist:%n");
+
+	    for(String color: list)
+	        System.out.printf("%s", color);
+
+	    System.out.println();
+	}
+
+	private static void convertToUppercaseStrings(List<String> list)
+	{
+	    ListIterator<String> iterator = list.listIterator();
+
+	    while(iterator.hasNext())
+	    {
+	        String color = iterator.next();
+
+	        iterator.set(color.toUpperCase());
+	    }
+	}
+
+	private static void removeItems(List<String> list, int start, int end)
+	{
+	    list.subList(start, end).clear(); //Access a Sublist with the given indexes and remove it from the bigger list.
+	}
+
+	private static void printReversedList(List<String> list)
+	{
+	    ListIterator<String> iterator = list.listIterator(list.size());
+	    System.out.printf("%nReversed List: %n");
+
+	    while(iterator.hasPrevious())
+	        System.out.printf("%s ", iterator.previous());
+	}
+}
+
+//This would give us the output of the following:
+
+list:
+black yellow green blue violet silver gold white brown blue gray silver
+
+list:
+BLACK YELLOW GREEN BLUE VIOLET SILVER GOLD WHITE BROWN BLUE GRAY SILVER
+
+Deleting elements 4 to 6...
+list:
+BLACK YELLOW GREEN BLUE WHITE BROWN GRAY SILVER
+
+Reversed List:
+SILVER GRAY BLUE BROWN WHITE BLUE GREEN YELLOW BLACK
+
+
+//What follows, is an example of how to View Arrays as Lists and converting Lists to Arrays
+
+import java.util.LinkedList;
+import java.util.Arrays;
+
+public class UsingToArray
+{
+	public static void main(String[] args)
+	{
+	    String[] colors = {"black", "blue", "yellow"};
+	    LinkedList<String> links = new LinkedList<>(Arrays.asList(colors));
+
+	    links.addLast("red");
+	    links.add("pink");
+	    links.add(3, "green");
+	    links.addFirst("cyan");
+
+	    colors = links.toArray(new String[links.size()]);
+
+	    System.out.println("colors: ");
+
+	    for(String color : colors)
+	        System.out.println(color);
+	}
+}
+
+//From this, we'd get the following output;
+
+colors:
+cyan
+black
+blue
+yellow
+green
+red
+pink
+
+//THE METHODS OF THE CLASS COLLECTIONS
+
+Sort: Sorts the elements of a list
+binarySearch : Locates an object in a List, using the high performance binary search algorithm which we introduced in 7.15
+reverse : Reverses the elements of a List
+shuffle : randomly orders a List's elements
+fill : Sets every List element to refer to a specified object
+copy : Copies refrences from one List into another
+min : Returns the smallest element in a Collection
+max : Returns the largest element in a Collection
+addAll : Appends all elements in an array to a Collection
+frequency : Calculates how many collection elements are equal to the specified element
+disjoint : Determines wether two collections have no elements in common
+
+
+
+//The following is an example of how to use Sort on a Arraylist using the collections class
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class Sort1
+{
+	public static void main(String[] args)
+	{
+	    String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+
+	    List<String> list = Arrays.asList(suits);
+	    System.out.printf("Unsorted array elements: %s%n", list);
+
+	    Collections.sort(list);
+	    System.out.printf("Sorted array elements: %s%n", list);
+	}
+}
+
+//From this, we'd get the following output:
+
+Unsorted array elements: [Hearts, Diamonds, Clubs, Spades]
+Sorted array elements: [Clubs, Diamonds, Hearts, Spades]
+
+//The following is an example of how to sort in a Descending Order
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class Sort2
+{
+	public static void main(String[] args)
+	{
+	    String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+
+	    List<String> list = Arrays.asList(suits);
+
+	    System.out.printf("Unsorted array elements: %s%n", list);
+
+	    Collections.sort(list, Collections.reverseOrder());
+	    System.out.printf("Sorted list elements: %s%n", list);
+	}
+}
+
+//What follows, is a Comparator class that compares two different Time Objects.
+
+import java.util.Comparator;
+
+public class TimeComparator implements Comparator<Time2>
+{
+	@Override
+	public int compare(Time2 time1, Time2 time2)
+	{
+	    int hourDifference = time1.getHour() - time2.getHour();
+
+	    if(hourDifference != 0)
+	        return hourCompare;
+
+	    int minuteDifference = time1.getMinute() - time2.getMinute();
+
+	    if(minuteDifference != 0)
+	        return minuteDifference;
+
+	    int secondDifference = time1.getSecond() - time2.getSecond();
+	    return secondDifference;
+	}
+}
+
+
+//What follows, is an example of how to sort Collections with the custom Comparator object we have defined above
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Sort3
+{
+	public static void main(String[] args)
+	{
+	    List<Time2> list = new ArrayList<>();
+
+	    list.add(new Time2(6, 24, 34));
+	    list.add(new Time2(18, 14, 58));
+	    list.add(new Time2(6, 05, 34));
+	    list.add(new Time2(12, 14, 58));
+	    list.add(new Time2(6, 24, 22));
+
+	    System.out.printf("Unsorted array elements:%n%s%n", list);
+
+	    Collections.sort(list, new TimeComparator());
+
+	    System.out.printf("Sorted list elements: %n%s%n", list);
+	}
+}
+
+//The output we get from this, is as follows;
+
+Unsorted array elements:
+[6:24:34 AM, 6:14:58 PM, 6:05:34 AM, 12:14:58 PM, 6:24:22 AM]
+Sorted list of elements:
+[6:05:34 AM, 6:24:22 AM, 6:24:34 AM, 12:14:58 PM, 6:14:58 PM]
+
+
+//What follows, is an example of how to use the Shuffle method, in regards to an ArrayList:
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+
+class Card
+{
+	public static enum Face {Ace, Deuce, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King};
+	public static enum Suit {Clubs, Diamonds, Hearts, Spades};
+
+	private final Face face;
+	private final Suit suit;
+
+	public Card(Face face, Suit suit)
+	{
+	    this.face = face;
+	    this.suit = suit;
+	}
+
+	public Face getFace()
+	{
+	    return face;
+	}
+
+	public Suit getSuit()
+	{
+	    return suit;
+	}
+
+	public String toString()
+	{
+	    return String.format("%s of %s", face, suit);
+	}
+}
+
+public class DeckOfCards
+{
+	Private List<Card> list;
+
+	public DeckOfCards()
+	{
+	    Card[] deck = new Card[52];
+	    int count = 0;
+
+	    for(Card.Suit suit : Card.Suit.values())
+	    {
+	        for(Card.Face face : Card.Face.values())
+	        {
+	            deck[count] = new Card(face, suit);
+	            ++count;
+	        }
+	    }
+
+	    list = Arrays.asList(deck);
+	    Collections.shuffle(list);
+	}
+
+	public void printCards()
+	{
+	    for(int i = 0; i < list.size(); i++)
+	        System.out.printf("%-19s%s", list.get(i), ((i + 1) % 4 == 0) ? "%n" : "");
+	}
+
+	public static void main(String[] args)
+	{
+	     DeckOfCards cards = new DeckOfCards();
+	     cards.printCards();
+	}
+}
+
+
+//The output we'd get from the following, is as follows:
+
+Deuce of Clubs Six of Spades Nine of Diamonds Ten of Hearts
+Three of Diamonds Five of Clubs Deuce of Diamonds Seven of Clubs
+Three of Spades Six of Diamonds King of Clubs Jack of Hearts
+Ten of Spades King of Diamonds Eight of Spades Six of Hearts
+Nine of Clubs Ten of diamonds Eight of Diamonds Eight of Hearts
+Ten of Clubs Five of Hearts Ace of Clubs Deuce of Hearts
+Queen of Diamonds Ace of Diamonds Four of Clubs Nine of Diamonds
+etc. etc.
+
+
+//What follows, is an example of the methods of reverse, fill, copy, max and min
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class Algorithms1
+{
+	public static void main(String[] args)
+	{
+	     Character[] letters = {'P', 'C', 'M'};
+	     List<Character> list = Arrays.asList(letters);
+
+	     System.out.println("list continues: ");
+	     output(list);
+
+	     Collections.reverse(list);
+
+	     System.out.printf("%nAfter calling reverse, list contains:%n"); //reverse the order of the elements
+	     output(list);
+
+	     Character[] lettersCopy = new Character[3];
+	     List<Character> copyList =  Arrays.asList(lettersCopy); //Creates a Copylist of 3 characters
+
+	     Collections.copy(copyList, list);
+	     System.out.printf("%nAfter copying, copyList contains:%n");
+	     output(copyList);
+
+	     Collections.fill(list, 'R');
+	     System.out.printf("%nAfter calling fill. list contains:%n");
+	     output(list);
+	}
+
+
+	private static void output(List<Character> listRef)
+	{
+	    System.out.print("The list is: ");
+
+	    for(Character element : listRef)
+	        System.out.printf("%s ", element);
+
+
+	    System.out.printf("%nMax: %s", Collections.max(listRef));
+	    System.out.printf("  Min: %s%n", Collections.min(listRef));
+	}
+}
+
+//We would get the following output from this:
+
+list contains:
+The list is: P C M
+Max: P  Min: C
+
+After calling reverse, list contains:
+The list is: M C P
+Max: P  Min: C
+
+After copying, copyList contains:
+The list is: M C P
+Max: P  Min: C
+
+After calling fill, list contains:
+The List is: R R R
+Max: R  Min: R
+
+Searching Method for Arraylists and LinkedList - binarySearch
+
+//What follows is an example of how to use the quick and very powerful, binarySearch
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.ArrayList;
+
+public class BinarySearchTest
+{
+	public static void main(String[] args)
+	{
+	    String[] colors = {"red", "white", "blue", "black", "yellow", "purple", "tan", "pink"};
+
+	    List<String> list = new ArrayList<>(Arrays.asList(colors));
+
+	    Collections.sort(list);
+	    System.out.printf("Sorted ArrayList: %s%n", list);
+
+	    printSearchResults(list, "black");
+	    printSearchResults(list, "red");
+	    printSearchResults(list, "pink");
+	    printSearchResults(list, "aqua");
+	    printSearchResults(list, "gray");
+	    printSearchResults(list, "teal");
+
+	}
+
+	private static void printsearchResults(List<String> list, String key)
+	{
+	    int result = 0;
+
+	    System.out.printf("%nSearching for: %s%n", key);
+	    result = Collections.binarySearch(list, key);
+
+	    if(result >= 0)
+	        System.out.printf("Found at index %d%n", result);
+
+	    else
+	        System.out.printf("Not found (%d)%n", result);
+	}
+}
+
+//The result we'd get from this, is as follows:
+
+Sorted ArrayList: [black, blue, pink, purple, red, tan, white, yellow]
+
+Searching for: black
+Found at index 0
+
+Searching for: red
+Found at index 4
+
+Searching for: pink
+Found at index 2
+
+Searching for: aqua
+Not Found (-1)
+
+Searching for: gray
+Not Found(-3)
+
+Searching for: teal
+Not Found(-7)
+
+//What follows, are the example usage of addAll, frequency and disjoint of the Collections class
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class Algorithms2
+{
+	public static void main(String[] args)
+	{
+	    String[] colors = {"red", "white", "yellow", "blue"};
+	    List<String> list1 = Arrays.asList(colors);
+	    ArrayList<String> list2 = new ArrayList<>();
+
+	    list2.add("black");
+	    list2.add("red");
+	    list2.add("green");
+
+	    System.out.print("Before addAll, list2 contains: ");
+
+	    for(String s: list2)
+	        System.out.printf("%s", s);
+
+	    Collections.addAll(list2, colors);
+
+	    System.out.printf("%nAfter addAll, list2 contains: ");
+
+	    for(String s: list2)
+	        System.out.printf("%s ", s);
+
+	    int frequency = Collections.frequency(list2, "red");
+	    System.out.printf("%nFrequency of red in list2: %d%n", frequency);
+
+	    boolean disjoint = Collections.disjoint(list1, list2);
+
+	    System.out.printf("list1 and list2 %s elements in common%n", (disjoint ? "do not have" : "have"));
+	}
+}
+
+//the output we would get from this, is as follows:
+
+Before addAll, list2 contains: black red green
+After addAll, list2 contains: black red green red white yellow blue
+Frequency of red in list: 2
+list1 and list2 have elements in common
+
+
+Stack Class of Package java.util
+
+import java.util.Stack;
+import java.util.EmptyStackException;
+
+public class StackTest
+{
+	public static void main(String[] args)
+	{
+	    Stack<Number> stack = new Stack<>();
+
+	    stack.push(12L);
+	    System.out.println("Pushed 12L");
+	    printStack(stack);
+
+	    stack.push(34567);
+	    System.out.println("Pushed 34567");
+	    printStack(stack);
+
+	    stack.push(1.0F);
+	    System.out.println("Pushed 1.0F");
+	    printStack(stack);
+
+	    stack.push(1234.5678);
+	    System.out.println("Pushed 1234.5678  ");
+	    printStack(stack);
+
+
+	    try
+	    {
+	        Number removedObject = null;
+
+	        //Keep trying to pop items from the stack
+	        while(true)
+	        {
+	            System.out.printf("Popped %s%n", removedObject);
+	            printStack(stack);
+	        }
+	    }
+	    catch (EmptyStackException emptyStackException)
+	    {
+	        emptyStackException.printStackTrace();
+	    }
+	}
+
+	private static void printStack(Stack<Number> stack)
+	{
+	    if(stack.isEmpty())
+	        System.out.printf("stack is empty%n%n");
+	    else
+	        System.out.printf("stack contains: %s (top)%n", stack);
+	}
+}
+
+//From this, we'd get the following output;
+
+Pushed 12L
+stack contains: [12] (top)
+Pushed 34567
+stack contains: [12, 34567] (top)
+Pushed 1.0F
+stack contains: [12, 34567, 1.0] (top)
+Pushed 1234.5678
+stack contains: [12, 34567, 1.0, 1234.5678] (top)
+Popped 1234.5678
+stack contains: [12, 34567, 1.0] (top)
+Popped 1.0
+stack contains: [12, 34567] (top)
+Popped 34567
+stack contains: [12] (top)
+Popped 12
+stack is empty
+java.util.EmptyStackException
+          at java.util.Stack.peek(Unknown source)
+          at java.util.Stack.pop(Unknown source)
+          at StackTest.main(StackTest.java:34)
+
+
+//A PriorityQueue is a Queue that follows sorting of the largest value being first.
+//to insert, you use Offer, to remove, you use Poll, to get the top value, you use Peek, and clear/size are as per usual.
+
+import java.util.PriorityQueue;
+
+public class PriorityQueueTest
+{
+	public static void main(String[] args)
+	{
+	    PriorityQueue<Double> queue = new PriorityQueue<>();
+
+	    queue.offer(3.2);
+	    queue.offer(9.8);
+	    queue.offer(5.4);
+
+	    System.out.print("Polling from queue: ");
+
+	    while(queue.size() > 0)
+	    {
+	        System.out.printf("%.1f ", queue.peek());
+	        queue.poll();
+	    }
+	}
+}
+
+//This would give us the output of the following:
+
+Polling from queue: 3.2 5.4 9.8
+
+SETS:
+
+//A set is a Unique set of elements in a collection, it includes the Methods of the Set implementations and HashSet and TreeSet
+
+//What follows is an example of how to remove duplicate String values from an ArrayList with a HashSet
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Collection;
+
+public class SetTest
+{
+	public static void main(String[] args){
+		String[] colors = {"red", "white", "blue", "green", "gray", "orange", "tan", "white", "cyan", "peach", "gray", "orange"};
+		List<String> list = Arrays.asList(colors);
+
+		System.out.printf("List: %s%n", list);
+
+		printNonDuplicates(list);
+	}
+
+	//We can make a set, to eliminate duplicates, with hashset
+
+	private static void printNonDuplicates(Collection<String> values)
+	{
+	    Set<String> set = new HashSet<>(values);
+
+	    System.out.printf("%nNonDuplicates are: ");
+
+	    for(String value : set)
+	        System.out.printf("%s ", value);
+
+	    System.out.println();
+	}
+}
+
+This would give the output of printing a list that has duplicates, and one that is cleared of duplicates.
+
+//We can do sorted sets, as well, that supports ascending order of Numbers or ordered by a specific comparator pattern.
+
+import java.util.Arrays;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+public class SortedSetTest
+{
+	public static void main(String[] args)
+	{
+		String[] colors = {"yellow", "green", "black", "tan", "grey", "white", "orange", "red", "green"};
+
+		SortedSet<String> tree = new TreeSet<>(Arrays.asList(colors));
+
+		System.out.print("sorted set: ");
+		printSet(tree);
+
+		//get headset based on orange
+
+		System.out.printf("headSet (\"orange\"):    ");
+		printSet(tree.headSet("orange")    );
+
+		//get tailset based on orange
+
+		System.out.printf("tailSet (\"orange\"):   ");
+		printSet(tree.tailSet("orange")    );
+
+		System.out.printf("first: %s%n", tree.first());
+		System.out.printf("last: %s%n", tree.last());
+	}
+
+	private static void printSet(SortedSet<String> set)
+	{
+		for(String s: set)
+			System.out.printf("%s", s);
+
+	    System.out.println();
+	}
+}
+
+sorted set: black green grey orange red tan white yellow
+headSet ("orange"): black green grey
+tailSet ("orange"): orange red tan white yellow 
+first: black
+last: yellow
+
+//headSet is when we create a Set that is ahead of whatever element we are operating on.
+//tailSet is when we create a set that is equal to or lower than, whatever element we are operating on.
+
+MAPS:
+
+Maps are basically dictionaries, except they store them in different ways.
+
+One key can uniquely identify a value, but most not uniquely identify one.
+
+There are three sorts of tables: TreeMap (stores in Trees), Hashtable, Hashmap
+
+Hashtables and Hashmaps store elements in hash tables.
+
+When we run into an error of attempting to store more than one element in the same space, we have a collision.
+
+The most common approach of handling hash-table collision is having a hash "bucket".
+This cell contains a linked list of all the key-value pairs that hash to that cell.
+
+A hash's tables loading factor, is the defining point of it's performance.
+
+The load factor is: THE AMOUNT OF OCCUPIED CELLS/AMOUNT OF TOTAL CELLS IN HASHTABLE
+
+The closer this value is to 1, the greater chanse of a colission. (Because more spaces are occupied)
+
+NOTE: By increasing load factor, we trade off speed for memory utilization.
+By decreasing load factor, we trade off memory utilization for speed.
+
+Using HashTable and HashMap allows you to hash without having to implement the actual mechanics.
+
+What follows is an example of how to use a HashMap to count occurences of each word in a String.
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Scanner;
+
+public class WordTypeCount
+{
+	public static void main(String[] args)
+	{
+		//Creates a hashmap to store String keys and integer values
+
+		Map<String, Integer> myMap = new HashMap<>();
+
+		createMap(myMap); //Create map based on content
+		displayMap(myMap); //display map based on content
+	}
+
+	private static void createMap(Map<String>, Integer> map)
+	{
+		Scanner scanner = new Scanner(System.in); //create a scanner
+		System.out.println("Enter a string:");
+
+		String input = scanner.nextLine();
+
+		String[] tokens = input.split(" ");
+
+		for(String token : tokens)
+		{
+			String word = token.toLowerCase();
+
+			if (map.containsKey(word))
+			{
+				int count = map.get(word); //Find how many times it occured.
+
+				map.put(word, count + 1); //Account for how many times it's occured before and append one more, as it occured again
+			}
+			else{
+				map.put(word, 1); //Add a new word to the map, with it's count associated to 1, since it's new
+			}
+		}
+
+
+	}
+
+	private static void displayMap(Map<String, Integer> map)
+	{
+		Set<String> keys = map.ketSet(); //get all the keys from the Map
+
+		TreeSet<String> sortedKeys = new TreeSet<>(keys);
+
+		System.out.printf("%nMap contains: %nKey\t\tValue%n");
+
+		for(String key: sortedKeys)
+			System.out.printf("%-10s%10s%n", key, map.get(key));
+
+		System.out.printf("%nsize: %d%nisEmpty: %b%n", 		map.size(), map.isEmpty());
+	}
+} 
+
+//we'd get a very interesting output, as follows:
+
+Enter a String:
+this is a sample sentence with several words this is another sample sentence with several different words
+
+Map contains:
+Key 			Value
+a 					1
+another 			1
+different 			1
+is 					2
+sample 				2
+sentence 			2
+several 			2
+this 				2
+with 				2
+words 				2
+
+size: 10
+isEmpty: False
+
+//A HashMaps default values are as follows: 16 elements capacity and 75% load factor. if capacity overrides initial size, size is doubeled, automatically.
+
+//Since we pass values to a generic class, we have to account for wrapper classes, using Integer, instead of int
+
+NOTE: Always use Strings for key values, since they are immutable. Preventing bugs.
+
+PROPERTIES CLASS:
+A Properties object is a "persistent Hashtable", i.e one that you can write/read to files, and still retain the data.
+
+this specific example is replaced by the usage of the java.util.prefs API.
+
+//What follows, is an example of how to use Properties:
+
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.Set;
+
+public class PropertiesTest
+{
+	public static void main(String[] args)
+	{
+		Properties table = new Properties();
+
+		//set properties
+		table.setProperty("color", "blue");
+		table.setProperty("width", "200");
+
+		System.out.println("After setting properties");
+		listProperties(table);
+
+		//replace property value
+
+		table.setProperty("color", "red");
+
+		System.out.println("After replacing properties");
+		listProperties(table);
+
+		saveProperties(table);
+
+		table.clear(); //clears the table
+
+		System.out.println("After clearing properties");
+		listProperties(table);
+
+		loadProperties(table);
+
+		//get value of property color
+		Object value = table.getProperty("color");
+
+		//check if value is in table
+		if(value != null)
+			System.out.printf("Property color's value is %s%n", value);
+		else
+			System.out.println("Property color is not in table");
+		}
+
+
+	private static void saveProperties(Properties props)
+	{
+		try
+		{
+			FileOutputStream output = new FileOutPutStream("props.dat");
+			props.store(output, "Sample properties"); //save the properties in a .dat file
+			output.close();
+
+			System.out.println("After saving properties");
+			listProperties(props);
+		}
+		catch (IOException ioException)
+		{
+			ioException.printStackTrace();
+		}
+	}
+	
+	private static void loadProperties(Properties props)
+	{
+		try
+		{
+			FileInputStream input = new FileInputStream("props.dat");
+			props.load(input); //load the properties
+			input.close();
+
+			System.out.println("after loading properties");
+			listProperties(props);
+		}
+		catch(IOException ioException)
+		{
+			ioException.printStackTrace();
+		}
+	}
+
+	private static void listProperties(Properties props)
+	{
+		Set<Object> keys = props.keySet();
+
+		for(Object key : keys)
+			System.out.printf("%s\t%s%n",key, props.getProperty((String)key);
+
+	    System.out.println();
+	}
+}
+
+//we get the following output of the above code:
+
+After setting properties
+color blue
+width 200
+
+After replacing properties
+color red
+width 200
+
+After saving properties
+color red
+width 200
+
+After clearing properties
+
+After loading properties
+color red
+width 200
+
+property color's value is red
+
+//SYNCHRONIZATION (multi-thread access)
+
+by default, all except Vectors and Hashtable, are unsynchronized.
+
+To prevent issues with this, we can use synchronization wrappers upon our collections, to allow access to the object by several threads at the same time.
+
+The wrapper object recieves method calls, adds thread synchronization and delegates the calls to the wrapped collection object.
+
+Delegation means that you pass a argument call with the caller's instance of itself along with it, to another object for it to operate upon it.
+
+We can declare a Synchronized Arraylist, compared to a normal ArrayList, as follows:
+
+List<String> list1 = new ArrayList<>();
+List<String> list2 = Collections.synchronizedList(list1);
+
+We can also declare Unmodifiable Collections:
+
+List<String> list1 = new ArrayList<>();
+List<String> list2 = Collections.unmodifiableList(list1);
+
+In an unmodifiable collection, an UnsupportedOperationsException is thrown if attempts are made to modify the collection.
+In such an collection, the references are not modifiable - but the objects they refer, are.
+
+//There are also Abstract implementations of these, to allow overriding and own implementation.
+
+AbstractCollection, AbstractList, AbstactMap, AbstractSequentialList, AbstractSet and AbstractQueue are all available for own implementation.
+
+
+FUNCTIONAL PROGRAMMING:
+
+Functional Programming is the usage of multiple threads and using lambda expressions to improve performance.
+It is a complement to Object-oriented programming.
+
+Internal Iteration:
+
+This approach is when you don't tackle the problem by using logic on it from the outside, but just use the library to have it solve it for you,
+making use of the multi-cored architecture of the computer.
+
+This approach, focuses on Immutable data, i.e Strings and things that cannot explicitly change, when operated upon.
+
+Functional interfaces:
+These include a interface that has exactly one absract method, which renders it a SAM Interface, Single Abstract Method interface.
+They are used extensively in Functional programming.
+
+There's a couple of methods that are relevant for this chapter, that belong to said SAM's, they are as follows:
+
+BinaryOperator<T> Contains method apply that takes two T arguments, performs an operation on them(such as calculation) and returns a value of type T.
+
+Consumer<T> Contains method accept that takes a T argument and returns void. Performs a task with it's T argument, such as outputting the object,
+calling a method of the object. etc.
+
+Function<T,R> Contains method apply that takes a T argument and returns a value of the type R. Calls a method on the T argument and returns that method's result.
+
+Predicate<T> Contains method test that takes a T argument and returns a boolean. Tests wether the T argument satisfies condition. 
+
+Supplier<T> Contains method get that takes no arguments and returns a value of the type T. Often used to create a collection object in which a stream operation's
+results are placed.
+
+UnaryOperator<T> Contains method get that takes no arguments and returns a value of type T.
+
+LAMBDA EXPRESSIONS:
+
+Functional programming builds itself on Lambda Expressions.
+
+A lambda is generally formed as follows:
+
+(parametersList) -> {statements}
+
+example:
+
+(int x, int y) -> {return x, return y;}
+
+It can be formatted as:
+
+(x, y) -> {return x +y;}
+
+When the body contains one expression, the return may be omitted:
+
+(x, y) -> x + y
+
+We could also do the following:
+
+value -> System.out.printf("%d ", value)
+
+or also:
+
+() -> System.out.println("Welcome to lambdas!")
+
+STREAMS:
+
+Streams are processes of collections of data.
+
+A stream moves data through a sequence of processing steps - known as stream pipeline,
+that begins with a data source (such as an array or collection), performs various intermediate
+operations on the data source's elements and ends with a terminal operation.
+
+A stream pipeline is formed by chaining method calls. Unlike collections, streams do NOT have their own
+storage - once a Stream is processed, it cannot be reused, because it keeps no storage of the original data.
+
+Intermediate operations, are the operations we use on a Stream, and they always end in a new stream.
+They are lazy, and are not executed until a terminal operation is invoked.
+
+An example, would be to have 1k objects, of which we only need to find the first, and when we do,
+we can shut it off at will.
+
+A terminal operation starts the intermediate processes of the Stream, and produces a Result.
+
+A terminal operation, is called a Eager operation, unlike the lazy one. 
+
+What follows, is a list of some intermediate processes:
+
+filter 			Results in a stream containing only the elements satisfying the condition
+
+distinct 		Results in a stream containing only the unique elements
+
+limit 			Results in a stream with the specified number of elements from the beginning of the original stream
+
+map 			Results in a stream in which each element of the original stream is mapped to a new value(possibly a different type), e.g
+				mapping numeric values to the squares of numerical values. The new stream has the same number of elements as the original stream.
+
+sorted 			Results in a stream which the elements are in sorted order. The new stream has the same number of elements as the original stream.
+
+
+What follows, is a list of some terminal processes:
+
+forEach 		performs processing on every element in a streams (e.g display every element)
+
+Reduction operations - Takes all the values in the stream and returns a single value
+
+average 		Calculates the average of the elements in a numeric stream.
+
+count 			Returns the numbers of elements in a numeric stream.
+
+max 			Locates the largest value in a numeric stream.
+
+min 			Locates the smallest value in a numeric stream.
+
+reduce 			Reduces the elements of a collection to a single value using an associate accumulation function (e.g a lambda that adds two elements).
+
+Mutable reduction operations - Create a container (such as collection or Stringbuilder)
+
+collect 		Creates a new collection of elements containing the results of the stream's prior operations
+
+toArray 		Creates an array containing the results of the stream's prior operations
+
+Search operations:
+
+findFirst 		Finds the first stream element based on the prior intermediate operations, immediately terminates processing of the stream pipline once a match is found
+
+findAny 		finds any stream element based on the prior intemediate operations, immediately terminates processing of the stream pipline once a match is found 
+
+anyMatch 		Determines wether any stream elements match a specified condition, immediately terminates processing of the stream pipeline once a match is found
+
+allMatch 		Determines wether all stream elements match a specific conditon
+
+NOTE: Stream, in functional programming, is not the same thing as datastreams of Bytes and serialization.
+
+//What follows, is an example of doing operations on an Int/Double/Long stream
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
+public class IntStreamOperations
+{
+	public static void main(String[] args)
+	{
+		int[] values = {3, 10, 6, 1, 4, 8, 2, 5, 9, 7};
+
+		//display original values
+		System.out.printf("Original values: ");
+		IntStream.of(values).forEach(value -> System.out.printf("%d ", value));
+		System.out.println();
+
+		// count, min, max, sum and average of the values.
+		System.out.printf("%nCount: %d%n", IntStream.of(values).count());
+		System.out.printf("Min: %d%n", IntStream.of(values).min().getAsInt());
+
+		System.out.printf("Max: %d%n", IntStream.of(values).max().getAsInt());
+
+		System.out.printf("Sum: %d%n", IntStream.of(values).sum());
+
+		System.out.printf("Average: %.2f%n", IntStream.of(values).average().getAsDouble());
+
+		System.out.printf("%nSum via reduce method: %d%n", IntStream.of(values).reduce(0, (x,y) -> x + y));
+
+		//sum of squares of values with reduce method
+
+		System.out.printf("Sum of squares via reduce method: %d%n", IntStream.of(values).reduce(0, (x, y) -> x + y * y));
+
+		//product of values with reduce method
+
+		System.out.printf("Product via reduce method: %d%n", IntStream.of(values).reduce(1, (x,y) -> x * y));
+
+		//even values displayed in sorted order
+		System.out.printf("%nEven values displayed in sorted order: ");
+
+		IntStream.of(values).filter(value -> value % 2 == 0).sorted().forEach(value -> System.out.printf("%d", value));
+
+		System.out.println();
+
+		//odd values multiplied by 10 and displayed in sorted order
+		System.out.printf("Odd values multiplied by 10 displayed in sorted order: ");
+		IntStream.of(values).filter(value -> value % 2 != 0).map(value -> value * 10).sorted().forEach(value -> System.out.printf("%d ", value));
+
+		System.out.println();
+
+		//Sum of integers from 1 to 10, excluding 10
+		System.out.printf("%nSum of integers from 1 to 9: %d%n", IntStream.range(1,10).sum());
+
+		//Sum of integers from 1 to 10, including 10
+		System.out.printf("%nSum of integers from 1 to 10: %d%n", IntStream.rangeClosed(1,10).sum());
+
+
+	}
+}		
+
+//This would give us the following output:
+
+Original values: 3 10 6 1 4 8 2 5 9 7
+
+Count: 10
+Min: 1
+Max: 10 Sum: 55
+Average: 5.50
+
+Sum via reduce method: 55
+Sum of squares via reduce method: 385
+Product via reduce method: 3628800
+
+Even values displayed in sorted order: 2 4 6 8 10
+Odd values multiplied by 10 displayed in sorted order: 10 30 50 70 90
+
+Sum of integers from 1 to 9: 45
+Sum of integers from 1 to 10: 55
+
+
+//What follows is an example of how to convert a argument to a lambda expression
+
+new IntConsumer()
+{
+	public void accept(int value)
+	{
+		System.out.printf("%d ", value);
+	}
+}
+
+//can be written as follows:
+
+value -> System.out.printf("%d ", value)
+
+//We can use Lambdas and Streams on a Array of integers, as follows:
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class ArraysAndStreams
+{
+	public static void main(String[] args)
+	{
+		Integer[] values = {2, 9, 5, 0, 3, 7, 1, 4, 8, 6};
+
+		//display original values
+
+		System.out.printf("Original values: %s%n", Arrays.asList(values));
+
+		//sort values in ascending order with streams
+
+		System.out.printf("Sorted values: %s%n", Arrays.stream(values).sorted().collect(Collectors.toList()));
+
+		//Values greater than 4
+		List<Integer> greaterThan4 = Arrays.stream(values).filter(value -> value > 4).collect(Collectors.toList());
+
+		System.out.printf("Values greater than 4: %s%n", greaterThan4);
+
+		//filter values greater than 4 then sort the results
+		System.out.printf("Sorted values greater than 4: %s%n", Arrays.stream(values).filter(value -> value > 4).sorted().collect(Collectors.toList()));
+
+		//greaterThan4 list sorted with streams
+		System.out.printf("Values greater than 4 (ascending with streams): %s%n", greaterThan4.stream().sorted().collect(Collectors.toList()));
+	}
+}
+
+//The following output is given:
+
+Original value: [2, 9, 5, 0, 3, 7, 1, 4, 8, 6]
+Sorted value: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Values greater than 4: [9, 5, 7, 8, 6]
+Sorted values greater than 4: [5, 6, 7, 8, 9]
+Values greater than 4 (ascending with streams): [5, 6, 7, 8, 9]
+
+//What follows, is an example of interacting streams upon arrays of strings
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
+public class ArraysAndStreams2
+{
+	public static void main(String[] args)
+	{
+		String[] strings = {"Red", "orange", "Yellow", "green", "Blue", "indigo", "Violet"};
+
+		System.out.printf("Original strings: %s%n", Arrays.asList(strings));
+
+		//Strings in Uppercase
+		System.out.printf("Strings in uppercase: %s%n", Arrays.stream(strings).map(String::toUpperCase).collect(Collectors.toList());
+
+		//strings less than "n" (case insensitive) sorted ascending
+		System.out.printf("strings greater than m sorted ascending: %s%n", Arrays.stream(strings).filter(s -> s.compareToIgnoreCase("n") < 0).
+		sorted(String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList()));
+
+		//strings less than "n" (case insensitive) sorted descending
+		System.out.printf("strings greater than m sorted descending: %s%n", Arrays.stream(strings).filter(s -> s.compareToIgnoreCase("n") < 0).
+		sorted(String.CASE_INSENSITIVE_ORDER.reversed()).collect(Collectors.toList()));
+
+
+
+
+
+	}
+}
+
+//This would give the output of the following:
+
+Original strings: [Red, orange, Yellow, green, Blue, indigo, Violet]
+strings in uppercase: [RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET]
+strings greater than m sorted ascending: [orange, Red, Violet, Yellow]
+strings greater than m sorted descending: [Yellow, Violet, Red, orange]
+
+//Note, you can do shorthand references of lambda expressions with :: notations, as follows:
+
+String::toUpperCase
+
+//it is the shorthand reference of:
+
+(String s) -> {return s.toUpperCase();}
+
+or
+
+s -> s.toUpperCase()
+
+//There are four method reference types, as follows:
+
+String::toUpperCase 		Method reference for an instance method of a class. Creates a one-parameter lambda that invokes the instance method on the lambda's 
+argument and returns the method's result.
+
+
+System.out::println 		Method refernce for an instance method that should be called on a specific object. Creates a one-parameter lambda that invokes the instance
+method on the specified object - passing the lambda's argument to the instance method and returns the method's result.
+
+Math::sqrt 					Method reference to a static method of a class, creates a one-parameter lambda in which the lambdas arguments is passed to the specified a static
+method and the lambda returns the method's result.
+
+TreeMap::new 				Constructor reference that invokes the no-argument constructor of the specified class to create and initialize a new object of that class.
+
+
+
+//What follows is an example of how to interact with objects in terms of Lambdas, in this example, with the Employee object, as we define here:
+
+public class Employee
+{
+	private String firstName;
+	private String lastName;
+	private double salary;
+	private String department;
+
+	public Employee(String firstName, String lastName, double salary, String department)
+	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.salary = salary;
+		this.department = department;
+	}
+
+	public void setFirstName(String firstName){
+	    this.firstName = firstName;
+	}
+
+	public String getFirstName()
+	{
+		return firstName;
+	}
+
+	//Blah blah blah, setters and getters for every attribute
+}
+
+//Assume we have the employees class, then we have the following that we can do with lambdas:
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class ProcessingEmployees
+{
+	public static void main(String[] args)
+	{
+		//Initialize tons of Employees in a ArrayList of Employees, blah
+
+		list.stream().forEach(System.out::println); //by taking the entire arraylist, converting it into a stream, and then making a lambda with forEach looping
+		//we print out each object.
+
+	}
+}
+
+//The output we would get, is the output of the toString value of the Employees
+
+//we can further more interact with Streams, from the earlier code
+
+		Predicate<Employee> fourToSixThousand = e -> (e.getSalary() >= 4000 && e.getSalary() <= 6000); //Predicate basically means to verify something according to the value.
+
+		System.out.printf("%nEmployees earning $4000-$6000 per month sorted by salary:%n");
+		list.stream().filter(fourToSixThousand).sorted(Comparator.comparing(Employee::getSalary)).forEach(System.out::println);
+
+		//we can also get the first value that we want:
+
+		System.out.printf("%nFirst employee who earns $4000-$6000: %n%s%n", list.stream().filter(fourToSixThousand).findFirst().get());
+
+		//Functions from Employee to get values of First name and Last name
+
+		Function<Employee, String> byFirstName = Employee::getFirstName;
+		Function<Employee, String> byLastName = Employee::getLastName;
+
+		//Comparator for comparing Employees by first name then last name
+
+		Comparator<Employee> lastThenFirst = Comparator.comparing(byLastName).thenComparing(byFirstName);
+
+		System.out.printf("%nEmployees in ascending order by last name then first:%n");
+		list.stream().sorted(lastThenFirst).forEach(System.out::println);
+
+		System.out.printf("%nEmployees in descending order by last name then first:%n");
+		list.stream().sorted(lastThenFirst.reversed()).forEach(System.out::println);
+
+
+//This would of course, give us the expected result as described in the code above
+
+//we can further more manipulate the values of the Streams:
+
+		System.out.printf("%nUnique employee last names:%n");
+		list.stream().map(Employee::getLastName).distinct().sorted().forEach(System.out::println);
+
+		System.out.printf("%nEmployee names in order by last name then first name:%n");
+		list.stream().sorted(lastThenFirst).map(Employee::getName).forEach(System.out::println);
+
+
+//This gives us a distinct and sorted stream of the list of Employees, where we call the relevant functions and print out the values.
+
+//We can further manipulate the data, by data grouping in terms of departments for employees
+
+		System.out.printf("%nEmployees by department:%n");
+		Map<String, List<Employee>> groupByDepartment = list.stream().collect(Collectors.groupingBy(Employee::getDepartment));
+
+		groupByDepartment.forEach(department, employeesInDepartment) -> {
+		System.out.println(department);
+		employeesInDepartment.forEach(employee -> System.out.printf(" %s%n", employee));
+		}
+		};
+
+
+
+//We can further manipulate the data, by interactions of Collectors:
+
+		System.out.printf("%nCount of Employees by department:%n");
+
+		//Map the values of the names of Employees and salary and group them
+		Map<String, Long> employeeCountByDepartment = list.stream().collect(Collectors.groupingBy(Employee::getDepartment,Collectors.counting()));
+
+		//Iterate through the map, print out the values
+		employeeCountByDepartment.forEach((department, count) -> System.out.printf("%s has %d employee (s) %n", department, count));
+
+//We can further manipulate the data, by terms of averaging and Summing:
+		
+		//Map a Summing of the salaries of all employees, into a line, and print it out.
+		System.out.printf("%nSum of Employees salaries (via sum method): %.2f%n", list.stream().mapToDouble(Employee::getSalary).sum());
+
+		//Calculate sum of Employees salaries with stream reduce method
+
+		System.out.printf("Sum of Employees' salaries (via reduce method): %.2f%n",list.stream().mapToDouble(Employee::getSalary).reduce(0, (value1, value2) -> value1 + value2));
+
+		//Avg of Sum employees salaries
+
+		System.out.printf("Average of Employees' salaries: %.2f%n", list.stream().mapToDouble(Employee::getSalary).average().getAsDouble());
+	}
+}
+
+//We would get the expected results of the calculations from these, as they are just ways of operating to aquire values.
+
+//We can do something funny with streams, by creating a Stream<String> from a file, and then running a regex on it to compare occurances of words, as follows:
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+public class StreamOfLines
+{
+	public static void main(String[] args) throws IOException
+	{
+
+	    //Simple regex to check for trailing whitespace.
+		Pattern pattern = Pattern.compile("\\s+");
+
+		//count occurances of words in a Stream<String> sorted by word
+
+		Map<String, Long> wordCounts = Files.lines(Paths.get("SomeTxtFile.txt")).map(line -> line.replaceAll("(?!')\\p{P}", "")).
+		flatMap(line -> pattern.splitAsStream(line)).collect(Collectors.groupingBy(String::toLowerCase, TreeMap::new, Collectors.counting()));
+
+		//display the words grouped by starting letter
+		//we make a stream, where we collect with a Collector, group by Entries, getting the first entry's char, make a Treemap, make that into a List, itterate through
+		//every letter in the "wordList" (the list of first letters), print them out, and under each, we iterate through the Stream to find words and their occurances
+
+		wordCounts.entrySet().stream().collect(Collectors.groupingBy(entry -> entry.getKey().charAt(0), TreeMap::new, Collectors.toList())).forEach((letter, wordList)) ->
+		{
+		System.out.printf("%n%C%n", letter);
+		wordList.stream().forEach(word -> System.out.printf("%13s: %d%n", word.getKey(), word.getValue()));
+		});
+
+
+		//NOTE: the Difference between map and flatMap, is that flatMap produces a Stream with related values to respective key, where map produces 1 related value.
+		//NOTE2: flattening, is when you take tuples and "flat them" into one array, where of flatMap flats the map that we get.
+		//It simply "smashes" together all the values into one Stream for us to operate on.
+
+	}
+}
+
+
+//we could generate Streams containing random values as well.
+
+import java.security.SecureRandom;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.IntStream;
+import java.util.stream.Collectors;
+
+public class RandomIntStream
+{
+	public static void main(String[] args)
+	{
+		SecureRandom random = new SecureRandom();
+
+		//Note on SecureRandom:
+
+		//SecureRandom is "Random", but based on a longer bit generation.
+		//NOTE: "Random" values are predeterministic, and can be predicted if the derived seed is known.
+		//This increases security significantly, as the amount of processes to brute force it, becomes exponentionally larger, due to longer bit length.
+		//If there is Security reasons involved, use SecuryRandom, instead of Random, as Random is too short to be of use.
+
+		//There are further modifications to patterns and algorithms that you can take. They will not be covered here.
+
+		System.out.printf("%-6s%s%n", "Face", "Frequency");
+
+		//Boxed: Boxing is when you put a wrapper class around a primitive type, to be able to treat it as an object.
+
+		//Function.identity() returns the instance of which the Object operated upon is. Or the argument of the value that it's being called upon, rather.
+
+		random.ints(6_000_000, 1, 7).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).forEach((face, frequency) -> 
+		System.out.printf("%-6d%d%n", face, frequency));
+
+	}
+}
+
+//We can create 4 different kinds of intstreams;
+
+ints() //This kind of a int stream, is technically infinite, and ends in size upon short circuting (i.e, finding wanted result)
+
+ints(long) //this is a int stream, that has the limit of <long>.
+
+ints(int, int) //this is a infinite ints stream that has a range from the first value to (second-1) (normal range in terms of functions and range etc.)
+
+ints(long, int, int) //this is a limited ints stream with the range of the first value to the second-1
+
+//By calling boxed, we allow object interaction with the primitive int type.
+
+//What follows, is an example of how to turn an eventhandler into a easier version to write, by virtue of lambdas:
+
+imagesJComboBox.addItemListener(
+	new ItemListener()	
+	{	@Override
+		public void itemStateChanged(ItemEvent event)
+		{
+			if(event.getStateChange() == ItemEvent.SELECTED)
+			{
+				label.setIcon(icons[imagesJComboBox.getSelectedIndex()]);
+			}
+		}
+	}
+	);
+
+//Can be rewritten as:
+
+imagesJComboBox.addItemListener(event -> {if (event.getStateChange() == ItemEvent.SELECTED) label.setIcon(icons[imagesJComboBox.getSelectedIndex()]);});
+
+//Kind of funny how entire expressions can be shortened down to one liners, with lambda functions :D
+
+GENERIC CLASSES AND METHODS:
+
+//What follows is an example of some code that is overloaded to hell:
+
+public class OverloadedMethods
+{
+	public static void main(String[] args)
+	{
+		Integer[] integerArray = {1, 2, 3, 4, 5, 6};
+		Double[] doubleArray = {1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7};
+		Character[] charArray = {'H', 'E', 'L', 'L', 'O'};
+
+		System.out.printf("Array integerArray contains:%n");
+		printArray(integerArray);
+
+		System.out.printf("Array doubleArray contains:%n");
+		printArray(doubleArray);
+
+		System.out.printf("Array charArray contains:%n");
+		printArray(charArray);
+
+
+	}
+
+	public static void printArray(Integer[] inputArray)
+	{
+		for(Integer element : inputArray)
+			System.out.printf("%s", element);
+
+		System.out.println();
+	}
+
+	public static void printArray(Double[] inputArray)
+	{
+		for(Double element : inputArray)
+			System.out.printf("%s", element);
+
+		System.out.println();
+	}
+
+	public static void printArray(Character[] inputArray)
+	{
+		for(Character element : inputArray)
+			System.out.printf("%s", element);
+
+		System.out.println();
+	}
+
+}
+
+//The output is as expected
+
+//We can clump all the 3 methods together, by virtue of declaring the type it recieves, to be a generic type:
+
+public static void printArray(T[] inputArray)
+{
+	for(T element : inputArray)
+		System.out.prinf("%s", element);
+
+	System.out.println();
+}
+
+//NOTE: Generic Type parameters cannot be primitive types.
+
+//It's also allowed to appear several times, as follows:
+
+public static <T> T maximum (T value1, T value2)
+
+//What follows, is an example of a Generic comparator class
+
+public class MaximumTest
+{
+	public static void main(String[] args)
+	{
+		System.out.printf("Maximum of %d, %d and %d is %d%n%n", 3, 4, 5, maximum(3,4,5));
+
+		//print shit
+	}
+
+	public static <T extends Comparable<T>> T Maximum(T x, T y, T z)
+	{
+		T max = x;
+
+		if(y.compareTo(max)) > 0)
+			max = y;
+
+		if(z.compareTo(max) > 0)
+			max = z;
+
+		return max;
+	}
+}
+
+//This code is able to handle all kinds of types. If you throw in Int, it's auto-converted to Integer objects through autowrapping.
+
+
+//What follows, is an example of a self-implemented generic stack class. There already exists one defined in the java.util package:
+
+import java.util.ArrayList;
+
+public class Stack<T>
+{
+	private final ArrayList<T> elements;
+
+	public Stack()
+	{
+		this(10); //Initial stacksize,
+	}
+
+	public Stack(int capacity)
+	{
+		int initCapacity = capacity > 0 ? capacity : 10; //validate the size of the initial capacity
+
+		elements = new ArrayList<T>(initCapacity); //make an arraylist of a generic type and initialize it with the init Cap
+	}
+
+	public void push(T pushValue)
+	{
+		elements.add(pushValue); //place a pushvalue on the stack.
+	}
+
+	public T pop()
+	{
+		if(elements.isEmpty())
+		{
+			throw new EmptyStackException("STACK IS EMPTY, YO"); //Stack is empty, throw an exception, nothing to return
+		}
+
+		return elements.remove(elements.size()-1);
+	}
+}
+
+//What follows is an example of how to declare a EmptyStackException;
+
+public class EmptyStackException extends RunTimeException
+{
+	public EmptyStackException()
+	{
+		this("Stack is empty");
+	}
+
+	public EmptyStackException(String message)
+	{
+		super(message);
+	}
+}
+
+//What follows is a test program that tests out the functionality of the Stack
+
+public class StackTest
+{
+	public static void main(String[] args)
+	{
+		double[] doubleElements = {1.1, 2.2, 3.3, 4.4, 5.5};
+
+		int[] intElements = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+		Stack<Double> doubleStack = new Stack<5>;
+		Stack<Integer> intStack = new Stack<>;
+
+		testPushDouble(doubleStack, doubleElements);
+		testPopDouble(doubleStack);
+
+		testPushInteger(integerStack, integerElements);
+		testPopInteger(integerStack);
+	}
+
+	private static void testPushDouble(Stack<Double> stack, double[] values)
+
+	{
+		System.out.printf("%nPushing elements onto doubleStack%n");
+
+		for (double value : values)
+		{
+			System.out.printf("%.1f", value);
+			stack.push(value); //PUSH LOL
+		}
+	}
+
+	private static void testPopDouble(Stack<Double> stack)
+	{
+		try
+		{
+			System.out.printf("%nPopping elements from doubleStack%n");
+
+			double popValue;
+
+			while(true)
+			{
+				popValue = stack.pop();
+				System.out.printf("%.1f ", popvalue);
+			}
+		}
+		catch(EmptyStackException emptyStackException)
+		{
+			System.err.println();
+			emptyStackException.printStackTrace(); //print the trace of the error
+		}
+
+	}
+
+	private static void teshPushInteger(Stack<Integer> stack, int[] values)
+	{
+		System.out.printf("%nPushing elements onto integerStack%n");
+
+		for(int value : values)
+		{
+			System.out.printf("%d ", values);
+			stack.push(value);
+		}
+	}
+
+	private static void testPopInteger(Stack<Integer> stack)
+	{
+		try{
+			System.out.printf("%nPopping elements from integerStack%n");
+			int popValue;
+
+			while(true)
+			{
+				popValue = stack.pop();
+				System.out.printf("%d ", popValue);
+			}
+		}
+		catch(EmptyStackException emptyStackException)
+		{
+			System.err.println();
+			emptyStackException.printStackTrace(); //print the trace of the error
+		}
+	}
+
+
+}
+
+//We get the expected results from this, as we would assume.
+
+//Since both are almost identical, we can use Generic types to cover both cases:
+
+public class StackTest2
+{
+	public static void main(String[] args)
+	{
+		Double[] doubleElements = {1.1, 2.2, 3.3, 4.4, 5.5};
+		Integer[] integerElements = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+		Stack<Double> doubleStack = new Stack<>(5);
+		Stack<Integer> integerStack = new Stack<>();
+
+		testPush("doubleStack", doubleStack, doubleElements);
+		testPop("doubleStack", doubleStack);
+
+		testPush("integerStack", integerStack, integerElements);
+		testPop("integerStack", integerStack);
+	}
+
+	public static <T> void testPush(String name, Stack<T> stack, T[] elements)
+	{
+		System.out.printf("%nPushing elements onto %s%n", name);
+
+		for(T element : elements)
+		{
+			System.out.printf("%s ", element);
+			stack.push(element);
+		}
+	}
+
+	public static <T> void testPop(String name, Stack<T> stack)
+	{
+		try
+		{
+			System.out.printf("%nPopping elements from %s%n", name);
+			T popValue;
+
+			while(true)
+			{
+				popValue = stack.pop();
+				System.out.printf("%s ", popValue);
+			}
+		}
+		catch(EmptyStackException emptyStackException)
+		{
+			System.out.println();
+			emptyStackException.printStackTrace();
+		}
+	}
+}
+
+//Raw Types is when we declare a Stack without specifying a type, so it defaults to be an Object type.
+//Which means it can store any type, provided it uses wrapper classes to process them (i.e, double becomes Double, int becomes Integer etc.)
+
+//Generally, we should avoid using Raw Types, as it circumvents security measures of the IDE and it increases potentional dangers.
+
+Wildcards:
+Wildcards is the concept of having a type that is unknown, but has boundaries to what it can be. 
+When we define a Wildcard, we define a upperbound, to make it so that it's either the Upperbound class, or a subclass of the upperbound.
+
+An example of this, follows:
+
+import java.util.ArrayList;
+
+public class WildcardTest
+{
+	public static void main(String[] args)
+	{
+		Integer[] integers = {1, 2, 3, 4, 5};
+		ArrayList<Integer> integerList = new ArrayList();
+
+		for(Integer element: integers)
+			integerList.add(element);
+
+		System.out.printf("integerList contains: %s%n", integerList);
+		System.out.printf("Total of the elements in integerList: %.0f%n%n", sum(integerList));
+
+		//we do the same proceduer for a double ArrayList.
+	}
+
+	public static double sum(ArrayList<? extends Number> list)
+	{
+		double total = 0;
+
+		for(Number element : list)
+			total += element.doubleValue();
+
+		return total;
+	}
+}
+
+//Note, if no type is specified for the Wildcard, it defaults to refering to Object as the Superclass
+
+//if we wanted a method to be able to take any type of Number as it's parameter, we could just do the following:
+
+public static <T extends Number> double sum(ArrayList<T> list)
+
+//Doing this, allows you to use the generic denotation in the method.
+
+CONCURRENCY:
+//This section will cover Concurrency, which is Multi-threading.
+
+//We can control the flow of threads, by the keywords of wait, notify and notifyall. And we can we can use the keyword: Synchronized.
+
+//We can also use Locks, Conditions and LinkedTransferQueue.
+
+//Each thread has a lifecycle it follows:
+
+new: new is the state it is in, until it is put in operation, which it then transfers to runnable.
+
+Waiting: This is the state it enters if it's waiting. It only continues when it recieves notification of continuing.
+
+Timed Waiting: This is the state of waiting, except with a timer. If timer expires, or an event that triggers it to be notified, it continues.
+
+Basically threads alternate between sleeping and being active, depending on the amount of activity required.
+
+Blocked: A thread is in this state, when directives are given. For instance, like WAIT_FOR_KEYPRESS or related I/O's. A thread cannot access a processor whilst in this state.
+
+Terminated State: a thread reaches this state, when it either finishes or runs into an error.
+
+Threads have different priorities, and are thus put in different orders, by the OS. They naturally transition between ready and running. 
+The OS handles the dispatching, and can be configured through thread schedueling.
+
+Informally, higher prio threads are more important. But high prio does not assure priority in processing.
+
+With timeslicing, threads can share on processors.
+
+NOTE: Thread Schedueling is platform dependant.
+
+A way that a OS prevents starvation of lower prio threads, is a aging process of Threads that lay in waiting. For every moment they are in a ready state, they decay,
+giving higher chanse to lower prio threads.
+
+Deadlock, is when two threads cannot continue, as they wait for each other, causing processes to halt.
+
+to run a Runnable, we have to execute them. We do this with an Executor object.
+
+An executor object defines a thread pool, which is the allocated threads for the Object to run with.
+
+Basically, using an Executor is like using a tool that handles the execution, creation and switching between threads.
+We could do it manually, albeit it is advised to use the pre-defined Executor.
+
+//What follows, is a program that uses concurrency of Threads and manipulating them:
+
+import java.security.SecureRandom;
+
+public class PrintTask implements Runnable
+{
+	private static final SecureRandom generator = new SecureRandom();
+	private final int sleepTime;
+	private final String taskName;
+
+	public PrintTask(String taskName)
+	{
+		this.taskName = taskName;
+
+		sleepTime = generator.nextInt(5000); //we pick a random sleep time between 0 and 5 seconds.
+	}
+
+	public void run()
+	{
+		try
+		{
+			System.out.printf("%s going to sleep for %d milliseconds.%n", taskName, sleepTime);
+		}
+		catch(InterupptedException exception)
+		{
+			exception.printStackTrace();
+			Thread.currentThread().interuppt();
+		}
+
+		System.out.printf("%s done sleeping%n", taskName);
+	}
+}
+
+//Normally we declare that the run method should throw InterupptedException, but since we cannot override and declare a throw that exceeds the original throw clause,
+//we instead are left with catching it ourselves, and then calling on the currentThread and interuppt it, when we run into the Interupption Exception
+
+//What follows is an example of a Executor manipulating the threads and using the Executor newCachedThreadPool to create a pool of threads to process.
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+
+public class TaskExecutor
+{
+	public static void main(String[] args)
+	{
+		PrintTask task1 = new PrintTask("task1");
+		PrintTask task2 = new PrintTask("task2");
+		PrintTask task3 = new PrintTask("task3");
+
+		System.out.println("Starting executor");
+
+		ExecutorService executorService = Executors.newCachedThreadPool();
+
+		executorService.execute(task1);
+		executorService.execute(task2);
+		executorService.execute(task3);
+
+		executorService.shutdown(); //shutting down, shutdown completes current commited tasks, but stops the gates for new inputs.
+
+		System.out.printf("tasks started, main ends. %n%n");
+	}
+}
+
+//This gives the expected result of the different threads sleeping for a random time between 0 and 5.
+
+//We cannot predict the starting and ending point of threads, as we do not have information of the direct acess to the threads.
+//This causes the issue of that even tho we created a thread at point X, we cannot assert that it will start at X time, and exit at Y, time.
+
+//This is a big reason for allowing the executor handle it manually, as we do not know, when the different priorities occur, lest we
+//keep a check on every single thread.
+
+Thread Synchronization, is basically that we specify a block of code that a specific thread is supposed to execute - and then through
+the ordered processing of Synchronized ordering, does the threads access the shared Object.
+
+This means, that Thread1 goes in first, is there until it finishes, thread2 comes along, it does it's businss, etc.
+
+We do this to avoid concurrent writing exceptions, as we do not know what the outcome will be, as the certainty of determination is removed
+from fact of not asserting what thread will fire when.
+
+This is of course only relevant to mutable data - i.e, data that can change. Imutable data, that cannot change once declared, as in Strings, for instance,
+poses no difficulty in terms of Concurrency
+
+//NOTE: The error of dereference, simply means that you have a primitive variable type, instead of an actual Object.
+
+//When we declare a code block to be Synchronized - we make a lock to the scope (monitor), which makes it so that other threads cannot access it
+//until it recieves permission for the lock to open.
+
+The syntax to declare a synchronized codeblock, is as follows:
+
+synchronized (object)
+{
+	//do something
+}
+
+//What follows is an illustration of a Errornous handling of sharing a unsynchronized object amongst several different threads:
+
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.lang.Runnable;
+
+public class SimpleArray //This is a faulty code
+{
+	private static final SecureRandom generator = new SecureRandom();
+	private final int[] array;
+	private int writeIndex = 0;
+
+	public SimpleArray(int size)
+	{
+		array = new int[size];
+	}
+
+	public void add(int value)
+	{
+		int position = writeIndex;
+		try
+		{
+			Thread.sleep(generator.nextInt(500)); //We demand that the thread sleeps for this object
+
+		}
+		catch(InterupptedException ex)
+		{
+			Thread.currentThread().interuppt();
+		}
+
+		array[position] = value;
+		System.out.printf("%s wrote %2d to element %d%n", Thread.currentThread().getName(), value, position);
+
+		++writeIndex;
+		System.out.printf("Next write index: %d%n", writeIndex);
+	}
+
+	public String toString()
+	{
+		return Arrays.toString(array);
+	}
+}
+
+public class ArrayWriter implements Runnable
+{
+	private final SimpleArray sharedSimpleArray;
+	private final int startValue;
+
+	public ArrayWriter(int value, SimpleArray array)
+	{
+		startValue = value;
+		sharedSimpleArray = array;
+	}
+
+	public void run()
+	{
+		for(int i = startValue ; i < startValue + 3; i++)
+		{
+			sharedSimpleArray.add(i);
+		}
+	}
+}
+
+//We then proceed to run two concurrent threads of adding to the thread, without synchronization, leading to errors in writing:
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+
+public class SharedArrayTest
+{
+	public static void main(String[] args)
+	{
+		SimpleArray sharedSimpleArray = new SimpleArray(6);
+
+		ArrayWriter writer1 = new ArrayWriter(1, sharedSimpleArray);
+		ArrayWriter writer2 = new ArrayWriter(11, sharedSimpleArray);
+
+		//Execute the tasks with executor
+
+		ExecutorService executorService = Executors.newCachedThreadPool();
+		executorService.execute(writer1);
+		executorService.execute(writer2);
+
+		executorService.shutdown();
+
+		try
+		{
+			boolean taskEnded = executorService.awaitTermination(1, TimeUnit.MINUTES);
+
+			if(tasksEnded)
+			{
+				System.out.printf("%nContents of SimpleArray:%n");
+				System.out.println(sharedSimpleArray);
+			}
+			else
+				System.out.println("Timed out while waiting for tasks to finish.");
+		}
+		catch(InterupptedException ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+}
+
+//The output we would get from this, can be as following, and is errornous, due to no synchronization applied:
+
+pool-1-thread-1-wrote 	1 to element 0.
+next write index: 1.
+pool-1-thread-1-wrote 	2 to element 1.
+next write index: 2.
+pool-1-thread-1-wrote 	3 to element 2.
+next Write index: 3.
+pool-1-thread-2-wrote 	11 to element 0.
+
+//Since there was a lack of synchronization in the declaration of the code, the output was not synchronized and 
+//the output becomes failure in terms of incoherent writing/unsynchronized output.
+
+//We can control the flow of ThreadExecution with awaitTermination
+
+//The problem with unsynchronized threads, is that Processors are so fast, that they might create a program,
+//And then we assume everything is fine - because it works fine - Until the point of where it does not,
+//because the error was subtle, and the error might not be discovered before later.
+
+//This is all the more reason to use designated handlers of Synchronization - to assure that there is no error
+//in the processing of the data and writing of the data. 
+
+//We can correct this error, very easily, by simply having the thread access be synchronized.
+
+//An example of having corrected the code, follows:
+
+import java.security.SecureRandom;
+import java.util.Arrays;
+
+public class SimpleArray
+{
+	private static final SecureRandom generator = new SecureRandom();
+	private final int[] array;
+	private int writeIndex = 0;
+
+	public SimpleArray(int size)
+	{
+		array = new int[size];
+	}
+
+	public synchronized void add(int index) //We added the synchronized keyword, to ensure synchronization
+	{
+		int position = writeIndex;
+		try
+		{
+			Thread.sleep(generator.nextInt(500));
+		}
+		catch(InterupptedException ex)
+		{
+			Thread.currentThread().interuppted();
+		}
+
+		array[position] = value;
+		System.out.printf("%s Wrote %2d to element %d.%n", Thread.currentThread().getName(), value, position);
+
+		++writeIndex;
+
+		system.out.printf("next write index: %d%n", writeIndex);
+	}
+
+	public synchronized String toString() //Again, added synchronized to assure safety during multi-thread access
+	{
+		return Arrays.toString(array);
+	}
+}
+
+//NOTE: I/O should NEVER be synchronized, as it takes up unessecary space and reduces performance.
+//The only time synchornization should be called upon an Object, is when we need to assure synchronization,
+//print statements does not follow this requirement.
+
+//Further more, only relevant operations that naturally require synchronization, should be synchronized. I.e, not simple print statements or I/O, etc.
+
+//An example of a multi-threaded operation, would be a supplier and consumer relationship, where one thread acts as supplier, where it writes data into
+//a buffer - and the Consumer thread, reads from the buffer.
+
+//These need to be synchronized, as to assure errors are not made in the ordering and sending of data/writing of data.
+
+//what follows, is an example of unsynchronized code pieces, where errors can occur, once more: Keep in mind, this code is not synchornized, i.e, faulty:
+
+public interface Buffer
+{
+	public void blockingPut(int value) throws InterupptedException;
+
+	public int blockingGet() throws InterupptedException;
+} 
+
+
+import java.security.SecureRandom;
+
+public class Producer implements Runnable
+{
+	private static final SecureRandom generator = new SecureRandom();
+	private final Buffer sharedLocation;
+
+	public Producer(Buffer sharedLocation)
+	{
+		this.sharedLocation = sharedLocation;
+	}
+
+	public void run()
+	{
+		int sum = 0;
+
+		for(int count = 1; count <= 10; count++)
+		{
+			try{
+				Thread.sleep(generator.nextInt(3000));
+
+				sharedLocation.blockingPut(count);
+
+				sum += count;
+				System.out.printf("\t%d%n", sum);
+			}
+			catch(InterupptedException exception)
+			{
+				Thread.currentThread().interuppt();
+			}
+
+		}
+		System.out.printf("Producer done producing%nTerminating Producer%n");
+	}
+}
+
+//We then make a class called Consumer, that consumes the data, and also has runnable, so that it can be run by several different threads.
+
+import java.security.SecureRandom;
+
+public class Consumer implements Runnable
+{
+	private static final SecureRandom generator = new SecureRandom();
+	private final Buffer sharedLocation;
+
+	public Consumer(Buffer sharedLocation)
+	{
+		this.sharedLocation = sharedLocation;
+	}
+
+	public void run()
+	{
+		int sum = 0;
+
+		for(int count = 1; count <= 10; count++)
+		{
+			try
+			{
+				Thread.sleep(generator.nextInt(3000));
+				sum += sharedLocation.blockingGet();
+				System.out.printf("\t\t\t2%d%n", sum);
+			}
+			catch(InterupptedException exception)
+			{
+				Thread.currentThread().interuppt();
+			}
+
+		}
+		System.out.printf("%n%s %d%n%s%n", "Consumer read values totaling", sum, "Terminating Customer");
+	}
+
+
+}
+
+//NOTE: The sleep commands are just there for demonstration purposes, to emphasis unpredictability of ordering in terms of thread access and process queing.
+
+//We then make a unsynchronized buffer to illustrate the dangers of accessing a Shared data point with unsynchronized threads:
+
+public class UnsynhcronizedBuffer implements Buffer
+{
+	private int buffer = -1;
+
+	public void blockingPut(int value) throws InterupptedException
+	{
+		System.out.printf("Producer writes\t%2d", value);
+		buffer = value;
+	}
+
+	public int blockingGet() throws InterupptedException
+	{
+		System.out.printf("Consumer reads\t%d2d", buffer);
+		return buffer;
+	}	
+}
+
+//Having built all the pieces, we illustrate a program that uses everything together:
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class SharedBufferTest
+{
+	public static void main(String[] args)
+	{
+		ExecutorService executorService = Executors.newCachedThreadPool();
+
+		Buffer sharedLocation = new UnsynchronizedBuffer(); //intiate the unsynchornized buffer
+
+		System.out.println("Action\t\tValue\tSum of Produced\tSum of Consumed");
+		System.out.printf(); //Contains some formatting of splitting with -'s, can't be arsed to write them
+
+		executorService.execute(new Producer sharedLocation);
+		executorService.execute(new Consumer sharedLocation);
+
+		executorService.shutdown();
+		executorService.awaitTermination(1, TimeUnit.MINUTES);
+	}
+}
+
+//Naturally, as we expect, due to unsynchronized threads working together on the data being manipulated, it causes chaos and we need to enforce synchronization.
+
+//To counteract this, we can use the ArrayBlockingQueue, that is found in the java.util.concurrent package.
+//it implements a interface called BlockingQueue, that allows to create a fully threadsafe buffer, in the form of a Queue.
+
+//What follows is an example of making an actual Synchronized Buffer, in tandem with ArrayBlockingQueue:
+
+import java.util.concurrent.ArrayBlockingQueue;
+
+public class BlockingBuffer implements Buffer
+{
+	private final ArrayBlockingQueue<Integer> buffer;
+
+	public BlockingBuffer()
+	{
+		buffer = new ArrayBlockingQueue<Integer>(1);
+	}
+
+	public void blockingPut(int value) throws InterupptedException
+	{
+		buffer.put(value);
+		System.out.printf("%s%2d\t%s%d%n", "Producer writes ", value, " Buffer cells occupied: ", buffer.size());
+	}
+
+	public int blockingGet() throws InterupptedException
+	{
+		int readValue = buffer.take();
+		System.out.printf("%s %2d\t%s%d%n", "Consumer reads", readValue, "Buffer cells occupied: ", buffer.size());
+
+		return readValue;
+	}
+}
+
+
+
+//We then implement a class that utilizes the working Buffer:
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class BlockingBufferTest
+{
+	public static void main(String[] args) throws InterupptedException
+	{
+		ExecutorService executorService = Executors.newCachedThreadPool();
+
+		Buffer sharedLocation = new BlockingBuffer();
+
+		executorService.execute(new Producer(sharedLocation));
+		executorService.execute(new Consumer(sharedLocation));
+
+		executorService.shutdown();
+		executorService.awaitTermination(1, TimeUnit.MINUTES);
+	}
+}
+
+//We then get the correct output through synchronized writing and reading from the Buffer.
+
+//Since not all methods are synchronized, however, they may end up in out of order and they are not atomic, there of.
+//Which ends up with the fact that the output is synchornized (i.e, read and written correctly) - But perhaps not in correct order.
+
+//To fix this problem, we could use methods such as wait, notify and notifyall.
+
+//What follows, is an example of a synchronizedBuffer that utilizes wait and notifyall to create a ordering of processing in the data:
+
+public class SynchornizedBuffer implements Buffer
+{
+	private int buffer = -1; //the shared value between threads
+	private boolean occupied = false;
+
+	public synchronized void blockingPut(int value) throws InterupptedException
+	{
+		while(occupied)
+		{
+			System.out.println("Producer tries to write."); //for demo
+			displayState("Buffer full. Producer waits."); //for demo
+
+			wait();
+		}
+
+		buffer = value;
+		//Occupied is set to true, to denote that we are putting a hold on setting a new value, until the point of where the data has been
+		//retrieved.
+		occupied = true;
+
+		displayState("Producer writes " + buffer);
+
+		notifyAll();
+	}
+
+	public synchronized int blockingGet() throws InterupptedException
+	{
+		while(!occupied)
+		{
+			System.out.println("Consumer tries to read.");
+			displayState("Buffer empty. Consumer waits.");
+
+			wait();
+		}
+		//Another value can be put in, since a value has just been read.
+		occupied = false;
+
+		displayState("Consumer reads " + buffer); //for demo
+
+		notifyAll();
+
+		return buffer;
+	}
+
+	private synchronized void displayState(String operation)
+	{
+		System.out.printf("%-40s%d\t\t%b%n%n", operation, buffer, occupied);
+	}
+}
+
+//Through the process of synchornizing like this, we make sure that there is a lock on the state of the object that is being operated upon, that only lets go
+//When we reach the point of having operated on the object.
+
+//We then have the code that operates on the correctly synchronized Object:
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class SharedBufferTest2
+{
+	public static void main(String[] args) throws InterupptedException
+	{
+		ExecutorService executorService = Executors.newCachedThreadPool();
+
+		Buffer sharedLocation = new SynchronizedBuffer();
+
+		System.out.printf("%-40s%s\t\t%s%n%-40s%s%n%n", "Operation", "Buffer", "Occupied", "--------", "-----------", "----------\t\t--------");
+
+		executorService.execute(new Producer(sharedLocation));
+		executorService.execute(new Consumer(sharedLocation));
+
+		executorService.shutdown();
+		executorService.awaitTermination(1, TimeUnit.MINUTES);
+	}
+}
+
+//We get the expected correct ouput, of a ordered and synchronized output and manipulation of the Data.
+
+//Since interactions of threads are based on a lot of factors, related to their Os, the user, networking and  tons of different facotrs,
+//the speed of threading is always fluxuating. This leads to the fact of that we have to account for that one might be faster than the other.
+//To counteract this, we create a Bounded Buffer, that stores values for the faster respective thread, to consume/produce from/to.
+
+//Note: ArrayBlockingQueues can store many values in terms of Producers and Consumers - i.e, they need not be symmetrical. We could have one very fast
+//producer, and 10 averagely fast consumers - and it works fine.
+
+//The key is to find a equilibrium point for the Buffer, to counteract the speed of consumption and production.
+//What follows, is an example of a synchronized bounded buffer that has the size of 3 elements:
+
+public class CircularBuffer implements Buffer
+{
+	private final int[] buffer = {-1, -1, -1}; //the shared buffer
+
+	private int occupiedCells = 0;
+
+	private int writeIndex = 0;
+
+	private int readIndex = 0;
+
+	public synchronized void blockingPut (int value) throws InterupptedException
+	{
+		while(occupiedCells == buffers.length){
+			System.out.printf("Buffer is full. Producer waits.%n");
+
+			wait();
+		}
+
+		buffer[writeIndex] = value; //set a new value in the buffer
+
+		writeIndex = (writeIndex + 1) % buffer.length;
+
+		++occupiedCells;
+		displayState("Producer writes: " + value);
+		notifyAll(); //notify the threads that are waiting to read from the Buffer.
+	}
+
+	public synchornized int blockingGet() throws InterupptedException
+	{
+		while(occupiedCells == 0)
+		{
+			System.out.printf("Buffer is empty. Consumer waits.%n");
+			wait();
+		}
+
+		int readValue = buffer[readIndex]; //read value from buffer
+
+		readIndex = (readIndex + 1) % buffer.length; //update the reading index
+
+		--occupiedCells; //one fewer buffer cells are occupied, as we have read a value
+
+		displayState("Consumer reads " + readValue);
+		notifyAll();
+
+		return readValue;
+	}
+
+	public synchronized void displayState(String operation)
+	{
+		System.out.printf("%s%s%d%n%s", operation, " (buffer cells occupied: ", occupiedCells, "buffer cells:  ");
+
+		for(int value : buffer)
+			System.out.printf("  %2d  ", value); //output the values in the buffer
+
+
+		System.out.printf("%n 			");
+		for(int i = 0; i < buffer.length; i++)
+			System.out.print("---- ");
+
+		System.out.printf("%n 			");
+
+		for(int i = 0; i < buffer.length; i++)
+		{
+			if(i == writeIndex && i == readIndex)
+				System.out.print(" WR"); //Writing and reading
+
+			else if(i == writeIndex)
+				System.out.printf(" W 	"); //Just writing
+			else if(i == readIndex)
+				System.out.printf("		R 		"); //just reading
+			else
+				System.out.print(" 		"); //neither are being performed on this index
+		}
+
+		System.out.printf("%n%n");
+		
+	}
+}
+
+//we then put the CircularBuffer in effect:
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class CircularBufferTest
+{
+	public static void main(String[] args)
+	{
+		ExecutorService executorService = Executors.newCachedThreadPool();
+
+		CircularBuffer sharedLocation = new CircularBuffer();
+
+		sharedLocation.displayState("Initial State");
+
+		executorService.execute(new Producer(sharedLocation));
+		executorService.execute(new Consumer(sharedLocation));
+
+		executorService.shutdown();
+		executorService.awaitTermination(1, TimeUnit.MINUTES);
+	}
+}
+
+//it gives the desired output.
+
+//we can further manipulate the interaction of threads, by virtue of locks:
+
+//locks work as they sound like, they lock access to objects in terms of threading, and only give up access when unlocked.
+
+//We can also use a ReentrantLock, which is a Lock that accepts a boolean as an argument, telling it wether it should enforce
+//a fairness policy or not.
+
+//a fairness policy, enforces that the longest waiting thread, is given access to the lock.
+
+//If set to false, though, no guarantee is given to that waiting threads will be given access.
+//Albeit, using no guarantee, is better, as it increases performance overall, in comparison to running the Fairness policy.
+
+//We can further interact with locks, in terms of making it so that we have conditions upon the lock.
+//Which means that it controls the flow of which the threads process and interact with it, given that you can give signals to do
+//and not to do - also making the controlling factor of the Lock and what the condition Object is for the lock to unlock.
+
+//Which gives us manual control to say when threads should allow multi-access.
+
+//We can assign amount of time to wait in Threads, and most importantly, Lock give us capacity to call wait in other designated areas of code.
+//This is not possible with syncrhonized, as whatever code is synchronized, is kept in context of where that synchronization occurs.
+//Thus, Lock gives us also more freedom to freely performs operations in one area, and call on a more controlled manner of access in terms 
+//of threading and applicances of threading.
+
+//What follows, is an example of having Synchronized access to an object by using Lock and Condition interfaces:
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.Condition;
+
+public class SynchronizedBuffer implements Buffer
+{
+	//The lock for control regarding synchronization
+	private final Lock accessLock = new ReentrantLock();
+
+	//Conditions for reading and writing
+	private final Condition canWrite = accessLock.newCondition();
+	private final Condition canRead = accessLock.newCondition();
+
+	private int buffer = -1; //the shared buffer
+
+	private boolean occupied = false; //occupied status
+
+	public void blockingPut(int value) throws InterupptedException
+	{
+		accessLock.lock(); //lock the object
+
+		//print output and wait
+
+		try
+		{
+			while(occupied)
+			{
+				System.out.println("Producer tries to write.");
+				displayState("Buffer full: Producer waits"):
+				canWrite.await(); //we wait until the buffer is empty
+			}
+
+			buffer = value; //set a new value for buffer
+
+			occupied = true; //it is occupied
+
+			displayState("Producer writes " + buffer);
+
+			//Signal waiting threads to read from the buffer
+			canRead.signalAll();
+		}
+
+		finally
+		{
+			accessLock.unlock(); //Unlocks the lock
+		}
+	}
+
+	public int blockingGet() throws InterupptedException
+	{
+		int readValue = 0;
+
+		accessLock.lock();
+
+		try
+		{
+			while(!occupied)
+			{
+				System.out.println("Consumer tries to read.");
+				displayState("buffer empty. Consumer waits.");
+				canRead.wait();
+			}
+
+			occupied = false;
+
+			readValue = buffer; //retrieve whatever value we are to read, from the buffer
+
+			displayState("Consumer reads " + readValue);
+
+			canWrite.signalAll();
+		}
+		finally
+		{
+			accessLock.unlock();
+		}
+
+		return readValue;
+	}
+
+	private void displayState(String operation)
+	{
+		try
+		{
+			accessLock.lock();
+			System.out.printf("%-40s%d\t\t%b%n%n", operation, buffer, occupied);
+		}
+		finally
+		{
+			accessLock.unlock();
+		}
+	}
+}
+
+//And the following code is the usage of the actual said Buffer that we defined:
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class SharedBufferTest2
+{
+	public static void main(String[] args)
+	{
+		ExecutorService executorService = Executors.newCachedThreadPool();
+
+		Buffer sharedLocation = new SynchronizedBuffer();
+
+		System.out.printf("%-40s%s\t\t%s%n%-40s%s%n%n", "Operation", "Buffer", "Occupied", "--------", "-------\t\t--------");
+
+		executorService.execute(new Producer(sharedLocation));
+		executorService.execute(new Consumer(sharedLocation));
+
+		executorService.shutdown();
+		executorService.awaitTermination(1, TimeUnit.MINUTES);
+	}
+}
+
+//We would get the expected results from this, in which it reports what thread is writing what and what consumer is consuming what, in order etc.
+
+//There are collections that support concurrent threading:
+
+ArrayBlockingQueue 					A fixed-size queue that supports both produce/consume relationship - possibly many consumers/producers
+
+ConcurrentHashMap 					a hash-based map (similar to a HashMap) that allows an arbitrary number of reader threads and a limited number of writer threads.
+									This and LinkedBlockingQueue, are by far, the most used frequency used concurrent collections.
+
+
+ConcurrentLinkedDeque 				A concurrent linked-list implementation of a double-ended queue.
+
+ConcurrentLinkedQueue 				A concurrent linked-list implementation of a queue that can grow dynamically.
+
+ConcurrentSkipListMap 				A concurrent map that is sorted by it's keys.
+
+ConcurrentSkipListSet 				A sorted concurrent set.
+
+CopyOnWriteArrayList 				A thread-safe Arraylist. Each operation that modifies the collection first creates a new copy 
+									of the contents. Used when the collection is traversed much more frequently than the collections
+									contents are modified.
+
+DelayQueue 							A variable size queue containing Delayed objects. An object can be removed only after its delay has expired.
+
+LinkedBlockingDeque 				A double-ended blocking queue implemented as a linked list that can optonally be of a fixed size.
+
+LinkedBlockingQueue 				A blocking queue implemented as a linked list that can optionally be fixed in size. This and the ConcurrentHashMap
+									are by far, the most used collections that are used with thread interaction.
+
+LinkedTransferQueue 				A linked-list implenetation of interface TransferQueue. Each producer has the option of waiting for a consumer
+									to take an element being inserted (via method transfer) or simply placing the element into the queue (via method put)
+									Also provides overloaded method tryTransfer to immedeatly transfer an Element to an waiting customer or to do so
+									within a specified timeout period. If the transfer cannot be completed, the element is not placed in the queue.
+									Typically used in applications that pass messages between threads.
+
+PriorityBlockQueue 					A variable-length queue priority-based blocking queue(like a PriorityQueue)
+
+SyncrhonousQueue 					A blocking queue implementation that does not have an internal capacity. Each insert operation by one thread must wait 
+									for a remove operation from another thread and vice versa.
+
+
+sort VS parallelSort:
+
+//Sometimes, we have to sort very large collections - to illustrate how we can do this faster and how fast it is, we can compare sort and parallelSort:
+
+import java.time.Duration;
+import java.time.Instant;
+import java.text.NumberFormat;
+import java.util.Arrays;
+import java.security.SecureRandom;
+
+public class SortComparison
+{
+	public static void main(String[] args)
+	{
+		SecureRandom random = new SecureRandom();
+
+		int[] array1 = random.ints(15_000_000).toArray();
+		int[] array2 = new int[array1.length];
+		System.arraycopy(array1, 0, array2, 0, array1.length);
+
+		//Time the sorting of the different arrays
+
+		System.out.println("Starting sort");
+		//Start
+		Instant sortStart = Instant.now();
+
+		Arrays.sort(array1);
+		//End
+		Instant sortEnd = Instant.now();
+
+		//Find the sorted time it takes, in milli Seconds
+		long sortTime = Duration.between(sortStart, sortEnd).toMillis();
+
+		System.out.printf("Total time in milliseconds: %d%n%n", sortTime);
+
+		System.out.println("Starting parallelSort");
+		Instant parallelSortStart = Instant.now();
+		Arrays.parallelSort(array2);
+		Instant parallelSortEnd = Instant.now();
+
+		long parallelSortTime = Duration.between(parallelSortStart, parallelSortEnd).toMillis();
+
+		System.out.printf("Total time in milliseconds: %d%n%n", parallelSortTime);
+
+		//display the timing result
+		String percentage = NumberFormat.getPercentInstance().format((double) sortTime/parallelSortTime);
+
+		System.out.printf("%nsort took %s more time than parallelSort%n", percentage);
+
+
+
+
+	}
+}
+
+//From this, we would get the following output:
+
+Starting sort
+Total time in milliseconds: 1319
+
+Starting parallelSort
+Total time in milliseconds: 323
+
+sort took 408% more time than parallelSort
+
+//We can see, that in the instance of sorting 15k entries, Sort takes 1319 milliseconds, whilst parallel takes 323.
+
+//We can make a arbitrary comparison:
+
+//Assuming we'd have 5 million entries, we'd expect it to take 333 times longer, i.e:
+
+//107.666  seconds for parallel sort
+
+//439.666  seconds for normal sort
+
+//thus, parallel sort takes approx 1:47 minutes, whilst normal sorting takes approx 7:20 minutes
+
+//Thus, we can see, that the difference actually becomes relevant when we are operating on very large scales.
+
+//There are two other interesting methods of Parallel Array operations:
+
+parallelSetAll : Sets all the values of an Array to be of a certain type : int, double, long - depending on the overload of the method.
+
+parallelPrefix : Allows application of a operator on all instances of an array, with the following context:
+
+int[] values = {1, 2, 3, 4, 5};
+Arrays.parallelPrefix(values,(x, y) -> x + y);
+
+//This would give 1, 3, 6, 10, 15, as they cascade into each other, taking the previous result and applying it to the next.
+
+int[] values = {1, 2, 3, 4, 5};
+Arrays.parallelPrefix(values, (x, y) -> x * y);
+
+//What follows, is an example of what time it takes, to sequentially perform stream operations, versus doing it in parallel.
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.LongSummaryStatistics;
+import java.util.stream.LongStream;
+import java.security.SecureRandom;
+
+public class StreamStatisticsComparison
+{
+	public static void main(String[] args)
+	{
+		SecureRandom random = new SecureRandom();
+
+		//Conjure 10 million random numbers between 1 and 1000
+		long[] values = random.longs(10_000_000, 1, 1001).toArray();
+
+		Instant separateStart = Instant.now();
+
+		long count = Arrays.stream(values).count();
+
+		long sum = Arrays.stream(values).sum();
+
+		long min = Arrays.stream(values).min().getAsLong();
+
+		long max = Arrays.stream(values).max().getAsLong();
+
+		double average = Arrays.stream(values).average().getAsDouble();
+
+		Instant seperateEnd = Instant.now();
+
+		//Display the results
+
+		System.out.println("Calculations performed separately");
+		System.out.printf(" 	count: %,d%n", count);
+		System.out.printf("		  sum: %,d%n ", sum);
+		System.out.printf(" 	  min: %,d%n ", min);
+		System.out.printf(" 	  max: %,d%n ", max);
+		System.out.printf("   average: %,d%n ", average);
+		System.out.printf("Total time in milliseconds: %d%n%n", Duration.between(seperateStart, seperateEnd).toMillis());
+
+		LongStream stream1 = Arrays.stream(values);
+
+		System.out.println("Calculating statistics on sequential stream");
+		
+		Instant sequentialStart = Instant.now();
+
+		LongSummaryStatistics results1 = stream1.summaryStatistics();
+
+		Instant sequentialEnd = Instant.now();
+
+		displayStatistics(results1);
+
+		System.out.printf("Total time in milliseconds: %d%n%n", Duration.between(sequentialStart, sequentialEnd).toMillis());
+
+		LongStream stream2 = Arrays.stream(values).parallel();
+
+		System.out.println("Calculating statistics on parallel stream");
+
+		Instant parallelStart = Instant.now();
+
+		LongSummaryStatistics results2 = stream2.summaryStatistics();
+
+		Instant parallelEnd = Instant.now();
+
+		//Display the results
+
+		displayStatistics(results1);
+		System.out.printf("Total time in milliseconds: %d%n%n", Duration.between(parallelStart, parallelEnd).toMillis());
+	}
+
+	private static void displayStatistics(LongSummaryStatitics stats)
+	{
+		System.out.println("Statistics");
+		System.out.printf(" 	count: %, d%n", stats.getCount());
+		System.out.printf(" 	sum: %, d%n", stats.getSum());
+		System.out.printf("     min: %, d%n", stats.getMin());
+		System.out.printf("     max: %, d%n", stats.getMax());
+		System.out.printf(" average: %f%n", stats.getAverage());
+	}
+}
+
+//The structure above, is built so that it does all the things manually, first, by doing every call seperately
+
+//the second part, it does it by sequentially from a stream, when the stream has been formed;
+
+//the third part, it does it in parallel from a stream, by the .parallel() method call, upon the stream, when it has been formed.
+
+//The interface Runnable is the most basic of interaction in terms of synchronization and interaction with mutlithreaded programs.
+//To fix this, there are several interfaces that help leviate this:
+
+Callable : Contains one method, call, which returns a value representing the result of the callable task 
+
+and
+
+Future : Contains a couple of methods to interact with the Callable interface
+
+//In the following example, we showcase how much of a performance gain asychronously execution is, if we have several cores
+//available.
+
+//In this following example, we are going to do a Recursive fibbonaci call. usually it's a lot faster to do it using a loop.
+//This is thus, only for demonstration purposes of how much time executing in a asychronously manner, helps us. (Note: Asychronously, means not using the same clock,
+i.e, independant of each others times - Since we have several processors, this is the concept of using the different ones to compute faster.)
+
+import java.time.Duration;
+import java.text.NumberFormat;
+import java.time.Instant;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+class TimeData
+{
+	public Instant start;
+	public Instant end;
+
+	public double timeInSeconds()
+	{
+		//Return the amount of time between two points of time in seconds
+		return Duration.between(start, end).toMillis() / 1000.0;
+	}
+}
+
+public class FibonacciDemo
+{
+	public static void main(String[] args) throws InterupptedException, ExecutionException
+	{
+		System.out.println("Synchronous Long Running Calculations");
+		
+		TimeData synchronousResult1 = startFibonacci(45);
+		TimeData synchronousResult2 = startFibonacci(44);
+
+		double synchronousTime = calculateTime(synchronousResult1, synchronousResult2);
+
+		System.out.printf(" Total calculation time = %.3f seconds%n", synchronousTime);
+
+		System.out.printf("%nAsynchronous Long Running Calculations%n");
+
+		CompletableFuture<TimeData> futureResult1 = CompletableFuture.supplyAsync(() -> startFibonacci(45));
+
+		CompletableFuture<TimeData> futureResult2 = CompletableFuture.supplyAsync(() -> startFibonacci(44));
+
+		//wait for the results of said operations
+
+		TimeData asynchronousResult1 = futureResult1.get();
+		TimeData asynchronousResult2 = futureResult2.get();
+
+		double asynchronousTime = calculateTime(asynchronousResult1, asynchronousResult2);
+		System.out.printf(" Total calculation time = %.3f seconds%n", asynchronousTime);
+
+		//display time difference in a percentage
+
+		String percentage = NumberFormat.getPercentInstance().format(synchronousTime/asynchronousTime);
+
+		System.out.printf("%nSynchronous calculations took %s" + " more time than the asynchronous calculation%n", percentage);
+
+
+
+	}
+
+	private static TimeData startFibonacci(int n)
+	{
+		TimeData timeData = new TimeData();
+
+		System.out.printf(" Calculating fibonacci (%d)%n", n);
+
+		timeData.start = Instant.now();
+
+		long fibonacciValue = fibonacci(n);
+
+		timedata.end = Instant.now();
+
+		displayResult(n, fibonacciValue, timeData);
+		return timeData;
+	}
+
+	//recursive fibonacci calculation
+
+	private static long fibonacci(long n)
+
+	{
+		if(n == 0 || n == 1)
+			return n;
+		else
+			return fibonacci(n - 1) + fibonacci(n - 2);
+	}
+
+	private static void displayResult(int n, long value, TimeData timeData)
+	{
+		System.out.printf("    fibonacci(%d)  =  %d%n", n, value);
+		System.out.printf("    Calculation time for fibonacci(%d) = %.3fseconds%n", n, timeData.timeInSeconds());
+	}
+
+	private static double calculateTime(TimeData result1, TimeData result2)
+	{
+		TimeData bothThreads = new TimeData();
+
+		//Find out which one started first
+		bothThreads.start = result1.start.compareTo(result2.start) < 0 ? result1.start : result2.start;
+
+		//determine which of em, had the later end time
+		bothThreads.end = result1.end.compareTo(result2.end) > 0 ? result1.end : result2.end;
+
+		return bothThreads.timeInSeconds();
+	}
+
+}
+
+//The output we would find from this, is that Synchronous Long running calculations, would take A total of 9.506 seconds in this case,
+//whilst the asynchronous approach, took 5.911 seconds, which means that the Synchronous took 161% more time, in this case.
+
+//We can also use fork/join commands, to split operations and perform them in parallel, causing increase of performance.
+//it also suits for algorithms that bases themselves on divide and conquer.
+
+DATABASES:
+
+DBMS, is the shorthand for Database Management System - Which is what SQL is, for instance.
+
+A primary key to a foriegn key, implies a one to many relationship.

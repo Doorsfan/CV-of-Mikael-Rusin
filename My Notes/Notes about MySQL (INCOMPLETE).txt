@@ -1,0 +1,2506 @@
+MySQL is a multi-user, multi-threaded database management system. It is especially popular on the Web, and used in a lot of different platforms, such as
+Wikipedia, Youtube, Facebook etc.
+
+it runs on most of the large OS platforms, such as Mac, Linux, Windows etc.
+
+MariaDB is a community-developed fork-off from MySQL led by the Original developer of MySQL, which sprung from the fact of MySQL's aquisition of Oracle.
+
+RELATIONAL DATABASE:
+A relational database is a collection of data organised in tables. There are relations among the tables. The tables are formally described. 
+They consist of Rows and collumns.
+
+SQL (Structured Query Language) is a database computer language designed for managing data in relational database management systems. A table is a set of values
+that is organised using a model of vertical collumns and horizontal Rows. The colums are identified by their names. 
+
+A schema of a database system is its structure described in a formal language. It defines the tables, the fields, the relationships, views, indexes, procedures, functions,
+queues, triggers and other elements.
+
+A database row represents a single, implicitly structured data item in a table. it is also called a tuple or a record. 
+
+A column is a set of data values of a particular simple type,one for each row of the table. The colums provide the structure according to which the rows are composed.
+
+A field is a single item that exists as the intersection between one row and one column. A primary key uniquely identifies each record in the table. A foreign key is a referential
+constrain between two tables. The foreign key identifies a column or a set of columns in one (referencing) table that refers to a column or set of columns in another (referenced) table.
+
+A trigger, is a procedural code that is automatically executed in response to certain events on a particular table in a database. A view is a specific look on data in from one or
+more tables. It can arrange data in some specific order, highlight or hide some data. A view consists of a stored query accessible as a virtual table composed of the result set of a 
+query. Unlike ordinary tables a view does not form part of the physical schema. It is a dynamic, virtual table computed or collated from data in the database.
+
+A transaction is an atomic unit of database operations against the data in one or more databases. The effects of all the SQL statements in a transaction can be either all commited to
+the database or all rolledback. An SQL result set is a set of rows from a database, returned by the SELECT statement. it also contains meta-information about the query such as the column names, and the types and sizes of each column as well. An index is a data structure that improved the speed of data retrieval operations on a database table.
+
+//What follows, is an example of different usages of Tables. 1. is a Cars table, 2. is Customers and reservations table, 3. is a Books table.
+
+1.
+
+cars.sql
+
+-- SQL for the Cars table
+
+USE mydb:
+CREATE TABLE IF NOT EXISTS Cars(Id INTEGER PRIMARY KEY, name VARCHAR(50)), Cost INTEGER);
+INSERT INTO Cars VALUES(1, 'Audi', 52642);
+INSERT INTO Cars VALUES(2, 'Mercedes', 57127);
+INSERT INTO Cars VALUES(3, 'Skoda', 9000);
+INSERT INTO Cars VALUES(4, 'Volvo', 29000);
+INSERT INTO Cars VALUES(5, 'Bentley', 350000);
+INSERT INTO Cars VALUES(6, 'Citroen', 21000);
+INSERT INTO Cars VALUES(7, 'Hummer', 41400);
+INSERT INTO Cars VALUES(8, 'Volkswagen', 21600);
+
+2.
+
+customers_reservations.sql
+-- SQL for the Customers, Reservations tables
+
+USE mydb:
+
+CREATE TABLE IF NOT EXISTS Customers(CustomerId INTEGER AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(55));
+INSER INTO Customers(Name) VALUES('Paul Novak');
+INSERT INTO Customers(Name) VALUES('Terry Neils');
+INSERT INTO Customers(Name) VALUES('Jack Fonda');
+INSERT INTO Customers(Name) VALUES('Tom Willis');
+
+CREATE TABLE IF NOT EXISTS Reservations (Id INTEGER AUTO_INCREMENT PRIMARY KEY, CustomerId INTEGER, Day DATE);
+INSERT INTO Reservations(CustomerId, Day) VALUES(1, '2009-11-22');
+INSERT INTO Reservations(CustomerId, Day) VALUES(2, '2009-11-28');
+INSERT INTO Reservations(CustomerId, Day) VALUES(3, '2009-11-29');
+INSERT INTO Reservations(CustomerId, Day) VALUES(1, '2009-11-29');
+INSERT INTO Reservations(CustomerId, Day) VALUES(3, '2009-12-2');
+
+3.
+
+books.sql
+-- SQL for the Books table
+
+USE mydb;
+
+CREATE TABLE IF NOT EXISTS Books(Id INTEGER PRIMARY KEY, Title VARCHAR(100), Author VARCHAR(60));
+INSERT INTO Books VALUES(1, 'War and Peace', 'Leo Tolstoy');
+INSERT INTO Books VALUES(2, 'The Brothers of Karamazov', 'Fyodor Dostoyevsky');
+INSERT INTO Books VALUES(3, 'Paradise Lost', 'John Milton');
+INSERT INTO Books VALUES(4, 'Crime and Punishment', 'Fyodor Dostoyevsky');
+INSERT INTO Books VALUES(5, 'Cousin Bette', 'Honore de Balzac');
+
+To connect to a MySQL client, we write the following, in the MySQL CmD:
+
+mysql -uroot -p
+
+//We then get prompted for the password for root, which by default most likely is set to root
+//What follows, is a overview of all the help commands in SQL and how to write in SQL.
+
+help; or \h or ? or \?  shows us commands
+
+\c or clear    clears the current input statement
+
+connect or \r      Reconnects to the Server,  <Optional Arguments: db and host> 
+
+delimter or \d     Set statement delimter
+
+edit or \e         Edit command with $EDITOR.
+
+ego or \G          Send command to mysql server, display results vertically.
+
+exit or \q         Exit mysql. Same as quit.
+
+go or \g           Send command to mysql server.
+
+help or \h         Display this help.
+
+nopager or \n      Disable pager, print to stdout.
+
+notee or \t        Don't write into outfile.
+
+pager or \P        Set PAGER [to_pager]. Print the query results via PAGER.
+
+print or \p        Print current command.
+
+prompt or \R       Change your mysql prompt.
+
+quit or \q         Quit mysql.
+
+
+//To find the current working directory, we would do it as simple as follows:
+
+system pwd
+
+//it would then print out the path, for example:
+
+home/vronskij/programming/mysql
+
+//The system keyword activates a Shell, and we need to exit that shell, thus, we can use quit for that.
+
+
+//To show a Database, we use the show command, as follows:
+
+SHOW DATABASES;
+
+//the original output we will get from this, is 4 things, as follows:
+
+Database
+
+information_schema
+mysql
+performance_schema
+test
+
+//The test part is a Empty database that is available for users to try out things on.
+
+//To create a Database, we use the Create database command, as follows:
+
+CREATE DATABASE mydb; //This will create a new database with the name of mydb
+
+//Now, if we were to write SHOW DATABASES again, we'd get the following output:
+
+Database
+
+information_schema
+mydb
+mysql
+performance_schema
+test
+
+//To use a database, we can simple use the command of use <databasename>, as follows:
+
+use mydb;
+
+//we would then get the output of
+
+Database changed
+
+//Now we have selected a database. Now, we want to see the elements of the database and how they are interacting, with the following:
+
+SHOW TABLES;
+
+//Since we have no tables in this newly created database, we will get the output of the following:
+
+Empty set (0.00 sec)
+
+//To create a Car table from the Sql source code we made in the Car example, we use the following:
+
+source cars.sql
+
+//This would give us the following output:
+
+Database changed
+Query OK, 0 rows affected (0.20 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+//Now, if we were to use SHOW TABLES, we'd get the following:
+
+ Tables_in_mydb
+
+ Cars
+
+ //Now to aquire all of the items from the Cars table, we'd do the following:
+
+ SELECT * FROM Cars; //* means everything, so SELECT * means select everything
+
+ //With this, we'd get the following output:
+
+ ID  Name           Cost
+ 1   Audi           52642
+ 2   Mercedes       57127
+ 3   Skoda          9000
+ 4   Volvo          29000
+ 5   Bentley        350000
+ 6   Citroen        21000
+ 7   Hummer         41400
+ 8   Volkswagen     21600
+
+ //For security reason, we want to make a User that is not the root user to Interact with the database.
+
+ CREATE USER user12@localhost IDENTIFIED BY '34klq*'; //This creates a user called user12, with the password of 34klq*
+
+ //We have to add privilages to the User as well
+
+ GRANT ALL ON mydb.* to user12@localhost;
+
+ //This gives all privilages to user12, in regards to the mydb database.
+
+ //What follows is an example of how to operate on a Database, all the way from getting the Database and giving another User permissions to use from that user account:
+
+ //NOTE: This example presumes that we have the World database downloaded before hand.
+
+CREATE DATABASE world; //Created the world database
+
+USE world; //Select the World database
+
+source world_innodb.sql //we build the database from the SQL file that we retrieved, as presumed
+
+GRANT ALL ON world.* TO user12@localhost; //Give all permissions to user12 regarding the world Database, then we switch to the user
+
+quit
+
+mysql -u user12 -p
+Enter password: //we just enter the password that we had previously to this user
+
+USE world;
+
+//having connected as the user12 user instead of root, we are able to work on the Database directory
+
+//We then wish to continue working on it;
+
+SHOW tables;
+
+Tables_in_World
+
+City
+Country
+CountryLanguage
+
+DESCRIBE City; //This presents information about the City table to illustrate it.
+
+Field        Type        Null    Key    Default    Extra
+
+ID 			 int(11)	 NO 	 PRI 	NULL 	   auto_increment
+Name 		 char(35)    NO 	 
+CountryCode  char(3)     NO      MUL
+District     char(20)    NO      
+Population	 int(11)     NO 			0
+
+
+
+//If we want to find out the SQL code to create the City table, we could use the following command:
+
+SHOW CREATE TABLE City;
+
+//We can also create a backup of the City table, by the virtue of:
+
+mysqldump -uroot -p world City > city.sql 
+//We connect to the uroot server with the mysqldump, we find the table City in World, and we then save the contents of City
+//to be in city.sql - We created a backup of the contents of the Table City, to a Sql file called city.sql
+
+//To remove a table, we can use the DROP command, as follows;
+
+DROP TABLE City;
+
+SHOW TABLES;
+
+Tables_in_world 
+
+Country
+CountryLanguage
+
+//We can then recreate the City table, by accessing the backup:
+
+soruce city.sql
+
+SHOW TABLES;
+
+Tables_in_world
+
+City
+Country
+CountryLanguage
+
+//Since we copied the content of the old SQL file to the backup and then ran the backup, we recreated the table from the SQL backup
+
+QUERIES:
+A queri is used to look up data from the database tables.
+
+LIMITING DATA OUTPUT:
+//We can be a bit more specific about what kind of data we show, and how much of it, as follows;
+
+SELECT Id, Name, Population FROM City LIMIT 10; //Here, we decied to show the 3 specified Columns and only show the first 10 rows.
+
+Id 	  Name 			Population
+
+1 	  Kabul 		   1780000
+2     Qandahar          237500
+3     Herat             186800
+4     Mazar-e-Sharif    127800
+5     Amsterdam 		731200
+6     Rotterdam         593321
+7     Haag              440900
+8     Utrecht 			234323
+9     Eindhoven 		201843
+10    Tilburg 			193238
+
+
+
+//We can limit it in other ways, too, as follows:
+
+SELECT Id, Name, Population FROM City LIMIT 15, 5; //This means that we show from 5 items, from row 15
+
+Id 	  Name 			Population
+
+16 	  Haarlem 		    148772
+17    Almere            142465
+18    Arnhem            138020
+19    Zaanstad          135621
+20    's-Hertogenbosch 	129170
+
+//We can also limit the amount of entries we want in a database, by the usage of a Pager command, to show the data in a less Program.
+
+pager less
+
+PAGER set to 'less' //This is just print output in the SQL
+
+SELECT * FROM City;
+
+Name 				Population
+
+Kabul 				   1780000
+Qandahar 				237500
+Herat 					186800
+...
+
+//We can also display data from any Text editors, with the following redirection of Data:
+
+mysql -u user12 -p world -e "SELECT * FROM City" > city
+
+//We can count things on the Table, such as rows:
+
+SELECT COUNT(Id) AS 'Number of rows' FROM City;
+
+Number of Rows
+ 		  4079
+
+
+//We can use a form of returning value from inner parantheses to work upon them, with outer functionings, as follows:
+
+SELECT Name, Population FROM City -> WHERE Population = (SELECT Max(Population) FROM City); 
+//Using the Max function to sort out what max value there is in terms of Population, from the Table of City, We assign the value to Population, which we then
+//present for the Selected City, with the factor of name and Population
+
+Name 				Population
+Mumbai (Bombay)       10500000
+
+
+//These forms of querues that are chained, are called Subqueries, where we use a lower set of Queries to use the return value for the greater query. An example of getting the smallest populated town, is as follows:
+
+mysql> //this part is basically just meaning that we are actually in the sql file
+
+SELECT Name, Population FROM City -> WHERE Population = (SELECT Min(Population) FROM City);
+
+Name 			Population
+Adamstown 				42
+
+//We can also select Specific Rows, with the command of WHERE and denotation of what Variable is to have what value;
+
+mysql> SELECT Name, Population FROM City -> WHERE Population > 1000000; //Show all the cities that have a population of above 1 mil
+Name 					Population
+
+Kabul 					   1780000
+Alger 					   2168000
+Luanda 					   2022000
+Buenos Aires 			   2982146
+La Matanza 				   1266461
+Córdoba 				   1157507
+
+//We can sort the results based on a form of Regex, as well, as follows:
+
+SELECT Name FROM City WHERE Name LIKE 'Kal%'; //The % indicates that the rest can be whatever it whats, we just search for things that match the start being Kal + something
+Name
+
+Kalookan
+Kalyan
+Kalemie
+Kallithea
+Kalisz
+Kallingrad
+Kaluga
+
+//We can also select from Specific Rows:
+
+SELECT Name, Population FROM City -> WHERE ID IN (5, 32, 344, 554); //Returns the list of Cities with the specific IDs
+Name 					Population
+
+Amsterdam 				    731200
+Alkmaar 					 92713
+Guarapuava 					160510
+Santiago de Chile 		   4703954
+
+4 rows in set (0.00 sec)
+
+//We can select all info possible from a specified Object:
+
+SELECT Name, Population FROM City -> WHERE Population BETWEEN 670000 AND 700000; //Returns a table with the name of Cities which population is between 670k and 700k
+
+Name 				Population
+
+Teresina 			    691942
+Natal 					688955
+etc.
+
+//We can also Order data that we found, from Most Data found to Least Data found
+
+SELECT Name, Population FROM City -> ORDER BY Population DESC LIMIT 10; // Get the City names, with Population, in Descending Order, only 10 cities.
+Name 					Population
+
+Mumbai(Bombay) 			  10500000
+Seoul 					   9981619
+Sao Paol 				   9968485
+etc.
+
+//We can also Order data that we found, from least Data found, to most Data Found
+
+SELECT Name, Population FROM City -> ORDER BY Population ASC LIMIT 10;
+Name 					Population
+
+Adamstown 					    42
+West Island 				   167
+etc.
+
+10 rows in set (0.01 sec)
+
+//We can also Order data by Alphabetical Order:
+
+SELECT Name, Population FROM City -> ORDER BY Name LIMIT 10; // By using Order on what element we want, we can order it by Descending Order by Element.
+Name 						Population
+
+A Coruna 						xxxx
+Aachen  						xxxx
+etc. etc.
+
+GROUP BY:
+
+The Group By function, allows us to mesh together values in terms of collection from many different "locations". An example, is as follows:
+
+SELECT District, SUM(Population) FROM City -> WHERE District = 'New York' GROUP BY District; //We returned the Clumped mass of Population, from all the district of New York.
+District 				SUM(Population)
+New York 					   8958085
+
+SELECT Name, District, Population FROM City -> WHERE District = 'New York';
+
+Name 			District 			Population
+
+New York 		New York 			   8008278
+Buffalo 		New York 				292648
+Rochester 		New York 				219773
+Yonkers 		New York 				196086
+Syracuse 		New York 				147306
+Albany 			New York 				 93994
+
+6 rows in set (0.01 sec)
+
+//We could also specify all the District that have a Population above 3 million - When we have a group, we use HAVING instead of WHERE, as follows:
+
+SELECT District, SUM(Population) FROM City -> WHERE CountryCode = 'USA' GROUP BY District -> HAVING SUM(Population) > 3000000;
+District 		SUM(Population)
+Arizona 			    3178903
+California 			   16716706
+Florida 				3151408
+Illinois 				3737498
+New York 				8958085
+Texas 					9208281
+
+6 rows in set (0.00 sec)
+
+UPDATING, DELETING AND INSERTING DATA:
+
+SELECT Name, HeadOfState FROM Country -> WHERE Name = 'United States';
+
+Name 			HeadOfState
+United States   George W. Bush
+1 row in set (0.00 sec)
+
+//we can update this info, with the keyword, UPDATE
+
+UPDATE Country SET HeadOfState = 'Barack Obama' -> WHERE name = 'United States';
+
+//This will allow us to declare that we wish to Update Country, we set the attribute of HeadOfState, to Barack Obama, in that country of where the name is United States.
+
+//We can return the value, to see that it's been updated
+
+SELECT Name, HeadOfState FROM Country WHERE Name = 'United States';
+Name 			HeadOfState
+United States 	Barack Obama
+1 row in set (0.00 sec)
+
+//We can create a temporary table that contains 10 cities from the City table, as follows:
+
+CREATE TABLE First10 engine=MEMORY SELECT * FROM City LIMIT 10; 
+//here, we take the first 10 elements, with all the attributes, from City, and put it in a table called First10
+
+//if we want to see the contents;
+
+SELECT * FROM First10;
+
+|  1 | Kabul          | AFG         | Kabol         |    1780000 |
+|  2 | Qandahar       | AFG         | Qandahar      |     237500 |
+|  3 | Herat          | AFG         | Herat         |     186800 |
+|  4 | Mazar-e-Sharif | AFG         | Balkh         |     127800 |
+|  5 | Amsterdam      | NLD         | Noord-Holland |     731200 |
+|  6 | Rotterdam      | NLD         | Zuid-Holland  |     593321 |
+|  7 | Haag           | NLD         | Zuid-Holland  |     440900 |
+|  8 | Utrecht        | NLD         | Utrecht       |     234323 |
+|  9 | Eindhoven      | NLD         | Noord-Brabant |     201843 |
+| 10 | Tilburg        | NLD         | Noord-Brabant |     193238 |
+
+//We can delete on specified Indexes
+
+DELETE FROM First10 WHERE ID IN (2, 4, 6, 8, 10); //This removes all the instances of which have the Specified ID's
+
+//To show again
+
+SELECT * FROM First10;
+
++----+-----------+-------------+---------------+------------+
+| ID | Name      | CountryCode | District      | Population |
++----+-----------+-------------+---------------+------------+
+|  1 | Kabul     | AFG         | Kabol         |    1780000 |
+|  3 | Herat     | AFG         | Herat         |     186800 |
+|  5 | Amsterdam | NLD         | Noord-Holland |     731200 |
+|  7 | Haag      | NLD         | Zuid-Holland  |     440900 |
+|  9 | Eindhoven | NLD         | Noord-Brabant |     201843 |
++----+-----------+-------------+---------------+------------+
+
+//If we use the statement TRUNCATE, we remove ALL ROWS, from a Table.
+
+TRUNCATE TABLE First10;
+
+SELECT * FROM First10;
+Empty set (0.00 sec)
+
+//We can insert back elements with specified Attributes, if we wish
+
+INSERT INTO First10 VALUES(1, 'Kabul', 'AFG', 'Kabol', 1780000); //This is basically like inserting an Object that we initialize with values into it's Constructor
+
+SELECT * FROM First10;
++----+-------+-------------+----------+------------+
+| ID | Name  | CountryCode | District | Population |
++----+-------+-------------+----------+------------+
+|  1 | Kabul | AFG         | Kabol    |    1780000 |
++----+-------+-------------+----------+------------+
+1 row in set (0.00 sec)
+
+//We can remove the entire Table from the Database, with the DROP command:
+
+DROP TABLE First10;
+Query OK, 0 rows affected (0.00 sec) //Table is Empty, because we dropped the Table
+
+
+STORAGE ENGINES:
+
+MySQL bases itself on STORAGE ENGINES. There are two types of STORAGE ENGINES : Transactional and Non-Transactional.
+
+Transactional DataBases supports the Notion of rolling back, if the data storage was not completed properly.
+Non-Transactional ones, do not. 
+
+There are different Storage Engines, that work for different specific situations - Based on the need and occurance.
+
+MySQL supports: MyISAM, InnoDB, Memory, CSV, Merge, Archive, Federated, Blackhole, Example
+
+MyIsam: For MySQL < 5.5, this is the Default Storage Engine. It does not support Transactions. It provides table-level locking. It's used in most Web,data warehousing.
+
+InnoDB: For MySQL >= 5.5, this is the Default Storage Engine. It supports Transactions. It provides row-level locking, Crash recovery and multi-version concurrency control.
+It is the only engine that provides foreign key referential integrity constraint*.
+
+
+*Foreign key referential integrity constraint is a Constraint that applies another layer of rules, for incoming data.
+The rules are, as follows:
+
+Parent key: A primary key or a unique key of a referential constraint.
+
+Parent row: A row that has at least one dependant row.
+
+parent Table: A table that contains the parent key of a referential constraint. A table can be a parent in an arbitrary number of referential constraints. A table that is
+the parent in a referential constraint can also be the dependent in a referential constrain. 
+
+Dependent Table: A table that contains at least one referential constraint in it's definition. A table can be a dependent in an arbitrary number of referential 
+constraints. A table that is the dependent in a referential constraint can also be the parent in a referial constraint.
+
+Descendent Table: A table is a descendent of table T if it is dependent of T or a descendent of a dependent of T
+
+Dependent Row: A row that has at least one parent row
+
+Descendent Row: A row is a descendent of row r if it is a dependent of r or a descendent of a dependent of r.
+
+Referential cycle: A set of referential constraints such that each table in the set is a descendent of itself.
+
+Self-referencing table: A table that is a parent and a dependent in the same referential constraint. The constraint is called a self-referencing constraint.
+
+Self-referencing row: A row that is parent of itself.
+
+
+The constraints are set, in the CREATE TABLE statement or the ALTER TABLE statement. Referential constraints are enforced by the database manager during
+the execution of INSERT, UPDATE, DELETE, ALTER TABLE, MERGE, ADD CONSTRAINT, and SET INTEGRITY statements.
+
+By applying this integrity constraint, we enforce security and a certain set of Rules, in addition to any number of these set of rules above.
+There are THREE, main rules, that the database enforces, in this manner:
+
+An insert rule
+
+An update rule
+
+A delete rule
+
+Examples of causing errors, is as follows:
+
+An insert operation could attempt to add a row of data to a child table that has a value in its foreign key columns that does not match a value in the corresponding parent
+table's parent key.
+
+An update operation could attempt to change the value in a child table's foreign key columns to a value that has no matching value in the corresponding parent table's parent key.
+
+An update operation could attempt to change the value in a parents table's parent key to a value that does not have a matching value in a child table's foreign key columns.
+
+A delete operation could attempt to remove a record from a parent table that has a matching value in a child table's foreign key columns.
+
+//It could handle respective errors, with one of the following, depending on the error, of course:
+
+INSERT RULE:
+
+The insert rule of a referential Constraint is that a non-null insert value of the foreign key must match some value of the parent key of the parent table. The value of a composite foreign key is null if any component of the value is null. This rule is implicit when a foreign key is specified.
+
+Update Rule:
+
+The update rule of a referential constraint is specified when the referential constraint is defined. The choices are NO ACTION and RESTRICT. The update rule applies when a row of the parent or a row of the dependent table is updated.
+
+In the case of a parent row, when a value in a column of the parent key is updated, the following rules apply:
+	If any row in the dependent table matches the original value of the key, the update is rejected when the update rule is restrict.
+	If any row in the dependent table does not have a corresponding parent key when the update statement is completed (excluding AFTER triggers), the update is rejected when
+	the update rule is NO ACTION.
+
+The value of the parent unique keys cannot be changed if the update rules is RESTRICT and there are one or more dependent rows. However, if the udpate rule is NO ACTION, parent unique keys can be updated as long as every child has a parent key by the time the update statement completes. A non-null update value of a foreign key must be equal to a value of the primary key of the parent table of the relationship.
+
+Also, the use of NO ACTION or RESTRICT as update rules for referential constraints determines when the constraint is enforced. An update rule of RESTRICT is enforced before all other constraints, including those referential constraints with modifying rules such as CASCADE or SET NULL. An udpate rule of NO ACTION is enforced after other referential constraints. Note that the SQLSTATE returned is different depending on wether the update is RESTRICT or NO ACTION.
+
+In the case of a dependent row, the NO ACTION update rule is implicit when a foreign key is specified. NO ACTION means that a non-null update value of a foreign key must match some value of the parent key of the parent table when the update statement is completed.
+
+The value of a composite forieng key is null if any component of the value is null.
+
+DELETE RULE:
+
+The delete rule of a referential constraint is specified when the referential constraint is defined. The choices are NO ACTION, RESTRICT, CASCADE, or SET NULL. SET NULL can be specified only if some column of the foreign key allows null values.
+
+If the identical table or the base table of the identified view is a parent, the rows selected for delete must not have any dependents in a relationship with a delete rule of RESTRICT, and the DELETE must not cascade to descendent rows that have dependents in a relationship with a delete rule of RESTRICT.
+
+If the delete operation is not prevented by a RESTRICT delete rule, the selected rows are deleted. Any rows that are dependents of the selected rows are also affected. 
+	the nullable columns of the foreign keys of any rows that are their dependents in a relationship with a delete rule of SET NULL are set to the null value.
+	Any rows that are their dependents in a relationship with a delete rule of CASCADE are also deleted, and the rules mentioned previously apply, in turn to those rows.
+
+The delete rule of NO ACTION is checked to enforce that any non-null foreign key refers to an existing parent row after other referential constraints have been enforced.
+
+The delete rule of a referential constrain applies only when a row of the parent table is deleted. More precisely, the rule applies only when a row of the parent table is the object of a deleted propagated table, and p is a parent row that is the object of a deleted or propagated delete operation. The delete rule works as follows:
+	With RESTRICT or NO ACTION, an error occurs and no rows are deleted.
+	With CASCADE, the delete operation is propagated to the dependents of p in table D.
+	With SET NULL, each nullable collumn of the foreign key of each dependent of p in table D is set to Null.
+
+Any table that can be involved in a delete operation on P is said to be delete-connected to P. Thus, a table is delete-connected to table P if it is dependent of P, or a dependent of a table to which delete opreations from P cascade.
+
+The following restrictions apply to delete-connected relationships:
+	
+	When a table is delete-connected to itself in a referential cycle of more than one table, the cycle must not contain a delete rule of either RESTRICT or SET NULL.
+
+	A table must not both be a dependent table in a CASCADE relationship (self-referencing or referencing another table) and have self-referencing relationship with a delete rule of either RESTRICT or SET NULL.
+
+	When a table is delete-connected to another table through multiple relationships where such relationships have overlapping forieng keys, these relationships must have the same delete rule and none of these can be SET NULL.
+
+	When a table is delete-connected to another table through multiple relationships where one of the relationships is specified with delete rule SET NULL, the foreign key definition of this relationship must not contain any distrubution key or MDC key column, a table-partioning key column, or RCT Key column
+
+	When two tables are delete-connected to the same table through CASCADE relationships, the two tables must not be delete-connected to each other where the delete connected paths end with delete rule RESTRICT or SET NULL.
+
+
+Memory storage engine creates tables in memory. It is the fastest engine. it provides table-level locking. it does not support transactions. Memory storage engine is ideal for creating temporary tables or quick lookups. The data is lost when the database is restarted.
+
+CSV storage engine stores data in CSV files. It provides great flexibility, because data in this format is easily integrated into other applications. //Cool!
+
+Merge storage engine operates on underlying MyISAM tables. Merge tables help manage large volumes of data more easily. It logically groups a series of identical MyISAM tables,
+and references them as one object. Good for data warehousing environments.
+
+Archive storage engine is optimised for high speed inserting. It compressed data as it is inserted. It does not support transactions. It is ideal for storing, retrieving large amounts of seldom referenced historical, archived data.
+
+The Blackhole Storage engine accepts but does not store data. Retrievals always return a empty set. The functionality can be used in distribution databases design where data is automatically replicated, but not stored locally. This storage engine can be used to perform performance tests or other testing.
+
+Federated storage engine offers the abiltiy to seperate MySQL servers to create one logical database from many physical servers. Queries on the local server are automatically executed on the remote (federated) tables. No data is stored on the local tables. It is good for distribution environments.
+
+//So, what engine is Right?
+
+This depends on what we want for the situation. For more sensitive situations, like transactions of real money or the likes - Transactions Supported databases must be used, despite their slower capacity - as the Security is of such a high level importance.
+
+If we want full text search, we go with MyISAM.
+
+If we want to use the constraints rule set, then we must go with the InnoDB.
+
+Basically, the situation should be weighted and valued, upon assesment. What complicates this further, is that each table can use a specific Storage Engine.
+Making for great possibility, in dynamic approaches.
+
+
+CHOOSING AN ENGINE:
+
+When we create a table, we have the optional argument of assesing what engine the table should used, as follows:
+
+CREATE TABLE Cars(Id INTEGER PRIMARY KEY, Name VARCHAR(50), -> Cost INTEGER) ENGINE='MyISAM'; 
+
+//The Keyword ENGINE is used here, to assign what kind of engine we are using.
+
+//If we do not specify it, the default one is used : if it's mySQL < 5.5, we use MyISAM. Otherwise, it's InnoDB.
+
+We can show what Engine is currently being used, by the following command:
+
+SHOW VARIABLES LIKE 'storage_engine'; //Since the storange_engine variable holds the current engine, we can use the SHOW VARIABLES LIKE command on it to show it's value 
++----------------+--------+
+| Variable_name  | Value  |
++----------------+--------+
+| storage_engine | InnoDB |
++----------------+--------+
+1 row in set (0.00 sec)
+
+//It is also possible to switch Engines, for a Specific table. Doing this, might not always be smart - and should be done with caution, as we need to obey the restrictions of
+//said destination engine. Our current engine may support things, that the upcoming engine does not.
+
+We can get the engine for a specific table, by the following:
+
+SELECT ENGINE FROM information_schema.TABLES -> WHERE TABLE_SCHEMA='mydb' -> AND TABLE_NAME='Cars';
++--------+
+| ENGINE |
++--------+
+| InnoDB |
++--------+
+1 row in set (0.00 sec)
+
+To change the current engine of a table, we can do the following, for the Cars table, for instance:
+
+ALTER TABLE Cars ENGINE='MyIsam'; //Forgot to write this, derp
+
+
+This would set the Storage Engine to be MyIsam, the Text Search supported DB lol
+
+DATA TYPES:
+
+MySQL supports 3 main groups of Data Types (This does not mean that it can only store thoose kinds of Data, only that it supports thoose 3 "primitive" values, inheretly):
+
+1. Numeric
+
+2. Date & Time
+
+3. String
+
+//For all intents and purposes, using the Correct type of Data, for Collumns, spares us headache on every level. (Less disk space used, comparisons are made correctly etc.)
+
+NUMBERS:
+
+Numbers can be divided into the following, in MySQL: 
+
+1. Integers				Bytes used 			Min val 			   	  Max val
+	1.TINYINT 				1 				  -128 				   	    127
+	2.SMALLINT 				2 				 -32.768 			       32.767
+	3.MEDIUMINT 			3 				-8.388.608 			   	  8.388.607
+	4.INTEGER 				4 			  -2.147.483.648 			2.147.483.647
+	5.BIGINT 				8 		-9.223.372.036.854.775.808    9223372036854775807
+
+
+2. Floating Points
+   1.FLOAT
+   2.DOUBLE
+   3.DECIMAL
+
+
+INTEGERS:
+
+//When we want to create a Temporary Table, we can use the Memory engine, as it is the fatest, and most ideal for temp tables:
+
+CREATE TABLE Ages(Id SMALLINT, Age TINYINT) ENGINE=Memory;
+
+//NOTE: We can do Unsigned Integers, which makes us not able to use negative amounts in it, but we are able to go double the height cap of the value.
+
+//What follows is examples of usage in insertions;
+
+INSERT INTO Ages VALUES (1, 43);
+Query OK, 1 row affected (0.00 sec)
+
+INSERT INTO Ages VALUES (2, 128); //Since the cap for a signed TINYINT is 127, this will give us a error message. We must use a Unsigned int for this, which is from 0 to 255
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+//We inheritly do not get the error messages displayed, thus, we have to show them to us, and we can do as follows:
+
+SHOW WARNINGS;
+
+//Which prints out all the errors, for example, in this case:
+
++---------+------+----------------------------------------------+
+| Level   | Code | Message                                      |
++---------+------+----------------------------------------------+
+| Warning | 1264 | Out of range value for column 'Age' at row 1 |
++---------+------+----------------------------------------------+
+
+//When we wish to modify the value of a Table, we can do as follows:
+
+ALTER TABLE Ages MODIFY Age TINYINT UNSIGNED; //This alerts the Table Ages, where we Modify the Age value into a TINYINT that is UNSIGNED. Which gives us a range from 0 to 255
+
+//Just repetition of how to add and show:
+
+INSERT INTO Ages VALUES(3, 240);
+Query OK, 1 row affected (0.00 sec)
+
+SELECT * FROM Ages;
++------+------+
+| Id   | Age  |
++------+------+
+|    1 |   43 |
+|    2 |  127 |
+|    3 |  240 |
++------+------+
+
+Workbench is the Editor for the SQL, it is useful for viewing Schemas and viewing output
+
+EER
+
+Workbench
+
+Normalization
+
+admin admin
+
+root root
+
+varchar is a dynamic length of string values in a MySQL DB where the length can be lower than the designated one.
+
+char is a non-dynamic length of string values in a MySQL DB, where the length has to be the designated one.
+
+identifying and non-identifying connections in MySQL:
+
+Identifying: We get a foreign key that is put in the related class and get put as a Primary Key
+
+Non-identifying: We do not have a good primary key, so we put in this one to associate the value to the Table connected to
+
+
+Primary Keys and Foreign Keys:
+These are only used to declare a relation between two different tables. The relationship is defined upon the restrictions of the type of key,
+as foreign keys have a bit different constraints compared to the Primary Keys.
+
+Primary Keys:
+
+These keys are indexed and represented by a column. They have a unique value, they must not be null, Uniquely defines a row in a Table,
+One number is allowed per table and they are automatically indexed
+
+Foreign Keys:
+
+These keys are not automatically indexed, and represented by a column. They can be any value (non-unique), they can be null, they MIGHT 
+uniquely define a row in a Table, more than one number can be used per table
+
+A foreign key is a set of one or more colums in a table that refers to the primary key in another table. There isn't any special code, configurations
+or table definitions you need to place to officialy "designate" a foreign key.
+
+A foreign key, connects to a Primary value.
+
+There are a number of constraints in the relationship between foriegn and primary keys:
+
+1. They bar you from changing the foriegn key value to one which doesn't exist as a value in the related table's primary key.
+
+2.They stop you from deleting a row from the primary key table. This stops you from creating orphan records. Orphan records are records, without
+parent keys.
+
+3.They stop you from adding a foreign key value that doesn't exist in the primary key.
+
+
+6. FLOAT VALUES:
+Float numbers are used for qualities such as weight, speed or height. Things that need a decimal value, basically.
+
+Float is a single precision (1 decimal) - 4 bytes
+Double is a Double precision (2 decimal) - 8 bytes
+
+All of the Float values can be designated to have how many decimals you want to be represented in form as follows:
+
+DECIMAL(3, 1) - This will allow 2 numbers to be in front of the decimal sign, where as of 1 can be put after
+FLOAT(5, 5) - This will allow 5 numbers to be in front of the decimal sign and 5 can be put afterwards
+
+//NOTE: Float are imprecise values that cannot be used for equal notations.
+
+//Repetition of creating tables and putting in values:
+
+CREATE TABLE Numbers (Id TINYINT, Floats FLOAT, Decimals DECIMAL(3, 2));
+
+INSERT INTO Numbers VALUES (1, 1.1, 1.1), (2, 1.1, 1.1), (3, 1.1, 1.1);
+
+//Repetition of output:
+
+mysql> SELECT * FROM Numbers;
++------+--------+----------+
+| Id   | Floats | Decimals |
++------+--------+----------+
+|    1 |    1.1 |     1.10 |
+|    2 |    1.1 |     1.10 |
+|    3 |    1.1 |     1.10 |
++------+--------+----------+
+
+//Illustration of imprecision of float values compared to double values.
+
+SELECT SUM(Floats), SUM(Decimals) FROM Numbers;
+
++------------------+---------------+
+| SUM(Floats)      | SUM(Decimals) |
++------------------+---------------+
+| 3.30000007152557 |          3.30 |
++------------------+---------------+
+
+
+DATE & TIME VALUES:
+
+//Creation of Date Tables with id and Dates:
+
+CREATE TABLE Dates (Id TINYINT, Dates DATE);
+INSERT INTO Dates VALUES(1, '2011-01-24');
+INSERT INTO Dates VALUES(2, '2011/01/25');
+INSERT INTO Dates VALUES(3, '20110126');
+INSERT INTO Dates VALUES(4, '110127');
+INSERT INTO Dates VALUES(5, '2011+01+28');
+
+//There are different formats for Date presentation in MySQL, but the default is YYYY-MM-DD
+
+SELECT * FROM Dates;
++------+------------+
+| Id   | Dates      |
++------+------------+
+|    1 | 2011-01-24 |
+|    2 | 2011-01-25 |
+|    3 | 2011-01-26 |
+|    4 | 2011-01-27 |
+|    5 | 2011-01-28 |
++------+------------+
+
+
+//In case we go out of bounds, we get a warning and the value is truncated, as follows:
+
+INSERT INTO Dates VALUES(6, '10000-01-01');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+SHOW WARNINGS;
++---------+------+--------------------------------------------+
+| Level   | Code | Message                                    |
++---------+------+--------------------------------------------+
+| Warning | 1265 | Data truncated for column 'Dates' at row 1 |
++---------+------+--------------------------------------------+
+1 row in set (0.00 sec)
+
+SELECT Id, Dates FROM Dates WHERE Id=6;
++------+------------+
+| Id   | Dates      |
++------+------------+
+|    6 | 0000-00-00 |
++------+------------+
+1 row in set (0.00 sec)
+
+//Representing Time Objects and the differential in time between them:
+
+SELECT TIMEDIFF ('23:34:32', '22:00:00');
++----------------------------------+
+| TIMEDIFF('23:34:32', '22:00:00') |
++----------------------------------+
+| 01:34:32                         |
++----------------------------------+
+
+//Extracting the Time object from a value:
+
+SELECT TIME('2011-01-29 11:27:42');
++-----------------------------+
+| TIME('2011-01-29 11:27:42') |
++-----------------------------+
+| 11:27:42                    |
++-----------------------------+
+
+SELECT TIMEDIFF('211344', 201123);
++----------------------------+
+| TIMEDIFF('211344', 201123) |
++----------------------------+
+| 01:02:21                   |
++----------------------------+
+
+//Extracting the day Object from a Time Value:
+
+SELECT DAYNAME('2011@01@29 11@50@13');
++--------------------------------+
+| DAYNAME('2011@01@29 11@50@13') |
++--------------------------------+
+| Saturday                       |
++--------------------------------+
+
+//There are different formats for TimeDate Objects, as follows:
+
+TIMESTAMP(14)  YYYYMMDDHHMMSS
+TIMESTAMP(12)  YYMMDDHHMMSS
+TIMESTAMP(10)  YYMMDDHHMM
+TIMESTAMP(8)   YYYYMMDD
+TIMESTAMP(6)   YYMMDD
+TIMESTAMP(4)   YYMM
+TIMESTAMP(2)   YY
+
+//Example of using Timestamp objects to present info added to other things
+
+CREATE TABLE Prices(Id TINYINT, Price Decimal(8, 2), -> Stamp TIMESTAMP);
+INSERT INTO Prices (Id, Price) VALUES(1, 234.34);
+INSERT INTO Prices (Id, Price) VALUES(2, 344.12);
+
+mysql> SELECT * FROM Prices;
++------+--------+---------------------+
+| Id   | Price  | Stamp               |
++------+--------+---------------------+
+|    1 | 234.34 | 2011-01-29 13:24:29 |
+|    2 | 344.12 | 2011-01-29 13:24:59 |
++------+--------+---------------------+
+
+//We can turn off the Standard timestamp format by calling TIMESTAMP DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP
+
+UPDATE Prices SET Price=250.50 WHERE Id=1;
+
+SELECT * FROM Prices;
++------+--------+---------------------+
+| Id   | Price  | Stamp               |
++------+--------+---------------------+
+|    1 | 250.50 | 2011-01-29 13:25:50 |
+|    2 | 344.12 | 2011-01-29 13:24:59 |
++------+--------+---------------------+
+
+//We can also turn off the auto-update of TIMESTAMP by virtue of, TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+
+EER DIAGRAM:
+//Dubbelcirkel i EER Diagram är att det kan ha flera värden
+//Om det är understsrucket, så är det ett unikt värde, vilket menas att det är ett primary key
+
+//Om vi har en foreign key som har en primary key i en annan table, så är det sträckad linje
+//Om vi har en primary key som relaterar till en annan table, så är det ett helt sträck
+
+STRINGS:
+
+MySQL supports the following string data types:
+
+CHAR
+VARCHAR
+BINARY
+VARBINARY
+BLOB
+TEXT
+ENUM
+SET
+
+
+//A char value is always set to the length of (X) followed by the char declaration.
+//If a char value is not filled to the length, it's filled to the brim with Whitespace as padding.
+
+//NOTE: TRailing whitespace is removed, when we retrieve the value from something.
+
+
+
+CREATE TABLE Chars(Id TINYINT, Chars CHAR(3));
+Query OK, 0 rows affected (0.08 sec)
+
+INSERT INTO Chars VALUES (1, 'a'), (2, 'ab'), -> (3, 'abc'), (4, 'abce');
+Query OK, 4 rows affected, 1 warning (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 1
+
+SHOW WARNINGS;
+mysql> SHOW WARNINGS;
++---------+------+--------------------------------------------+
+| Level   | Code | Message                                    |
++---------+------+--------------------------------------------+
+| Warning | 1265 | Data truncated for column 'Chars' at row 4 |
++---------+------+--------------------------------------------+
+1 row in set (0.00 sec)
+
+//Because the max value is set to 3, upon initialization, we get an error, and it truncates the Column down to 3 characters.
+
+
+//SQL Trims Whitespace, and is evident in the following example of code:
+
+SELECT Id, LENGTH(Chars) AS Length FROM Chars; //We assign the Length Attribute to be based upon the Length of the Chars values.
+
+Id 			Length
+ 1 				 1
+ 2 				 2
+ 3 				 3
+ 4 				 3
+
+ //We can modify the sq1_mode to 'PAD_CHAR_TO_FULL_LENGTH' if we wish to pad out the Sentance, to it's full length
+
+ SET sq1_mode = 'PAD_CHAR_TO_FULL_LENGTH';
+ Query OK, 0 rows affected (0.00 sec)
+
+ SELECT Id, LENGTH(Chars) AS Length FROM Chars;
+ +------+--------+
+| Id   | Length |
++------+--------+
+|    1 |      3 |
+|    2 |      3 |
+|    3 |      3 |
+|    4 |      3 |
++------+--------+
+4 rows in set (0.00 sec)
+
+//This gives the expected result, as is shown, by virtue of having changed the Sq1_mode
+
+
+//VARCHAR data types stores variable-length strings. 
+//The length can be from 0 to 65535. The padding is not trimmed.
+//usually, shorter snips of String values are stored in these.
+
+CREATE TABLE FirstNames(Id TINYINT, FirstName VARCHAR(20));
+Query OK, 0 rows affected (0.05 sec)
+
+INSERT INTO FirstNames VALUES (1, 'Tom'), (2, 'Lucy'), (3, 'Alice'), (4, 'Robert'), (5, 'Timothy'), (6, 'Alexander');
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+//Example of the output, having done Strings with VARCHAR;
+
+SELECT Id, LENGTH(FirstName) AS Length FROM FirstNames;
++------+--------+
+| Id   | Length |
++------+--------+
+|    1 |      3 |
+|    2 |      4 |
+|    3 |      5 |
+|    4 |      6 |
+|    5 |      7 |
+|    6 |      9 |
++------+--------+
+
+//Here, we get the output of differing lengths, using only nessecary amount of space required.
+
+In MySQL, there are also binary forms of data: BINARY and VARBINARY.
+
+BINARY holds from 0 to 255. The range of VARBINARY is from 0 to 65535. These types of Data contain Byte strings, that compare on the ordering on a byte level, instead of a char level. 
+
+BLOB:
+Also known as Binary large object data type. It can hold a variable amount of binary data. It can be used to hold images or documents.
+
+Blobs come in 4 different sizes:
+
+TINYBLOB : 0 - 255 bytes //about 0.249 kb
+BLOB : 0 - 65535 bytes //about 64 kb
+MEDIUMBLOB : 0 - 16.777.215 bytes //16 MB
+LONGBLOB : 0 - 4.294.967.295 bytes //4096 MB
+
+
+//There is also the Text datatype, this datatype is used to store Text information, like Comments, blogs, articles or pages.
+
+TINYTEXT : 0 - 255 bytes //about 0.249 kb
+TEXT : 0 - 65535 bytes //about 64 kb
+MEDIUMTEXT : 0 - 16.777.215 bytes //16 MB
+LONGTEXT : 0 - 4.294.967.295 bytes //4096 MB
+
+//We can also do Tables based on Enums and Sets, as follows:
+
+CREATE TABLE SizeTable(Size ENUM('S', 'M', 'L', 'XL', 'XXL')); //Creating a Enum table
+
+//We try to break the rules:
+
+INSERT INTO SizeTable VALUES ('S'), ('L'); //This is allowed, they are specified to be allowed in.
+
+INSERT INTO SizeTable VALUES ('Large');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+SHOW WARNINGS;
++---------+------+-------------------------------------------+
+| Level   | Code | Message                                   |
++---------+------+-------------------------------------------+
+| Warning | 1265 | Data truncated for column 'Size' at row 1 |
++---------+------+-------------------------------------------+
+
+Since large is not specified to be allowed in, the data gets truncated.
+
+//as is shown:
+
+SELECT * FROM SizeTable;
++------+
+| Size |
++------+
+| S    |
+| L    |
+|      |  //Last output becomes empty, because of Truncated
++------+ 
+
+//Sets are like Enums, except there can be 0 or more of the specified elements, in the List.
+
+
+CREATING, ALTERING AND DROPPING TABLES IN MYSQL:
+
+CREATER, ALTER and DROP are not exclusive to Lists in MySQL, as they can be used to create other database objects such as events, triggers, views, functions or proceduers.
+
+CREATE and DROP:
+
+//We can create tables with the following:
+
+CREATE TABLE Testing(Id INTEGER);
+
+//We can then show the table, by the following:
+
+SHOW CREATE TABLE Testing;
++---------+------------------------------------------
+| Table   | Create Table                                                                                
++---------+------------------------------------------
+| Testing | CREATE TABLE `Testing` (
+  `Id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++---------+------------------------------------------
+1 row in set (0.00 sec)
+
+//If we are talking about Lists that are not temporarily created, we can show them by specifying what character they start with etc, as follows:
+
+SHOW TABLES LIKE 'T%';
+
++---------------------+
+| Tables_in_mydb (T%) |
++---------------------+
+| Testing             |
++---------------------+
+
+This is just an example output of what we would get, searching on DB's starting with T
+
+//We can drop tables as well:
+
+DROP TABLE Testing;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW TABLES LIKE 'T%';
+Empty set (0.00 sec)
+
+//The above happens, assuming we actually have a Table called Testing to Drop.
+
+//Recreate it
+
+CREATE TABLE Testing(Id NOT NULL) ENGINE=MEMORY CHARACTER_SET='utf8' COLLATE='utf8_slovak_ci' //just recreate the Table with a memory Engine
+
+ALTER TABLE STATEMENT;
+
+//The ALTER TABLE statement, allows us to: add a new Column, delete a column, rename column and table or change the type of the table.
+//We will make some examples, as follows:
+
+//Renaming
+
+ALTER TABLE Testing RENAME TO TestTable;
+
+SHOW TABLES LIKE 'T%';
++---------------------+
+| Tables_in_mydb (T%) |
++---------------------+
+| TestTable           |
++---------------------+
+
+//Changed the name to TestTable
+
+//We can add a Column
+
+ALTER TABLE TestTable ADD iValues INT;
+
+//Showing the Table to reflect the change:
+
+SHOW COLUMNS FROM TestTable;
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| Id      | int(11) | NO   |     | NULL    |       |
+| iValues | int(11) | YES  |     | NULL    |       |
++---------+---------+------+-----+---------+-------+
+
+//We can add primary keys to a Table;
+
+ALTER TABLE TestTable ADD PRIMARY KEY (Id);
+
+//Describe the change:
+
+DESCRIBE TestTable;
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| Id      | int(11) | NO   | PRI | NULL    |       |
+| iValues | int(11) | YES  |     | NULL    |       |
++---------+---------+------+-----+---------+-------+
+
+//DESCRIBE is the same thing as SHOW COLUMNS FOR
+
+//We can change the name of things;
+
+ALTER TABLE TestTable CHANGE COLUMN iValues iValues1 INT; //We changed the name of oiValues to iValues1
+
+ALTER TABLE TestTable MODIFY COLUMN iValues1 MEDIUMINT; //Change the type of iValues1 to MEDIUMINT;
+
+//We can drop Colums;
+
+ALTER TABLE TestTable DROP COLUMN iValues1;
+
+DESCRIBE TestTable;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| Id    | int(11) | NO   | PRI | NULL    |       |
++-------+---------+------+-----+---------+-------+
+
+
+MySQL Expressions:
+
+LITERAL VALUES;
+
+In MySQL we have 5 literals; Strings, numbers, hexadecimal values, booleans and NULL.
+
+//we can return several values as follows:
+
+SELECT 3, 'Wolf', 34.5, 0x34, 0+b'10111';
++---+------+------+------+------------+
+| 3 | Wolf | 34.5 | 0x34 | 0+b'10111' | //To get the printable version, we add a 0 to the front
++---+------+------+------+------------+
+| 3 | Wolf | 34.5 | 4    |         23 |
++---+------+------+------+------------+
+
+//We can select NULL;
+
+SELECT NULL, \N;
+
++------+------+
+| NULL | NULL |
++------+------+
+| NULL | NULL |
++------+------+
+
+//We can select Booleans;
+
+SELECT TRUE, FALSE;
+
++------+-------+
+| TRUE | FALSE |
++------+-------+
+|    1 |     0 |
++------+-------+
+
+//We can select date and times;
+
+SELECT '2011-01-11', '23:33:01', '98/11/31/  14:22:20';
+
++------------+----------+--------------------+
+| 2011-01-11 | 23:33:01 | 98/11/31/ 14:22:20 |
++------------+----------+--------------------+
+| 2011-01-11 | 23:33:01 | 98/11/31/ 14:22:20 |
++------------+----------+--------------------+
+
+//We can select and SET Variables;
+
+SET @name = 'Jane';
+
+SELECT @name;
++-------+
+| @name |
++-------+
+| Jane  |
++-------+
+
+OPERATORS;
+
+In MySQL we have two sorts of Operators ; Binary and Unary ones.
+Binary ones work with two operands, Unary ones work with one.
+
+There is Arithmetics, Booleans, Relational, Bitwise and Others.
+
+//We can select a +3, does nothing;
+
+SELECT +3, 3;
+
++---+---+
+| 3 | 3 |
++---+---+
+| 3 | 3 |
++---+---+
+
+//convert the signs of the operations, 44 - 3
+
+SELECT -(3-44);
++---------+
+| -(3-44) |
++---------+
+|      41 |
++---------+
+
+//We have the NOT operator working in MySQL
+
+SELECT NOT (3>9);
++-----------+
+| NOT (3>9) |
++-----------+
+|         1 |
++-----------+
+
+//Returns 1 if true, 0 if false
+//The 3 > 9 is false, normally, the Not inverted it
+
+//We can do basic math
+
+mysql> SELECT 3 + 4 - 5;
++-----------+
+| 3 + 4 - 5 |
++-----------+
+|         2 |
++-----------+
+
+//Division
+
+mysql> SELECT 3*3/9;
++--------+
+| 3*3/9  |
++--------+
+| 1.0000 |
++--------+
+
+mysql> SELECT 9/2, 9 DIV 2;
++--------+---------+
+| 9/2    | 9 DIV 2 |  //Normal Division without DIV, returns a Float, DIV returns a Int
++--------+---------+
+| 4.5000 |       4 |
++--------+---------+
+
+//modulo
+
+mysql> SELECT 11 % 3;
++--------+
+| 11 % 3 |
++--------+
+|      2 |
++--------+
+
+//We can do Logical operators in MySQL as well
+
+SELECT FALSE AND FALSE, FALSE AND TRUE, TRUE AND TRUE;
+
++-----------------+----------------+----------------+---------------+
+| FALSE AND FALSE | FALSE AND TRUE | TRUE AND FALSE | TRUE AND TRUE |
++-----------------+----------------+----------------+---------------+
+|               0 |              0 |              0 |             1 |
++-----------------+----------------+----------------+---------------+
+
+//We can do comparative operations;
+
+SELECT 3=3 and 4=4;
++-------------+
+| 3=3 AND 4=4 |
++-------------+
+|           1 | //1 means true
++-------------+
+
+//We can do the or operator;
+
+SELECT FALSE OR FALSE, FALSE OR TRUE, TRUE OR FALSE, TRUE OR TRUE;
++----------------+---------------+---------------+--------------+
+| FALSE OR FALSE | FALSE OR TRUE | TRUE OR FALSE | TRUE OR TRUE |
++----------------+---------------+---------------+--------------+
+|              0 |             1 |             1 |            1 |
++----------------+---------------+---------------+--------------+
+
+//We can do Xor as well;
+
+SELECT FALSE XOR FALSE, FALSE XOR TRUE, TRUE XOR FALSE, TRUE XOR TRUE;
+
++-----------------+----------------+----------------+---------------+
+| FALSE XOR FALSE | FALSE XOR TRUE | TRUE XOR FALSE | TRUE XOR TRUE |
++-----------------+----------------+----------------+---------------+
+|               0 |              1 |              1 |             0 | //Only confirms true if exactly one operator is true
++-----------------+----------------+----------------+---------------+
+
+//We can get inverted boolean values by the fact of Not;
+
+SELECT NOT TRUE, NOT FALSE;
++----------+-----------+
+| NOT TRUE | NOT FALSE |
++----------+-----------+
+|        0 |         1 |
++----------+-----------+
+
+SELECT NOT 3=3;
++-----------+
+| NOT (3=3) |
++-----------+
+|         0 |
++-----------+
+
+//We can do equality operators;
+
+SELECT 3*3=9, 9=9;
++-------+-----+
+| 3*3=9 | 9=9 |
++-------+-----+
+|     1 |   1 |
++-------+-----+
+
+SELECT 3 < 4, 3 <> 5, 4 <= 4, 5 != 5;
++-------+--------+--------+--------+
+| 3 < 4 | 3 <> 5 | 4 <= 4 | 5 != 5 |
++-------+--------+--------+--------+ //The <> means does not equal, is the same as !=
+|     1 |      1 |      1 |      0 |
++-------+--------+--------+--------+
+
+//We can do bitwise operations on numbers;
+
+SELECT 6 & 3, 3 & 6;
++-------+-------+
+| 6 & 3 | 3 & 6 |
++-------+-------+
+|     2 |     2 |
++-------+-------+
+
+//The rest of these bitwise things seem equally as unimportant as always;
+
+//We can set values of attributes in MySQL with the SET Command;
+
+SET @running = FALSE;
+SELECT @running IS FALSE;
++-------------------+
+| @running IS FALSE |
++-------------------+
+|                 1 |
++-------------------+
+
+//We can check to see if a String is in a list of values;
+
+SELECT 'Tom' IN ('Tom', 'Frank', 'Jane');
++-----------------------------------+
+| 'Tom' IN ('Tom', 'Frank', 'Jane') |
++-----------------------------------+
+|                                 1 |
++-----------------------------------+
+
+//We can select everything from a Table;
+
+SELECT * FROM Cars;
+
++----+------------+--------+
+| Id | Name       | Cost   |
++----+------------+--------+
+|  1 | Audi       |  52642 |
+|  2 | Mercedes   |  57127 |
+|  3 | Skoda      |   9000 |
+|  4 | Volvo      |  29000 |
+|  5 | Bentley    | 350000 |
+|  6 | Citroen    |  21000 |
+|  7 | Hummer     |  41400 |
+|  8 | Volkswagen |  21600 |
++----+------------+--------+
+
+//We can select partial inputs from a Table;
+
+SELECT * FROM Cars WHERE Name IN ('Audi', 'Hummer');
++----+--------+-------+
+| Id | Name   | Cost  |
++----+--------+-------+
+|  1 | Audi   | 52642 |
+|  7 | Hummer | 41400 |
++----+--------+-------+
+
+//We can select all the Elements that begin with a specific input;
+
+SELECT * FROM Cars WHERE Name LIKE 'Vol%';
++----+------------+-------+
+| Id | Name       | Cost  |
++----+------------+-------+
+|  4 | Volvo      | 29000 |
+|  8 | Volkswagen | 21600 |
++----+------------+-------+
+
+//We can select Elements with a specific length, denoted by the amount of _'s we put in;
+
+SELECT * FROM Cars WHERE Name LIKE '____'; //4 _'s
++----+------+-------+
+| Id | Name | Cost  |
++----+------+-------+
+|  1 | Audi | 52642 |
++----+------+-------+
+
+//The LIKE operator, is a simple Regex, we have a More powerful Regex at our Disposal, called REGEXP or RLIKE, we can use it as follows;
+
+SELECT * FROM Cars WHERE Name REGEXP 'e.$'; //Displays all cars who's NAME.LENGTH-1 character is 'e'
++----+------------+--------+
+| Id | Name       | Cost   |
++----+------------+--------+
+|  2 | Mercedes   |  57127 |
+|  5 | Bentley    | 350000 |
+|  6 | Citroen    |  21000 |
+|  7 | Hummer     |  41400 |
+|  8 | Volkswagen |  21600 |
++----+------------+--------+
+
+//We can do a more advanced selection as well;
+
+SELECT * FROM Cars WHERE Name REGEXP '^.e.*e.$'; //Selects all the elements with e as the second element and e as the NAME.LENGTH-1 character
++----+----------+--------+
+| Id | Name     | Cost   |
++----+----------+--------+
+|  2 | Mercedes |  57127 |
+|  5 | Bentley  | 350000 |
++----+----------+--------+
+
+//We can also do selections based on Quantity or Size or Greater/Lesser value;
+
+SELECT * FROM Cars WHERE Cost BETWEEN 20000 and 55000;
++----+------------+-------+
+| Id | Name       | Cost  |
++----+------------+-------+
+|  1 | Audi       | 52642 |
+|  4 | Volvo      | 29000 |
+|  6 | Citroen    | 21000 |
+|  7 | Hummer     | 41400 |
+|  8 | Volkswagen | 21600 |
++----+------------+-------+
+
+//This basically means, where Cost is >= 20000 and Cost is <= 55000
+
+//Exactly as in normal programming, () has predecence above non () statements, and is resolved first there of
+
+//We can do insert Statements - You can skip the ID Part of an Insert statement, if Auto-Increment is Active for the said Table
+
+//We can replace rows at specific rows;
+
+REPLACE INTO Books VALUES(3, 'Paradise Lost', 'John Milton'); //Replace tries to insert if there isn't one, replaces if there is one, in terms of colission
+
+//INSERT and SELECT commands can be in the same row;
+
+INSERT INTO Table_name SELECT * FROM Take_From_Table_Name;
+
+//We can insert more elements than one at a time, with Insert, by specifying type first then repeating values;
+
+INSERT INTO BOOKS(Title, Author) VALUES ('Book1 lol', 'Some guy'), ('Book2 oh no', 'This other dude');
+
+//We can insert our data into a File;
+
+SELECT * INTO OUTFILE '/tmp/books.csv' FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' FROM Books;
+//This way we specify the Directory, followed by Fields termination,
+//followed by line termination and where the Source directory is from
+
+//WE CAN LOAD DATA FROM FILES AS WELL;
+
+LOAD DATA INFILE '/tmp/books.csv' INTO TABLE Books FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n'; //The information in the file must be csv
+
+//We can dump the stuff into a XML file as well, with the following;
+
+//Xml is basically data storage in terms of kind of Javascript format.
+
+//To do this, we have to run it in the CMD line;
+
+-uroot -p --xml -e 'SELECT * FROM mydb.Books' > books.xml
+
+//This executes the command, and exits.
+
+//an example of output we'd get, in terms of books
+
+<?xml version="1.0"?>
+
+<resultset statement="SELECT * FROM mydb.Books
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+    <field name="Id">1</field>
+    <field name="Title">War and Peace</field>
+    <field name="Author">Leo Tolstoy</field>
+  </row>
+
+  <row>
+    <field name="Id">2</field>
+    <field name="Title">The Brothers Karamazov</field>
+    <field name="Author">Fyodor Dostoyevsky</field>
+  </row>
+
+  <row>
+    <field name="Id">3</field>
+    <field name="Title">Paradise Lost</field>
+    <field name="Author">John Milton</field>
+  </row>
+
+  <row>
+    <field name="Id">4</field>
+    <field name="Title">The Insulted and Humiliated</field>
+    <field name="Author">Fyodor Dostoyevsky</field>
+  </row>
+
+  <row>
+    <field name="Id">5</field>
+    <field name="Title">Cousin Bette</field>
+    <field name="Author">Honore de Balzac</field>
+  </row>
+</resultset>
+
+//We can load data from XML Files, by way of : LOAD XML INFILE '<write the absolute path to the File here>' INTO TABLE Books; 
+
+//We can delete specific rows;
+
+DELETE FROM Books2 WHERE Id=1;
+
+//We can delete everything by either:
+
+DELETE FROM Books2;
+
+or
+
+TRUNCATE BOOKS2;
+
+//we can update;
+
+UPDATE Books SET Author='Guy mcGuyGuy' WHERE Id=1;
+
+//updates row of ID 1
+
+//We can select everything;
+
+SELECT * FROM Books;
+
+//We can select Specific things;
+
+SELECT Name, Author, Something FROM Books;
+
+//We can rename with Select, in form of using the AS;
+
+SELECT Name, Cost AS Price FROM Cars;
+
+//We can limit the amount of results we get;
+
+SELECT * FROM Cars LIMIT 4;
+
+//We can select X amount of things, from an index of Y, by the folowing:
+
+SELECT * FROM Cars LIMIT Y, X;
+
+//We can also use OFFSET instead of limit
+
+SELECT * FROM Cars LIMIT 4 OFFSET 2;
+
+
+//We can sort things in descending order;
+
+Cost FROM Cars ORDER BY Cost DESC;
+
++------------+--------+
+| Name       | Cost   |
++------------+--------+
+| Bentley    | 350000 |
+| Mercedes   |  57127 |
+| Audi       |  52642 |
+| Hummer     |  41400 |
+| Volvo      |  29000 |
+| Volkswagen |  21600 |
+| Citroen    |  21000 |
+| Skoda      |   9000 |
++------------+--------+
+
+//we can select specific rows;
+
+SELECT * FROM Orders WHERE Id=6;
+
+//we can select specific values;
+
+SELECT * FROM ORDERS WHERE Customer = 'Smith';
++----+------------+----------+
+| Id | OrderPrice | Customer |
++----+------------+----------+
+|  4 |       1640 | Smith    |
+|  7 |        150 | Smith    |
+|  8 |        250 | Smith    |
++----+------------+----------+
+
+//we can select based upon what a element beings with;
+
+SELECT * FROM Orders WHERE Customer LIKE "B%";
+
++----+------------+----------+
+| Id | OrderPrice | Customer |
++----+------------+----------+
+|  9 |        840 | Brown    |
+| 10 |        440 | Black    |
+| 11 |         20 | Brown    |
++----+------------+----------+
+
+//We can select unique sets of what we want, by the keyword of DISTINCT;
+
+SELECT DISTINCT Customer FROM Orders WHERE Customer LIKE 'B%';
++----------+
+| Customer |
++----------+
+| Brown    |
+| Black    |
++----------+
+
+//We can return the occurance of something in a an element, by count();
+
+SELECT COUNT(Customer) AS "Orders by Brown" FROM Orders WHERE Customer="Brown";
++-----------------+
+| Orders by Brown |
++-----------------+
+|               2 |
++-----------------+
+
+//We can summarize the total of several attributes, as follows;
+
+SELECT SUM(OrderPrice) AS Total, Customer FROM Orders GROUP BY Customer;
+
++-------+------------+
+| Total | Customer   |
++-------+------------+
+|   440 | Black      |
+|   860 | Brown      |
+|   340 | Robertson  |
+|  2040 | Smith      |
+|  1250 | Williamson |
++-------+------------+
+
+//We can specify even further
+
+SELECT SUM(OrderPrice) AS Total, Customer FROM Orders GROUP BY Customer HAVING SUM(OrderPrice) > 1000: //Select Sum and Customer, Present customers with > 1k
+
++-------+------------+
+| Total | Customer   |
++-------+------------+
+|  2040 | Smith      |
+|  1250 | Williamson |
++-------+------------+
+
+//we can write from tables to a file;
+
+SELECT * INTO OUTFILE '/tmp/cars.txt' FIELDS TERMINATED BY ',' LINES TERMINATED '\n' FROM Cars;
+
+1,Audi,52642
+2,Mercedes,57127
+3,Skoda,9000
+4,Volvo,29000
+5,Bentley,350000
+6,Citroen,21000
+7,Hummer,41400
+8,Volkswagen,21600
+
+//this method is error prone, since we can run into Security Exception of writing
+
+//We can load from a File;
+
+LOAD DATA INFILE 'tmp/cars.txt' INTO TABLE Cars FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';
+SELECT * FROM Cars;
+
++----+------------+--------+
+| Id | Name       | Cost   |
++----+------------+--------+
+|  1 | Audi       |  52642 |
+|  2 | Mercedes   |  57127 |
+|  3 | Skoda      |   9000 |
+|  4 | Volvo      |  29000 |
+|  5 | Bentley    | 350000 |
+|  6 | Citroen    |  21000 |
+|  7 | Hummer     |  41400 |
+|  8 | Volkswagen |  21600 |
++----+------------+--------+
+
+MAKING SUBQUERIES;
+
+SELECT * FROM Customers; SELECT * FROM Reservations;
++------------+-------------+
+| CustomerId | Name        |
++------------+-------------+
+|          1 | Paul Novak  |
+|          2 | Terry Neils |
+|          3 | Jack Fonda  |
+|          4 | Tom Willis  |
++------------+-------------+
+
++----+------------+------------+
+| Id | CustomerId | Day        |
++----+------------+------------+
+|  1 |          1 | 2009-11-22 |
+|  2 |          2 | 2009-11-28 |
+|  3 |          2 | 2009-11-29 |
+|  4 |          1 | 2009-11-29 |
+|  5 |          3 | 2009-12-02 |
++----+------------+------------+
+
+//This is just basically two commands in a row, where of it's usually done when we have a relationship between the two
+
+//we could create a table with another tables data;
+
+CREATE TABLE Cars2 (Id INT NOT NULL PRIMARY KEY, Name VARCHAR(50) NOT NULL, Cost INT NOT NULL);
+
+INSERT INTO Cars2 SELECT * FROM Cars;
+
+mysql> SELECT * FROM Cars2;
++----+------------+--------+
+| Id | Name       | Cost   |
++----+------------+--------+
+|  1 | Audi       |  52642 |
+|  2 | Mercedes   |  57127 |
+|  3 | Skoda      |   9000 |
+|  4 | Volvo      |  29000 |
+|  5 | Bentley    | 350000 |
+|  6 | Citroen    |  21000 |
+|  7 | Hummer     |  41400 |
+|  8 | Volkswagen |  21600 |
++----+------------+--------+
+
+//We can also make Scalar subqueries, which means we return one value
+
+SELECT Name FROM Customers WHERE CustomerID IN (SELECT DISTINCT CustomerID FROM Reservations); //Return the values of thoose who's ID matches thoose who have made a reservation
++-------------+
+| Name        |
++-------------+
+| Paul Novak  |
+| Terry Neils |
+| Jack Fonda  |
++-------------+
+
+//We could do the same thing, but with a Join statement
+
+SELECT DISTINCT Name FROM Customers JOIN Reservations ON Customers.CustomerID=Reservations.CustomerID;
++-------------+
+| Name        |
++-------------+
+| Paul Novak  |
+| Terry Neils |
+| Jack Fonda  |
++-------------+
+
+//we can further select and maniuplate data in different ways, in terms of tables;
+
+SELECT Name FROM Cars WHERE Cost < (SELECT AVG(Cost) FROM Cars); //Shows us all the cars that are below the average Cost from the Car Table
++------------+
+| Name       |
++------------+
+| Audi       |
+| Mercedes   |
+| Skoda      |
+| Volvo      |
+| Citroen    |
+| Hummer     |
+| Volkswagen |
++------------+
+
+//We can do Subqueries with EXISTS and NOT EXISTS
+
+SELECT Name FROM Customers WHERE EXISTS (SELECT * FROM Reservations WHERE Customers.CustomerId=Reservations.CustomerId); //We return the IDs that have a reservation
+
++-------------+
+| Name        |
++-------------+
+| Paul Novak  |
+| Terry Neils |
+| Jack Fonda  |
++-------------+
+
+//We can also return all of thoose that have not got any reservation;
+
+SELECT Name FROM Customers WHERE NOT EXISTS (SELECT * FROM Reservations WHERE Customers.CustomerID=Reservations.CustomerID);
+
++------------+
+| Name       |
++------------+
+| Tom Willis |
++------------+
+
+CONSTRAINTS;
+
+//Constraints can be placed or Colums or entire Tables.
+
+//There are the following ones:
+
+NOT NULL //Enforces that that specified thing cannot Contain a Null value
+
+CREATE TABLE People(Id INTEGER, LastName TEXT NOT NULL, FirstName TEXT NOT NULL, City VARCHAR(55));
+
+mysql> INSERT INTO People VALUES(1, 'Hanks', 'Robert', 'New York');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO People VALUES(1, NULL, 'Marianne', 'Chicago');
+ERROR 1048 (23000): Column 'LastName' cannot be null
+
+//We get an error, because the Table has two of it's Columns set to not allow Null values.
+
+
+UNIQUE //Enforces that there can only be one instance of said thing
+
+CREATE TABLE Brands(Id INTEGER, BrandName VARCHAR(30) UNIQUE);
+
+INSERT INTO Brands VALUES(1, 'Coca Cola');
+
+INSERT INTO Brands VALUES(2, 'Pepsi');
+
+INSERT INTO Brands VALUES(3, 'Pepsi');
+ERROR 1062 (23000): Duplicate entry 'Pepsi' for key 'BrandName'
+
+PRIMARY KEY //Uniquely identifies each record in a Database table.
+//Primary Keys cannot be NULL.
+//A PRIMARY KEY becomes a FOREIGN KEY when it's defined into another Table.
+
+//The Unique Key defines that all the data in a column are not duplicate.
+
+FOREIGN KEY
+
+//Points to a Primary key in another table.
+//Foreign Keys have a added restraint to them ; If we wish to add a Value to a table, that Value, must be in coherence with the Primary Key Values.
+//I.e, if we tried to add a Value to a Foreign Key table, that is not the same value as that of thoose in the Primary key table, we would not be allowed to.
+//Due to the constraint.
+
+ENUM
+//Enums are values that are a constraint in form of that whatever value is added into a Table, must follow the constraint of the ENUM.
+
+CREATE TABLE Shops(Id INTEGER, Name VARCHAR(55), Quality ENUM('High', 'Average', 'Low'));
+
+INSERT INTO Shops VALUES(1, 'Boneys', 'High');
+INSERT INTO Shops VALUES(2, 'Something', 'Medium');
+INSERT INTO Shops Values(3, 'Derp', '*');
+
++------+----------+---------+
+| Id   | Name     | Quality |
++------+----------+---------+
+|    1 | Boneys   | High    |
+|    2 | Something| Average |
+|    3 | Derp     |         |
++------+----------+---------+
+
+
+SET constraint
+
+//We can put constraints to what values we allow into a Table:
+
+CREATE TABLE 
+
+INSERT INTO Students VALUES(1, 'Paul', 'A1, B1');
+INSERT INTO Students VALUES(2, 'Jane', ,A1, B1, A2');
+INSERT INTO Students VALUES(3, 'Mark', 'A1, A2, D1, D2');
+
++------+------+--------------+
+| Id   | Name | Certificates |
++------+------+--------------+
+|    1 | Paul | A1,B1        |
+|    2 | Jane | A1,A2,B1     |
+|    3 | Mark | A1,A2        |
++------+------+--------------+
+
+//only the recognized values, are allowed to be inserted.
+
+EXPORTING AND IMPORTING DATA;
+
+SELECT * FROM Cars INTO OUTFILE '/tmp/cars';
+
+/tmp/cars
+1       Audi    52642
+2       Mercedes        57127
+3       Skoda   9000
+4       Volvo   29000
+5       Bentley 350000
+6       Citroen 21000
+7       Hummer  41400
+8       Volkswagen      21600
+
+
+DELETE FROM Cars;
+LOAD DATA INFILE 'tmp/cars' INTO TABLE Cars;
+//Loaded all the data into the Table
+
+SELECT * FROM Cars INTO OUTFILE '/tmp/cars.csv' FIELDS TERMINATED BY ',';
+
+//We dump all the data from Cars into the CSV file. Each field is terminated by the seperating ,
+
+//repeat
+
+DELETE FROM Cars;
+
+LOAD DATA INFILE '/tmp/cars.csv' INTO TABLE Cars FIELDS TERMINATED BY ',';
+
+SELECT * FROM Cars;
+
++----+------------+--------+
+| Id | Name       | Cost   |
++----+------------+--------+
+|  1 | Audi       |  52642 |
+|  2 | Mercedes   |  57127 |
+|  3 | Skoda      |   9000 |
+|  4 | Volvo      |  29000 |
+|  5 | Bentley    | 350000 |
+|  6 | Citroen    |  21000 |
+|  7 | Hummer     |  41400 |
+|  8 | Volkswagen |  21600 |
++----+------------+--------+
+
+//we can export Data by the monitor:
+
+mysql -uroot -p --xml -e 'SELECT * FROM mydb.Cars' > /tmp/cars.xml
+
+TRUNCATE Cars;
+
+LOAD XML /tmp/cars.xml INTO TABLE Cars; //Load exists in >= 5.5
+
+//We can create backups with the mysqldump command;
+
+mysqldump -u root -p --no-data mydb > bkp1.sql //This only dumps the table structures and not the data. Due to --no-data
+
+//This would be a part of the created table;
+
+--
+-- Table structure for table `Cars`
+--
+
+DROP TABLE IF EXISTS `Cars`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Cars` (
+  `Id` int(11) NOT NULL,
+  `Name` varchar(50) DEFAULT NULL,
+  `Cost` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+//We can dump data only, as well, with the --no-create-info command;
+
+mysqldump -uroot -p --no-create-info mydb > bkp2.sql
+
+--
+-- Dumping data for table `Cars`
+--
+
+LOCK TABLES `Cars` WRITE;
+/*!40000 ALTER TABLE `Cars` DISABLE KEYS */;
+INSERT INTO `Cars` VALUES (1,'Audi',52642),(2,'Mercedes',57127),(3,'Skoda',9000),
+(4,'Volvo',29000),(5,'Bentley',350000),(6,'Citroen',21000),
+(7,'Hummer',41400),(8,'Volkswagen',21600);
+/*!40000 ALTER TABLE `Cars` ENABLE KEYS */;
+UNLOCK TABLES;
+
+//We can dump the entire DB as well;
+
+mysqldump -uroot -p mydb > bkp3.sql
+
+//We can show the info from the Backup SQL
+
+DROP DATABASE mydb; //Error due to backup, tables were dropped, but not the entire DB
+
+sudo ls /var/lib/mysql/mydb
+cars  cars.txt
+sudo rm /var/lib/mysql/mydb/cars
+sudo rm /var/lib/mysql/mydb/cars.txt
+
+DROP DATABASE mydb; //can be removed, because alien files removed
+
+//We can recreate the database
+
+CREATE DATABASE mydb;
+
+USE mydb;
+
+source bkp3.sql
+
+SHOW TABLES;
+
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_mydb |
++----------------+
+| AA             |
+| Ages           |
+| Animals        |
+| Authors        |
+| BB             |
+| Books          |
+| Books2         |
+| Brands         |
+| Cars           |
+...
+
+mysql> SELECT * FROM Cars;
++----+------------+--------+
+| Id | Name       | Cost   |
++----+------------+--------+
+|  1 | Audi       |  52642 |
+|  2 | Mercedes   |  57127 |
+|  3 | Skoda      |   9000 |
+|  4 | Volvo      |  29000 |
+|  5 | Bentley    | 350000 |
+|  6 | Citroen    |  21000 |
+|  7 | Hummer     |  41400 |
+|  8 | Volkswagen |  21600 |
++----+------------+--------+
+
+
+
+JOINING TABLES;
+
+//There are two types of Joins : Inner and Outer.
+
+SELECT * FROM Customers; //Customers table
++------------+-------------+
+| CustomerId | Name        |
++------------+-------------+
+|          1 | Paul Novak  |
+|          2 | Terry Neils |
+|          3 | Jack Fonda  |
+|          4 | Tom Willis  |
++------------+-------------+
+
+SELECT * FROM Reservations; 
+
+mysql> SELECT * FROM Reservations;
++----+------------+------------+
+| Id | CustomerId | Day        |
++----+------------+------------+
+|  1 |          1 | 2009-11-22 |
+|  2 |          2 | 2009-11-28 |
+|  3 |          2 | 2009-11-29 |
+|  4 |          1 | 2009-11-29 |
+|  5 |          3 | 2009-12-02 |
++----+------------+------------+
+
+//If we wish to join the dates of the peoples reservations, with the names, we can do a Inner join:
+
+SELECT NAME, Day FROM Customers AS C JOIN Reservations AS R ON C.CustomerId=R.Customer.Id;
+
++-------------+------------+
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Paul Novak  | 2009-11-29 |
+| Jack Fonda  | 2009-12-02 |
++-------------+------------+
+
+//Here, we join the name of the person with said Id, with the values from Reservations
+
+//It is identical to the following;
+
+SELECT Name, Day FROM Customers, Reservations WHERE Customers.CustomerId=Reservations.CustomerId;
++-------------+------------+
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Paul Novak  | 2009-11-29 |
+| Jack Fonda  | 2009-12-02 |
++-------------+------------+
+
+//We can do Cross Inner Joins, which is basically the same as Selecting several elements from several tables;
+
+SELECT Name, Day FROM Customers CROSS JOIN Reservations;
+
+//same as
+
+SELECT Name, Day FROM Customers, Reservations;
+
++-------------+------------+
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Paul Novak  | 2009-11-28 |
+| Paul Novak  | 2009-11-29 |
+| Paul Novak  | 2009-11-29 |
+| Paul Novak  | 2009-12-02 |
+| Terry Neils | 2009-11-22 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Terry Neils | 2009-11-29 |
+| Terry Neils | 2009-12-02 |
+| Jack Fonda  | 2009-11-22 |
+...
+
+//OUTER JOINS
+
+Outer joins, does not require that the different tables have matching records.  There are three types of outer joins.
+
+Left outer joins, Right outer joins and Full outer joins. Full outer join, does not exist in MySQL.
+
+Inner ones, are the most common ones. Outer joins is good for finding parentless Records (orphan records)
+
+LEFT OUTER JOIN;
+
+Left join, returns all the values from the Left Table;
+
+//We can take all the people, and slam em together with the people who actually reserved;
+
+SELECT Name, Day FROM Customers LEFT JOIN Reservations ON Customers.CustomerID=Reservations.CustomerID;
++-------------+------------+
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Paul Novak  | 2009-11-29 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Jack Fonda  | 2009-12-02 |
+| Tom Willis  | NULL       |
++-------------+------------+
+
+//We can do the same thing, but with using the keyword USING
+
+SELECT Name, Day FROM Customers LEFT JOIN Reservations USING (CustomerId);
++-------------+------------+
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Paul Novak  | 2009-11-29 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Jack Fonda  | 2009-12-02 |
+| Tom Willis  | NULL       |
++-------------+------------+
+
+
+RIGHT OUTER JOIN;
+
+The keywords of RIGHT OUTER JOIN and RIGHT JOIN are the same.
+
+//We can cojoin two tables, as follows:
+
+SELECT Name, Day FROM Customers RIGHT JOIN Reservations USING (CustomerId);
++-------------+------------+
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Paul Novak  | 2009-11-29 |
+| Jack Fonda  | 2009-12-02 |
++-------------+------------+
+
+
+NATURAL JOINS:
+Natural Joins, is when we link Tables with each other, that have matching column names to join.
+
+SELECT Name, Day FROM Customers NATURAL JOIN Reservations;
+
++-------------+------------+ //Since we have CustomerId in both, we join the ones that have these
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Paul Novak  | 2009-11-29 |
+| Jack Fonda  | 2009-12-02 |
++-------------+------------+
+
+Natural Left Join, is the same, except it gives all values for the left table in the join
+
+SELECT Name, Day FROM Customers NATURAL LEFT JOIN Reservations;
+
++-------------+------------+
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Paul Novak  | 2009-11-29 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Jack Fonda  | 2009-12-02 |
+| Tom Willis  | NULL       |
++-------------+------------+
+
+Natural Right Join, is the same as Natural left Join, except for the Right side;
+
+SELECT Name, Day FROM Customers NATURAL RIGHT JOIN Reservations;
+
++-------------+------------+
+| Name        | Day        |
++-------------+------------+
+| Paul Novak  | 2009-11-22 |
+| Terry Neils | 2009-11-28 |
+| Terry Neils | 2009-11-29 |
+| Paul Novak  | 2009-11-29 |
+| Jack Fonda  | 2009-12-02 |
++-------------+------------+
+
+MySQL FUNCTIONS;
+
+//There are a number of built in functions ot MySQL. These are as follows;
+
+Mathematical Functions.
+Aggregate Functions.
+String Functions.
+Date and time functions.
+System functions.
+
+MATHEMATICAL FUNCTIONS;
+
+//We can do random numbers;
+
+SELECT RAND();
+
+//We can get the absolute value of a value, the value of Pi, and calculate Sinus on stuff;
+
+ABS(-3), PI(), SIN(0.5);
+
++---------+----------+-------------------+
+| ABS(-3) | PI()     | SIN(0.5)          |
++---------+----------+-------------------+
+|       3 | 3.141593 | 0.479425538604203 |
++---------+----------+-------------------+
+
+//We can round off stuff upwards to the closest INT, round off stuff downards to the closest INT and just generally round off stuff;
+
+SELECT CEIL(11.256), FLOOR(11.256), ROUND(11.256,2); //CEIL is upwards, FLOOR is downwards, ROUND is to the closest value of which decimal is to be specified
++--------------+---------------+------------------+
+| CEIL(11.256) | FLOOR(11.256) | ROUND(11.256, 2) |
++--------------+---------------+------------------+
+|           12 |            11 |            11.26 |
++--------------+---------------+------------------+
+
+
+//We can do to the power of and Square root of:
+
+SELECT POW(3,3), SQRT(9);
++-----------+---------+
+| POW(3, 3) | SQRT(9) |
++-----------+---------+
+|        27 |       3 |
++-----------+---------+
+
+//We can calculate degrees from Radians, with DEGREES;
+
++-----------------+
+| DEGREES(2*PI()) |
++-----------------+
+|             360 |
++-----------------+
+
+AGGREGATE FUNCTIONS;
+
+Aggregate Functions operate on a set of values.
+
+//Functions that are accounted for in this, is for example; MIN(), MAX() and AVG().
+
+SELECT SUM(Cost), COUNT(Id), STD(Cost), VARIANCE(Cost) FROM Cars; //Sum is to sum everything, Count is to see how many there are, STD is standard deviation,
+Variance is Variance
+
++-----------+-----------+-------------+------------------+
+| SUM(Cost) | COUNT(Id) | STD(Cost)   | VARIANCE(Cost)   |
++-----------+-----------+-------------+------------------+
+|    581769 |         8 | 105931.1676 | 11221412265.3594 |
++-----------+-----------+-------------+------------------+
+
+//We can find length, convert to Uppercase and Lowercase values;
+
+SELECT LENGTH('ZetCode'), UPPER('ZetCode'), LOWER('ZetCode');
++-------------------+------------------+------------------+
+| LENGTH('ZetCode') | UPPER('ZetCode') | LOWER('ZetCode') |
++-------------------+------------------+------------------+
+|                 7 | ZETCODE          | zetcode          |
++-------------------+------------------+------------------+
+
+//We can pad stuff with arbitrary char values, and lengths, as follows:
+
+SELECT LPAD(RPAD("Zetcode", 10, "*"), 13, "*"); //LPAD pads out Left, until the length of the string is the input value and adds the chars in the ""'s
+//RPAD pads out to the Right, until length of the string is the input and adds the chars in the ""'s
+
+//WE can reverse and repeat a String X amount of times, as follows:
+
+SELECT REVERSE('Zetcode'), REPEAT('*', 6);
++--------------------+----------------+
+| REVERSE('ZetCode') | REPEAT('*', 6) |
++--------------------+----------------+
+| edoCteZ            | ******         |
++--------------------+----------------+
+
+//We can Select certain lengths from a certain direction, or as specified from specific indexes;
+
+SELECT LEFT('ZetCode', 3), RIGHT('ZetCode', 3), SUBSTRING('ZetCode', 3, 3); //from 3 Characters, from 3rd index
+
++--------------------+---------------------+----------------------------+
+| LEFT('ZetCode', 3) | RIGHT('ZetCode', 3) | SUBSTRING('ZetCode', 3, 3) |
++--------------------+---------------------+----------------------------+
+| Zet                | ode                 | tCo                        |
++--------------------+---------------------+----------------------------+ 
+
+//We can compare Strings and Concatenate Strings;
+
+SELECT STRCMP ('byte', 'byte'), CONCAT('three', 'apples');
++------------------------+----------------------------+
+| STRCMP('byte', 'byte') | CONCAT('three', ' apples') |
++------------------------+----------------------------+
+|                      0 | three apples               |
++------------------------+----------------------------+
+
+//we can replace values in a String;
+
+SELECT REPLACE('basketball', 'basket', 'foot'); //input to change, what part, to what;
+
++-----------------------------------------+
+| REPLACE('basketball', 'basket', 'foot') |
++-----------------------------------------+
+| football                                |
++-----------------------------------------+
+
+DATE & TIME FUNCTIONS;

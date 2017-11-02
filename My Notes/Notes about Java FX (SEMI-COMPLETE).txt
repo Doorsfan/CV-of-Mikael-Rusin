@@ -1,0 +1,3515 @@
+Java FX is used to build GUIs and leverages multi-threading and multi-core.
+
+Since the new Java FX uses lambdas, we have to move to use JDK 8 in Source/Binary format, since it's not backwards compatible.
+
+At it's base, a JavaFX project is as follows:
+
+package <name>;
+
+import <dependencies>;
+
+public class <project name> extends Application{
+	
+	/**
+	 * @param args the  cmd line args
+	 */
+
+	public static void main(String[] args){
+		Applicaton.launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) {
+		primaryStage.setTitle("stuff");
+
+		Group root = new Group();
+		Scene scene = new Scene(root, 300, 250);
+		Button btn = new Button();
+		btn.setLayoutX(100);
+		btn.setLayoutY(200);
+		btn.setText("shit");
+		btn.setOnAction(new EVentHandler<ActionEvent>() {
+			public void handle(ActionEvent event){
+				//Do something
+			}
+		});
+
+		root.getChildren().add(btn);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+}
+
+The JavaFX clas Applicaton allows for the usage of initialization, launching, starting and stopping during runtime. It allows the JavaFX Gui to do other
+things than the main thread.
+
+We can get the args from the launch with the getParameters() of the Application class.
+When we launch the start method, we are initializing the program on another thread, other than the main thread.
+
+Later on, we will learn how to delegate to the background to allow for running thread in parallel.
+
+Depending on the device, there may only be one scene in the JavaFX build, such as for Raspberry Pi.
+
+If we wish to draw lines in java FX, we can do two ways of doing it:
+
+Line line = new Line(100,10, 10, 110); //start X, start Y, end X, end Y
+
+The line defaults to a stroke of 1.0 and Color.BLACK.
+
+SOme methods on we can use on a Shape class object, such as Line:
+
+
+Property 					Data Type 					Desc
+ 
+fill  					javafx.scene.paint.Paint 		a color to fill
+
+smooth 					Boolean 						True turns on anti-aliasing, otherwise false
+
+strokeDashOffset 		double 							The offset into the dashed pattern
+
+strokeLineCap 			javafx.scene.shape.StrokeLineCap The capping of lines. Can take StrokeLineCap.BUTT, StrokeLineCap.ROUND, StrokeLineCap.SQUARE
+
+strokeLineJoin 			javafx.scene.shape.StrokeLineJoin Decoration for when lines meet. StrokeLineJoin.MITER, StrokeLineJoin.BEVEL and StrokeLineJoin.ROUND
+
+strokeMiterLimit 		Double 							The limit of a miter join. Useed in conjunction with StrokeLineJoin.MITER
+
+stroke 					java.fx.scene.paint.Paint 		Color of a shape's line Stroke
+
+strokeType 				java.fx.scene.shape.StrokeType 	Boundraies contra a shape, StrokeType.CENTERED, StrokeType.INSIDE and StrokeType.OUTSIDE
+
+strokeWidth 			Double 							A stroke line's width
+
+An example of drawing lines:
+
+package jfx8ibe;
+
+import <dependencies>;
+
+public class DrawingLines extends Application{
+	
+	@Override
+	public void start(Stage primaryStage){
+		primaryStage.setTitle("Chapter 2 Drawing Lines");
+
+		Group root = new Group();
+		Scene scene = new Scene(root, 300, 150, Color.GRAY);
+
+		Line redLine = new Line(10, 10, 200, 10);
+
+		redLine.setStroke(Color.RED);
+		redLine.setStrokeWidth(10);
+		redLine.setStrokeLineCap(StrokeLineCap.BUTT);
+
+		redLine.getStrokeDashArray().addAll(10d, 5d, 15d, 5d, 20d); //Create dash offsets in the line
+		redLine.setStrokeDashOffset(0);
+
+		root.getChildren().add(redLine);
+
+		Line whiteLine = new Line(10, 30, 200, 30);
+		whiteLine.setStroke(Color.WHITE);
+		whiteLine.setStrokeWidth(10);
+		whiteLine.setStrokeLineCap(StrokeLineCap.ROUND);
+
+		root.getChildren().add(whiteLine);
+
+		Line blueLine = new Line(10, 50, 200, 50);
+		blueLine.setStroke(Color.BLUE);
+		blueLine.setStrokeWidth(10);
+
+		root.getChildren().add(blueLine);
+
+		//Make a slider that defines offsets
+
+		Slider slider = new Slider(0, 100,0);
+		slider.setLayoutX(10);
+		slider.setLayoutY(95);
+
+		redLine.strokeDashOffsetProperty()
+				.bind(slider.valueProperty());
+		root.getChildren()
+			.add(slider);
+
+		Text offsetText = new Text("Stroke Dash Offset: 0.0");
+		offsetText.setX(10);
+		offsetText.setY(80);
+		offsetText.setStroke(Color.WHITE);
+
+		//Display the stroke offset value
+		slider.valueProperty() //access the value properties
+			.addListener((ov, curVal, newVal) -> //add a listener to the values of which we need to track
+				offsetText.setText("Stroke Dash Offset: " + slider.getValue())); //set the text with related value
+		root.getChildren().add(offsetText);
+
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+
+	/**
+	 * @param args the command line args
+	 */
+	public static void main(String[] args){
+		launch(args);
+	}
+}
+
+We can also draw arcs combined with other patterns:
+
+Rectangle roundRect = new Rectangle();
+roundRect.setX(50);
+roundRect.setY(50);
+
+roundRect.setWidth(100);
+roundRect.setHeight(130);
+roundRect.setArcWidth(10);
+roundRect.setArcHeight(40);
+
+To darw complex shapes, we have to utilize names :
+
+javafx.scene.shape.* , where * can be:
+
+Arc
+
+Circle
+
+CubicCurve
+
+Ellipse
+
+Line
+
+Path
+
+Polygon
+
+Polyline
+
+QuadCurve
+
+Rectangle
+
+SVGPath
+
+Text
+
+To make some different shapes:
+
+@Override
+public void start(Stage primaryStage){
+	primaryStage.setTitle("Chapter 2 Drawing Shapes");
+	Group root = new Group();
+	Scene scene = new Scene(root, 306, 550, Color.WHITE);
+
+	//Sine wave
+	CubicCurve cubicCurve = new CubicCurve( //The control points are elevated above or below the target point
+			50, //Start x
+			75, //start y
+			80, //Control x1 point
+			-25, //Control y1 point
+			110, //Control x2 point
+			175, //Control y2 point
+			140, //End x point
+			75); //end y point
+	cubicCurve.setStrokeType(StrokeType.CENTERED);
+	cubicCurve.setStroke(Color.BLACK);
+	cubicCurve.setStrokeWidth(3);
+	cubicCurve.setFill(Color.WHITE);
+
+	root.getChildren().add(cubicCurve);
+
+	//ice cream cone
+	Path path = new Path();
+	path.setStrokeWidth(3);
+
+	//Create top part beginning on the left
+	MoveTo moveTo = new MoveTo();
+	moveTo.setX(50);
+	moveTo.setY(150);
+
+	//Curve ice cream (dome)
+	QuadCurveTo quadCurveTo = new QuadCurveTo();
+	quadCurveTo.setX(150);
+	quadCurveTo.setY(150);
+	quadCurveTo.setControlX(100);
+	quadCurveTo.setControlY(50);
+
+	//Cone rim
+	LineTo lineTo1 = new LineTo();
+	lineTo1.setX(50);
+	lineTo1.setY(150);
+
+	//Left side of cone
+	LineTo lineTo2 = new LineTo();
+	lineTo2.setX(100);
+	lineTo2.setY(275);
+
+	//Right side of cone
+	LineTo lineTo3 = new LineTo();
+	lineTo3.setX(150);
+	lineTo3.setY(150);
+
+	path.getElements().addAll(moveTo, quadCurveTo, lineTo1, lineTo2, lineTo3); //add all the lines together
+
+	path.setTranslateY(30);
+
+	root.getChildren().add(path);
+
+	// a smile
+
+	QuadCurve quad = new QuadCurve(
+			50,
+			50,
+			125,
+			150,
+			50);
+	quad.setTranslateY(path.getBoundsInParent().getMaxY());
+	quad.setStrokeWidth(3);
+	quad.setStroke(Color.BLACK);
+	quad.setFill(Color.WHITE);
+
+	root.getChildren().add(quad);
+
+	// Outer donut
+	Ellipse bigCircle = new Ellipse(
+			100,
+			100,
+			50,
+			75/2);
+	bigCircle.setStrokeWidth(3);
+	bigCircle.setStroke(Color.BLACK);
+	bigCircle.setFill(Color.WHITE);
+
+	//Donut hole
+	Ellipse smallCircle = new Ellipse(
+			100,
+			100,
+			35/2,
+			25/2);
+
+	//make the donut
+	Shape donut = Path.subtract(bigCircle, smallCircle); //Take the big path minuys the small path
+	donut.setStrokeWidth(1.8);
+	donut.setStroke(Color.BLACK);
+
+	//orange glaze
+	donut.setfill(Color.rgb(255,200,0));
+
+	//Add drop shadow
+	DropShadow dropShadow = new DropShadow(
+		5,
+		2.0f,
+		2.0f,
+		Color.rgb(50,50,50, .588));
+
+	donut.setEffect(dropShadow);
+
+	//move slightly down
+	donut.setTranslateY(quad.getBoundsInParent().getMinY() + 30); //get hte bounds of the parent and apply from there
+
+	root.getChildren().add(donut);
+
+	primaryStage.setScene(scene);
+	primaryStage.show();
+
+}
+
+When we are making gradients, we can do as follows:
+
+@Override
+public void start(Stage primaryStage){
+	primaryStage.setTitle("Chapter 2 Painting Colors");
+	Group root = new Group();
+	Scene scene = new Scene(root, 350, 300, Color.WHITE);
+
+	//Red ellipse with radial gradient color
+	Ellipse ellipse = new Ellipse(100, //Center x
+			50 + 70/2, //Center Y
+			50, 		//Radius X
+			70/2); //Radius Y 
+
+	RadialGradient gradient1 = new RadialGradient(
+			0, //focusAngle
+			.1, //focusDistance
+			80, //centerX
+			45, //centerY
+			120, //radius
+			false, //proportional
+			CycleMethod.NO_CYCLE, //cycleMethod
+			new Stop(0, COLOR.RED), //The stops
+				new Stop(1, Color.BLACK)
+	);
+
+	ellipse.setFill(gradient1);
+	root.getChildren().add(ellipse);
+	double ellipseHeight = ellipse.getBoundsInParent().getHeight();
+
+	//Thick black line behind second shape
+	Line blackLine = new Line();
+	blackLine.setStartX(170);
+	blackLine.setStartY(30);
+
+	blackLine.setEndX(20);
+	blackLine.setEndY(140);
+
+	blackLine.setFill(Color.BLACK);
+	blackLine.setStrokeWidth(10.0f);
+	blackLine.setTranslateY(ellipseHeight + 10);
+
+	root.getChildren().add(blackLine);
+
+	//A rectangle filled with a linear gradient with a transculent color
+	Rectangle rectangle = new Rectangle();
+	rectangle.setX(50);
+	rectangle.setY(50);
+
+	rectangle.setWidth(100);
+	rectangle.setHeight(70);
+
+	rectangle.setTranslateY(ellipseHeight + 10);
+
+	LinearGradient linearGrad = new LinearGradient(
+			0, //start x
+			0, //Start y
+			0, // end X
+			1, //end Y
+			true, //proportional
+			CycleMethod.NO_CYCLE, //Cycle colours
+			//stops
+			new Stop(0.1f, Color.rgb(255,200,0, .784)),
+			new Stop(1.0f, Color.rgb(0,0,0, .784)));
+
+	rectangle.setFill(linearGrad);
+	root.getChildren().add(rectangle);
+
+	//A rectangle filled with a linear gradient with a reflective cycle
+	Rectangle roundRect = new Rectangle();
+	roundRect.setX(50);
+	roundRect.setY(50);
+
+	roundRect.setWidth(100);
+	roundRect.setHeight(70);
+
+	roundRect.setArcWidth(20);
+	roundRect.setArcHeight(20);
+
+	roundRect.setTranslateY(ellipseHeight + 10 + rectangle.getHeight() + 10);
+
+	LinearGradient cycleGrad = new LinearGradient(
+			50, //start x
+			50, //start y
+			70, //end x
+			70, //End y
+			false, //not proportional
+			CycleMethod.REFLECT, //use a reflect for cycling
+			new Stop(0f, Color.rgb(0, 255, 0, .784)), //The stops of colors, the last is opacity between 0 and 1.0
+			new Stop(1.0f, Color.rgb(0,0,0, .784)) //the stops, the last value being opacity between 0 to 1.0
+	);
+
+	roundRect.setFill(cycleGrad);
+	root.getChildren().add(roundRect);
+
+	primaryStage.setScene(scene),
+	primaryStage.show();
+}
+
+The three cycles are: NO_CYCLE, REFLECT and REPEAT.
+
+If the proportional is set to true, the co-ordinates are relative to the shape, yielding a co-ord between 0.0 and 1.0
+
+If they are not, the cords are the for scene/window
+
+RadialGradients can keep these props:
+
+Prop 				Data Type 					Desc
+
+focusAngle 			Double 					Angle in degrees from the center of the gradient to the focus point to which the first color is mapped.
+
+focusDistance 		Double 					Distance from the center of the gradient to the focus point to which the first color is mapped.
+
+centerX 			Double 					X coordinate of the center point of the gradient's circle
+
+centerY 			Double 					Y coordinate of the center point of the gradient's circle
+
+radius 				Double 					Radius of the circle defining extents of the color gradient
+
+proportional 		Boolean 				if co-ordinates and sizes are proportional to the shape this gradient fills
+
+cycleMethod 		CycleMethod 			Cycle method applied to the gradient
+
+Stops 				List<Stop> 				Gradient's Color specification
+
+
+
+LinearGradients can keep these props:
+
+startX 				Double 					
+
+startY 				Double
+
+endX 				Double
+
+endY 				Double
+
+proportional 		Boolean
+
+cycleMethod 		same as before
+
+stops 				List<Stop> 			Stops
+
+The CycleMethod.REFLECT is a repeat cycle between the stop colors.
+
+Next, an example of drawing lines:
+
+@Override
+public void start(Stage PrimaryStage){
+	primaryStage.setTitle("Chapter 2 drawing Text");
+	Group root = new Group();
+
+	Scene scene = new Scene(root, 300, 250, Color.WHITE);
+	Random rand = new Random(System.currentTimeMillis());
+
+	for (int i = 0; i < 100; i++){
+		int x = rand.nextInt((int) scene.getWidth());
+		int y = rand.nextInt((int) scene.getHeight());
+
+		int red = rand.nextInt(255);
+		int green = rand.nextInt(255);
+		int blue = rand.nextInt(255);
+
+		Text text = new Text(x, y, "JavaFX 8");
+
+		int rot = rand.nextInt(360);
+		text.setFill(Color.rgb(red, green, blue, .99));
+		text.setRotate(rot);
+
+		root.getChildren().add(text);
+	}
+
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+
+Changing Text Fonts:
+
+@Override
+public void start(Stage primaryStage){
+	primaryStage.setTitle("Chapter 2 Changing Text Fonts");
+
+	System.out.println("Font families: ");
+	Font.getFamilies() //Run lambdas on the families and make a stream and run the foreach
+		.stream() //Make a stream of the families
+		.forEach( i -> System.out.println(i)); //Run a foreach on them and print out the i element
+
+	Group root = new Group();
+	Scene scene = new Scene(root, 580, 250, Color.WHITE);
+
+	//Serif with a DROP SHADOW
+	Text text2 = new Text(50, 50, "JavaFX 8: Intro by Example");
+	Font serif = Font.font("Serif", 30);
+	text2.setFont(serif);
+	text2.setFill(Color.RED);
+
+	DropShadow dropShadow = new DropShadow();
+	dropShadow.setOffsetX(2.0f);
+	dropShadow.setOffsetY(2.0f);
+
+	doprShadow.setColor(Color.rgb(50, 50, 50, .588));
+	text2.setEffect(dropShadow);
+	root.getChildren().add(text2);
+
+	//SanSerif
+	Text text3 = new Text(50, 100, "javafX 8: Intro by Exampel");
+	Font sanSerif = Font.font("SanSerif", 30);
+
+	text3.setFont(sanSerif);
+	text3.setFill(Color.BLUE);
+	root.getChildren().add(text3);
+
+	// Dialog
+	Text text4 = new Text(50, 150, "JavaFX 8: INtro by example");
+	Font dialogFont = Font.font("Dialog", 30);
+
+	text4.setFont(dialogFont);
+	text4.setFill(Color.rgb(0, 255, 0));
+	root.getChildren().add(text4);
+
+	//monspaced
+	Text text5 = new Text(50, 200, "JavafX 8: Intro . by example");
+	Font monoFont = Font.font("Monospaced", 30);
+	text5.setFont(monoFont);
+	text5.setFill(Color.Black);
+	root.getChildren().add(text5);
+
+	//Reflection
+	Reflection refl = new Reflection();
+	refl.setFraction(0.8f);
+	refl.setTopOffset(5);
+	text5.setEffect(refl);
+
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+to make a anonymous button binding in JAva FX:
+
+Button btn = new Button();
+btn.setOnAction(new EventHandler<ActionEvent>(){
+	public void handle(ActionEvent event) {
+		//do something
+	}
+});
+
+To use a lambda expression for it:
+
+btn.setOnAction(event -> System.out.println("HELLO WORLD"));
+
+Lambda expresisons can be written in two ways:
+
+(params) -> expression;
+
+OR
+
+(params) -> { //Code goes here }
+
+An example of passing a action event to a btn:
+
+btn.setOnAction((ActionEvent event) -> System.out.println("Hello World"));
+
+NOTE: if there is just one param to pass in, you can omit the ()'s for the args part
+
+Whenever we refer to variables outside of a Lambda, it needs to be Final. In Java 8, it's implicitly converted to Final.
+
+We can allow for lazy evaluation in terms of functional interfaces:
+
+interface MyEquation{
+	double compute(double val1, double val2); //compute is a simple method
+}
+
+We then use the interface in lazy evaluation
+
+MyEquation area = (height, width) -> height * width; //assign the holders for the interface evaluation
+MyEquation perimeter = (height, width) -> 2*height + 2*width; 
+
+System.out.println("Area = " + area.compute(3, 4)); //Access the functional interface to use the lambda to use the evaluation
+
+A stream is a aggregate of a collection of data, transporting the data:
+
+List<Integer> values = Arrays.asList(23, 84, 74, 85, 54, 60);
+Stream<Integer> stream = values.stream(); //Treat the list of integers to be a stream
+
+With streams, we can use filter, map and foreach to interact with them:
+
+//Create a list of int values converted to hexadecimal through a filter
+
+List<Integer> values = Arrays.asList(23, 84, 74, 85, 54, 60);
+System.out.println("values: " + values.toString());
+
+//non local var used for the lambda
+int something = 54;
+
+System.out.println("Values greater than " + something + " converted to hex");
+values.stream()
+	  .filter(val -> val > something) //Filter out that the value is greater than something
+	  .sorted() //Sort it
+	  .map(dec -> Integer.toHexString(dec).toUpperCase()) //map the values from the stream to a new stream containing strings, but keeping the old collection as being string values
+	  .forEach(val -> System.out.println(val)); //Output the converted values as the ones having been mapped
+
+Every time we call a aggregate function, we get a stream object returned, to which we can method-chain to
+
+Interfaces can have default methods related to them, meaning they are functions that can have code in them.
+
+They are written as, for example:
+
+The default method stream() of Java 8's collection interface
+
+default Stream<E> stream(){
+	return StreamSupport.stream(spliterator, false);
+}
+
+Another example of a interface with a default method:
+
+public interface Roarable{
+	default void roar()
+	{
+		//Do something
+	}
+}
+
+Where as we can define pure virtual abstract methods as follows:
+
+public interface Cat{
+	String getCatKind(); //They remain as abstract functions as to imeplement in inheriting classes
+	String getFurDescription();
+}
+
+We can also get the simple name of the class by virtue of:
+
+getClass().getSimpleName();
+
+javaFX properties API handles common issues, and can be:
+
+Read/Writeable
+
+Read-Only
+
+They are the substitute to getters and setters.
+
+The ones most commonly found:
+
+java.fx.beans.property.SimpleBooleanProperty
+
+-II-.ReadOnlyBooleanWrapper
+
+-II-.SimpleIntegerProperty
+
+-II-.ReadOnlyIntegerWrapper
+
+-II-.SimpleDoubleProperty
+
+-II-.ReadOnlyDoubleWrapper
+
+etc.
+
+If they are simple, they are read/write
+
+Read is read only.
+
+An example of creating a readable/writeable instance:
+
+StringProperty password = new SimpleStringProperty("password1");
+password.set("1234"); //password has been changed
+password.get(); //gets the password
+
+To make a read-only:
+
+ReadOnlyStringWrapper userName = new ReadOnlyStringWrapper("jamestkirk");
+ReadOnlyStringProperty readOnlyUserName = userName.getReadOnlyProperty();
+
+
+Note: Make getters and setters final. You can also pass this as the first arg of Wrapper entities.
+
+
+An example of a ChangeListener:
+
+
+SimpleIntegerProperty xProperty = new SimpleIntegerProperty(0);
+
+//adding a change listener (anonymous inner class)
+xProperty.addListener(new ChangeListener<Number>(){
+	@Override
+	public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal){ //Wildcard extends Number observable value, old val and new val etc.
+		//Code goes here
+	}
+});
+
+//adding a change listener (lambda expression)
+xProperty.addListener((ObservableValue<? extends Number> ov, Number oldVal, Number newVal) -> {
+	//code goes here
+});
+
+We can also add Invalidators, which means that we render them invalidated until the point of which we have to evaluate them, which can be used for eager and lazy eval.
+
+//Adding a invalidation listener (anonymous inner class)
+xProperty.addListener(new InvalidationListener() {
+	@Override
+	public void invalidated(Observable o){
+		//Code goes here
+	}
+});
+
+//adding a invalidation listener (lambda expression)
+xProperty.addListener((Observable o) -> {
+	//Code goes here
+});
+
+If we wish to remove action listeners, we either access the node and remove listenrs there of as per index or we access them via a specified assigned name.
+
+myButton.removeActionListener(myButton.getActionListeners()[0]); //Removes first one, if there is only one
+
+Beyond this, we can do bindings of values, meaning they become dependant of each other:
+
+javafx.beans.binding.*
+
+javafx.beans.property.*
+
+The only requirement for binding a prop is that the prop must be read/write property.
+
+When we use bind() to bind to another variable, we get a dependancy of that B will change A, but not the other way around.
+Attempting the other way around will cause an exception.
+
+The following three can be used:
+
+Bidirentional binding on a Java Bean
+
+High-level binding using the Fluent API
+
+Low-level binding using javafx.beans.binding.* binding objects
+
+When we have bi-directional bindings, most values must be read/writeable properties.
+
+A simple example of a bidirectional linking to a local variable fname of type StringProp:
+
+Contact contact = new Contact("John", "Doe");
+StringProperty fname = new SimpleStringProperty();
+fname.bindBidirectional(contact.firstNameProperty());
+
+contact.firstNameProperty().set("play");
+fname.set("Jane"); //Both will be Jane now, regardless of the firstname property having been set Play
+
+We also have high-level bindings, which involves the fluent API. This allows for usage of methods such as multiply(), divide() and subtract() etc.
+The good thing about these, is that they work akin to saved lambdas, they are lazily evaluated, only assigned upon actual calling of get() or getValue() on them.
+
+Example:
+
+IntegerProperty width = new SimpleIntegerProperty(10);
+IntegerProperty height = new SimpleIntegerProperty(10);
+
+NumberBinding area = width.multiply(height);
+
+Low-level binding:
+
+This is when we use derived NumberBinding classes, such as DoubleBinding - which does not allow us to use the multiply(), subtract() etc.
+Instead, we are enforced to operators.
+
+An example:
+
+DoubleProperty radius = new SimpleDoubleProperty(2);
+DoubleBinding volumeOfSphere = new DoubleBinding(){
+	{
+		super.bind(radius); //The intial bind, bind to the parent Number class with the value of Radius
+	}
+
+	@Override
+	protected double computeValue(){ //We have to override the compute value to allow for Operator interaction instead
+		//math.pow to use the cube
+		return (4 / 3 * Math.PI * Math.pow(radius.get(), 3));
+	}
+};
+
+An example of a Login Dialog with access granted Icon or access denied icon:
+
+package jfx8ibe;
+
+import javafx.application.*;
+<import dependencies *>
+
+/**
+ * A login form to demonstrate lambdas, properties and bindings
+ * @author cdea
+ */
+
+public class FormValidation extends Application{
+	private final static String MY_PASS = "password1";
+	private final static BooleanProperty GRANTED_ACCESS = new SimpleBooleanProperty(false);
+	private final static int MAX_ATTEMPTS = 3;
+	private final IntegerProperty ATTEMPTS = new SimpleIntegerProperty(0);
+
+	@Override
+	public void start(Stage primaryStage){
+		//Create a model representing a user
+		User user = new User();
+
+		//Create a transparent stage
+		primaryStage.initStyle(StageStyle.TRANSPARENT);
+
+		//Set the base scene
+		Group root = new Group();
+		Scene scene = new Scene(root, 320, 112, Color.rgb(0,0,0,0));
+		primaryStage.setScene(scene);
+
+		//All text, borders, svg paths will use white
+		Color foregroundColor = Color.rgb(255,255,255,.9);
+
+		//Rounded rectangular background
+		Rectangle background = new Rectangle(320, 112);
+
+		//set the background
+		background.setX(0);
+		background.setY(0);
+		background.setArchHeight(15);
+		background.setArchWidth(15);
+		background.setFill(Color.rgb(0,0,0,.55));
+		background.setStrokeWidth(1.5);
+		background.setStroke(foregroundColor);
+
+		//A read only field holding the user name
+		Text userName = new Text();
+		userName.setFont(Font.font("SanSerif", FontWeight.BOLD, 30));
+		userName.setFill(foregroundColor);
+		userName.setSmooth(true);
+
+		//bind the username to the username property
+		userName.textProperty()
+				.bind(user.userNameProperty()); //bind the text to the username property
+
+		//Wrap the text node
+		HBox userNameCell = new Hbox();
+		userNameCell.prefWidthProperty()
+					.bind(primaryStage.widthProperty()
+									  .subtract(45));
+		userNameCell.getChildren().add(userName);
+
+		//Pad lock
+		SVGPath padLock = new SVGPath();
+		padLock.setFill(foregroundColor);
+		padLock.setContent(""); //Use the string of a SVG icon to draw the Icon, SVG icons can be found on the Web
+
+		//first row
+		HBox row1 = new HBox();
+		row1.getChildren()
+			.addAll(userNameCell, padLock);
+
+		//password text field
+		PasswordField passwordField = new PasswordField();
+		PasswordField.setFont(Font.font("SanSerif", 20));
+		passwordField.setPromptText("Password");
+		passwordField.setStyle("-fx-text-fill:black; " 
+				+ "-fx-prompt-text-fill:gray; "
+				+ "-fx-highlight-text-fill:black; "
+				+ "-fx-highlight-fill: gray; "
+				+ "-fx-background-color: rgba(255, 255, 255, .80); ");
+
+		passwordField.prefWidthProperty() //Make it responsive by binding it to the primary stages width
+					 .bind(primaryStage.widthProperty()
+					 				   .subtract(55));
+
+		user.passwordProperty() //bind the password property to the passwordField text property
+			.bind(passwordField.textProperty());
+
+		//Error icon
+		SVGPath deniedIcon = new SVGPath();
+		deniedIcon.setFill(Color.rgb(255,0,0, .9));
+		deniedIcon.setStroke(Color.WHITE);
+		deniedIcon.setContent(); //The SVG Icon
+		deniedIcon.setVisible(false);
+
+
+		//Granted icon
+		SVGPath grantedIcon = new SVGPath();
+		grantedIcon.setFill(Color.rgb(0,255,0, .9));
+		grantedIcon.setStroke(Color.WHITE);
+		grantedIcon.setContent(); //The SVG icon
+		grantedIcon.setVisible(false);
+
+		//Keep the icons on a stackpane
+		StackPane accessIndicator = new StackPane();
+		accessIndicator.getChildren()
+					   .addAll(deniedIcon, grantedIcon);
+		accessIndicator.setAlignment(Pos.CENTER_RIGHT);
+
+		//bind the grantedIcon to the boolean of access granted
+		grantedIcon.visibleProperty().bind(GRANTED_ACCESS);
+
+		//Second row
+		HBox row2 = new HBox(3);
+		row2.getChildren()
+			.addAll(passwordField, accessIndicator);
+
+		//Scale the HBox height based on accesINdicator
+		HBox.setHgrow(accessIndicator, Priority.ALWAYS); //HBox is a horizontal box
+
+		//User hits the enter key
+		passwordField.setOnAction(actionEvent -> {
+			if (GRANTED_ACCESS.get()) {
+				System.out.printf("User %s is granted access. \n", 
+						user.getUserName());
+				Platform.exit();
+			} else {
+				deniedIcon.setVisible(true);
+			}
+
+			ATTEMPTS.set(ATTEMPTS.add(1).get());
+			System.out.println("Attempts done: " + ATTEMPTS.get());
+		});
+
+
+		//Listener when the user types into the PW field
+		passwordField.textProperty().addListener((obs, ov, nv) -> {
+			boolean granted = passwordField.getText()
+										   .equals(MY_PASS);
+			GRANTED_ACCESS.set(granted);
+			if(granted){
+				deniedIcon.setVisible(false);
+			}	
+		});
+
+		//Listener on number of attempts
+		ATTEMPTS.addListener((obs, ov, nv) -> {
+			if (MAX_ATTEMPTS == nv.intValue()) {
+				//Failed attempts
+				System.out.printf("USer %s is denied access. \n", user.getUserName());
+				Platform.exit();
+			}
+		});
+
+		//The dialog box to keep all the things on
+		VBox formLayout = new Vbox(4);
+
+		//Add the children
+		formLayout.getChildren().addAll(row1, row2);
+		formLayout.setLayoutX(12);
+		formLayout.setLayoutY(12);
+
+		//add the background and formlayout
+		root.getChildren().addAll(background, formLayout);
+
+		primaryStage.show();
+	}
+
+	public static void main(String[] args){
+		launch(args);
+	}
+}
+
+JavaFX uses the following things for UI controlled design:
+
+javafx.scene.layout.HBOX
+
+javafx.scene.layout.VBox
+
+javafx.scene.layout.FlowPane
+
+javafx.scene.layout.BorderPane
+
+javafx.scene.layout.GridPane
+
+By default, the HBox's layout honors the child's preffered width and height. 
+When the parent is not resizable, such as a group node, the row height takes the greater pref height amongst the Children nodes.
+
+Each Node defaults to align to top left: Pos.TOP_LEFT
+
+We can either use the CSS stuff to cause alignments, indents, margins and what not - Or we can use a programmatic approach, as follows:
+
+//When it comes to non-resizable such as Shapes, we have to manually set stuff for it to be responsive
+
+HBox hbox = new HBox(5); //Space between child nodes only
+hbox.setPadding(new Insets(1)); //padding between hbox border and row
+
+Rectangle r1 = new Rectangle(10,10); //Square
+//etc
+
+HBox.setMargin(r1, new Insets(2,2,2,2)); //Space between border & child node
+hbox.getChildren.addAll(r1 etc.);
+
+Padding goes inwards. Margin goes outwards. Border is around.
+
+Spacing is between objects.
+
+To create spacing, we can use the setSpacing() method.
+
+VBox acts as a HBox, except on the height.
+
+An example of running VBox:
+
+VBox vbox = new VBox(5); //Spacing between boxes
+vbox.setPadding(new Insets(1)); //padding between border and child nodes
+
+Rectangle r1 = new Rectangle(10, 10);
+etc.
+
+VBox.setMargin(r1, new Insets(2,2,2,2));
+vbox.getChildren().addAll(r1, r2, r3, r4);
+
+A FlowPane is a pane that wraps objects based on spacing left and places them on the next row if the spacing is not enough.
+
+It flows from left to right, but can modified by alignment setting:
+
+FlowPane flowPane = new FlowPane();
+flowPane.setAlignment(Pos.TOP_RIGHT);
+flowPane.getChildren().addAll(...);
+
+A BorderPane is a sectionized Pane, meaning one node goes into each region.
+
+Alignments can be done as expected:
+
+
+
+Pos.BOTTOM_LEFT //Bot
+
+Pos.TOP_LEFT //Left or Top
+
+Pos.TOP_RIGHT //Right
+
+Pos.CENTER //Center
+
+To have a more advanced and responsive design layout, we can use the GridPaneForm. An example follows:
+
+@Override
+public void start(Stage primaryStage){
+	primaryStage.setTitle("GridPaneForm");
+	BorderPane root = new BorderPane(); //Set the parent object to be a BorderPane so that upon resizing of the window, the design is responsive by virtue of that the parent BorderPane allows for re-sizing
+	Scene scene = new Scene(root, 380, 150, Color.WHITE);
+
+	GridPane gridpane = new GridPane();
+	gridpane.setPadding(new Insets(5));
+	gridpane.setHgap(5);
+
+	gridpane.setVgap(5);
+	ColumnConstraints column1 = new ColumnConstraints(100); //Labels are always the same constraint size
+	ColumnConstraints column2 = new ColumnConstraints(50, 150, 300); //min, pref, max
+	column2.setHgrow(Priority.ALWAYS);
+
+	gridpane.getColumnConstraints().addAll(column1, column2);
+
+	Label fNameLbl = new Label("First Name");
+	TextField fNameFld = new TextField();
+	Label lNameLbl = new Label("Last Name");
+	TextField lNameFld = new TextField();
+
+	Button saveButton = new Button("Save");
+
+	//First name label
+	GridPane.setHalignment(fNameLbl, HPos.RIGHT);
+	gridpane.add(fNameLbl, 0, 0);
+
+	//Last name label
+	GridPane.setHalignment(fNameLbl, HPos.LEFT);
+	gridpane.add(lNameLbl, 1, 0);
+
+	//First name field
+	GridPane.setHalignment(fNameFld, HPos.LEFT);
+	gridpane.add(fNameFld, 1, 0);
+
+	//last name field
+	GridPane.setHalignment(lNameFld, HPos.LEFT);
+	gridpane.add(lNameFld, 1, 1);
+
+	//save button
+	GridPane.setHalignment(saveButon, HPos.RIGHT);
+	gridpane.add(saveButton, 1, 2);
+
+	FlowPane topBanner = new FlowPane();
+	topBanner.setPrefHeight(40);
+	String backgroundstyle =
+			"-fx-background-color: lightblue;"
+		  + "-fx-background-radius: 30%;"
+		  + "-fx-background-inset: 5px;";
+	topBanner.setStyle(backgroundStyle);
+
+	SVGPath svgIcon = new SVGPath();
+
+	svgIcon.setContent(/*Svg path code as string */);
+	svgIcon.setStroke(Color.LIGHTGRAY);
+	svgIcon.setFill(Color.WHITE);
+
+	Text contactText = new Text("Contacts");
+	contactText.setFill(Color.WHITE);
+
+	Font serif = Font.font("Dialog", 30);
+	contactText.setFont(serif);
+	topBanner.getChildren().addAll(svgIcon, contactText);
+
+	root.setTop(topBanner);
+	root.setCenter(gridpane);
+
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+To create a menu, we could do as follows:
+
+MenuBar menuBar = new Menubar();
+Menu fileMenu = new Menu("File");
+fileMenu.getItems().add(new MenuItem("Save"));
+menuBar.getMenus().add(fileMenu);
+
+To allow for more advanced menu items we have the following classes:
+
+javafx.scene.control.CheckMenuItem //Optional cecking
+
+javafx.scene.control.RadioMenuItem //only one item from the group
+
+javafx.scene.control.CustomMenuItem //A custom behavior
+
+javafx.scene.control.SeperatorMenuItem //Seperator line
+
+javafx.scene.control.Menu // child of MenuItem, has getItems.add() to add children etc.
+
+Menu derivative options are the same as that of assigning event handlers to buttons:
+
+//IMplementation using an anonymous inner class
+exitMenuItem.setOnAction(new EventHandler<ActionEvent>(){
+	@Override
+	public void handle(ActionEvent t){
+		Platform.exit();
+	}
+});
+
+//IMplementation taht uses lambda expressions
+exitMenuItem.setOnAction(ae -> Platform.exit());
+
+An example of creating a fictional alarm system app:
+
+@Override
+public void start(Stage primamryStage){
+	primaryStage.setTitle("Menus Example");
+	BorderPane root = new BorderPane(); //The border pane
+
+	Scene scene = new Scene(root, 300, 250, Color.WHITE); //The base scene
+
+	MenuBar menuBar = new MenuBar(); //create a menu bar
+	root.setTop(menuBar); //Set the menu bar on the top
+
+	//File menu new, save, exit
+	Menu fileMenu = new Menu("File"); //a file menu
+	MenuItem newMenuItem = new MenuItem("New"); //the stuff for the file menu
+	MenuItem saveMenuItem = new MenuItem("Save");
+	Menuitem exitMenuItem = new MenuItem("Exit");
+	exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+
+	fileMenu.getItems().addAll(newMenuItem, //add stuff to the file menu
+			saveMenuItem,
+			new SeparatorMenuitem(),
+			exitMenuItem
+	);
+	menuBar.getMenus().add(fileMenu);
+
+	//Cameras menu - camera 1, camera 2
+	Menu cameraMenu = new Menu("Cameras");
+	CheckMenuItem cam1MenuItem = new CheckMenuItem("Show Camera 1");
+
+	cam1Menuitem.setSelected(true);
+	cameraMenu.getItems().add(cam2MenuItem);
+
+	//Alarm Menu
+	Menu alarmMenu = new Menu("Alarm");
+
+	//Sound or turn alarm off
+	ToggleGroup tGroup = new ToggleGroup();
+	RadioMenuItem soundAlarmItem = new RadioMenuItem("Sound Alarm");
+	soundAlarmItem.setToggleGroup(tGroup);
+
+	RadioMenuItem stopAlarmItem = new RadioMenuItem("Alarm off");
+	stopAlarmItem.setToggleGroup(tGroup);
+	stopAlarmItem.setSelected(true);
+
+	arlamMenu.getItems().addAll(soundAlarmItem,
+			stopAlarmItem,
+			new SeperatorMenuItem());
+
+	Menu contingencyPlans = new Menu("Contingent Plans");
+	contingencyPlans.getItems().addAll(
+			new CheckMenuItem("Self destruct in t minus 50"),
+			new CheckMenuitem("Turn off the coffee machine"),
+			new CheckMenuitem("etc."));
+
+	alarmMenu.getItems().add(contingencyPlans);
+
+	menubar.getMenus().addAll(fileMenu, cameraMenu, alarmMenu);
+
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+By virtue of populating the inner menus, we add to them and configure them there of.
+
+We can also invoke Menus in other ways, such as with key mnemonics, key combos and context menus.
+
+Key Mnemonics:
+
+To allow a key mnemonic, we just pass it in as a boolean to allow activation by keys on that part.
+
+Menu fileMenu = new Menu("_File");
+fileMenu.setMnemonicParsing(true);
+
+To trigger things with a keycommand:
+
+MenuItem saveItem = new MenuItem("_Save");
+saveItem.setMnemonicParsing(true);
+saveItem.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN)); //Ctrl + S
+
+Context Menus:
+
+To spawn a context menu, we could just do as follows:
+
+ContextMenu contextFileMenu = new ContextMenu(exitItem);
+
+//And then add a event listener
+
+primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent me) -> {
+	if (me.getButton() == MouseButton.SECONDARY || me.isControlDown()){
+		contextFileMenu.show(root, me.getScreenX(), me.getScreenY());
+	} else {
+		contextFileMenu.hide();
+	}
+});
+
+//An example of a ListView and ObservableList interaction:
+
+@Override
+public void start(Stage primaryStage){
+	primaryStage.setTitle("Hero Picker: Chapter 4 Creating and Workign with shit");
+	BorderPane root = new BorderPane();
+	Scene scene = new Scene(root, 400, 250, Color.WHITE);
+
+	//Create a grid pane
+	GridPane gridpane = new GridPane();
+	gridpane.setPadding(new Insets(5));
+	gridpane.setHgap(10);
+	gridpane.setVgap(10);
+
+	ColumnConstraints column1 = new ColumnConstraints(150, 150, Double.MAX_VALUE);
+	ColumnConstraints column2 = new ColumnConstraints(50);
+	ColumnConstraints column3 = new ColumnConstraints(150, 150, Double.MAX_VALUE);
+
+	column1.setHgrow(Priority.ALWAYS);
+	column3.setHgrow(Priority.ALWAYS);
+
+	gridpane.getColumnConstraints().addAll(column1, column2, column3);
+
+	//Candidates label
+
+	Label candidatesLabel = new Label("Candidates");
+	GridPane.setHalignment(candidatesLbl, HPos.CENTER);
+	gridpane.add(candidatesLbl, 0, 0);
+
+	//Heroes labels
+	Label heroesLbl = new Label("Heroes");
+	gridpane.add(heroesLbl, 2, 0);
+	GridPane.setHalignment(heroesLbl, HPos.CENTER);
+
+	//Candidates
+	final ObservableList<String> candidates = FXCollections.observableArrayList(//heroes);
+
+	final ListView<String> candidatesListView = new ListView<>(candidates);
+	gridpane.add(candidatesListView, 0, 1);
+
+	//Heroes
+	final ObservableList<String> heroes = FXCollections.observableArrayList();
+	final ListView<String> heroListView = new ListView<>(heroes);
+
+	gridpane.add(heroListView, 2, 1);
+
+	//Select heroes
+	Button sendRightButton = new Button(" > ");
+	sendRightButton.setOnAction((ActionEvent event) -> {
+		String potentional = candidatesListview.getSelectionModel().getSelectedItem();
+		if (potentional != null){
+			candidatesListView.getSelectionModel().clearSelection();
+			candidates.remove(potentional);
+			heroes.add(potentional);
+		}
+	});
+
+	//Deslect heroes
+	Button sendLeftButton = new Button(" < ");
+	sendLeftButton.setOnAction((ActionEvent event) -> {
+		String notHero = heroListView.getSelectionModel().getSelectedItem();
+		if (notHero != null) {
+			heroListView.getSelectionModel().clearSelection();
+			heroes.remove(notHero);
+			candidates.add(notHero);
+		}
+	});
+
+	VBox vbox = new VBox(5);
+	vbox.getChildren().addAll(sendRightButton, sendLeftButton);
+
+	gridpane.add(vbox, 1,1);
+	root.setCenter(gridpane);
+
+	GridPane.setVgrow(root, Priority.ALWAYS);
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+
+
+//An example of creating a Person class as a JavaFX bean to be used in ObservableLists
+
+public class Person {
+	private StringProperty aliasName;
+	private StringProperty firstName;
+	private StringProperty lastName;
+	private ObservableList<Person> employees = FXCollections.observableArrayList();
+
+	public final void setAliasName(String value){
+		aliasNameProperty().set(value);
+	}
+
+	public final String getAliasName(){
+		return aliasNameProperty().get();
+	}
+
+	public StringProperty aliasNameProperty(){
+		if(aliasName == null){
+			aliasName = new SimpleStringProperty();
+		}
+		return aliasName;
+	}
+
+	public final void setFirstName(String value){
+		firstNameProperty().set(value);
+	}
+
+	public final String getFirstName(){
+		return firstNameProperty().get();
+	}
+
+	public StringProperty firstNameProperty(){
+		if (firstName == null){
+			firstName = new SimpleStringProperty();
+		}
+		return firstName;
+	}
+
+	public final void setLastName(String value){
+		if (lastName == null) {
+			lastName = new SimpleStringProperty();
+		}
+		return lastName;
+	}
+
+	public final String getLastName(){
+		return lastNameProperty().get();
+	}
+
+	public StringProperty lastNameProperty(){
+		if (lastName == null){
+			lastName = new SimpleStringProperty();
+		}
+		return lastName;
+	}
+
+	public ObservableList<Person> employeesProperty(){
+		return employees;
+	}
+
+	public Person(String alias, String firstName, String lastName){
+		setAliasName(alias);
+		setFirstName(firstName);
+		setLastName(lastName);
+	}
+}
+
+//The GUI that creates a grid pane containing a ListView and TableView control, for bosses and employees
+
+@Override
+public void start(Stage primaryStage){
+	primaryStage.setTitle("Bosses and Employee");
+	BorderPane root = new BorderPane();
+	Scene scene = new Scene(root, 500, 250, Color.WHITE);
+
+	//Create a grid pane
+	GridPane gridpane = new GridPane();
+	gridpane.setPadding(new Insets(5));
+	gridpane.setHgap(10);
+	gridpane.setVgap(10);
+	root.setCenter(gridpane);
+
+	//candidates label
+	Label candidatesLbl = new Label("Boss");
+	GridPane.setHalignment(candidatesLbl, HPos.CENTER);
+	gridpane.add(candidatesLbl, 0, 0);
+
+	//list of leaders
+	ObservableList<Person> leaders = getPeople();
+	final ListView<Person> leaderListView = new ListView<>(leaders);
+
+	leaderListView.setPrefWidth(150);
+	leaderListView.setMaxWidth(Double.MAX_VALUE);
+	leaderListView.setPrefHeight(150);
+
+	//Display first and last name with tooltip using alias
+	leaderListView.setCellFactory(new Callback<ListView<Person>, ListCell<Person>(){
+		@Override
+		public ListCell<Person> call(ListView<Person> param){
+			Label leadLbl = new Label();
+			Tooltip tooltip = new Tooltip();
+			ListCell<Person> cell = new ListCell<Person>(){
+				@Override
+				public void updateItem(Person item, boolean empty){
+					super.updateItem(item, empty);
+					if (item != null){
+						leadLbl.setText(item.getAliasName());
+						setText(item.getFirstName() + " " + item.getLastName());
+						tooltip.setText(item.getAliasName());
+						setTooltip(tooltip);
+					}
+				}
+			}; //List cell
+			return cell;
+		}
+	}); //setCellFactory
+
+	gridpane.add(leaderListView, 0, 1);
+
+	Label emplLbl = new Label("Employees");
+	grindpane.add(emplLbl, 2, 0);
+	GridPane.setHalignment(emplLbl, Hpos.CENTER);
+
+	final TableView<Person> employeeTableView = new TableView<>();
+	employeeTableView.setPrefWidth(300);
+
+	final ObservableList<Person> teamMembers = FXCollections.observableArrayList();
+	employeeTableView.setItems(teamMembers);
+
+	TableColumn<Person, String> aliasNameCol = new TableColumn<>("Alias");
+	aliasNameCol.setEditable(true);
+	aliasNameCol.setCellValueFactory(new PropertyValueFactory("aliasName"));
+
+	aliasNameCol.setPrefWidth(employeeTabView.getPrefWidth()/3);
+
+	TableColumn<Person, String> firstNameCol = new TableColumn<>("First Name");
+	firstNameCol.setCellValueFactory(new PropertyValueFactory("firstName"));
+	firstNameCol.setPrefWidth(employeeTableView.getPrefWidth()/3);
+
+	TableColumn<Person, String> lastNameCol = new TableColumn<>("Last Name");
+	lastNameCol.setCellValueFactory(new PropertyValueFactory("lastName"));
+	lastNameCol.setPrefWidth(employeeTableView.getPrefWidth()/3);
+
+	employeeTableView.getColumns().setAll(aliasNameCol, firstNameCol, lastNameCol);
+	gridpane.add(employeeTableView, 2, 1);
+
+	//Selection listening
+	leaderListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Person> observable, Person oldValue, Person newValue) -> {
+		if (observable != null && observable.getValue() != null){
+			teamMembers.clear();
+			teamMembers.addAll(observable.getValue().employeesProperty());
+		}
+	});
+
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+//The method to get the list of people
+
+private ObservableList<Person> getPeople(){
+	ObservableList<Person> people = FXCollections.<Person>observableArrayList();
+	Person docX = new Person("Professor X", "Charles", "Xavier");
+	docX.employeesProperty().add(new Person("Wolverine", "James", "Howlett"));
+	etc.
+
+	//more people
+	people.addAll(docX);
+	return people;
+}
+
+
+We can also delegate to the Background with thread management, as follows:
+
+@Override
+public void start(Stage primaryStage){
+	primaryStage.setTitle("Some shit");
+
+	//labels and bars etc.
+	final Label label = new Label("Files transfer:");
+	final ProgressBar progressBar = new ProgressBar(0);
+	final ProgressIndicator progressIndicator = new ProgressIndicator(0);
+
+	//layout and UI controls
+	final Button startButton = new Button("Start");
+	final Button cancelButton = new Button("Cancel");
+	final TextArea textArea = new TextArea();
+
+
+	//Wire up the start button
+
+	startButton.setOnAction((ActionEvent event) -> {
+		startButton.setDisable(true);
+		progressBar.setProgress(0);
+		progressIndicator.setProgress(0);
+
+		textArea.setText("");
+		cancelButton.setDisable(false);
+		copyWorker = createWorker(numFiles); //numFiles is never referenced.
+
+		//Wire up the progress bar
+		progressBar.progressProperty().unbind(); //Unbind so that its not bound to the old
+		progressBar.progressProperty()
+				   .bind(copyWorker.progressProperty()); //bind to the new
+		progressIndicator.progressProperty().unbind();
+		progressIndicator.progressProperty()
+				   .bind(copyWorker.progressProperty());
+
+		//Append to the text area box
+		copyWorker.messageProperty().addListener(
+			(ObserverValue<? extends String> observable,
+					String oldValue, string newValue) -> {
+						textArea.appendText(newValue + "\n");
+		});
+
+		new Thread(copyWorker).start(); //Start a new thread
+	});
+
+	//cancel button will kill worker and reset
+	cancelButton.setOnAction((ActionEvent event) -> {
+		startButton.setDisable(false);
+		cancelButton.setDisable(true);
+		copyWorker.cancel(true);
+
+		//Reset
+		progressBar.progressProperty().unbind();
+		progressBar.setProgress(0);
+		progressIndicator.progressProperty().unbind();
+		progressIndicator.setProgress(0);
+		textArea.appendText("File transfer was cancelled");
+	});
+
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+private Task createWorker(final int numFiles){
+	return new Task(){
+		@Override
+		protected Object call() throws Exception{
+			for (int i = 0; i < numFiles; i++){
+				long elapsedTime = System.currentTimeMillis();
+				copyFile("some file", "some dest file");
+				elapsedTime = System.currentTimeMillis() - elapsedTime;
+				String status = elapsedTime + " milliseconds";
+
+				//Queue up status through thread safe calls
+				updateMessage(status);
+				updateProgress(i + 1, numFiles);
+			}
+			return true;
+		}
+	};
+}
+
+private void copyFile(String src, String dest) throws InterupptedException{ //initialize the sleeping
+	//Simulate a long time
+	Random rnd = new Random(System.currentTimeMillis()); //get a random number
+	long millis = rnd.nextInt(1000); //assign it
+	Thread.sleep(millis); //Sleep a thread
+}
+
+To load images in javafX, we can use the Image class. We can do so from remote webservers or from local computer.
+
+We can then display it with ImageView nodes.
+
+The format of loading images is as follows:
+
+Image(java.io.InputStream inputStream)
+
+Image(java.io.InputStream is, double requestedWidth, double requestedHeight, boolean preserveRatio, boolean smooth)
+
+Image(java.lang.String url)
+
+Image(java.lang.String url, boolean backgroundLoading)
+
+Image(java.lang.String url, double requestedWidth, double requestedHeight, boolean preserveRatio, boolean smooth)
+
+Image(java.lang.String url, double requestedWidth, double requestedHeight, boolean preserveRatio, boolean smooth, boolean backgroundLoading)
+
+They can be described as follows:
+
+Parameter 								Data Type 									Desc
+
+inputStream 							java.io.InputStream 						An input stream as a file or network.
+
+url 									String 										An image's URL location
+
+backgroundLoading 						boolean 									Loads the image in the background, not on the javafX app thread
+
+requestWidth 							double 										Specified an image's bounding box width
+
+requestedHeight 						double 										-II- for height
+
+preserveRatio 							boolean 									Keep aspect ratio in the box
+
+smooth 									boolean 									If true, smoother res, takes more performance. False for faster but sloppy.
+
+//Example of loading a file based on URL or local file system
+
+try {
+	File file = new File("C:\\Users\\jdoe\\Pictures\\myphoto.jpg");
+	String localUrl = file.toURI().toURL().toString();
+	Image localImage = new Image(localUrl, false); //Dont load in the BG
+
+	String remoteUrl = "http://mycompany.com/myphoto.jpg";
+	Image remoteImage = new Image(remoteUrl, true); //load in the BG
+
+	//localUrl will begin with file: and then path
+	//remoteUrl is just url
+} catch (MalformedURLException ex){
+	//error
+}
+
+To have a image view node, that is a wrapper of a image, we can do as follows:
+
+Image image = new Image(url, true);
+ImageView imageView = new ImageView(image);
+
+//An example of a Photoviewer app, follows:
+
+package jfx8ibe;
+
+//imports go here
+
+* 1. Drag and Drop a Image file onto the app window
+* 2. repeat step 1 so more than 2 images are loaded
+* 3. Click <- or -> to advance
+
+public class PhotoViewer extends Application {
+	//list of URL strings
+	private final List<String> imageFiles = new ArrayList<>();
+
+	//The current index into the imageFile
+	private int currentIndex = -1;
+
+	//Enum of next and previous button dirs
+	public enum ButtonMove {NEXT, PREV};
+
+	//Current image view display
+	private ImageView currentImageView;
+
+	//Loading progress indicator
+	private ProgressIndicator progressIndicator;
+
+	// Mutex
+	private AtomicBoolean loading = new AtomicBoolean();
+
+	@Override
+	public void start(Stage primaryStage){
+		primaryStage.setTitle("Chap 5"); //Scene creation stuff
+		Group root = new Group();
+
+		Scene scene = new Scene(root, 551, 400, Color.BLACK);
+		scene.getStyleSheets() //get css and apply it
+				.add(getClass()
+				.getResource("photo-viewer.css")
+				.toExternalForm());
+
+		primaryStage.setScene(scene);
+
+		//Set up the current image view area
+		currentImageView = createImageView(scene.widthProperty());
+
+		//set up drag & drop file abilities
+		setupDragNDrop(scene);
+
+		//create button panel controls (left & right arrows)
+		Group buttonGroup = createButtonPanel(scene);
+
+		//Create a progress indicator
+		progressIndicator = createProgressIndicator(scene);
+
+		root.getChildren().addAll(currentImageView,
+								  buttonGroup,
+								  progressIndicator);
+
+		primaryStage.show();
+	}
+
+	/* 
+	 * A factory function returning an ImageView instance to
+	 * preserve the aspect ratio and bind the instance to the width
+	 * of the scene for resizing the image.
+
+	 * @param widthProperty is the Scene's read only width property
+	 * @return ImageView newly created image view for current display.
+	 */
+
+	private ImageView createImageView(ReadOnlyDoubleProperty widthProperty) {
+		//maintain aspect ratio
+		ImageView imageView = new ImageView();
+
+		//Set aspect ratio
+		imageView.setPreserveRatio(true);
+
+		//resize based on the scene
+		imageView.fitWidthProperty().bind(widthProperty);
+		return imageView;
+	}
+
+	/*
+	 * Sets up teh drag and drop onto the scene. This will load the image into
+	 * the current image view area.
+	 * @param scene The primary app scene.
+	 * /
+
+	private void setupDragNDrop(Scene scene){
+		//Dragging over surface
+		scene.setOnDragOver((DragEvent event) -> {
+			Dragboard db = event.getDragboard();
+			if (db.hasFiles()
+				|| (db.hasUrl() && isValidImageFile(db.getUrl()))) {
+					event.acceptTransferModes(TransferMode.LINK); //If the db is a valid thing to use
+				} else {
+					event.consume(); //consume the event
+				}
+		});
+
+		// Dropping over surface
+		scene.setOnDragDropped((DragEvent event) -> {
+			Dragboard db = event.getDragboard();
+
+			//image from the local file system
+			if (db.hasFiles() && !db.hasUrl()) {
+				db.getFiles() //get the files of the dragboard
+				  .stream() //Treat it as a stream
+				  .forEach( file -> { //Run a foreach on em
+				  	try {
+				  		addImage(file.toURI().toURL().toString()); //convert the img to URI, to URL, to string and add it
+				  	} catch (MalformedURLException ex) {
+				  		ex.printStackTrace(); //The picture was malformed, throw an error
+				  	}
+				  });
+			} else {
+				//image from some host
+				addImage(db.getUrl()); //Its a URL otherwise
+			}
+			if (currentIndex > -1){ //load the image from the currentIndex
+				loadImage(imageFiles.get(currentIndex));
+			}
+
+			event.setDropCompleted(true); //flag the event
+			event.consume(); //Consume it
+		});
+	}
+
+	/*
+	 * Returns a custom created button panel
+	 * containing left and right buttons to
+	 * see previous and next images.
+	 * @param scene The main app scene
+	 * @return Group A custom button panel with
+	 * previous and next button
+	 * /
+
+	private Group createButtonPanel(Scene scene){
+		//Create button panel
+		Group buttonGroup = new Group();
+
+		//Create a rectangle and apply it
+		Rectangle buttonArea = new Rectangle(0,0,60,30);
+		buttonArea.getStyleClass().add("button-panel");
+		buttonGroup.getChildren().add(buttonArea);
+
+		//left arrow button
+		Arc leftButton = new Arc(12,16,15,15, -30, 60);
+
+		leftButton.setType(ArcType.ROUND);
+		leftButton.getStyleClass().add("left-arrow");
+
+		//return the previous img
+		leftButton.addEventHandler(MouseEvent.MOUSE_PRESSED,
+			(mouseEvent) -> {
+				System.out.println("busy loading?" + loading.get());
+
+				//If there is no previous img or its currently loading
+				if (currentIndex == 0 || loading.get()) return;
+				int indx = gotoImageIndex(ButtonMove.PREV);
+
+				if(indx > -1){
+					loadImage(imageFiles.get(indx));
+				}
+			});
+
+			//add buttons to button group
+			buttonGroup.getChildren().addAll(leftButton, rightButton);
+
+			//Move button group when scene is resized
+			buttonGroup.translateXProperty()
+					.bind(scene.widthProperty())
+							   .subtract(buttonArea.getWidth() + 6));
+			buttonGroup.translatePropertyY()
+					.bind(scene.heightProperty()
+							   .subtract(buttonArea.getHeight() + 6));
+			return butonGroup;
+	}
+
+	/*
+	 * Create a progress indicator control to be centered
+	 * @param scene The primary app scene
+	 * @return ProgressIndicator a new progress indicator centered
+	 */
+	private ProgressIndicator createProgressIndicator(Scene scene){
+		ProgressIndicator progress = new ProgressIndicator(0);
+		progress.setVisible(false);
+		progress.layoutXProperty()
+				.bind(scene.widthProperty()
+							.subtract(progress.widthProperty())
+							.divide(2));
+
+		progress.layoutYProperty()
+				.bind(scene.heightProperty()
+						   .subtract(progress.heightProperty())
+						   .divide(2));
+
+		return progress;
+	}
+
+	/*
+	 * Returns true if URL's file extensions match jpg, jpeg, png and gif.
+	 * @param url standard URL path to image file.
+	 * @return boolean returns true if URL's extension matches jpg, jpeg, png and gif
+	 */
+
+	 private boolean isValidImageFile(String url){
+	 	List<String> imgTypes = Arrays.asList(".jpg", "jpeg", ".png", ".gif", ".bmp");
+	 	return imgTypes.stream()
+	 				   .anyMatch(t -> url.endsWith(t)); //go through the stream to see if any part matches the img types
+	 }
+
+	 /** Adds the URL string representation of the path to the image file.
+	  * based on a URL the method will check if it matches supported
+	  * image format.
+	  * @param url string representation of the path of the image file
+	  */
+	 private void addImage(String url){
+	 	if (isValidImageFile(url)){
+	 		currentIndex += 1;
+	 		imageFiles.add(currentIndex, url);
+	 	}
+	 }
+
+	 /**
+	  * Returns the next index in the list of files to go next
+	  *
+	  * @param direction PREV and NEXT to move backward or forward
+	  * in the list of pictures
+	  * @return int the index to the previous or next picture to be shown
+	 */
+
+	 private int gotoImageIndex(ButtonMove direction){
+	 	int size = imageFiles.size();
+	 	if (size == 0){
+	 		currentIndex -= 1;
+	 	} else if (direction == ButtonMove.NEXT && size > 1 && currentIndex < size - 1) {
+	 		currentIndex += 1;
+	 	} else if (direction == ButtonMove.PREV && size > 1 && currentIndex > 0) {
+	 		currentIndex -= 1;
+	 	}
+
+	 	return currentIndex;
+	 }
+
+	 /*
+	  * Returns a worker task (Task) which will off-load the image
+	  * on a separate thread when finished; the current iamge will
+	  * be displayed on the JavaFX App thread.
+	  * @param url string rep of the path of the img file
+	  * @eturn
+	  */
+	 private Task createWorker(final String url){
+	 	return new Task(){ //return a new task
+	 		@Override //Override the call method
+	 		protected Object call() throws Exception{
+	 			//on the worker thread
+	 			Image image = new Image(url, false);
+	 			Platform.runLater(() -> {
+	 				//on the java FX app thread
+	 				system.out.println("Done loading image! " + url);
+	 				currentImageView.setImage(image);
+	 				progressIndicator.setVisible(false);
+	 				loading.set(false); //free lock
+	 			});
+	 			return true;
+	 		}
+	 	}:
+	 }
+
+	 /*
+	  * This method does the following: loads an image,
+	  * updates a progress bar and spawns a new thread.
+	  * If another process is already loading
+	  * the method will return without loading.
+	  * @param url string representation of the path to the image file.
+	  */
+	 private void loadImage(String url){
+	 	if (!loading.getAndSet(true)){ //if it is not loading
+	 		Task loadImage = createWorker(url); //Create a worker with the url
+	 		progressIndicator.setVisible(true); //Set it to visible
+	 		progressIndicator.progressProperty().unbind(); //unbind the old
+	 		progressIndicator.progressProperty().bind(loadImage.progressProperty()); //Bind the progressProperty anew
+
+	 		new Thread(loadImage).start();
+	 	}
+	 }
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+}
+
+The most prevelant attribute to discuss here, is the AtomicBoolean:
+
+loading 		AtomicBoolean 			A flag boolean, true if loading, false otherwise.
+
+A Atomicboolean is a boolean that can automatically be updated based on State of something.
+
+Next up, we will be learning animations in JavaFX.
+
+Animations consists of four key parts: key values, key frames, timelines and transitions. AT least in JavaFX.
+
+Key Values:
+
+Key values is the range of animation cycles. 
+
+Example:
+
+Rectangle rectangle = new Rectangle(0,0, 50, 50);
+KeyValue keyValue = new keyValue(rectangle.opacityProperty(), 0); //By default the interpoaltor is linear, meaning we move from point a to B, 1 to 0. Meaning we can go a fade out to be from 1 to 0 which makes it fade out by changing opacity.
+
+the keyValue itself is just the range to interpolate between.
+
+However, we can define, with optional params, the virtue of which the animation interacts with:
+
+Rectangle rectangle = new Rectangle(0, 0, 50, 50);
+KeyValue keyValue = new KeyValue(rectangle.xProperty(), 100, Interpolator.EASE_OUT);
+
+In this case, the interpolator is set to EASE_OUT, meaning it gets "eased out", ie, milder, when closing in on its param range. This one moves the rectangle's X by 100 from left to right, since its a positive gain of 100 in X
+
+Key Frames:
+
+the Key Frame is the one that interpolates between the key values.
+
+Example:
+
+Rectangle rectangle = new Rectangle(0, 0, 50, 50);
+KeyValue xValue = new KeyValue(rectangle.xProperty(), 100);
+KeyValue yValue = new KeyValue(rectangle.yProperty(), 100);
+
+KeyFrame keyFrame = new KeyFrame(Duration.millis(1000), xValue, yValue);
+
+Timeline:
+
+A Timeline is a chain of Key Frames, causing the animation.
+
+Either we define the amount of times we want it to run, or we just run it with Timeline.INDEFINITE. It can also
+be that it can play them backwards, in reverse.
+
+an example of a timeline instance:
+
+Timeline timeline = new Timeline();
+timeline.setCycleCount(Timeline.INDEFINITE);
+timeline.setAutoReverse(true);
+timeline.getKeyFrames().addAll(keyFrame1, keyFrame2);
+timeline.play();
+
+There are of course stock animations also:
+
+javafx.animation.FadeTransition
+
+javafx.animation.PathTransition //Run along a path
+
+javafx.animation.ScaleTransition //Change scaling
+
+javafx.animation.TranslateTransition //moves a node
+
+There are many more, of course.
+
+Animations in JavaFX can be parallel or sequential. (Both at the same time, or in order)
+
+Some example code to illustrate animations:
+
+private sequentialTransition transitionByFading(Image nextImage, ImageView imageView)
+{
+	//Fade out the image view node
+	FadeTransition fadeOut = new FadeTransition(Duration.millis(500), imageView);
+
+	fadeOut.setFromValue(1.0);
+	fadeOut.setToValue(0.0);
+	fadeOut.setOnFinished(actionEvent -> imageView.setImage(nextImage));
+
+	//Fade in image view node
+	FadeTransition fadeIn = new FadeTransition(Duration.millis(500), imageView);
+	fadeIn.setFromValue(0.0);
+	fadeIn.setToValue(1.0);
+
+	//Fade out image, swap it and then fade in the newly
+	SequentialTransition seqTransition = new SequentialTransition(fadeOut, fadeIn);
+
+	return seqTransition;
+}
+
+//We then also create the worker that is handling the thread sequence on this task:
+
+private Task createWorker(final String url){
+	return new Task(){
+		@Override
+		protected Object call() throws Exception {
+			Image image = new Image(url, false);
+			Platform.runLater(() -> {
+				SequentialTransition seqTransition = transitionByFading(image, currentImageView);
+				seqTransition.play();
+
+				progressIndicator.setVisible(false);
+				loading.set(false);
+			});
+			return true;
+		}
+	};
+}
+
+//An example of having fade in and fade out on buttons:
+
+/**
+ * Returns a custom created button panel containing left and right
+ * buttons to see the previous and next image
+ * @param scene
+ * @return Group node.
+ */
+ private Group createButtonPanel(Scene scene){
+ 	//Code omitted, button panel goes here
+
+ 	//fade in button controls
+ 	scene.setOnMouseEntered((MouseEvent me) -> {
+ 		FadeTransition fadeButtons = new FadeTransition(Duration.millis(500), buttonGroup);
+ 		fadeButtons.setFromValue(0.0);
+ 		fadeButtons.setToValue(1.0);
+ 		fadeButtons.play();
+ 	});
+
+ 	//fade out button controls
+ 	scene.setOnMouseExited((MouseEvent me) -> {
+ 		FadeTransition fadeButtons = new FadeTransition(Duration.millis(500), buttonGroup);
+ 		fadeButtons.setFromValue(1);
+ 		fadeButtons.setToValue(0);
+ 		fadeButtons.play();
+ 	});
+
+ 	return buttonGroup;
+ }
+
+ //And what follows next, is a news ticker implementation:
+
+ /**
+  * Returns a news ticker control
+  * @param scene
+  * @param buttonGroup
+  * @return
+  * /
+private Group createTickerControl(Stage stage, double rightPadding){
+	Scene scene = stage.getScene();
+
+	//Create a ticker area
+	Group tickerArea = new Group();
+	Rectangle tickerRect = new Rectangle(scene.getWidth(), 30);
+	ticketRect.getStyleClass().add("ticker-border");
+
+	Rectangle clipRegion = new Rectangle(scene.getWidth(), 30);
+	clipRegion.getStyleClass().add("ticker-clip-region");
+	tickerArea.setClip(clipRegion);
+
+	//Resize the ticker area when window is resized
+	tickerArea.setTranslateX(6);
+	tickerArea.translateYProperty()
+			.bind(scene.heightProperty()
+					   .subtract(tickerRect.getHeight() + 6));
+
+	tickerRect.widthProperty()
+			  .bind(scene.widthProperty()
+			  			 .subtract(rightPadding));
+
+	clipRegion.widthPropert()
+	          .bind(scene.widthProperty()
+	           			 .subtract(rightPadding));
+
+	tickerArea.getChildren().add(tickerRect);
+
+	//new feed container
+	FlowPane tickerContent = new  FlowPane();
+
+	//Add some news
+	Text news = new Text();
+	news.setText("JavafX 8.0 blah blah");
+	news.setFill(color.WHITE);
+	ticker.Content.getChildren().add(news);
+
+	DoubleProperty centerContentY = new SimpleDoubleProperty();
+	centerContentY.bind(
+			clipRegion.heightProperty()
+				.divide(2)
+				.subtract(tickerContent.heightProperty()
+									   .divide(2)));
+
+	tickerContent.translateYProperty().bind(centerContentY);
+
+	tickerArea.getChildren().add(tickerContent);
+
+	//Scroll news feed
+	TranslateTransition tickerScroller = new TranslateTransition();
+	tickerScroller.setNode(tickerContent);
+
+	tickerScroller.setDuration(
+			Duration.millis(scene.getWidth() * 40));
+
+	tickerScroller.fromXProperty()
+				  .bind(scene.widthProperty());
+
+	tickerScroller.toXProperty()
+				  .bind(tickerContent.widthProperty()
+				  				 .negate());
+
+	//When ticker has finished, reset and replay ticker animation
+
+	tickerScroller.setOnFinished((ActionEvent ae) -> {
+		tickerScroller.stop();
+		tickerScroller.setDuration(
+			Duration.millis(scene.getWidth() * 40));
+		tickerScroller.playFromStart();
+	});
+
+	//Start ticker after nodes are shown
+	stage.setOnShow(windowEvent -> {
+		tickerScroller.play();
+	});
+
+	return tickerArea;
+}
+
+To use external CSS, we can do:
+
+Application.setUserAgentStyleSheet(getClass().getResource("sample.css")
+								  .toExternalForm());
+
+This method applies to all scenes globally.
+
+To apply specific types, we can do between two:
+
+Application.setUserAgentStylesheet(STYLESHEET_CASPIAN);
+
+Application.setUserAgentStylesheet(STYLESHEET_MODENA);
+
+To add a specific CSS to a specific scene:
+
+scene.getStylesheets()
+	 .add(getClass().getResource("my_cool_skin.css")
+	 			    .toExternalForm());
+
+//An example of a UI based menu system that changes CSS based on  chosen option:
+
+@Override public void init(){
+	Font.loadFont(LookNFeelChooser.class //To load fonts
+								  .getResourceAsStream("Roboto-Thin.tff"), 10)
+								  .getName();	
+	}
+
+@Override public void start(Stage primaryStage) throws IOException{
+	BorderPane root = new BorderPane();
+	Parent content = FXMLLoader.load(getClass().getResource("lnf_demo.fxml"));
+	Scene scene = new Scene(root, 650, 550, Color.WHITE);
+	root.setCenter(content);
+
+	//Menu bar
+	MenuBar menuBar = new MenuBar();
+
+	//File menu
+	Menu fileMenu = new Menu("_File");
+	MenuItem exitItem = new MenuItem("Exit");
+	exitItem.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN));
+	exitItem.setOnAction(ae -> Platform.exit());
+
+	fileMenu.getItems().add(exitItem);
+	menuBar.getMenus().add(fileMenu);
+
+	//Look and feel menu
+	Menu lookNFeelMenu = new Menu("_Look 'N' Feel");
+	lookNFeelMenu.setMnemonicParsing(true);
+	menuBar.getMenus().add(lookNFeelMenu);
+	root.setTop(menuBar);
+
+	//Look and feel selection
+	MenuItem caspianMenuItem = new MenuItem("Caspian");
+	caspianMenuItem.setOnAction(ae -> {
+		scene.getStyleSheets().clear();
+		setUserAgentStylesheet(null);
+		setUserAgentStylesheet(STYLESHEET_MODENA);
+	});
+
+	MenuItem style1MenuItem = new MenuItem("Control Style 1");
+	style1MenuItem.setOnAction(ae -> {
+		scene.getStyleSheets().clear();
+		setUserAgentStylesheet(null);
+		scene.getStyleSheets()
+			 .add(getClass()
+			 .getResource("controlStyle1.css")
+			 .toExternalForm());
+	});
+
+	//etc.
+
+	lookNFeelMenu.getItems()
+				 .addAll(caspianMenuItem,
+				 		 modenaMenuItem,
+				 		 etc.);
+	primaryStage.setTitle("Something");
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+all JavaFX scene graph nodes have the following methods:
+
+setId(), getStyleClass().add() and setStyle() method.
+
+These are used for CSS targetting.
+
+As per normal, the CSS selector and interaction rules apply.
+
+A simple example of a "Phone UI":
+
+@Override
+public void start(Stage primaryStage){
+	BorderPane root = new BorderPane();
+	Scene scene = new Scene(root, 180, 250);
+
+	scene.getStylesheets()
+		 .add(getClass().getResource("mobile_buttons.css")
+		 				.toExternalForm());
+
+	String[] keys = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"};
+
+	GridPane numPad = new GridPane();
+	numPad.getStyleClass().add("num-pad");
+
+	for(int i = 0; i < 12; i++){
+		Button button = new Button(keys[i]);
+		button.getStyleClass().add("num-button");
+		numPad.add(button, i % 3, (int) Math.ceil(i/3));
+	}
+
+	Button call = new Button("Call");
+	call.setId("call-button");
+	call.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+	numPadd.add(call, 0, 4);
+	GridPane.setColumnSpan(call, 3);
+
+	GridPane.setHgrow(call, Priority.ALWAYS);
+	root.setCenter(numPad);
+	primaryStage.setScene(scene);
+	primaryStage.show();
+}
+
+
+To load a FXML into a scene:
+
+BorderPane root = new BorderPane();
+Parent content = FXMLLoader.load(getClass().getResource("lnf_demo.fxml"));
+root.setCenter(content);
+
+There is a Architechtural pattern called EDA, Event Driven Architechture. This is what we can use to model loosely coupled components 
+and services that pass messages asynch.
+
+The JavaFX apis for Media is as follows:
+
+javafx.scene.media.Media
+
+javafx.scene.media.MediaPlayer
+
+javafx.scene.media.MediaStatus
+
+javafx.scene.media.MediaView
+
+Event-based programming involves nonblocking or callback behaviors when invoking media functions.
+
+The idea is to use lazy evaluation in which uses callbacks to trigger the saved event later on, as following example will show:
+
+Media media = new Media(url);
+MediaPlayer mediaPlayer = new MediaPlayer(media);
+Runnable playMusic = () -> mediaPlayer.play();
+mediaPlayer.setOnReady(playMusic);
+
+The following is a table of the most common Classes, Set on methods, On method prop methods and descriptions:
+
+				All follow the pattern of setOnxxxx
+						v 							on<Attribute>Property() 		
+Class 				Set On Method 				On Method Property Method 			Desc
+
+Media 				SetOnError() 				onErrorProperty() 					When an error occurs
+
+MediaPlayer 		setOnEndOfMedia() 			onEndOfMediaProperty() 				When the end of the media play is reached
+
+MediaPlayer 		xxxxError() 				onErrorProperty() 					When an error occurs
+
+-II- 				xxxxHalted() 				onHaltedProperty()									when halted
+
+-II- 				xxxMarker() 				onMarkerProperty() 					When a marker event is triggered
+
+-II- 				xxxPaused() 				onPausedProperty() 					when a paused event occurs
+
+-II- 				xxxPlaying() 				onPlayingProperty() 				when the media is playing
+
+-II- 				xxxReady() 					onReadyProperty() 					when the player is in a ready state
+
+-II- 				xxxRepeat() 				onRepeatProperty() 					When the repeat property is set
+
+-II- 				xxxStalled() 				onStalledProperty() 				when the media player is stalled
+
+-II- 				xxxStopped() 				onStoppedProperty() 				when the media player has stopped
+
+MediaView 			xxxError() 					onErrorProperty() 					when an error occurs in Media View
+
+
+An example of using a setOn attribute:
+
+Media media = new Media(url);
+MediaPlayer mediaPlayer = new MediaPlayer(media);
+mediaPlayer.onReadyProperty().set(() -> mediaPlayer.play());
+
+The JavaFX's media API supports loading audi extensions such as .mp3, .wav and .aiff
+
+You can also play live streaming sound from HTTP, known as HLS (.m3u8)
+
+It is very simple to play audio:
+
+Media media = new Media("http://some_host/eye_on_it.mp3");
+MediaPlayer mediaPlayer = new MediaPlayer(media);
+mediaPlayer.setAutoPlay(true);
+
+As long as we form the uRL according to the standard format of the url, we can load jar files, URL files or on the local filesystem.
+
+For low latency playbacks of Audio, we can use javafx.scene.media.AudioClip class. (Can be used for repeating of sound)
+
+An example of a MP3 player in Java:
+
+package jfx8ibe;
+
+//import dependencies
+
+public class PlayingAudio extends Application {
+	private MediaPlayer mediaPlayer;
+	private Point2D anchorPt;
+	private ChaneListener<Duration> progressListener;
+
+	private static Stage PRIMARY_STAGE;
+	private static final String STOP_BUTTON_ID = "stop-button";
+	private static final String PLAY_BUTTON_ID = "play-button";
+	private static final String PAUSE_BUTTON_ID = "pause-button";
+	private static final String CLOSE_BUTTON_ID = "close-button";
+	private static final String VIS_CONTAINER_ID = "viz-container";
+	private static final String SEEK_POS_SLIDER_ID = "seek-position-slider";
+
+	/**
+	 * @param args the cmd line args
+	 */
+	public static void main(String[] args){
+		Applicaton.launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage){
+		PRIMARY_STAGE = primaryStage;
+		PRIMARY_STAGE.initStyle(StageStyle.TRANSPARENT);
+		PRIMARY_STAGE.centerOnScreen();
+
+		Group root = new Group();
+		Scene scene = new Scene(root, 551, 270, Color.rgb(0,0,0,0));
+
+		//Load the CSS
+		scene.getStyleSheets()
+			 .add(getClass().getResource("playing-audio.css")
+			 				.toExternalForm());
+
+		PRIMARY_STAGE.setScene(scene);
+
+		//Initialize the stage to be movable via mouse
+		initMovablePlayer();
+
+		//App area
+		Node applicationArea = createApplicationArea();
+
+		//Container for random circles n shit
+		Node vizContainer = new Group();
+		vizContainer.setId(VIS_CONTAINER_ID);
+
+		//The button panel
+		Node buttonPanel = createButtonPanel();
+
+		//Progress and seek position slider
+		Slider progressSlider = createSlider();
+
+		//update slider as video is progressing
+		progressListener = (observable, oldValue, newValue) -> 
+		 	progressSlider.setValue(newValue.toSeconds());
+
+		//initialize the drag n drop
+		initFileDragNDrop();
+
+		//Close button
+		Node closeButton = createCloseButton();
+
+		root.getChildren()
+			.addAll(applicationArea,
+					vizContainer,
+					buttonPanel,
+					progressSlider,
+					closeButton);
+
+		primaryStage.show();
+	}
+
+	//The InitMovablePlayer part
+
+	private void initMovablePlayer(){
+		Scene scene = PRIMARY_STAGE.getScene();
+		scene.setOnMousePressed(mouseEvent
+				-> anchorPt = new Point2D(mouseEvent.getScreenX(),
+						mouseEvent.getScreenY())
+		);
+
+		//Dragging the entire stage
+		scene.setOnMouseDragged(mouseEvent -> {
+			if (anchorPt != null && previousLocation != null){
+				PRIMARY_STAGE.setX(previousLocation.getX()
+						+ mouseEvent.getScreenX()
+						- anchorPt.getX());
+				PRIMARY_STAGE.setY(previousLocation.getY()
+						+ mouseEvent.getScreenY()
+						- anchorPt.getY());
+			}
+		});
+
+		//set the current location
+		scene.setOnMouseReleased(mouseEvent
+				-> previousLocation = new Point2D(PRIMARY_STAGE.getX(), PRIMARY_STAGE.getY())
+		);
+
+		//INitialize previousLocation after Stage is shown
+		PRIMARY_STAGE.addEventHandler(WindowEvent.WINDOW_SHOWN,
+				(WindowEvent t) -> {
+					previousLocation = new Point2D(PRIMARY_STAGE.getX(),
+							PRIMARY_STAGE.getY());
+				});
+	}
+
+	/**
+	 * A simple rectangular area as the surface of the app.
+	 * @return Node a Rectangle Node.
+	 */
+	private Node createApplicationArea(){
+		Scene scene = PRIMARY_STAGE.getScene();
+		Rectangle applicationArea = new Rectangle();
+
+		//Add selector to style app-area
+		applicationArea.setId("app-area");
+
+		//Make the app area rectangle the size of the scene
+		applicationArea.widthProperty()
+				.bind(scene.widthProperty());
+		applicationArea.heightProperty()
+				.bind(scene.heightProperty());
+		return applicationArea;
+	}
+
+	/**
+	 * Initialize the Drag and Drop ability for media files
+	 */
+	private void initFileDragNDrop(){
+		Scene scene = PRIMARY_STAGE.getScene();
+		scene.setOnDragOver(dragEvent -> {
+			Dragboard db = dragEvent.getDragboard();
+			if (db.hasFiles() || db.hasUrl()) {
+				dragEvent.acceptTransferModes(TransferMode.LINK);
+			} else {
+				dragEvent.consume();
+			}
+		});
+
+		//Dropping over surface
+		scene.setOnDragDropped(dragEvent -> {
+			Dragboard db = dragEvent.getDragboard();
+			boolean success = false;
+			String filePath = null;
+
+			if (db.hasFiles()) {
+				success = true;
+				if (db.getFiles().size() > 0){
+					try {
+						filePath = db.getFiles()
+								.get(0)
+								.toURI().toURL().toString();
+						playMedia(filePath);
+					} catch (MalformedURLException ex) {
+						ex.printStackTrace();
+					}
+				}
+			} else {
+				//Audio file from some host or jar
+				playMedia(db.getUrl());
+				success = true;
+			}
+
+			dragEvent.setDropCompleted(success);
+			dragEvent.consume();
+		}); //end of setOnDragDropped
+	}
+
+	/*
+	 * Create a node containing the audio player's stop, pause and play button
+	 * @return Node A button panel having play, pause and stop buttons
+	 */
+	private Node createButtonPanel(){
+		Scene scene = PRIMARY_STAGE.getScene();
+		//create button panel
+		Group buttonGroup = new Group();
+
+		//Button area
+		Rectangle buttonArea = new Rectangle(60,30);
+		buttonArea.setId("button-area");
+
+		buttonGroup.getChildren()
+				.add(buttonArea);
+
+		//stop button control
+		Node stopButton = new Rectangle(10, 10);
+		stopButton.setId(STOP_BUTTON_ID);
+		stopButton.setOnMousePressed(mouseEvent -> {
+			if (mediaPlayer != null){
+				updatePlayAndPauseButtons(true);
+				if(mediaPlayer.getStatus() == Status.PLAYING){
+					mediaPlayer.stop();
+				}
+			}
+		});
+
+		Arc playButton = new Arc(12, //Center X 
+								16, //CEnter y
+								15, /Radius x
+								150, //start angle
+								60); //length
+		playButton.setId(PLAY_BUTTON_ID);
+		playButton.setType(ArcType.round);
+		playButton.setOnMousePressed(mouseEvent -> mediaPlayer.play());
+
+		//Pause control
+		Group pauseButton = new Group();
+		pauseButton.setId(PAUSE_BUTTON_ID);
+		Node pauseBackground= new Circle(12, 16, 10);
+		pauseBackground.getStyleClass().add("pause-circle");
+
+		Node firstLine = new Line(6, //Start x
+								  6, //start y
+								  6, //end x
+								  14); //end y
+		firstLine.getStyleClass()
+				 .add("pause-line");
+		firstLine.setStyle("-fx-translate-x: 34;");
+
+		Node secondLine = new Line(6, //Start x
+								   6, //Start y
+								   6, //end x
+								   14); //end y
+
+		secondLine.getStyleClass().add("pause-line");
+		secondLine.setStyle("-fx-translate-x: 38;");
+
+		pauseButton.getChildren()
+				.addAll(pauseBackground, firstLine, secondLine);
+
+		pauseButton.setOnMousePressed(mouseEvent -> {
+			if (mediaPlayer != null){
+				updatePlayAndPauseButtons(true);
+				if (mediaPlayer.getStatus() == Status.PLAYING){
+					mediaPlayer.pause();
+				}
+			}
+		}); 
+
+		playButton.setOnMousePressed(mouseEvent -> {
+			if (mediaPlayer != null){
+				updatePlayAndPauseButtons(false);
+				mediaPlayer.play();
+			}
+		});
+
+		buttonGroup.getChildren()
+				   .addAll(stopButton,
+				   		   playButton,
+				   		   pauseButton);
+
+		//move button group when scene is resized
+		buttonGroup.translateXProperty()
+				   .bind(scene.widthProperty()
+				   			  .subtract(buttonArea.getWidth() + 6));
+
+		buttonGroup.translateYProperty()
+				   .bind(scene.heightProperty()
+				   			  .subtract(buttonArea.getHeight() + 6));
+
+		return buttonGroup;
+	}
+
+	/** 
+	 * the close button to exit app
+	 * @return Node representing a close button
+	 */
+	private Node createCloseButton(){
+		Scene scene = PRIMARY_STAGE.getScene();
+		Group closeButton = new Group();
+		closeButton.setId(CLOSE_BUTTON_ID);
+
+		Node closeBackground = new Circle(5, 0, 7);
+		closeBackground.setId("close-circle");
+		Node closeXMark = new Text(2, 4, "X");
+		closeButton.translateXProperty()
+				   .bind(scene.widthProperty()
+				   			  .subtract(15));
+
+		closeButton.setTranslate(10);
+		closeButton.getChildren()
+				   .addAll(closeBackground, closeXmark);
+
+		//Exit app
+		closeButton.setOnMouseClicked(mouseEvent -> Platform.exit());
+
+		return closeButton;
+	}
+
+	/**
+	 * After a file is dragged onto the app a new MediaPlayer
+	 * instance is created with a media file.
+	 *
+	 * @param stage The stage window (primaryStage)
+	 * @param url The URL pointing to an Audio file
+	 */
+	private void playMedia(String url){
+		Scene scene = PRIMARY_STAGE.getScene();
+
+		if (mediaPlayer != null){
+			mediaPlayer.pause();
+			mediaPlayer.setOnPaused(null);
+			mediaPlayer.setOnPlaying(null);
+			mediaPlayer.setOnReady(null);
+
+			mediaPlayer.currentTimeProperty()
+					   .removeListener(progressListener);
+
+			mediaPlayer.setAudioSpectrumListener(null);
+		}
+
+		Media media = new Media(url);
+		//Display the media metadata
+		for (String s : media.getMetadata().keySet()){
+			System.out.println(s);
+		}
+		mediaPlayer = new MediaPlayer(media);
+
+		//Add teh new listener for the new media 
+		mediaPlayer.currentTimeProperty()
+				   .addListener(progressListener);
+
+		mediaPlayer.setOnReady(() -> {
+			updatePlayAndPauseButtons(false);
+			Slider progressSlider =
+					(Slider) scene.lookup("#" + SEEK_POS_SLIDER_ID);
+			progressSlider.setValue(0);
+			progressSlider.setMax(mediaPlayer.getMedia()
+											 .getDuration()
+											 .toSeconds());
+			mediaPlayer.play();
+		});
+
+		//back to the beginning
+		mediaPlayer.setOnEndOfMedia(() -> {
+			updatePlayAndPauseButtons(true);
+			//Change buttons to play and rewind
+			mediaPlayer.stop();
+		}); 
+
+		//Setup visualization
+		Group vizContainer = 
+				(Group) PRIMARY_STAGE.getScene()
+									 .lookup("#" + VIS_CONTAINER_ID);
+
+		mediaPlayer.setAudioSpectrumListeners(
+			(double timestamp,
+			double duration,
+			float[] magnitudes,
+			float[] phases) -> {
+			vizContainer.getChildren().clear();
+			int i = 0;
+			int x = 10;
+			double y = PRIMARY_STAGE.getScene().getHeight() / 2;
+			Random rand = new Random(System.currentTimeMillis());
+
+			//Build random circles
+			for (float phase : phases) {
+				int red = rand.nextInt(255);
+				int green = rand.nextInt(255);
+				int blue = rand.nextInt(255);
+				Circle circle = new Circle(10);
+
+				circle.setCenterX(x + 1);
+				circle.setCenterY(y + (phase * 100));
+				circle.setFill(Color.rgb(red, green, blue, .70));
+				vizContainer.getChildren().add(circle);
+				i += 5;
+			}
+		});
+	}
+
+	/**
+	* Sets play button visible and pause button not visible when
+	* playVisible is true otherwise the opposite.
+	* 
+	* @param playVisible - value of true the play becomes visible
+	* and pause non visible, otherwise the opposite.
+	*/
+	private void updatePlayAndPauseButtons(boolean playVisible){
+		Scene scene = PRIMARY_STAGE.getScene();
+		Node playButton = scene.lookup("#" + PLAY_BUTTON_ID);
+		Node pauseButton = scene.lookup("#" + PAUSE_BUTTON_ID);
+
+		//Hide or show buttons
+
+		playButton.setVisible(playVisible);
+		pauseButton.setVisible(!playVisible);
+		if (playVisible){
+			//Show play button
+			playButton.toFront();
+			pauseButton.toBack();
+		} else {
+			//Show pause button
+			pauseButton.toFront();
+			playButton.toBack();
+		}
+	}
+
+	/* A position slider to seek backward and forward
+	 * that is bound to a media player control
+	 *
+	 * @return Slider control bound to media player.
+	 */
+	private Slider createSlider(){
+		Slider slider = new Slider(0, 100, 1);
+		slider.setId(SEEK_POS_SLIDER_ID);
+		slider.valueProperty()
+			.addListener((observable) -> {
+				if(slider.isValueChanging()){
+					//Must check if media is paused before seeking
+					if (mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED){
+						//Convert seconds to Ms
+						double dur = slider.getValue() * 1000;
+						mediaPlayer.seek(Duration.millis(dur));
+					}
+				}
+			});
+
+		Scene scene = PRIMARY_STAGE.getScene();
+		slider.setTranslateX(10);
+		slider.translateYProperty()
+			  .bind(scene.heightProperty()
+			  			 .subtract(50));
+		return slider;
+	}
+}
+
+
+//Skipped the CSS
+
+The lookup finds the node based on given ID.
+
+We then propose to seek for the place of which we are trying to access.
+
+The AudioSpectrumListerner's method spectrumDataUpdate() inbound params:
+
+Var 					Data Type 			Example 			Desc
+
+timestamp 				double 				2.4261 				When the event occured, in seconds
+
+duration 				Double 				0.1 				The duration of time (in seconds) the spectrum was computed
+
+magnitudes 				float[] 			-50.474 			The spectrum in float decibels
+
+phases 					float[] 			1.22 				The bands phase
+
+The only difference between the video player and the previous audio player, is the fact of that the node we put the Video in is a javafx.scene.media.MediaView node.
+
+//An example of a Video player in JavafX:
+
+public class PlayingVideo extends Application {
+	//rest of instance vars
+
+	private static final String MEDIA_VIEW_ID = "media-view";
+
+	//Rest of the static vars
+
+	@Override
+	public void start(final Stage primaryStage){
+		//Code
+
+		//initialize the stage to have it possible for fullscreen
+		initFullScreenMode();
+
+		//Create a media view to display video
+		MediaView mediaView = createMediaView();
+
+		//make media view as the second node on the scene
+		root.getChildren().add(1, mediaView);
+	//Code
+	}
+
+	/* Make a event listener for full screen mode
+	*/
+	private void initFullScreenmode(){
+		Scene scene = PRIMARY_STAGE.getScene();
+
+		//Full screen toggle
+		scene.setOnMouseClicked((MouseEvent event) -> {
+			if (event.getClickCount() == 2){
+				PRIMARY_STAGE.setFullScreen(!PRIMARY_STAGE.isFullScreen());
+			}
+		});
+	}
+
+	/* allow for a movable player
+	*/
+
+	private void initMovablePlayer(){
+		//Code
+	}
+
+	//Drag and drop for audio/video
+	private void initFileDragNDrop(){
+		//Code omitted
+	}
+
+	//Play media call
+	private void playMedia(String url){
+		//Code
+		//a new media player
+		//Code
+
+		MediaView mediaView = (MediaView) scene.lookup("#" + MEDIA_VIEW_ID);
+		mediaView.setMediaPlayer(mediaPlayer);
+	}
+
+	//Make a media node
+	private MediaView createMediaView(){
+		MediaView mediaView = new MediaView();
+		mediaview.setId(MEDIA_VIEW_ID);
+
+		mediaView.setPreserveRatio(true),
+		mediaView.setSmooth(true);
+		mediaView.fitWidthProperty()
+			.bind(PRIMARY_STAGE.getScene()
+				  .widthProperty()
+				  .subtract(220));
+
+		mediaView.fitHeightProperty()
+			.bind(PRIMARY_STAGE.getScene()
+				  .heightProperty()
+				  .subtract(30));
+
+		//Run a listener against errors
+		mediaView.setOnError(mediaErrorEvent -> {
+			mediaErrorEvent.getMediaError()
+					.printStackTrace();
+		});
+
+		return mediaView;
+	}
+
+	//Buttonpanel
+	private Node createButtonPanel(){
+		//Code
+	}
+
+	//The app area
+	private Node createApplicationArea(){
+		//Code
+	}
+
+	//Slider
+	private Slider createSlider(){
+		//Code
+	}
+
+	//Close button
+	private Node createCloseButton(){
+		//Code
+	}
+
+	//Update the play and pause buttons
+	private void updatePlayNPause(boolean playVisible){
+		//Code
+	}
+}
+
+If we wish, we can also put markers to videos at certain points of the Media:
+
+//obtain media
+Media media = new Media(url);
+
+//add media markers
+media.getMarkers().put("Starting race", Duration.millis(1959));
+media.getMarkers().put("he is begining \n to get ahead", Duration.millis(3395));
+etc.
+
+MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+Text closedCaption = (Text) scene.lookup("#" + CLOSED_CAPTION_TEXT_ID);
+mediaPlayer.setOnMarker((MediaMarkerEvent event) -> closedCaption.setText(event.getMarker().getKey())
+); setOnMarker()
+
+In the upcoming part, we will learn about Web engines, connections, communicating with JS through java and Java to JS.
+
+The core Web APIS are:
+
+javafx.scene.web.WebEngine
+
+java.net.HttpURLConnection
+
+javafx.scene.web.WebView
+
+If we wish to load HTML5 to Java, we can use a Webengine. it has load(<url>) and loadContent(<url>)
+
+They are both delegated to background as to prevent form hogging the Java fX thread.
+
+An example of running a listener to see if the asynch background task is done:
+
+WebEngine webEngine = new WebEngine();
+webEngine.getLoadWorker()
+		 .stateProperty()
+		 .addListener((obs, oldValue, newValue) -> {
+		 	if (newValue == SUCCEEDED) {
+		 		//Finished loading
+		 		//Process content
+		 	}
+}); 
+
+//Begin loading
+webEngine.load(<url>);
+
+The value being listened to is the State of the worker, meaning it keeps track of the lifecycle of the Web engine object.
+oldValue is a worker.state enum, containing the old value
+newValue is a worker.state enum, containing the new value
+
+The Enums possible are: READY, SCHEDULED, RUNNING, SUCCEEDED, CANCELLED, FAILED
+
+Using the webEngine.loadContent, we can display raw HTML put in a string format.
+
+To aquire the DOM object of a HTML recovered:
+
+webEngine.load("http://myserver.com/my_cool_xml_data.xml");
+.
+.
+// After content is finished loading (Worker.Succeeded check)
+org.w3c.dom.Document xmlDom = webEngine.getDocument();
+
+If we wish to get the XML dom as a string, we can convert the XML:
+
+TransformerFactory transformerFactory = TransformerFactory.newInstance();
+Transformer transformer = transformerFactory.newTransformer();
+
+StringWriter stringWriter = new StringWriter();
+transformer.transform(new DOMSource(webEngine.getDocument()), new StreamResult(stringWriter));
+
+String xml = stringWriter.getBuffer().toString();
+
+To aquire the topmost element of a HTML, we could do as follows:
+
+String html = (String) webEngine.executeScript("document.documentElement.outerHTML");
+
+We can also call JS functions in Java, as follows:
+
+webEngine.executeScript("sayHello('Hi there');");
+
+//And the HTML containing the JS function:
+
+<script>
+function sayHello(msg) {
+		document.getElementById('my_message').innerHTML = msg; //Assign the inner html of the div to be msg
+}
+</script>
+.
+.
+<div id="my_message"></div>
+
+We can also make JS make upcalls to Java, as follows:
+
+webView.getEngine()
+	   .getLoadWorker()
+	   .stateProperty()
+	   .addListener((obs, oldValue, newValue) -> {
+	   		if (newValue == worker.State.SUCCEEDED){
+	   			//let JS make upcalls to the Java class
+	   			JSObject jsobj = (JSObject) webView.getEngine()
+	   											   .executeScript("window"); //Access the bridge 
+	   			jsobj.setMember("ABCD", new HelloWorld()); //Assign the member to allocate the value to the bridge
+	   		}
+	   });
+
+//We will now showcase the class and the JS calling the JSobject:
+
+public class HelloWorld(){
+	public String sayGoodbye(String name){
+		return "Hasta la vista " + name;
+	}
+}
+
+//The js code:
+
+.
+.
+<script>
+function sayGoodbye(name){
+	var message = ABCD.sayGoodbye(name);
+	document.getElementById('my_message').innerHTML = message;
+}
+</script>
+.
+.
+<div id="my_message"></div>
+
+If we were to wish to make POST or GET requests, we are going to havei ssues with the webengine on that front, at least if we are getting JSON.
+
+We can manually access the data by virtue of a webEngine as follows:
+
+webEngine.load("http://myserver.org/current-weather?format=json");
+.
+.
+.
+.
+//handle code to obtain JSON data
+String json = (String) webEngine.getDocument()
+								.getElementsByTagName("body")
+								.item(0)
+								.getTextContent();
+
+
+//An example of a RESTful GET request to retrieve weawtehr data
+public static void main(String[] args){
+	System.out.println(jsonGetRequest("http://myserver.org/current-weather?q=Pasadena,MD&format=json"));
+}
+.
+.
+.
+.
+public static String jsonGetRequest(String urlQueryString){
+	String json = null;
+	try{
+		URL url = new URL(urlQueryString);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setDoOutput(true);
+		connection.setInstanceFollowRedirects(false);
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Content-type", "application/json");
+		connection.setRequestProperty("charset", "utf-8");
+		connection.connect();
+		InputStream inStream = connection.getInputStream();
+		json = streamToString(inStream); //INput stream to string
+	} catch (IOException ex){
+		ex.printStackTrace();
+	}
+	return json;
+}
+
+In case of needing to convert the retrieved JSON into a String, we can use streamToString():
+
+private String streamToString(InputStream inputStream){
+	String text = new Scanner(inputStream, "UTF-8") //access the input stream with UTF 8
+						.useDelimeter("\\Z") //Cut the end of file delimeter
+						.next(); //Access the next element
+	return text;
+}
+
+This request is mostly suited for small to medium requests, as this can only allow for a efficient retrieval of about 3~ MB. Meaning that we should not attempt
+to do bigger requests with this form of accessing.
+
+To make a HTTP post Request, we can do as follows:
+
+String jsonPayload = "{ name: 'john doe', amount: '5000', xtype: 'new_acct'}";
+String urlHost = "https://mybank.org/transaction";
+
+URL url = new URL(urlHost);
+HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+connection.setDoOutput(true); //Recieving data
+connection.setDoInput(true); //Sending data
+connection.setInstanceFollowRedirects(false); //No redirect followups
+
+connection.setRequestMethod("POST");
+connection.setRequestProperty("Content-Type", "application/json");
+connection.setRequestProperty("charset", "utf-8");
+connection.setRequestProperty("Content-Length", "" + jsonPayLoad.getBytes().length);
+connection.setUseCaches(false);
+
+byte[] bytes = jsonPayLoad.getBytes(Charset.forName("UTF-8"));
+DataOutputStream outStream = new DataOutputStream(connection.getOutputStreram());
+outStream.writeBytes(bytes);
+outStream.flush();
+outStream.close();
+
+InputStream inStream = connection.getInputStream();
+String json = streamToString(inStream); //input stream to string
+connection.disonnect();
+
+To now be able to display the data, we have to use a WebView node, in JavaFX.
+
+Next up, we are going to display how to render a Clock dynamically by fetching data and displaying it in a WebView node:
+
+package jfx8ibe;
+
+import //dependencies.
+
+public class DisplayingHtml5Content extends Application{
+	@Override
+	public void start(Stage primaryStage) throws MalformedURLException{
+		primaryStage.setTitle("Bla");
+		WebView browser = new WebView();
+		Scene scene = new Scene(browser, 320, 250, Color.rgb(0,0,0, .80));
+		primaryStage.setScene(scene);
+
+		//There is a bug with loading SVGs into a jar, so we use HTML instead
+		URL url = getClass().getResource("clock.html");
+		browser.getEngine().load(url.toExternalForm());
+		primaryStage.show();
+	}
+
+	public static void main(String[] args){
+		launch(args);
+	}
+}
+
+NOTE: xmlns is namespaces of xml, and URI is a higher set of resource allocation than URL, where URL is a child of URI and specifies the access of the resource point
+
+//The html (or svg file):
+
+<svg
+	xmlns:dc="http://purl.org/dc/elements/1.1"
+	xmlns:cc="http://creativecommons.org/ns#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:svg="http://www.w3.org/2000/svg"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:sodipodi="http://sourceforge.net/DTD/sodipodi-0.dtd"
+	xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+	width="300"
+	height="250"
+	id="svg4171"
+	version="1.1"
+	inkscape:version="0.48.1"
+	sodipodi:docname="clock.svg" onload="updateTime()">
+
+<script>
+
+<![CDATA[
+var xmlns="http://www.w3.org/2000/svg"
+
+function updateTime()
+{
+	var date = new Date();
+
+	var hr = parseInt(date.getHours());
+	if (hr > 12){
+		hr = hr - 12;
+	}
+	var min = parseInt(date.getMinutes());
+	var sec = parseInt(date.getSeconds());
+	var pi = 180;
+
+	var secondAngle = sec * 6 + pi;
+	var minuteAngle = ( min + sec / 60 ) * 6 + pi;
+	var hourAngle = (hr + min / 60 + sec / 3600) * 30 + pi;
+
+	moveHands(secondAngle, minuteAngle, hourAngle);
+}
+
+function moveHands(secondAngle, minuteAngle, hourAngle){
+	var secondHand = document.getElementById("secondHand");
+	var minuteHand = document.getElementById("minuteHand");
+	var hourHand = document.getElementById("hourHand");
+
+	secondHand.setAttribute("transform", "rotate(" + secondAngle + ")");
+	minuteHand.setAttribute("transform", "rotate(" + minuteAngle + ")");
+	hourHand.setAttribute("transform", "rotate(" + hourAngle + ")");
+}
+
+]]>
+
+</script>
+
+<defs id="defs4173">
+... // beginning of SVG code
+... // Main clock code
+
+<g id="hands" transform="translate(108,100)">
+<g id="minuteHand">
+<line stroke-width="3.59497285" y2="50" stroke-linecap="round" stroke="#00ff6" opacity=".9" />
+<animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="60min" by="360" />
+</g>
+
+<g id="hourHand">
+<line stroke-width="5" y2="30" stroke-linecap="round" stroke="#ffcb00" opacity=".9" />
+<animatTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="12h" by="360" />
+</g>
+
+<g id="secondHand">
+<line stroke-width="2" y1="-20" y2="70" stroke-linecap="round" stroke="red"/>
+<animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="60s" by="360" />
+</g>
+</g>
+
+//Rest of the clock code
+</svg>
+
+NOTE: SVg files can be created in inkScape, which is HTML5, and can be rendered in HTML easily.
+
+Which allows for SVG to be used for Graphics in HTML.
+
+We can also treat objects and event occurances in JS to be handled by JS, by virtue of Event Driven programming:
+
+webView.getEngine().setOnAlert((WebEvent<String> wEvent) -> {
+	//Do something
+	system.out.println(wEvent.getData());
+});
+
+Some of the few webevents we can handle:
+
+Set on Method 				on Method property 				desc
+
+setOnAlert() 			onAlertProperty() 				JS alert handler
+
+setOnError() 			onErrorProperty() 				WebEngine error handler
+
+setOnResized() 			onResizedProperty() 			JS resize handler
+
+setOnStatusChanged() 	onStatusChanged() 				JS status handler
+
+setOnVisibilityChanged() see above 						JS window visibility handler
+
+setConfirmHandler() 	confirmHandlerProperty() 		JS confirm window
+
+The following example, showcases a App that allows you to search for a place and have info about that weather there:
+
+package jfx8ibe;
+
+import java.io.*;
+
+import java.net.*;
+//dependencies
+
+//This app will demonstrate the following:
+// communication between java and JS
+// Communications from JS to java
+// Restful GET Web service endpoints
+/7 JSON objects
+// Handling HTML/JS webevents
+// debugging using firebug lite
+
+public class WeatherWidget2 extends Application{
+	private WebView webView;
+
+	public static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather";
+	private String cachedUrl;
+
+	@Override
+	public void start(Stage stage){
+		//Create the scene
+		stage.setTitle("Chapter 8 Weather Widget 2");
+		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root, 300, 300);
+		stage.setScene(scene);
+
+		//WebView node to display local HTML content
+		webView = new WebView();
+		root.setCenter(webView);
+
+		//Turn on firebug lite for debug of html, css, js
+		enableFirebug(webView);
+
+		//The web view's web engine
+		webView.getEngine()
+			   .getLoadWorker()
+			   .stateProperty()
+			   .addListener((obs, oldValue, newValue) -> {
+			   		if (newValue == Worker.State.SUCCEEDED) {
+			   			//Let JS make upcalls to this Java class
+			   			JSObject jsobj = (JSObject) webView.getEngine().executeScript("window");
+			   			jsobj.setMember("WeatherWidget2", this);
+
+			   			queryWeatherByLocationAndUnit("Miami, FL", "c");
+			   		}
+			   });
+
+		webView.getEngine().setOnAlert((WebEvent<String> t) -> {
+			//Some shit, use t.getData() to get the data
+		});
+
+		//load the weather_template.html
+		String htmlFile = streamToString(getClass().getResourceAsStream("weather_template.html"));
+		webView.getEngine().loadContent(htmlFile);
+		stage.show();
+	}
+
+	//Delimit EoF char and get whole result as a string
+
+	public String streamToString(InputStream inputStream){
+		String text = new Scanner(inputStream, "UTF-8")
+							.useDelimeter("\\Z")
+							.next();
+		return text;
+	}
+
+	//called from JS in findWeatherByLocation() inside the weather_template.html file
+
+	public void queryWeatherByLocationAndUnit(String cityRegion, String unitType){
+		String queryString = null;
+		queryString = cityRegion;
+
+		String units = "f".equalsIgnoreCase(unitType) ? "imperial" : "metric";
+
+		String weatherRequest = WEATHER_URL + "?q=" + queryString + "&" + "units=" + units + "&" + "mode=json";
+
+		//JS code periodically updates the forecast using the setInterval by using the cached URL
+		if (null == cityRegion && cacheUrl != null) {
+			weatherRequest = cachedUrl;
+		} else {
+			cachedUrl = weatherRequest;
+		}
+
+		//delegate to the background
+		new Thread(createWeatherQueryWorker(weatherRequest, unitType)).start();
+	}
+
+	//return the task responsible for fetching and populating the HTML display area
+
+	private Task createWeatherQueryWorker(String weatherRequest, String unitType){
+		return new Task(){
+			@Override
+			protected Object call() throws Exception {
+				//On worker thread, blocking the call to jsonGetRequest()
+				String json = jsonGetRequest(weatherRequest);
+
+				Platform.runLater(() -> 
+					//On the java FX app thread
+					webView.getEngine()
+						   .executeScript(
+						   	 "populateWeatherData('" + json + "', " +  "'" + unitType + "' );")
+				);
+				return true;
+			}
+		};
+	}
+
+	//JSOn retrieval using a RESTful GET request
+	public String jsonGetRequest(String urlQueryString){
+		String json = null;
+		try{
+			System.out.println("request: " + urlQueryString);
+			URL url = new URL(urlQueryString);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setDoOutput(true);
+
+			connection.setInstanceFollowRedirects(false);
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setRequestProperty("charset", "UTF-8");
+			connection.connect();
+			InputStream inStream = connection.getInputStream();
+			json = streamToString(inStream);
+			System.out.println("Response: " + json);
+		} catch (IOException ex){
+			ex.printStackTrace();
+		}
+		return json;
+	}
+
+	//Enable firebug
+	private static void enableFireBug(WebView webView){
+		//Code GONE
+	}
+
+	public static void main(String[] args){
+		Application.launch(args);
+	}
+}
+
+//The HTML template to be used in tandem with the Java file
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Weather Widget 2</title>
+		<style type="text/css">
+			//CSS STUFF
+		</style>
+
+		<script>
+
+		//populate focast using cached URL
+		setInterval(function(){
+			WeatherWidget2.queryWeatherByLocationAndUnit(null, "c");
+		},
+		(1000 * 60 * 60 * 3) //Every 3 hours
+	);
+
+	var weekday = new Array(7);
+	weekday[0] = "Sunday";
+	weekday[1] = "Monday";
+	weekday[2] = "Tuesday";
+	weekday[3] = "Wednesday";
+	weekday[4] = "Thursday";
+	weekday[5] = "Friday";
+	weekday[6] = "Saturday";
+
+	//Make an upcall to Java
+	function findWeatherByLocation(){
+		var cityInfo = encodeURIComponent(document.getElementById('search-field').value);
+		setInnerText("error-msg", "");
+		WeatherWidget2.queryWeatherByLocationAndUnit(cityInfo, "c");
+	}
+
+	//called from Java afer data is fetched
+	function populateWeatherData(weather, unitType){
+		var jsonWeather = eval("(" + weather + ")");
+		if (jsonWeather.message){
+			if (jsonWeather.message.indexOf('Error') === 0){
+				document.getElementById('error-msg').innerHTML = jsonWeather.message;
+				alert(jsonWeather.message);
+				return;
+			}
+		}
+
+		setInnerText('city', jsonWeather.name);
+		setInnerText('country', jsonWeather.sys.country);
+		var weatherTime = new Date(jsonWeather.dt);
+		var timeStr = timeFormat(jsonWeather.dt);
+
+		setInnerText('weather-day-time', weekday[weatherTime.getDay()] + " " + timeStr);
+		setInnerText('weather-current', jsonWeather.weather[0].main);
+		setInnerText('weather-current-desc', jsonWeather.weather[0].description);
+		document.getElementById('weather-icon').src = "http://openweathermap.org/img/w/" + jsonWeather.weather[0].icon + ".png";
+		setInnerText('weather-temp', jsonWeather.main.temp);
+		setInnerText('weather-humidity', "Humidity: " +  jsonWeather.main.humidity + "%");
+		var windSpeed = (unitType === 'f') ?  'mph' : 'km/h';
+		setInnerText('weather-wind-speed', "Wind: " + jsonWeather.wind.speed + " " + windSpeed);
+
+	}
+
+	function setInnerText(id, text){
+		document.getElementById(id).innerText = text;
+	}
+
+	function timeFormat( millis ){
+		var weatherTime = new Date(millis);
+		var hours = weatherTime.getHours();
+		var minutes = weatherTime.getMinutes();
+		var meridian = hours >= 12 ? 'PM' : 'AM';
+		hours = hours % 12;
+		hours = hours ? hours : 12; //hour 0 is 12
+		minutes = minutes < 10 ? '0' + minutes : minutes;
+		var timeStr = hours + ':' + minutes + ' ' + meridian;
+		return timeStr;
+	} 
+	</script>
+	</head>
+	<body id="weather_background">
+		<form>
+			<input id="search-field" placeholder="Enter city, state/country" type="text" name="searchField"/>
+			<!-- A -->
+			<input id="search-button" type="button" onclick="findWeatherByLocation()" name="searchButton" value="Search"/>
+		</form>
+		<div id="error-msg"></div>
+		<div id="city" class="titleTextDisplay largeFont"></div>
+		<div id="country" class="titleTextDisplay mediumFont"></div>
+		<div id="weather-day-time" class="titleTextDisplay mediumFont"></div>
+		<div id="weather-current" class="titleTextDisplay mediumFont"></div>
+		<div id="weather-current-desc" class="titleTextDisplay mediumFont"></div>
+		<div>
+			<img id="weather-icon" style="float: left; height: 64px; width: 64px;" src="" alt=""/>
+			<div id="weather-temp" style="padding-left:10px; float:left;"></div>
+			<div style="float:left; font-size:20px; margin-top:6px">
+				<span style="display:inline">DEGREES SIGN<span id="unitType">C</span></span>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+		<div id="weather-humidity" class="titleTextDisplay mediumFont"></div>
+		<div id="weather-wind-speed" class="titleTextDisplay mediumFont"></div>
+</html>

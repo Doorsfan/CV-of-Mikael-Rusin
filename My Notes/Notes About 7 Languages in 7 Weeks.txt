@@ -1,0 +1,5220 @@
+To run Ruby in the Console, we just write irb.
+
+An example of interaction of Ruby:
+
+>>Puts 'hello, world'
+hello, world
+=> nil //The return values
+>> language = 'Ruby'
+=> "Ruby"
+puts "hello, #{language}" //reference the language variable
+hello, Ruby
+=> nil
+>> language = 'my Ruby'
+=> 'my Ruby'
+>> puts "hello, #{language}"
+hello, my Ruby
+=>
+
+THe pattern is simple
+
+"" allows for variable expansion, '' is literal. 
+
+Values in Ruby are returned, regardless of if asked to do so, or not.
+
+Ruby is a heavily object oriented language, thus, we will see this:
+
+>> 4
+=> 4
+>> 4.class //access the class
+=> Fixnum
+>> 4 +4 
+=> 8 //Return result
+>> 4.methods //The methods available for Fixnum objects
+=> ["inspect", "%", "<<", "singleton_method_added", "numerator", ...
+	"*", "+", "to_i", "methods", ...
+]
+
+Even booleans in Ruby, are objects:
+
+>> x = 4
+=> 4
+>> x < 5
+=> true
+>> x <= 4
+=> true
+>> x > 4
+=> false
+>> false.class
+=> FalseClass
+>> true.class
+=> TrueClass
+
+Let's see some interaction with the conditionals:
+
+>> x = 4
+=> 4
+>> puts 'This appears to be false.' unless x == 4
+=> nil
+>> puts 'This appears to be true.' if x == 4
+This appears to be true.
+=> nil
+>> if x == 4 //condition
+>>     puts 'This appears to be true' //Conditional execution, puts is console log
+>> end //has to have eof declaration
+This appears to be true.
+=> nil
+>> unless x == 4 //Check against false
+	puts 'This appears to be false.'
+>>else //if not true
+?>    puts 'This appears to be true.' //else case
+>>end //eof
+This appears to be true.
+=> nil
+>> puts 'This appears to be true' if not true //Both the ! and not are basically the same in Ruby
+=> nil
+>> puts 'This appears to be true' if !true
+=>
+
+This means that we can run blocks of code, but we can also do single lined things. Generally, Ruby adds some funky offline checks, such as unless and also adds a until loop:
+
+>> x = x + 1 while x < 10 //a loop
+=> nil
+>> x
+=> 10 //x got added to during loop
+>> x = x -1 until x == 1
+=> nil
+>> x
+=> 1
+>> while x < 10 //A while loop
+>> 		x = x + 1 //increment x by 1
+>> 		puts x //log it
+>> end
+//loops to 10 with output
+=> nil
+
+Other values can be executed as conditionals for Ruby, such as Numbers, strings, booleans and nil, however, everything but nil and false evaluates to true
+
+Evaluation in Ruby runs until it is clear what the outcome is, meaning not using shortcircuited versions can crash if you have undeclared variables.
+
+Ruby has strong typing, meaning it will collide when types do not mesh.
+
+An example of making a function, in Ruby:
+
+>> def add_them_up
+>> 		4 + 'four'
+>> end
+=> nil
+>> add_them_up
+//error, attempted string conversion to Fixnum
+
+Checking occurs upon actual interaction, not declaration
+
+NOTE: Classes can be changed on runtime, in Ruby.
+
+In Ruby, classes do not need to inherit from the same parent to be used in the same way:
+
+>> i = 0
+=> 0
+>> a = ['100', 100.0]
+=> ['100', 100.0] //a string and a float
+>> while i < 2
+>> 		puts a[i].to_i //to_i means to integer
+>> 		i = i + 1
+>> end
+100 //both got converted to a int
+100
+
+In Ruby, if no explicit Return is given, the last expression that's processedd before exiting is what is returned.
+
+An example of running a method:
+
+def tell_the_truth
+	true
+end
+
+NOTE: Functions are objects, as well, in Ruby
+
+Some examples of array interaction in Ruby:
+
+>> animals = ['lions', 'tigers', 'bears']
+=> ["lions", "tigers", "bears"]
+>> puts animals
+lions
+tigers
+bears
+=> nil
+>> animals[0]
+=> "lions"
+>> animals[2]
+=> "bears"
+>> animals[10]
+=> nil
+=> animals[-1]
+=> "bears"
+=> animals[-2]
+=> "tigers"
+>> animals[0..1]
+=> ['lions', 'tigers']
+>> (0..1).class //Even the range commands are  of a Range Object
+=> Range
+
+We can reference undeclared indexes in Ruby and get nil as returned for them
+
+Calling [<number>] without having assigned it as an array, still is that it's the array class. To make an array:
+
+a = []
+
+Arrays in Ruby are both multidimensional, and typless in terms of restrictions.
+
+Push and Pop functions work on them, as well.
+
+An example of interacting with a array:
+
+>> [1].class
+=> Array
+>> [1].methods.include?('[]')
+=> true
+
+We can just declare arrays on fly as well:
+
+>> a[0] = 'zero'
+=> "zero"
+>> a[1] = 1
+=> 1
+
+Arrays in Ruby, can be used as a queue, a linked list, a stack or a set.
+
+Hashes in Ruby is just dictionaries from Python:
+
+>> numbers = {1 => 'one', 2 => 'two'} //the key is 1, the value is one etc.
+
+Whilst objects can differ in Id, based on identity, unique symbols causes same relating ID:
+
+>> :string = 'hi'
+
+>> 'string'.object_id
+=> 3092010
+>> 'string'.object_id
+=> 3089690
+>> :string.object_id
+=> 69618
+>> :string.object_id
+=> 69618
+
+We can kind of derp about with hashes as well:
+
+>>def tell_the_truth(options={}) //An optional parameter for the method, due to having default value
+>>	if options[:proffesion] == :lawyer /if the options is :proffesion
+>>		'COULDA HAD IT ALL'
+>>	else
+>>		true
+>>	end
+>>end
+=> nil
+>> tell_the_truth
+=> true
+>> tell_the_truth :profession => :lawyer
+=> "COULDA HAD IT ALL"
+
+In Ruby, code blocks are defined by {} notations. We can run code blocks arbitrary amount of times, by accessing the fixNumber:
+
+>>> 3.times {puts 'FOK U'} //The times method of fixNumber is a method that will execute arbitrary related arguments <value of number> times
+FOK U
+FOK U
+FOK U
+
+Usually, in Ruby, we do {} for oneliners, and do/end for several lines spanning code.
+
+Code blocks can take several arguments. An example of running a for each loop in Ruby:
+
+>>> animals = ['lions and ', 'tigers and', 'bears', 'oh my']
+=> ["lions and ", "tigers and", "bears", "oh my"]
+>> animals.each {|a| puts a} //Run a for each loop on the animals, letting a be the iterating element, print out a
+lions and
+tigers and
+bears
+oh my
+
+an example of defining the times, manually:
+
+>>class Fixnum
+>>	def my_times
+>>		i = self
+>>		while i > 0
+>>			i = i - 1
+>>			yield //Yield the result , which in this case is puts 'mangy moose'
+>>		end
+>>	end
+>>end
+=> nil
+>> 3.my_times {puts 'mangy moose'}
+mangy moose
+mangy moose
+mangy moose
+
+Yield, in Ruby, is the concept of returning a value without actually turning back. a Return without going back.
+
+An example of utilizing block statements:
+
+def test
+	yield 5
+	puts "FOK U"
+	yield 100
+end
+test {|i| puts 'i said: #{i}'} 
+
+gives
+
+i said: 5
+
+i said FOK U
+
+i said 100
+
+To pass more than one parameter, we can write yield a,b 
+
+and the block becomes
+
+test {|a, b| statement}
+
+We can, in Ruby, call blocks. By defining & or *, in case of ordering if both are present, & comes last.
+
+An example:
+
+def test(&block)
+	block.call
+end
+test { puts "FOK U" }
+
+Will give
+
+FOK U
+
+Ruby can also have blocks run during loading (BEGIN) and upon finishing execution of the code (END):
+
+BEGIN {
+	#Begin block code
+	puts "BEGIN code block"
+}
+
+END {
+	#End block code
+	puts "END code block"
+}
+
+#Main block code
+puts "Main code block"
+
+A Ruby program may have several BEGIN or END blocks. BEGIN blocks are executed in the order they are encountered. END is executed in reverse order
+
+an example of some code that runs a designated Block:
+
+>>def call_block(&block)
+>>	block.call
+>>end
+=> nil
+>> def pass_block(&block)
+>> 		call_block(&block)
+>> end
+=> nil
+>> pass_block {puts 'Hello, block'}
+Hello, block
+
+Blocks can be used for a lot of things in Ruby : Running at different times, conditionall or enforcing policies etc.
+
+We can also put our Ruby code in rb files, and then interact with them from the commandline:
+
+$ ruby hello.rb //Call hello.rb with ruby
+hello, world 
+
+Inheritance in Ruby, can only come from one class.
+
+There is a middlestep to inheritance in Ruby, namely that Classes inherits from Modules and Modules from Objects.
+
+An example of a Class that goes to initialize some properties, some methods that can call and iterate upon blocks, etc:
+
+class Tree
+	attr_accessor :children, :node_name //instance variables, accessor and setter
+
+	def initialize(name, children=[]) //Is run upon initialization of the Object
+		@children = children //assign children to be children
+		@node_name = name //Assign the name attribute
+	end
+
+	def visit_all(&block)
+		visit &block //Check into the block
+		children.each {|c| c.visit_all &block} //Run a for each loop on the children, let c be the iterating element, visit_all on each child, this is a recursive call
+	end
+
+	def visit(&block)
+		block.call self //Just call the block designated, which means that we just visit the single block
+	end
+end
+
+ruby_tree = Tree.new( "Ruby", //Define a tree structure
+	[Tree.new("reia"),
+	Tree.new("MacRuby")] )
+
+puts "Visiting a node" //log visiting a node
+ruby_tree.visit {|node| puts node.node_name} //Visit a single node by virtue of running just a visit
+puts //log empty
+
+puts "Visiting entire tree" //log text
+ruby_tree.visit_all {|node| puts node.node_name} //Visit the entire tree by virtue of running visit_all put out the node names for each
+
+Instance variables begin with @, and class variables start with @@
+
+Constants are in CAPS. Trees have two instance variables, always, children and node_name.
+
+Test methods/functions end with ?
+
+The attr keyword defines an instance variable. If just written as attr, you write for the variable and a method to access it.
+
+attr_accessor, defines all of the three aspects - variable, accessor and setter.
+
+The output, would be as follows:
+
+Visiting a node
+Ruby
+
+Visiting entire tree
+Ruby
+Reia
+MacRuby
+
+Classes inherit from Modules, and Modules can consist of constants and behaviors.
+
+An example of how to declare a module which declares a method, and then having a class inherit from that:
+
+module ToFile
+	def filename
+		"object_#{self.object_id}.txt" //Define filename to be a function call of refering object by id and accessing its txt and then returning it
+	end
+
+	def to_f
+		File.open(filename, 'w') {|f| f.write(to_s)} //open a file with the given filename, write to it, declare f to be the file, write to the file what the name of the 
+		//person is
+	end
+end
+
+class Person
+	include ToFile
+	attr_accessor :name
+
+	def initialize(name)
+		@name = name
+	end
+
+	def to_s
+		name
+	end
+end
+
+Person.new('matz').to_f //Create a new person object and to_f it
+
+This dynamic causes so that we can inherit from one object, and simply apply mixin from the module. in Ruby, we do not need to define classes before the Module, Modules
+often come to depend upon many classes. They interact on a intimate level, meaning that there need not be a clear declaration first.
+
+in Ruby, we have a comparison operator of equal status, the <=> operator:
+
+>> 'begin' <=> 'end'
+=> -1 //b is greater than e, lexiographically, thus -1, would be 0 if equal, 1 if begin was > end
+>> 'same' <=> 'same'
+=> 0
+>> a = [5, 3, 4, 1]
+=> [5, 3, 4, 1]
+>> a.sort
+=> [1, 3, 4, 5]
+>> a.any? {|i| i > 6} //We can make conditional checks with any?, all?, member? etc.:
+=> false //No element is greater than 6, in a
+>> a.any? {|i| i > 4}
+=> true //one element is greater than 4
+>> a.all? {|i| i > 4}
+=> false //Not all elementsa re greater than 4
+>> a.all? {|i| i > 0}
+=> true //All elements in a are greater than 0
+>> a.collect {|i| i * 2} //return all of the elements in a mulitplied by
+=> [10, 6, 8, 2]
+>> a.select {|i| i % 2 == 0} //Select even numbers
+=> [4]
+>> a.select {|i| i % 2 == 1} //Select odd numbers
+=> [5, 3, 1]
+>> a.max //get the biggest number
+=> 5
+>> a.member?(2) //is 2 a member of a, as in, is 2 in a?
+=> false //no
+
+We can also do interactions over collections with injects:
+
+>> a
+=> [5, 3, 4, 1]
+>> a.inject(0) {|sum, i| sum + i} //Add all of the elements unto the first element, so, add 3 4 1 to 5, which is 13
+=> 13
+>> a.inject {|sum, i| sum + i} //inject all of them together, ending with the same number
+=> 13
+>> a.inject {|product, i| product * i} //Run a multiplication call on each element with the next, so 5 * 3 * 4 * 1, 60
+=> 60 
+
+note: If no argument is passed to inject, it takes the first one in the collection
+The first argument of inject, for example sum, above, is the result of the previous calculation, or just the initial value passed, if no calculations have been done so far
+the second, is the result of the calculation. An example showcases this:
+
+>> a.inject(0) do |sum, i|
+?> puts "sum: #{sum} i: #{i} 	sum + i: #{sum + i}"
+?> sum + 1
+?> end
+sum: 0 	i: 5 	sum + i : 5
+sum: 5 	i: 3 	sum + i : 8
+etc.
+
+In Ruby, we use it to achieve MetaProgramming. An example would be, to link classes to DB tables, in Ruby, as follows:
+
+class Department < ActiveRecord::Base
+	has_many :employees //adds all instance variables and methods needed to establish a has_many relationship
+	has_one :manager //declares all instance variables and methods for a has_one relationship
+end
+
+Another example from Rails, that adds a method to NilClass:
+
+class NilClass
+	def blank?
+		true
+	end
+end
+
+class String //If a class does not exist, class declares it, if it exists, it modifies it
+	def blank?
+		self.size == 0
+	end
+end
+
+["", "person", nill].each do |element|
+	puts element unless element.blank? //Put out hte element, unless it is a NillClass or a Blank string
+end
+
+An example of modifying numeric as well, turning it into another numeric system:
+
+class Numeric
+	def inches
+		self
+	end
+
+	def feet
+		self * 12.inches
+	end
+
+	def yards
+		self * 3.feet
+	end
+
+	def miles
+		self * 5280.feet
+	end
+
+	def back
+		self * -1
+	end
+
+	def forward
+		self
+	end
+end
+
+puts 10.miles.back
+puts 2.feet.forward
+
+The above code, will access the relevant format of the class and then interact with them, by virtue of using the methods of thoose classes.
+We use the class to interact with itself and modify itself and then interact with the said things.
+
+In Ruby, it is so that if a method is missing, we call method_missing to print some debug info about this. However, we can override it, and change the interaction
+of handling presentations, for instance, we can present Roman letters:
+
+class Roman
+	def self.method_missing name, *args //replace the method_missing name call, feed in the args
+		roman = name.to_s //convert the name to string
+		roman.gsub!("IV", "IIII") //substitute IV with 4 IIII's
+		roman.gsub!("IX", "VIIII") //etc.
+		roman.gsub!("XL", "XXXX") //etc.
+		roman.gsub!("XC", "LXXXX") //etc.
+
+		(roman.count("I") + //count I as one
+		 roman.count("V") * 5 + //Count V as 5
+		 roman.count("X") * 10 + //Count X as 10
+		 roman.count("L") * 50 + //Count L as 50
+		 roman.count("C") * 100) //Count C as 100
+	end
+end
+
+puts Roman.X
+puts Roman.XC
+puts Roman.XII
+puts Roman.X
+
+Ruby allows us to do stuff in the way of metaprogramming, such as extending class definitions. We can make our own DSL to define our class. Meaning we can make our own
+domain specific language that defines our class.
+
+What follows, is a example of a program that opens a CSV file based on the name of the class:
+
+class ActAsCsv
+	def read
+		file = File.new(self.class.to_s.downcase + '.txt') //Open the file
+		@headers = file.gets.chomp.split(', ') //split the headings
+
+		file.each do |row| //for each of file, assign the name as row
+			@result << row.chomp.split(', ')//split rows with chomp at , and assign them to result
+		end
+	end
+
+	def headers //assign the instance variable of headers
+		@headers
+	end
+
+	def csv_contents //assign the instance variable of result
+		@result
+	end
+
+	def initialize //intialize the result of the read
+		@result = []
+		read //call read
+	end
+end
+
+class RubyCsv < ActAsCsv
+end
+
+m = RubyCsv.new
+puts m.headers.inspect
+puts m.csv_contents.inspect
+
+The next step, is to take the file and attach the behaviour to a class with a module method often called a Macro. Macros are changes in behaviour defined by the surrounding,
+in our case, the macro opens up the class and dumps in all behavior related to a CSV file:
+
+class ActAsCsv
+	def self.acts_as_csv
+
+		define_method 'read' do
+			file = File.new(self.class.to_s.downcase + ' .txt')
+			@headers = file.gets.chomp.split(', ')
+
+			file.each do |row|
+				@result << row.chomp.split(', ')
+			end
+		end
+
+		define_method "headers" do
+			@headers
+		end
+
+		define_method "csv_contents" do
+			@result
+		end
+
+		define_method "initialize" do
+			@result = []
+			read
+		end
+	end
+end
+
+class RubyCsv < ActsAsCsv
+	acts_as_csv
+end
+
+m = RubyCsv.new
+puts m.headers.inspect
+puts m.csv_contents.inspect
+
+So, the above code, simply injects the methods and defines them, in the relevant class applied upon. The idea being that it inserts stuff into the target class.
+We could do the same with Inheritance, but we are about to add this to a Module to see a difference:
+
+module ActAsCsv
+	
+	def self.included(base) //Runs whenever it is included
+		base.extend ClassMethods //Extend the base to include classMethods
+	end
+
+	module ClassMethods //ClassMethods in this case, is a module
+		def acts_as_csv
+			include InstanceMethods //Include the instanceMethods
+		end
+	end
+
+	module InstanceMethods //a MOdule that has the behavior
+
+		def read //define a read behavior
+			@csv_contents = [] //contents
+			filename = self.class.to_s.downcase + '.txt' //assign filename
+			file = File.new(filename) //Create a new file
+			@headers = file.gets.chomp.split(', ') //get headers
+
+			file.each do |row| //for each row
+				@csv_contents << row.chomp.split(', ') //split each row
+			end
+		end
+
+		attr_accessor :headers, :csv_contents //define the attributes and setters
+
+		def initialize //upon initilization
+			read //run read
+		end
+	end
+end
+
+class RubyCsv //Since it is now a class that inherits with Modules, we can do mixins, which means we can do whatever we want
+	include ActAsCsv //run include on the ActAsCsv module
+	acts_as_csv //run access the self, by virtue of extending our reach for grabbing the self referal in acts_as_csv
+end
+
+m = RubyCsv.new
+puts m.headers.inspect
+puts m.csv_contents.inspect
+
+The idea, is simply to have a dynamic code that can change based upon the environment that it is put in. Thus, it is meta. It runs code for code, based on the situation.
+
+Thus, the strengths of Ruby, is small scale projects, and implies heavy metaprogramming. Things that transcends the upper levels of code, induces heavy productivity, But does not
+scale well at all, due to lack of speed, lack of support for concurrency (due to being heavily object oriented), lack of a IDE due to no Type safety (meaning IDEs are FAR harder to write)
+
+Thus:
+
+PROS:
+
+High productivity
+
+Extremely Meta
+
+Extremely flexible
+
+CONS: 
+
+Slow
+
+Bad scaling
+
+Lack of IDEs
+
+Lack of support for concurrency
+
+Next up, is Io. A Prototype based language, that is very small. It's used for tiny VM's and uses rich concurrency, customizable syntax and function.
+
+In Io, everything is messages that returns Objects, each message taking optional parameters. There are no keywords, and only a handful of chars that behave like
+keywords.
+
+Since it's a Prototype built language, it means that everything is copies of other Objects, thus, we don't have to care about classes in Io. We just create new clones as we go.
+
+An example of how Io would look when inputting and working with it:
+
+Io> "Hi ho, Io" print
+Hi ho, Io==> Hi ho, Io
+
+Recievers go on the left, messages go on the right, here, we sent the string "Hi ho, Io" to print, to the Io, which outputs on the Right part
+
+In Io, we can directly assign objects, merely by cloning them:
+
+$io
+Io 20090105
+Io> Vehicle := Object clone //Clone the Object and assign it to Vehicle
+==> Vehicle_0x1003b61f8:
+	type 		= "Vehicle"
+
+It's merely a Object based on the Object prototype. We then go to give the vehicle a description:
+
+Io> Vehicle description := "Something to take you places"
+==> Something to take you places
+
+When it comes to attributes of the Prototypes, in Io, we talk about Slots. To assign to a slot, we have to :=, which means that we designate a new attribute to the
+slot if it does not exist, and assign the value. We can use the = assignment as well, but the problem becomes that we can get exceptions if it's not defined.
+Meaning that we have to assert the structure, first.
+
+To get the value from a slot, just throw in the Prototype name and the attribute name:
+
+Io> Vehicle description
+==> Something to take you far away
+
+Fact is, a Object is just a collection of slotnames:
+
+Io> Vehicle slotNames //returns all slotNames of said prototype
+==> list("type", "description")
+
+There is also , of course, types:
+
+Io> Vehicle type
+==> Vehicle
+Io> Object type
+==> Object
+
+Inheritance, in Io, is just that we clone the "next in line", basically:
+
+Io>Car := Vehicle clone
+==> Car_0x100473938:
+	type 			= "Car"
+
+Io> Car slotNames
+==> list("type") //has a type
+Io> Car type
+==> Car
+
+If we were to call description of the Car, we'd find that it just gives the one it had inherited:
+
+Io> Car description
+==> Something to take you far away
+
+If the slot type, is not there, it will simply call the parent, as following showcases:
+
+Io> ferrari := Car clone
+==>  Car_0x1004f43d0:
+
+Io> ferrari slotNames
+==> list() //There are no type slots, so it will have the same typ as the parent
+
+Io> ferrari type
+==> Car
+
+In Io, anything that begins with a uppercase, is a Type, so ferrari is a child object of Car, since it's not called Ferrari
+
+In Io, a method is also a object, just like any other type of object. To define one, we can do it simple:
+
+Io> method("So, you've come for an argument." println)
+==> method(
+	"So, you've come for an argument" println
+)
+
+We can get it's type:
+
+Io>method() type
+==> Block
+
+since methods are objects, in Io, we can assign them to slots:
+
+Io> Car drive := method("Vroom" println)
+==> method(
+	"Vroom" println
+)
+
+If a slot has a method, invoking the slot invokes the method:
+
+Io> ferrari drive
+Vroom
+==> Vroom
+
+We can also access slots contents:
+
+Io> ferrari getSlot("drive")
+==> method(
+	"Vroom" println
+)
+
+If the slot does not exist, it gives the parents slot.
+
+Io> ferrari getSlot("type")
+==> Car
+
+We can also get the prototype:
+
+Io> ferrari proto
+==> Car_0x100473938:
+	drive 			= method(...)
+	type 			= "Car"
+
+Io> Car proto
+==> Vehicle_0x1003b61f8
+	description 	= "Something to take you far away"
+	type 			= "Vehicle"
+
+If we wish to see all the names objects and things we have written in the console, we can write Lobby:
+
+Io> Lobby
+==> Object_0x1002184e0:
+	Car 				= Car_0x100473938
+	Lobby 				= Object_0x1002188e0
+	Protos 				= Object_0x1002184e0
+	Vehicle 			= Vehicle_0x1003b61f8
+	exit 				= method(...)
+	ferrari 			= Car_0x1004f43d0
+	forward 			= method(...)
+
+So, generally, Io is as follows:
+
+Every thing is a object
+
+Every interaction, a message
+
+We clone prototypes,a form of objects
+
+Objects remember their protos
+
+Objects have slots
+
+Slots contain Objects, including method objects
+
+A message returns the value in a slot or invokes the method in a slot
+
+If an object can't respond to the message, it sends it to the prototype
+
+In Io, we have lists and Maps. Lists being ordered lists, whilst Maps is python-dictionaries, to make a list:
+
+Io> toDos := list("find my car", "find Continuum Transfunctioner") //Creat ethe list
+==> list("find my car", "find Continuum Transfunctioner")
+
+Io> toDos size //The size
+==> 2
+
+Io> toDos append("Find a present") //Run a append with the value
+==> list("find my car", "find Continuum Transfunctioner", "Find a present")
+
+We can also use the shortcut of representing a list by virtue of wrapping the arguments up into a list:
+
+Io> list(1,2,3,4)
+==> list(1,2,3,4)
+
+We also have convinience methods for lists, such as akin to the ones from Stacks:
+
+Io> list(1, 2, 3, 4) average
+==> 2.5
+
+Io> list(1, 2, 3, 4) sum
+==> 10
+
+Io> list(1, 2, 3) at(1) //at index 1
+==> 2
+
+Io> list(1, 2, 3) append(4)
+==> list(1, 2, 3, 4) //Append the 4 unto the list
+
+Io> list(1, 2, 3) pop //return and remove the last element
+==> 3
+
+Io> list(1, 2, 3) prepend(0) //append to the front
+==> list(0, 1, 2, 3)
+
+Io> list() isEmpty //is the list empty
+==> true 
+
+Now, for maps:
+
+Io> elvis := Map clone
+==> Map_0x115f580:
+
+Io> elvis atPut("home", "Graceland")
+==> Map_0x115f580:
+
+Io> elvis at("home") //Access the home index
+==> Graceland
+
+Io> elvis atPut("style", "rock and roll") //Designate a second new key pair
+==> Map_0x115f580:
+
+Io> elvis asObject //describe it as a object
+==> Object_0x11c1d90:
+	home 			= "Graceland"
+	style 			= "rock and roll"
+
+Io> elvis asList //as lists
+==> list(list("style", "rock and roll"), list("home", "Graceland"))
+
+Io> elvis keys //the keys
+==> list("style", "home")
+
+Io> elvis size //Size of the Map
+==> 2
+
+The conditionals in Io is much akin to the rest, as we have seen before:
+
+Io> 4 < 5
+==> true
+Io> 4 <= 3
+==> false
+Io> true and false
+==> false
+Io> true and true
+==> true
+Io> true or true
+==> true
+Io> true or false
+==> true
+Io> 4 < 5 and 6 > 7
+==> false
+Io> true and 6
+==> true
+Io> true and 0
+==> true
+
+note: 0 is a logical true in Io, just as per Ruby.
+
+Booleans are also just prototypes that we can clone. 
+
+note, we can redefine the Clone method as well, if we wish:
+
+Io> Highlander := Object clone
+==> Highlander_0x378920:
+	type 			= "Highlander"
+
+Io> Highlander clone := Highlander //Higherlander clone will now refer to the instance of Object clone, the exact instance there
+
+We could also re-define how Object itself works. Meaning that we can create a domain specific language, easily.
+
+The strength of Io is flexibility, coroutines, async sockets, and SIMD support. The cost is it can be slower in a lot of cases (not all).
+
+To break out of something in Io, just hit CTRl + C
+
+Loops in Io, take a condition and a message to deal with:
+
+Io> i := 1
+==> 1
+Io> while(i <= 11, i println; i = i + 1); "This one goes up to 11 lol!" println
+1
+2
+...
+10
+11
+This one goes up to 11 lol! //triggered afterwards
+
+We can do for loops with increments and without increments:
+
+//Without optioonal increment, just incrments by 1
+
+Io> for(i, 1, 11, i println); "this one goes up to 11" println
+1
+2
+...
+10
+11
+This one goes up to 11
+==> This one goes up to 11
+
+//With optional increment
+
+Io> for(i, 1, 11, 2, i println); "this one goes up to 11" println
+1
+3
+5
+7
+9
+11
+This one goes up to 11
+==> This one goes up to 11
+
+NOTE: We could just put in arguments as to be extra arguments in the args list (...), but doing so can cause subtle bugs. 
+
+Now, some if and else structures:
+
+Io> if(true, "it is true.", "it is false")
+==> It is true
+Io> if(false) then("it is true") else("it is false")
+==> nil
+Io> if(false) then("It is true." println) else("it is false." println)
+it is false.
+==> nil
+
+To see the arguments list of operators in Io, we can jsut use OperatorTable:
+
+Io> OperatorTable
+==> OperatorTable_0x100296098:
+Operators
+	0  ? @ @@
+	1  **
+	etc.
+
+::= //new slot
+:= //setSlot
+
+To add a new operator: OperatorTable addOperator("+", 4) //assignment variable and operator level
+		and implement the + message.
+To add a new assign operator: OperatorTable addAssignOperator( //assignOperator 
+	"=", "updateSlot") and implement the updateSlot message.
+
+An example of adding an operator:
+
+Io> OperatorTable addOperator("xor", 11)
+==> OperatorTable_0x100296098:
+Operators
+	...
+	10 && and 
+	11 or xor ||
+	etc.
+
+Now that we have assigned the operator, we go to define the implementation of it:
+
+Io> true xor := method(bool, if(bool, false, true))
+==> method(bool,
+	if(bool, false, true)
+)
+
+Io> false xor := method(bool, if(bool, true, false))
+==> method(bool,
+	if(bool, true, false)
+)
+
+The next part, will be implementing our own control structures:
+
+Almost everything in Io is messages. Everything but comment markers and , are comments.
+
+Messages consists of three parts, the sender, the target and the arguments. In Io, the sender sends a message to a target.
+The target executes the message.
+
+The call method, allows us to get meta data about function calls:
+
+Io>postOffice := Object clone //Clone the Object prototype
+==> Object_0x100444b38:
+
+Io> postOffice packageSender := method(call sender) //assign the method
+==> method(
+	call sender
+)
+
+Next, we create a mailer to send the message:
+
+Io> mailer := Object clone //Clone the object proto
+==> Object_0x1005bfda0:
+
+Io> mailer deliver := method(postOffice packageSender) //assign method
+==> method(
+	postOffice packageSender
+)
+
+In the mailer, we have one slot, the deliver, which allows us to deliver messages:
+
+Io> mailer deliver //The assigned method
+==> Object_0x1005bfda0:
+	deliver 	= method(...)
+
+
+The deliver method is the one that sent the message, we can also aquire our target, like this:
+
+Io> postOffice messageTarget := method(call target) //Assign the method to postoFfice with the second method
+==> method(
+	call target
+)
+
+Io> postOffice messageTarget
+==> Object_0x1004ce658:
+	messageTarget 	= method(...)
+	packageSender 	= method(...)
+
+To get the original message name and arguments, we do as follows:
+
+Io> postOffice messageArgs := method(call message arguments) //the message arguments
+==> method(
+	call message arguments
+)
+
+Io> postOffice messageName := method(call message name) //Name of the message
+==> method(
+	call message name
+)
+
+Io> postOffice messageArgs("one", 2, :three) 
+==> list("one", 2, : three)
+Io> postOffice messageName
+==> messageName
+
+Most languages passes arguments as values from a stack. Java computes each value of a parameter and then places thoose values
+on the stack. Io does not. 
+
+Io sends the message, and then the context. Then, the reciever evaluates the message. We can actually put in our own control structures with messages:
+
+unless := method(
+	(call sender doMessage(call message argAt(0))) ifFalse( //doMessage is like eval in Ruby, but it executes a arbitrary message, to which it reads teh params and delays
+	//binding and execution. in a normal OOP the interpeter would compute all the arguments, including both code blocks, and place their return values on the stack.
+	call sender doMessage(call message argAt(1))) ifTrue(
+	call sender doMessage(call message atArg(2)))
+)
+
+unless(1 == 2, write("One is not two\n"), write("one is two\n"))
+
+In Io, the process of processing a message, is as follows, with hte following situation:
+
+Assume we have a westley Object that sends the message: princessButtercup unless(trueLove, ("it is false" println), ("it is true" println))
+
+The result is the following flow:
+
+1. Westley sends the previous message
+
+2. Io takes the interpeted message and the context (the call sender, target and message) and puts it on the stack.
+
+3. princessButtercup evaluates the message, finds no unless slot, goes up the prototype chain until it finds one.
+
+4. Io begins executing the unless message, first, Io executes call sender doMessage(call message argAt(0)), to which the code simplifies to westley trueLove,
+because the westley object has a slot called trueLove
+
+5. We trigger the third block, because the message is true. (call sender doMessage(call message atArg(2)))
+
+In Io, we can also do something called reflection. Which means that we take an object and reflect by virtue of going upwards the chain and find the relevant things:
+
+Object ancestors := method( //asissnga method
+		prototype := self proto //copy the self prototype
+		if(prototype != Object, //if hte prototype is not Object type
+		writeln("Slots of ", prototype type, "\n------------------") //write what type it is
+		prototype slotNames foreach(slotName, writeln(slotName)) //go through the slotnames of prototype with a foreach loop, writing the slot and the slotname
+		writeln //print an empty line
+		prototype ancestors)) //recursive call
+
+
+Animal := Object clone //Clone the object
+Animal speak := method( "ambigious animal  noise " println) //assign a method
+
+Duck := Animal clone //make a animal clone
+Duck speak := method( "quack" println )
+
+Duck walk := method( "waddle" println) //assign methods
+
+disco := Duck clone //Clone a duck object to trigger the ancestors call later on
+disco ancestors //activate "going up the chain"
+
+From the logic, we can see that the only thing involved in Io, is objects. Classes are not involved, at all.
+
+What follows, is an example where we have a structure akin to JSON objects, in terms of a phone number:
+
+{
+	"Bob Smith": "519551212",
+	"Mary Walsh": "4162223434"
+}
+
+One way to do this, would be to build so that Io accepts hashes and assign it or analyze the elements and put them into a way that Io understands.
+
+One way, is as follows:
+
+OperatorTable addAssignOperator(":", "atPutNumber") //assign the : operator to become function call of atPutNumber, causing deligation of "<string>": <number>
+curlyBrackets := method( //Trigger a method on curlyBrackets
+	r := Map clone //Clone a empty map
+	call message arguments foreach(arg, //call the message arguments, run a foreach loop on them, assign the arg through doMessage on the r map
+		//Given that the doMessage of the respective thing, contains :, it will execute atPutNumber on the said phonenumber structure passed in
+		r doMessage(arg)
+		)
+	r
+)
+
+Map atPutNumber := method(
+	self atPut( //Remove the " prefix and suffix by escaping them and running removePrefix and removeSuffix "
+		call evalArgAt(0) asMutable removePrefix("\"") removeSuffix("\""), //Run it as a mutable, cause strings are inheritly immutable
+		call evalArgAt(1))
+)
+s := File with("phonebook.txt") openForReading contents //open the txt file and open the object, return it as contents nad then assign it
+phoneNumbers := doString(s) //convert the file to a String
+phoneNumbers keys 		println //print out the keys
+phoneNumbers values 	println //print out the values
+
+Thus, we see that we can redefine Syntax. What if we want to change the flow? We can do so.
+
+The behaviour of what happens in a given message, is baked into Object. When a object is sent to message, it will do the following:
+
+1. Compute the arguments, inside out. These are just messages
+
+2. Get the name, target and send of the message
+
+3. Try to read the slot with the names of the messages on the target
+
+4. If the slot exists, return the data or invoke the method inside
+
+5. if the slot does not exist, forward the message to the prototype
+
+This is how inheritance in Io works. We can, however, modify it, if we wish, with the method forward. It will change the very
+basic interaction of Objects.
+
+The next example, is a converter of XML data to be in a different format.
+
+From:
+
+<body>
+<p>
+This is a simple paragraph
+</p>
+</body>
+
+To this:
+
+body(
+	p("This is a simple paragraph.")
+)
+
+We are going to use the forward to substitute what is understood as a missing method on the Object, to assign a new method that allows us to change it:
+
+Builder := Object clone
+
+Builder forward := method( //ooverwrite forward to assign a arbitrary method
+	writeln("<", call message name, ">") //begin with writing a empty <> container
+	call message arguments foreach( //call on message, access arguments and run a foreach loop on each
+		arg, //access arg
+		content := self doMessage(arg); //the content is the message performed by the arg
+		if(content type == "Sequence", writeln(content))) //if the content type is a string, write it
+	writeln("</", call message name, ">")) //write the closing string
+
+Builder ul( //build an unordered list with the following li elements
+	li("Io"),
+	li("Lua"),
+	li("JavaScript"))
+
+This basically means that we overrode the inheritance mechanic to changed values, meaning we could theoretically make it so that we override Object as well,
+creating our own language and interaction based on arbitrary standpoints
+
+Io also heavily supports concurrency libs. The main components are coroutines, actors and futures.
+
+A coroutine provides way of willfully suspending and continuing executions of processes.
+A coroutine is basically a function with multiple entry and exit points.
+
+Every yield, will suspend the process and transfer it to another process. we can fire asynch messages by using @ or @@ before a message.
+
+An example:
+
+vizzini := Object clone
+vizzini talk := method(
+				"Fezzik, are there rocks ahead?" println
+				yield
+				"No more rhymes now, I mean it." println
+				yield)
+
+fezzik := Object clone
+
+fezzik rhyme := method(
+						yield
+			"If there are, FOK U" println
+			yield //yield will redirect hte process to the other object, meaning the order will be OBJ 1 > m1 > OBJ 2 > OBJ 1 > m2 etc.
+			"STOP DIS BS MEMES" println)
+
+vizzini @@talk; fezzik @@rhyme //Run both asynch
+
+Coroutine currentCoroutine pause
+
+This allows for multitasking the objects.
+
+Java and C-based languages use a concurrency philosophy called pre-empitive multitasking
+
+if run with coroutines, it causes nigh impossible debug situations.
+
+Coroutines are different, because they give explicit ocntrol of yielding control to toher parts.
+
+The higher part of Coroutines, are Actors. Actors can handle messages, process messages, spawn new actors. They place messages on a queue and parse the messages
+on queue with coroutines.
+
+A theoretical advantage of Actors compared to Threads, is that Actors act in very strict queues. Threads can try to access the same Object, causing uncertainty about the outcome.
+The reason being that THreads do not have explicit orders to stay "inline" or anything.
+
+In Io, if we send a message to a Object, it makes it an actor. 
+
+We begin by making two objects:
+
+Io> slower := Object clone
+
+Io> faster := Object clone
+
+We then go to assign methods with waiting times on them:
+
+Io> slower start := method(wait(2); writeln("slowly"))
+==> method(
+	wait(2); writeln("slowly")
+)
+
+Io> faster start := method(wait(1); writeln("faster"))
+==> method(
+	wait(1); writeln("fok u")
+)
+
+If we just call them sequentially:
+
+Io> slower start; faster start
+slowly
+fok u
+==> nil
+
+they start in order due to not being asynch, but if we made them asynch:
+
+Io> slower @@start; faster @@start; wait(3) //Add an extra wait to ensure finishing of both threads
+quickly 
+slowly
+
+The above code, runs the two different things in two different threads, meaning we have made it so that they run concurrently, in two threads, asynch
+
+If we wish to relegate something ot hte backgrounda nd do something else in the foreground, we can use Futures:
+
+futureResult := URL with("http://google.com/") @fetch //Will resolve upon completion, is blocked if attempted early access
+
+writeln("DO SOMETHING WHILE WAITING")
+// ...
+
+writeln("fetched", futureResult size, " bytes") // print out the size of the future result
+//This will block until the computation is complete 
+
+//Completion occurs, it gets written
+==> 1955 //prints value of last statement returned
+
+Beyond this, Io supports automatic deadlock detection.
+
+The strengths of IO:
+
+Small footprint, uses Embedded systems, easy to port VM
+
+Simple
+
+Flexibility, we can re-define syntax, re-define objects, inheritance, control flow, operators, etc.
+
+Concurrency, up to date ones, allows for Futures and Actors, meaning we have great concurrency models
+
+The weaknesses of Io:
+
+Small community, leading to hard to find certain Libs or akin, not a lot of market for it
+
+Performance, it slows down single-threaded raw execution, meaning it's more meant for Concurrency models
+
+Next up, is Prolog. Prolog is a declarative language, akin to Ruby, meaning we just straight up tell it what to do, and it will do it for us.
+Meaning we don't worry about the functionality, we just throw stuff at it.
+
+We simply give assertions, and Prolog determines wether they are true.
+
+Prolog, uses logic and queries. One part is to express data, teh other is to make queries.
+
+Prolog, uses a structure of three things to assert itself:
+
+Facts. A basic assertion about some world. (The sky is blue)
+
+Rules. A rule is a interference about the facts in that world. (The sky is blue, if it's on earth)
+
+Query. a question about said thing. (Is the sky green?) (no)
+
+The data then goes into Knowledge bases that allows us to form efficient queries.
+
+We simply thus, make queries to the Knowledgebase, apply rules, and conclude something.
+
+In Prolog, uperrcasing and lowercasing matters - If it's lowercase, it's an atom, a constant, basically.
+
+Whilst, if it's underscore or uppercase letter - it's a Variable, a mutateable variable.
+
+Let's begin by showcasing said things in a Example:
+
+likes(wallace, cheese). //Three facts with a atom each, designating what they like. Wallacel ieks cheese, grommit lieks cheese, wendolene lieks sheep etc.
+likes(grommit, cheese).
+likes(wendolene, sheep).
+
+friend(X, Y) :- \+(X = Y), likes(X, Z), likes(Y, Z). //Three rules
+
+We can then run questions against these things in our interpeter:
+
+| ?- ['friends.pl']. //Run the file
+//data about loading
+
+yes //it ran
+
+| ?-
+
+We can then go to ask questions:
+
+| ?- likes(wallace, sheep).
+
+no //wallace does not like sheep
+
+| ?- likes(grommit, cheese).
+
+yes
+
+We can begin by interpeting logic as well:
+
+| ?- friend(wallace, wallace).
+
+no
+
+our rules state that the friend of X to Y, must be so that X is not Y (the \+ is logic negation, i.e not)
+
+We can of course run some more basic questions:
+
+| ?- friend(grommit, wallace).
+
+yes //yes, grommit is friends with wallace, they lkike the same thing, as according to our rule
+
+| ?- friend(wallace, grommit).
+
+yes //Still yes, inverse accounts for as well 
+
+To make this point clearer:
+
+| ?- friend(wendolene, grommit).
+
+no
+
+it tries to fit all the possible combinations for relevant rules, and if it fails, it means that it's a no.
+
+A shorthand for a friend with two rules, can be written as: friend/2 (i.e: friend(X, Y))
+
+The rules are seperated by commas, and all must be true, for the rule to be true.
+
+Next up, we are going to run queries against matches in a knowledge base:
+
+food_type(velveeta, cheese).
+food_type(ritz, cracker).
+food_type(spam, meat).
+food_type(saussage, meat).
+food_type(jolt, soda).
+food_type(twinkie, dessert).
+
+flavor(sweet, dessert). //relate sweet to dessert
+flavor(savory, meat).
+falvor(savory, cheese).
+flavor(sweet, soda).
+
+food_flavor(X, Y) :- food_type(X, Z), flavor(Y, Z). //a food X has food_flavor Y if the food is of a food_type Z and that Z also has that characteristic flavor.
+
+We compile it:
+
+| ?- ['code/prolog/food.pl'].
+
+(1 ms) yes //compiled
+
+And some questions
+
+| ?- food_type(What, meat).
+
+What = spam ? ; //Return spam, a match, the ; means we want the next value
+
+What = sausage ? ;
+
+no
+
+If Prolog can detect more alternatives remaining, you'll see a yes. if it can't determine it without more computing,
+it will prompt for the next and return no.
+
+We try a few more:
+
+| ?- food_flavor(sausage, sweet).
+
+no //Sausage is not sweet
+
+| ?- flavor(sweet, What). //Which ones are sweet?
+
+What = dessert ? ;
+
+What = soda
+
+yes
+
+The ones that are sweet, is dessert and soda.
+
+Beyond this, we could also let Prolog connect the dots for us:
+
+| ?- food_flavor(What, savory).
+
+What = velveeta ? ;
+
+What = spam ? ;
+
+What = sausage ? ;
+
+no
+
+food_flavor is a rule, not a fact. So it ties together all the things, and goes through the different combos it can.
+
+Next up, is a interesting problem. We have a map, and we want to color it so that no states with the same colors touch each other.
+
+We begin by defining facts and assigning the coloring rule:
+
+different(red, green). different(red, blue). //we define the sets of different colours to use
+different(green, red). different(green, blue).
+different(blue, red). different(blue, green).
+
+coloring(Alabama, Mississippi, Georgia, Tennesse, Florida) :- //Define the rule of which the states must hold against each other
+	different(Mississippi, Tennessee),
+	different(Mississippi, Alabama),
+	different(Alabama, Tennessee),
+	different(Alabama, Mississippi),
+	etc.
+
+We then go to call to find the combo:
+
+| ?- coloring(Alabama, Mississippi, Georgia, Tennessee, Florida).
+
+Alabama = blue
+Florida = green
+Georgia = red
+Mississippi = red
+Tennessee = green ?
+
+In Java or Ruby, we have assignment in form of for example, x = <value>, which assign it.
+
+In Prolog, it's more about unification, attempting to make both sides equal.
+
+An example:
+
+cat(lion). //lion and tiger is cat
+cat(tiger).
+
+dorothy(X, Y, Z) :- X = lion, Y = tiger, Z = bear. //first assignment is that X must match lion, y will match tiger and Z will match bear
+twin_cats(X, Y) :- cat(X), cat(Y). //Here, X and Y are explicitly made into cat
+
+We begin by making some simple queries:
+
+|?- dorothy(lion, tiger, bear).
+
+yes //The rule is fullfilled, since it become lion = lion, tiger = tiger, bear = bear etc.
+
+We can also convert X, Y, Z to be other values, as following shows:
+
+|?- dorothy(One, Two, Three).
+
+One = lion
+Three = bear
+Two = tiger
+
+yes
+
+Now, for the next goal to complete:
+
+|?- twin_cats(One, Two).
+
+One = lion //Since it does not have to go further than to assert that the query can be of a cat type, it can simply repeat the process of selecting the first query value, which is lion
+Two = lion ? //The ? means a truncated format, if we wish to expand it and see all of the results, we just have to write a:
+
+Two = lion ? a
+
+//will print out all possible combos
+
+Ruby and Io are imperative languages, where we have to spell out each step of a Algorithm.
+
+Prolog is the first of declarative langauges, in this book. Which means, that when we do iterative operations, we will use recursion instead of using Iterating elements.
+
+What comes now, is a structure that denotes a tree hierarchy where we have multiple steps, to which we have to nest it, since Prolog is declarative in it's nature.
+
+We will use recursion on it, and the structure is as follows:
+
+father(zeb, 	john_boy_sr).
+father(john_boy_sr, john_boy_jr).
+
+ancestor(X, Y) :- //Denotes that X is ancestor of Y, if x is the Father of y
+		father(X, Y). //Acts as the core solidifier of making the rule of recursion calling possible
+ancestor(X, Y) :-
+		father(X, Z), ancestor(Z, Y). //When you have a father/2 rule, only one msut be true to make the rule true
+		//commas inside of () act as and statements, whilst the , between arguments is or statements
+
+We can try the first one easily:
+
+|?- ancestor(john_boy_sr, john_boy_jr).
+
+true ? //yes, since john_boy_sr is the father of john_boy_jr
+
+no
+
+The second clause, uses a further stretch of logic, as follows:
+
+X is an ancestor of Y, if we can prove that X is the father of Z and we can also prove that same Z is an ancestor of Y
+
+We can try out the second query format:
+
+| ?- ancestor(zeb, john_boy_jr).
+
+true ?
+
+We can, of course, also just Query and see who someone is an ancestor of, for instance:
+
+| ?- ancestor(zeb, Who).
+
+Who = john_boy_sr ? a //Call for more options
+
+Who = john_boy_jr
+
+no
+
+We can also make it go the other direction:
+
+| ?- ancestor(who, john_boy_jr). //Find me all the ancestor of john_boy_jr
+
+Who = john_boy_sr ? a
+
+Who = zeb
+
+(1 ms) no
+
+NOTE: Recursion takes stack space. To prevent memory crashes - We must use tailgate optimization. Meaning, we strive to have the recursive subgoal to be the last one to be called,
+in terms of ordering in the recursive rule.
+
+Lists and Tuples in Prolog, are containers with elements. As we will see, Tuples are lists with fixed lengths and lists are of variable length
+
+Harkening back to the concept of unification of attempting to balance out the variables on both sides, we will see this in action with lists and tuples:
+
+| ?- (1, 2, 3) = (1, 2, 3).
+
+yes
+
+| ?- (1, 2, 3) = (1, 2, 3, 4).
+
+no
+
+| ?- (1, 2, 3) = (3, 2, 1)
+
+no
+
+Two tuples run unification if the two sides harmonize, meaning they have an equivilant amount of elements that can bind to each other
+
+| ?- (A, B, C) = (1, 2, 3).
+
+A = 1
+B = 2
+C = 3
+
+yes
+| ?- (1, 2, 3) = (A, B, C).
+
+A = 1
+B = 2
+C = 3
+
+yes
+| ?- (A, 2, C) = (1, B, 3).
+
+A = 1
+B = 2
+C = 3
+
+yes
+
+The difference, in contrast to Lists, is that lists can interact a bit differently in Prolog, as follows:
+
+| ?- [1, 2, 3] = [1, 2, 3]. //They are teh same
+
+yes
+| ?- [1, 2, 3] = [X, Y, Z]. //same length and can be mapped
+
+X = 1
+Y = 2
+Z = 3
+
+yes
+| ?- [2, 2, 3] = [X, X, Z]. //Can be shortened down due to duplication in list
+
+X = 2
+Y = 3
+
+yes
+
+| ?- [1, 2, 3] = [X, X, Z]. //Cannot unify, due to already allocating X to 1
+
+no
+| ?- [] = [].
+
+We can deconstruct lists with [Head][tail], head will bind the first piece, Tail the rest. Showcasing of this:
+
+| ?- [a, b, c] = [Head|Tail].
+
+Head = a
+Tail = [b,c]
+
+yes
+
+Head|Tail must have at least one element to interact with:
+
+| ?- [] = [Head|Tail].
+
+no
+| ?- [a] = [Head|Tail].
+
+Head = a
+Tail = []
+
+yes
+
+We can make it a bit more complicated, if we wish:
+
+| ?- [a, b, c] = [a|Tail]. //it matches a, and puts rest into a Tail
+
+Tail = [b,c]
+
+(1 ms) yes
+
+| ?- [a, b, c] = [a|[Head|Tail]]. //It matches the a and designated the rest of the list, which happens to be b and c
+
+Head = b
+Tail = [c]
+
+yes
+
+We can also grab the third element alone:
+
+| ?- [a, b, c, d, e] = [_, _|[Head|_]]. //Basically we skipped the first two, designate the third as head, skip the tail
+
+Head = c
+
+yes
+
+The _ is a wildcard, matches against anything. 
+
+In the next example, we will see recursion and math operations on lists. These examples do counting, sums, and averages. These five rules do all the hard work:
+
+count(0, []).
+count(Count, [Head|Tail]) :- count(TailCount, Tail), Count is TailCount + 1.
+
+sum(0, []).
+sum(Total, [Head|Tail]) :- sum(Sum, Tail), Total is Head + Sum.
+
+average(Average, List) :- sum(Sum, List), count(Count, List), Average is Sum/Count.
+
+The simplest form, is count:
+
+| ?- count(What, [1]). //it can satisfy the first rule, because the second list is not empty. Thus, it goes to the second case. We unify, making What to Count, Head to 1, Tail to
+[]. After unification, the first goal is count(TailCount, []). We try to prove that subgoal. It matches to the first rule, it puts Tailcount to 0, and we then evaluate the 
+Count is TailCount + 1, which means 0 + 1, thus 1.
+
+What = 1 ? ;
+
+no
+
+The next one, which is the Sum(Total, [Head|Tail]) :- sum(Sum, Tail), Total is Head + Sum, has two clauses : the normal case and the recursive case.
+
+| ?- sum(what, [1, 2, 3]).
+
+What = 6 ? ;
+
+no
+
+If we look at it imperatively, it's as we would assume, it's 0 first, the sum of the rest is 6.
+
+There is another case of consideration, which is how the logic executres to fullfill subgoals, which means that is has to jump through hoops of checking the other rules for completion, to which it did, in this case. Which means that we acheived the goal without actual defining a recursive matter, we merely opted to use a path of logic to explain
+all the cases with rules and facts.
+
+We can stack logic as well, if we wish, as follows:
+
+average(Average, List) :- sum(Sum, List), count(Count, List), Average is Sum/Count. //Assign average if we can prove that sum is the sum of list, coutn is count of list and then
+//run Average as Sum/Count.
+
+It works as we would come to expect:
+
+| ?- average(What, [1, 2, 3]).
+
+What = 2.0 ? ;
+
+no
+
+The next rule we will look at, is called Append. For example, we can say:
+
+append(List1, List2, List3) //it's true if List3 is List1 + List2
+
+There are a lot of cases we can use it, as follows:
+
+| ?- append([oil], [water], [oil, water]).
+
+yes //Yes, since oil and water conform to be oil, water
+| ?- append([oil], [water], [oil, slick]).
+
+no //No, since oil and water do not conform to oil and slick
+
+It can be a list builder:
+
+| ?- append([tiny], [bubbles], What).
+
+What = [tiny, bubbles] //Builds a list of Tiny and bubbles to be called What
+
+yes
+
+it can do list subtraction:
+
+| ?- append([dessert_topping], Who, [dessert_topping, floor_wax]). //since dessert_topping is in the third argument, the only two contenders left is Who and floor_wax
+
+Who = [floor_wax]
+
+yes
+
+it can also do possible permutations:
+
+| ?- append(One, Two, [apples, oranges, bananas]).
+
+One = []
+Two = [apples, orange, bananas] ? a
+
+One = [apples] 
+Two = [oranges, bananas]
+
+One = [apples, oranges]
+Two = [bananas]
+
+One = [apples, oranges, bananas]
+Two = []
+
+(1 ms) no
+
+If we wish to re-write the append, we can make it by a composition of 4 rules:
+
+1. Write a rule called concatenate(List1, List2, List3) that can concatenate an empty list to List1
+
+2. Add a rule that concatenates one item from List1 onto List2
+
+3. Add a rule that concatenates two and three items from list1 onto List2
+
+4. See what we can generalize
+
+We begin with step one:
+
+concatenate([], List, List), this makes it so that if the first argument is a list and the second two are the same, then its not an issue:
+
+| ?- concatenate([], [harry], What).
+
+What = [harry]
+
+yes
+
+We then go to work with rule 2:
+
+concatenate([Head|[]], List, [Head|List]). Here, we simply take Head from List1, assign List2 as the List, then concatenate them into the third list:
+
+| ?- concatenate([malfoy], [potter], What).
+
+What = [malfoy, potter]
+
+yes
+
+For every element we would add to this pattern, it would just increase in size, accordingly:
+
+concatenate([Head1|[Head2|[]]], List, [Head1, Head2|List]).
+concatenate([Head1|[Head2|[Head3|[[]]]], List, [Head1, Head2, Head3|List]).
+
+| ?- concatenate([malfoy, granger], [potter], What).
+
+What = [malfoy, granger, potter]
+
+yes
+
+We can generalize these patterns, to be this:
+
+concatenate([], List, List). //concatenating a empty list to a list, gives you that list.
+concatenate([Head|Tail1], List, [Head|Tail2]) :- //if the heads match,
+	concatenate(Tail1, List, Tail2). //and if the tails match, it will concat unto a new list
+
+We are now going to try and crack the case of usage against concatenate([1,2],[3], What)
+
+The first rule does not apply, since it's not a empty list, meaning we unify to this:
+
+concatenate([1|[2]],[3], [1|Tail2-A]) :- concatenate([2], [3], [Tail2-A]), meaning everything unified except the second tail
+
+To now unify the right side, we have to make a call to concatenate([2], [3], [Tail2-A]), which in turn, gives us:
+
+concatenate([2|[]], [3], [2|Tail2-B]) :- concatenate([], [3], Tail2-B) //NOTE: We are chaining down, Tail2-B is the tail of Tail2-A, Tail2-A is the tail of Tail2
+
+We then go to unify the right side, again:
+
+concatenate([], [3], Tail2-C) :- concatenate([], [3], [3]).
+
+Meaning we found out that Tail2-C is [3], which means we can go up the chain:
+
+[2|Tail2-2] becomes [2|3], meaning [1,Tail2] is [1,2,3].
+
+Which assigns [1,2,3] to What
+
+In the following problem, we will want to create a Sudoku, which ranges from 1-4. A sudoku, has for instance, 4 rows, 4 columns and 4 squares. meaning we have 16 squares (4x4)
+
+We wish to be able to provide the sodoku, as follows:
+
+sodoku([_, _, 2, 3,
+		_, _, _, _,
+		_, _, _, _,
+		3, 4, _, _],
+		Solution).
+
+The first step, is to have numbers in the solution and the puzzle to match:
+
+sudoku(Puzzle, Solution) :-
+		Solution = Puzzle.
+
+If we were to feed in no blanks, it works:
+
+| ?- sudoku([4, 1, 2,3,
+			2, 3, 4, 1,
+			1, 2, 3, 4,
+			3, 4, 1, 2], Solution).
+
+Solution = [4,1,2,3,2,3,4,1,1,2,3,4,3,4,1,2]
+
+yes
+
+But htere are two provblems: The numbers could be anything, when they should be 1-4, and it can accept boards less than 16 spaces.
+
+in Prolog, there is a pre-defined method that defines the possible range of things, in the format of fd_doman(List, Lowerbound, Upperbound)
+
+We could write the following:
+
+sudoku(Puzzle, Solution) :-
+		Solution = Puzzle,
+		Puzzle = [S11, S12, S13, S14, //just make sur every part applies to a range of 1-4
+				  S21, S22, S23, S24,
+				  S31, S32, S33, S34,
+				  S41, S42, S43, S44],
+		fd_domain(Puzzle, 1, 4).
+
+The reason we named them like this, will be apparent in the next rule, the third, which is to carve stuff up in Rows, Columns and Squares.
+We declare the squares, rows and columns:
+
+//Rows
+
+Row1 = [S11, S12, S13, S14],
+Row2 = [S21, S22, S23, S24],
+Row3 = [S31, S32, S33, S34],
+Row4 = [S41, S42, S43, S44],
+
+//Columns
+
+Col1 = [S11, S21, S31, S41],
+Col2 = [S12, S22, S32, S42],
+Col3 = [S13, S23, S33, S43],
+Col4 = [S14, S24, S34, S44],
+
+//Squares
+
+Square1 = [S11, S12, S21, S22],
+Square2 = [S13, S14, S23, S24],
+Square3 = [S31, S32, S41, S42],
+Square4 = [S33, S34, S43, S44].
+
+beyond this, we need a 4th rule, which is the enforcement of having rows, columns and squares be valid, to which we can use fd_all_different(List).
+It succeeds if all the elements in List are different.
+
+We build this rule for that:
+
+valid([]). //valid if it's empty
+valid([Head|Tail]) :- //Validate head and tail
+	fd_all_different(Head), //if all the elements of head are different, it's valid
+	valid(Tail). //run Valid on the Tail, to keep running checks against the Head
+
+We then just need to invoke the valid(List) rule:
+
+valid([Row1, Row2, Row3, Row4,
+		Col1, Col2, Col3, Col4,
+		Square1, Square2, Square3, Square4]).
+
+
+The completed Program, now looks as follows:
+
+//declare rules
+valid([]).
+valid([Head|Tail]) :-
+	fd_all_different(Head),
+	valid(Tail).
+
+sudoku(Puzzle, Solution) :-
+		Solution = Puzzle,
+
+		Puzzle = [S11, S12, S13, S14,
+				  S21, S22, S23, S24,
+				  S31, S32, S33, S34,
+				  S41, S42, S43, S44],
+
+		fd_domain(Solution, 1, 4), //limit chars to 1 to 4
+
+		Row1 = [S11, S12, S13, S14],
+		Row2 = [S21, S22, S23, S24],
+		Row3 = [S31, S32, S33, S34],
+		Row4 = [S41, S42, S43, S44],
+
+		Col1 = [S11, S21, S31, S41],
+		Col2 = [S12, S22, S32, S42],
+		Col3 = [S13, S23, S33, S43],
+		Col4 = [S14, S24, S34, S44],
+
+		Square1 = [S11, S12, S21, S22],
+		Square2 = [S13, S14, S23, S24],
+		Square3 = [S31, S32, S41, S42],
+		Square4 = [S33, S34, S43, S44],
+
+		valid([Row1, Row2, Row3, Row4, //validate them
+				Col1, Col2, Col3, Col4,
+				Square1, Square2, Square3, Square4]).
+
+Next up, is the Eight queens problem, which means that we will form our query as follows:
+
+eight_queens([(1,1), (3,2), ...]).
+
+We begin by ensuring a list of 8 queens:
+
+eight_queens(List) :-  length(List, 8).
+
+Next we build a rule to validate queens:
+
+valid_queen((Row, Col)) :-
+	Range = [1,2,3,4,5,6,7,8],
+	member(Row, Range), member(Col, Range).
+
+It checks for membership based on what row it is at and that its within range, same for Column
+
+We then begin by validating the board:
+
+valid_board([]). //A empty board is valid
+valid_board([Head|Tail]) :- valid_queen(Head), valid_board(Tail). //and a board with a valid queen on it, and a valid board on it, is valid.
+
+We then run the validaiton of rows:
+
+rows([], []). //Rows for an empty list is a empty list
+rows([(Row, _)|QueensTail], [Row|RowsTail]) :- //We map queen rows to valid Map rows, by virtue of checking the head items match, and that the row items match
+	rows(QueensTail, RowsTail).
+
+Columns work the same way:
+
+cols([], []).
+cols([(_, Col)|QueensTail], [Col|ColsTail]) :- //same as before, just check the other value in the tuple instead of row
+	cols(QueensTail, ColsTail).
+
+Now, to account for diagonals, we account north and west to be as per 1, and south and east to be -1:
+
+//NW to SE
+diags([], []).
+diags1([(Row, Col)|QueensTail], [Diagonal|DiagonalsTail]) :-
+	Diagonal is Col - Row, //Run assertiona against what the Diagonal is
+	diags1(QueensTail, DiagonalsTail).
+
+//SE to NW
+diags([], []).
+diags2([(Row, Col)|QueensTail], [Diagonal|DiagonalsTail]) :-
+	Diagonal is Col + Row,
+	diags2(QueensTail, DiagonalsTail).
+
+
+When it is all said and done, the version so far, is:
+
+valid_queen((Row, Col)) :-
+	Range = [1,2,3,4,5,6,7,8],
+	member(Row, Range), member(Col, Range).
+
+valid_board([]).
+valid_board([Head|Tail]) :- valid_queen(Head), valid_board(Tail).
+
+rows([], []).
+rows([(Row, _)|QueensTail], [Row|RowsTail]) :-
+	rows(QueensTail, RowsTail).
+
+cols([], []).
+cols([(_, Col)|QueensTail], [Col|ColsTail]) :-
+	cols(QueensTail, ColsTail).
+
+diags1([], []).
+diags1([(Row, Col)|QueensTail], [Diagonal|DiagonalsTail]) :-
+	Diagonal is Col - Row,
+	diags1(QueensTail, DiagonalsTail).
+
+diags2([], []).
+diags2([(Row, Col)|QueensTail], [Diagonal|DiagonalsTail]) :-
+	Diagonal is Col + Row,
+	diags2(QueensTail, DiagonalsTail).
+
+eight_queens(Board) :-
+	length(Board, 8),
+	valid_board(Board),
+
+	rows(Board, Rows),
+	cols(Board, Cols),
+	diags1(Board, Diags1),
+	diags2(Board, Diags2),
+
+	fd_all_different(Rows),
+	fd_all_different(Cols),
+	fd_all_different(Diags1),
+	fd_all_different(Diags2).
+
+The problem is that the current iteration is not optimized. It would run like, forever. We can jumpstart it, with:
+
+| ?- eight_queens([(1, A), (2, B), (3, C), (4, D), (5, E), (6, F), (7, G), (8, H)]).
+
+A = 1
+B = 5
+C = 8
+D = 6
+E = 3
+F = 7
+G = 2
+H = 4 ?
+
+if we simplify the API, we can resolve that:
+
+valid_queen((Row, Col)) :- member(Col, [1,2,3,4,5,6,7,8]).
+
+valid_board([]).
+valid_board([(_, Col)|QueensTail], [Col|ColsTail]) :-
+	cols(QueensTail, ColsTail).
+
+cols([], []).
+cols([(_, Col)|QueensTail], [Col|ColsTail]) :-
+	cols(QueensTail, ColsTail).
+
+diags1([], []).
+diags1([(Row, Col)|QueensTail], [Diagonal|DiagonalsTail]) :-
+	Diagonal is Col - Row,
+	diags1(QueensTail, DiagonalsTail).
+
+diags2([], []).
+diags2([(Row, Col)|QueensTail], [Diagonal|DiagonalsTail]) :-
+	Diagonal is Col + Row,
+	diags2(QueensTail, DiagonalsTail).
+
+eight_queens(Board) :-
+	Board = [(1, _), (2, _), (3, _), (4, _), (5, _), (6, _), (7, _), (8, _)],
+	valid_board(Board),
+
+	cols(Board, Cols),
+	diags1(Board, Diags1),
+	diags2(Board, Diags2),
+
+	fd_all_different(Cols),
+	fd_all_different(Diags1),
+	fd_all_different(Diags2).
+
+The strengths of Prolog are as follows:
+
+Games
+
+Semantic Web
+
+Natural-Langauge processing
+
+AI
+
+Schedueling
+
+It's weaknesses, are:
+
+Utility, is just generally niche
+
+Very Large Data Sets, can be cause for slowness if size is too big
+
+Mixing the Imperative and Declarative Models, causes need to understand recursion
+
+Next up, is Scala.
+
+Scala is a bridge between something like Haskell and Java.
+
+Scala can run Java Libs. It also runs on the JVM. It's very close to Java.
+
+Explicit declaration of Types is not nessecary in Scala.
+
+Scala uses a lot more functional nature than that of Java, with Code blocks, higher-order functions etc.
+
+Scala forces explicit choisemaking of constant variables.
+
+Scala allows for first-class XML processing and Actors, as well.
+
+Scala works much akin to Java:
+
+scala>println("Hello World")
+Hello World
+
+scala> 1 + 1
+res8: Int = 2
+
+scala> (1).+(1)
+res9: Int = 2
+
+scala> 5 + 4 * 3
+res10: Int = 17
+
+scala> 5.+(4*(3))
+res11: Double = 17.0
+
+scala> (5).+((4).*(3))
+res12: Int 17
+
+Integers in Scala are objects. Almost all things are Objects, in Scala.
+
+Some interactions:
+
+scala> "abc".size
+res13: Int = 3
+
+Scala allows slight overloading:
+
+scala> "abc" + 4
+res14: java.lang.String = abc4
+
+scala> 4 + "abc"
+res15: java.lang.String = 4abc
+
+scala> 4 + "1.0"
+res16: java.lang.String = 41.0
+
+Nil in Scala is a Empty list.
+
+Type inferal (i.e not needing to write type, exists in Scala)
+
+An example of running a while loop in Scala:
+
+def whileLoop {
+	var i = 1
+	while(i <= 3) {
+		println(i)
+		i += 1
+	}
+}
+
+whileLoop
+
+save it in a file called while.scala, and we can run it
+
+The for loop is slightly different:
+
+def forLoop {
+	println("Some shit")
+	for(i <- 0 until args.length){ //access argv through just args
+		println(args(i)) //access args with index
+	}
+}
+
+forLoop
+
+We could also do forEach loops:
+
+def rubyStyleForLoop {
+	println( "For loop using Ruby-Style iteration" )
+	args.foreach { arg => 
+		println(arg)
+	}
+}
+
+rubyStyleForLoop
+
+Ranges work a bit differently:
+
+scala> val range = 0 until 10
+range: Range = Range(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+scala> range.start
+res2: Int = 0
+
+scala> range.end
+res3: Int = 10
+
+We can also define increments:
+
+scala> range.step
+res4: Int = 1
+
+scala> (0 to 10) By 5
+res6: Range = Range(0, 5, 10)
+
+scala> (0 to 10) by 6
+res7: Range = Range(0, 6)
+
+We can also do inclusive loops:
+
+scala> (0 until 10 by 5)
+res0: Range = Range(0, 5)
+
+scala> val range = (10 until 0) by -1
+range: Range = Range(10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+
+We can also check the direction etc:
+
+scala> val range = (10 until 0)
+range: Range = Range()
+
+scala> val range = (0 to 10)
+range: Range.Inclusive = Range(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10) //1 is default step
+
+We can range chars as well (lol):
+
+scala> val range = 'a' to 'e'
+range: RandomAccessSeq.Projection[Char] = RandomAccessSeq.Projection(a,b, c, d, e)
+
+Tuples akin to Prolog is present, fixed length arrays:
+
+scala> val person = ("Elvis", "Presley")
+person: (java.lang.String, java.lang.String) = (Elvis, Presely)
+
+scala> person._1
+res9: java.lang.String = Elvis
+
+scala> person._2
+res10. java.lang.String = Presley
+
+scala> person._3
+//error due to out of range
+
+to assign multivalues, we use tuples:
+
+scala> val (x, y) = (1, 2)
+x: Int = 1
+y: Int = 2
+
+static type checking occurs on tuples:
+
+scala> val (a, b) = (1, 2, 3)
+//Gives an error due to errornous typing on a and b
+
+We can define one-line classes in Scala:
+
+class Person(firstName: String, lastName: String)
+
+scala> class Person(firstName: String, lastName: String)
+defined class Person
+
+scala> val gump = new Person("Forrest", "Gump")
+gump: Person = <Id>
+
+An example of declaring a class and running it, in Scala:
+
+class Compass {
+	val directions = List("north", "east", "south", "west") //Cosntructor
+	var bearing = 0
+
+	def direction() = directions(bearing) //just accesses direction and returns it
+
+	def inform(turnDirection: String){
+		println("Some shit")
+	}
+
+	def turnRight(){
+		bearing = (bearing + 1) % directions.size
+		inform("right")
+	}
+
+	def turnLeft(){
+		bearing = (bearing + (directions.size - 1)) % directions.size
+		inform("left")
+	}
+} 
+
+val myCompass = new Compass
+
+myCompass.turnRight
+myCompass.turnRight
+
+myCompass.turnLeft
+myCompass.turnLeft
+myCompass.turnLeft
+
+Scala supports alternative constructors, in form of inner and outer:
+
+class Person(first_name: String){
+	printlN("Outer constructor")
+	def this(first_name: String, last_name: String){
+		this(first_name)
+		println("INner constructor")
+	}
+	def talk() = println("Hi")
+}
+
+val bob = new Person("Bob") //define with the outer constructor
+val bobTate = new Person("Bob", "Tate")
+
+Singletons in Scala, is defined as Object instead of class:
+
+object TrueRing {
+	def rule = println("FOK U")
+}
+
+TrueRing.rule
+
+Inheritance is slightly different in Scala:
+
+class Person(val name: String){
+	def talk(message: String) = println(name + " says " + message)
+	def id(): String = name
+}
+
+class Employee(override val name: String,
+						val number: Int) extends Person(name){
+	override def talk(message: String){
+		println(name + " with number " + number " says " message)
+	}
+	override def id():String = number.toString
+}
+
+val employee = new Employee("Yoda", 4)
+employee.talk("FOK U")
+
+Interfaces in Scala are called traits and carry a implementation:
+
+class Person(val name:String)
+
+trait Nice{
+	def greet() = println("Howdily Doodily")
+}
+
+class Character(override val name:String) extends Person(name) with Nice
+
+val Flanders = new Character("Ned")
+flanders.greet
+
+Now, on to the functional part of Scala:
+
+scala> def double(x:Int):Int = x * 2
+double: (Int)Int
+
+scala> double(4) 
+res0: Int = 8
+
+We can also write bigger methods:
+
+scala> def double(x:Int):Int = { //Defines explicit return type of int and what it is to return
+	| 	x * 2
+	| }
+double: (Int)Int
+
+scala> double(6)
+res3: Int = 12
+
+val in Scala is for imutable types. Var is for mutable. Try to keep things imutable for concurrency.
+
+The biggest difference between functional and OOP: mutable state limits concurrency
+
+Lists in Scala, can be of mixed type, and are declared as follows:
+
+scala> List(1, 2, 3)
+res4: Lists[Int] = List(1, 2, 3)
+
+scala> List("one", "two", "three")
+res5: List[java.lang.String] = List(one, two, three)
+
+To access a list:
+
+scala> List("one", "two", 3)(2) //access index 2 of said List
+res7: Any = 3
+
+We can do -1 indexing access in Scala as well.
+
+To declare a set and maintain it:
+
+scala> val animals = Set("lions", "tigers", "bears")
+animals: scala.collection.immutable.Set[java.lang.String] = 
+	Set(lions, tigers, bears)
+
+To add or subtract:
+
+scala> animals + "armadillos"
+//stuff
+
+scala> animals - "tigers" //Remove tigers
+
+Sets are imutable, so we cannot add to them as follows:
+
+scala> animals + Set("armadillos", "racoons") //Error, non destructive operation
+
+scala> animals ++ Set("armadillo", "racoons")
+//Adds to the set
+
+scala> animals -- Set("Lions", "bears")
+//remove from the set
+
+We can also make set intersections:
+
+scala> animals ** Set(<elements>)
+//Gives itnersected set
+
+Since set is of independant order, it means that a Set is equal to another just having the same elements in it, Lists require ordering to be identical
+
+Maps exist as well:
+
+scala> val ordinals = Map(0 -> "zero", 1 -> "one", 2 -> "two")
+
+scala> ordinals(2) //retrieves "two"
+
+We can also import Mutable hash maps:
+
+scala> import scala.collection.mutable.HashMap
+//imports it
+
+scala> val map = new HashMap[Int, String]
+//create a hash map
+
+scala> map += 4 -> "four"
+
+scala> map += 8 -> "eight"
+
+scala> map
+//Shows the map
+
+In Scala, all objects inherit from Any
+
+Nothing exists as a subtype in Scala as well.
+
+In Scala, higher-order functions is a function that consumes or produces functions.
+
+In Scala, we can support forEach loops as well, if wish:
+
+scala> val list = List("frodo", "samwise", "pippin")
+list: List[java.lang.String] = List(frodo, samwise, pippin)
+
+scala> list.foreach(hobbit => println(hobbit)) //call a anonymous function to delegate hobbit and print the hobbit elements
+frodo
+samwise
+pippin
+
+We can do the same with sets:
+
+val hobbits = Set("frodo", "samwise", "pippin")
+hobbits: scala.collection.immutable.Set[java.lang.String] = Set(frodo, samwise, pippin)
+
+scala> hobbits.foreach(hobbit => println(hobbit))
+frodo
+samwise
+pippin
+
+We can also print over the map, with the above method if we wish:
+
+scala> val hobbits = Map("frodo" -> "hobbit", "samwise" -> "hobbit", "pippin" -> "hobbit")
+
+scala> hobbits.foreach(hobbit => println(hobbit))
+(frodo,hobbit)
+(samwise, hobbit)
+(pippin, hobbit)
+
+We can access either end of the tuple, with the following method:
+
+scala> hobbits.foreach(hobbit => println(hobbit._1))
+frodo
+samwise
+pippin
+
+scala> hobbits.foreach(hobbit => println(hobbit._2))
+hobbit
+hobbit
+hobbit
+
+We also have some interesting list methods:
+
+scala> list //Assume this is the list since before
+
+scala> list.isEmpty
+res24: Boolean = False
+
+scala> Nil.isEmpty
+res25: Boolean = true
+
+scala> list.length
+res27: Int = 3
+
+scala> list.size
+res28: Int = 3
+
+We also have head and tail from before: 
+
+scala> list.head
+res34: java.lang.String = frodo
+
+scala> list.tail
+res35: List[java.lang.String] = List(samwise, pippin)
+
+scala> list.last //Access the last element
+res36: java.lang.String = pippin 
+
+scala> list.init
+res37: List[java.lang.String] = List(frodo, samwise)
+
+We can also reverse things
+
+scala> list.reverse
+res29: List[java.lang.String] = List(pippin, samwise, frodo)
+
+scala> list.drop(1) //drop teh first
+res30: List[java.lang.String] = List(samwise, pippin)
+
+scala> list
+res31: List[java.lang.String] = List(frodo, samwise, pippin)
+
+scala> list.drop(2) //returns the modified list without destroying the original list
+res32: List[java.lang.String] = List(pippin)
+
+We can of course, have more interacting things:
+
+scala> val words = List("peg", "al", "bud", "kelly")
+words: List[java.lang.String] = List(peg, al, bud, kelly)
+
+scala> words.count(word => word.size > 2) //Count words bigger than 2 in length
+res43: Int = 3
+
+scala> words.filter(word => word.size > 2) //map words that are bigger than 2
+res44: List[java.lang.String] = List(peg, bud, kelly)
+
+scala> words.map(word => word.size) //map their sizes
+res45: List[Int] = List(3, 2, 3, 5)
+
+scala> words.forall(word => word.size > 1) //Assign a check against all words in the list
+res46: Boolean = true //Check for bigger than 1
+
+scala> words.exists(word => word.size > 4)
+res47: Boolean = true //Check for bigger than 4
+
+scala> words.exists(word => word.size > 5)
+res48: Boolean = false //Check for bigger than 5
+
+
+We can make stronger interactions as well, such as mapping all words to lowercase:
+
+scala> words.sort((s, t) => s.charAt(0).toLowerCase < t.charAt(0).toLowerCase)
+res49: List[java.lang.String] = List(al, bud, kelly, peg)
+
+We can also sort by size
+
+scala> words.sort((s, t) => s.size < t.size)
+res50: List[java.lang.String] = List(al, bud, peg, kelly) //Sort them in ascending order of size
+
+We can do even more powerful interaction, by having blocks interact with lists:
+
+scala> val list = List(1, 2, 3)
+list: List[Int] = List(1, 2, 3)
+
+scala> val sum = (0 /: list) {(sum, i) => sum + i}
+sum: Int = 6//the result from summing the codeblock assigned to sum
+
+Beyond this, Functional languages have something called Currying. Which is that it takes parameters and make them into functions:
+
+scala> val list = List(1, 2, 3)
+list: List[Int] = List(1, 2, 3)
+
+scala> list.foldLeft(0)((sum, value) => sum + value)
+res54: Int = 6
+
+We can declare XML in Scala, and access things in it:
+
+scala> val movies =
+		<movies>
+			<movie genre="action">Pirates of Shit</movie>
+			<movie genre="fairytale">Edward Foku</movie>
+		</movies>
+
+We can access the text:
+
+scala> movies.text
+res1: String =
+	Pirates of Shit
+	Edward Foku
+
+We can also access nodes:
+
+scala> val movieNodes = movies \ "movie" //To search top level nodes, go with \, to get lower level nodes, go \\
+movieNodes : scala.xml.NodeSeq =
+	<movie genre="action">Pirates of shit</movie>
+	<movie genre="fairytale">Edward Foku</movie>
+
+We can then further down our search:
+
+scala> movieNodes(0)
+res3: scala.mxl.Node = <movie genre="action">Pirates of The Caribean</movie>
+
+we can also access attributes by the @ notation:
+
+scala> movieNodes(0) \ "@genre"
+res4: scala.xml.NodeSeq = action
+
+We can do pattern matching akin to cases:
+
+def doChore(chore: String): String = chore match {
+	case "clean dishes" => "scrub, dry"
+	case "cook dinner" => "chop, sizzle"
+	case _ => "whine, complain"
+}
+prinltn(doChore("clean dishes"))
+println(doChore("mow lawn"))
+
+If we save this in a file and run it:
+
+>> scala chores.scala
+scrub, dry
+whine, complain
+
+We can also do "guards", in matches, meaning we do conditionals in the matching:
+
+def factorial(n: Int): Int = n match {
+	case 0 => 1 //if we feed in 0
+	case x if x > 0 => factorial(n - 1) * n //if x is greater than 0
+}
+
+println(factorial(3))
+println(factorial(0))
+
+We can of course, run pattern matching against regex etc. if we wish
+
+We can assign to find regex with .r :
+
+scala> val reg = """^(F|f)\w*""".r //find the beginning occurence of big F or small F followed by any word
+reg: scala.util.matching.Regex = ^(F|f)\w*
+
+scala> println(reg.findFirstIn("Fantastic"))
+Some(Fantastic)
+
+scala> println(reg.findFirstIn("not Fantastic"))
+None
+
+We can change the pattern:
+
+scala> val reg = "the".r
+reg: scala.util.matching.Regex = the
+
+scala> reg.findAllIn("the way the scissors trim the hair and the shrubs")
+res9: scala.util.matching.Regex.MatchIterator = non-empty iterator //We could iterate through this with a foreach loop
+
+We can run matching against XML patterns:
+
+val movies = <movies>
+	<movie>The Incredibles</movie>
+	<movie>WALL E</movie>
+	<short>Jack jack Attack</short>
+	<short>Geri's Game</short>
+</movies>
+
+(movies \ "_").foreach { movie => 
+	movie match {
+		case <movie>{movieName}</movie> => println(movieName) //match movies
+		case <short>{shortName}</short> => println(shortName + " (short)") //match shorts
+	}
+}
+
+We can also run concurrency in Scala, where we use actors and messages passing to the said things. When we send the message to an actor (by !), we place the object in queue
+The actor reacts, in response to this.
+
+an example, follows:
+
+import scala.actors._
+import scala.actors.Actor._
+
+case object Poke
+case object Feed
+
+class Kid() extends Actor{
+	def act(){
+		loop{
+			react {
+				case Poke => {
+					println("POKED")
+				}
+				case Feed => {
+					println("FEED")
+				}
+			}
+		}
+	}
+}
+
+val shit = new Kid().start
+val shit2 = new Kid().start
+
+println("RUNNING SOME SHIT")
+shit ! Poke
+shit2 ! Poke
+shit ! Feed
+shit2 ! Feed
+
+All of this code, runs concurrently, so if we were to call them multiple times, we'd see they come out at different times in each iteration
+
+We can also react with a timeout, with reactWithin, times out if not given within the specified time
+
+We can also block threads with recieve, or block a thread with a timeout (recieveWithin)
+
+Next up, we run a program to get the size of sites:
+
+import scala.io._
+import scala.actors._
+import Actor._
+
+object PageLoader{
+	def getPageSize(url: String) = Source.fromURL(url).mkString.length //get the URL, make it a strength and get the size
+}
+
+var urls = List("http://www.amazon.com/",
+				"http://www.twitter.com/",
+				"http://www.google.com/",
+				"http://www.cnn.com/")
+
+def timeMethod(method: () => Unit) = {
+	val start = System.nanoTime
+	method()
+	val end = System.nanoTime
+	println("Method took " + (end - start)/1000000000.0 + " seconds.")
+}
+
+def getPageSizeSequentially() = { //Synch
+	for(url <- urls){
+		println("Size for " + url + ": " + PageLoader.getPageSize(url))
+	}
+}
+
+def getPageSizeConcurrently() = { //Asynch
+	var caller = self
+
+	for(url <- urls){
+		actor { caller ! (url, PageLoader.getPageSize(url)) }
+	}
+
+	for(i <- 1 to urls.size){
+		recieve{
+			case (url, size) =>
+				println("Size for " + url + ": " + size)
+		}
+	}
+}
+
+println("Sequential run:") 
+timeMethod { getPageSizeSequentially } //How much time they take
+
+println("Concurrent run") 
+timeMethod { getPageSizeConcurrently } //Run out the amount of time they took
+
+The output, would be:
+
+>> scala sizer.scala
+
+The Concurrent one, would be about 4 seconds whilst sequential takes 6.7ish
+
+The strengths of Scala:
+
+Concurrency
+
+DSL's (domain specific languages)
+
+XML support
+
+Bridging the gap between functional and OOP
+
+Weaknesses:
+
+Verbose
+
+mutateability in concurrency terms
+
+Next up, is Erlang!
+
+Erlang is insanely robust, meaning it can switch out modules without being dismounted.
+
+Erlang goes without any languages, meaning it is attempting to make resources as lightweight as possible.
+
+Erlang uses actors for concurrency and bases itself on the principle of messages. Messages are critical, in Erlang, to which it runs pattern-matching to decipher what they mean.
+
+Erlang makes it easy to monitor death of processes, so it's easy to tell what is happening when it dies and start a new one. And since we have hotswapping, and the reliability os high, we do not need to care for other ideas than just swapping out elements if we so desire.
+
+The language is also heavily slanted towards removing side effects and mutations.
+
+Erlang, is a functional language (Scala is a hybrid of OOP/Functional)
+
+Which means: No mutations, final declarations, no side-effects, and same output every time.
+
+To start Erlang, we must start it in a command erl (linux/Ubuntu) or werl (windows)
+
+We compile stuff in Erlang, with c<filename>.
+
+Comments in erlang start with % and go until EoL.
+
+Let'd do some simple interactions:
+
+1> 2 + 2.
+4
+2> 2 + 2.0.
+4.0
+3> "string".
+"string"
+
+4>[1,2,3].
+[1,2,3]
+
+A string is really a list, and we can convey messages with numerics in a list, if we wish:
+
+4> [72, 97, 32, 72, 97, 32, 72, 97].
+
+5> 4 + "String" //Won't work
+
+And from earlier, we must declare variables with a big letter, in Erlang:
+
+6> variable = 4. //will not work, due ot breaking against the pattern, must be a atom, which means big V
+
+7> Var = 1.
+1
+8> Var = 2. //Will crash, due to re-assignment of a variable
+
+9> red.
+red
+10> Pill = blue.
+blue
+11> Pill.
+blue
+
+13> [1, 2, 3].
+[1,2,3]
+14>[1,2, "three"].
+[1,2,"three"]
+15>List = [1,2,3].
+[1,2,3]
+
+Lists can be any length, Tuples are set length lists.
+
+18> {one, two, three}.
+{one, two, three}
+19> Origin = {0,0}.
+{0,0}
+
+in erlang, we use tuples much akin to hashes:
+
+20> {name, "Spaceman Spiff"}.
+{name, "Spaceman Spiff"}
+21> {comic_strip, {name, "Calvin and Hobbes"}, {character, "Spaceman Spiff"}}.
+{comic_strip,{name,"Calvin and Hobbes"}, {character, "Spaceman Spiff"}}
+
+unlike Prolog, Erlang performs a single match, not against the whole DB.
+
+24> Person = {person, {name, "Agent Smith"}, {profession, "Killing programs"}}.
+				{person, {name, "Agent Smith"},
+						{profession, "Killing programs"}}
+
+Assume we would mesh into a new object, with a name and proffesion, we just "transfer", the values, then:
+
+25> {person, {name, Name}, {profession, Profession}} = Person.
+{person,{name,"Agent Smith"},
+		{profession, "Killing programs"}}
+26> Name.
+"Agent Smith"
+27> Profession.
+"Killing Programs"
+
+List matching of [Head | Tail] is back:
+
+28> [Head | Tail] = [1, 2, 3].
+[1,2,3]
+29> Head.
+1
+30> Tail.
+[2,3]
+
+We can divide head too:
+
+32> [One, Two|Rest] = [1, 2, 3]
+[1,2,3]
+33> One.
+1
+34> Two.
+2
+35> Rest.
+[3]
+
+If not enough elementsa re present, the match fails:
+
+36> [X|Rest] = [].
+
+The = is actually pattern matching in Erlang, meaning that if we fail the rule of uppercase variable assignment, it will not see the pattern to assign.
+
+Next up is bit packing and bit mapping. We can pack things by bits, and then pack/unpack them:
+
+1> W = 1.
+1
+2> X = 2.
+2
+3>
+3> Y = 3.
+3
+4> Z = 4.
+4
+5> All = <<W:3, X:3, Y:5, Z:5>>. //Each number is a amount of bit assignment
+<<"(d">>
+
+We then unpack
+
+6> <<A:3, B:3, C:5, D:5>> = All.
+<<"(d">>
+7>A
+7>.
+1
+8>D
+4
+
+We then go over to functions:
+
+-module(basic). //The calling of function names is like hashes with the key being this value here
+-export([mirror/1]). //Export the function mirror, which accepts 1 argument, to which this becomes the value to said key
+
+mirror(Anything) -> Anything. //The -> returns the first value
+
+We then compile it:
+
+4> c(basic).
+{ok, basic}
+
+We then call it:
+
+5> mirror(smiling_mug). //Won't work, cause undefined.
+6> basic:mirror(smiling_mug).
+smiling_mug
+6> basic:mirror(1).
+1
+
+We can have Erlang return different things, based on context:
+
+-module(matching_function).
+-export([number/1]). //1 argument accepting function
+
+number(one) -> 1; //etc
+number(two) -> 2; //etc
+number(three) -> 3; //If the call is number(three), return 3
+
+And we can then execute it:
+
+8> c(matching_function). //compile it
+{ok, matching_function}
+9> matching_function:number(one).
+1
+10> matching_function:number(two).
+2
+11> matching_function:number(three).
+3
+12> matching_function:number(four). // will give error, cause nothing matches the case of four
+
+Next up, is a fibonacci and a factorial recursive calling function:
+
+-module(yet_again).
+-export([another_factorial/1]).
+-export([another_fib/1]).
+
+another_factorial(0) -> 1;
+another_factorial(N) -> N * another_factorial(N-1). //Run recurswive calls to call, N amount of times, Since we have tail-recursive optimization, this happens very fast
+
+another_fib(0) -> 1;
+another_fib(1) -> 1;
+another_fib(N) -> another_fib(N-1) + another_fib(N-2). //Run the next level of the fibonacci
+
+18> c(yet_again). //compile it
+{ok, yet_again}
+19> yet_again:another_factorial(3).
+6
+20> yet_again:another_factorial(20).
+<a lot of numbers>
+21> yet_again:another_factorial(200).
+<plenty of numbers>
+22> yet_again:another_factorial(2000).
+<stop>
+
+
+In Erlang we also have the capacity of cases, albeit they are a bit more nuasanced than that of the Java equivilants:
+
+1> Animal = "dog"
+2> case Animal of
+2>     "dog" -> underdog;
+2> 	   "cat" -> thundercat
+2> end.
+underdog //Given that the case of animal is dog
+
+Just as per most regex systems, the pattern matching runs against anything on the designation of _, as follows:
+
+//The rule of Animal being Dog still holds true as of running this check:
+
+1> case Animal of
+2>     "elephant" -> dumbo;
+3>     _ -> something_else
+4> end.
+something_else
+
+in Erlang, we use guard conditions in combination with If statements to create more advanced checks of logic, to ensure that things are as they should:
+
+if
+    ProgramsTerminated > 0 ->
+    	success;
+    ProgramsTerminated < 0 ->
+    	error
+end.
+
+In this case, the -> are the guards, meaning thoose are the ones we must bypass to ensure conditionals
+
+Unlike other Languages, Functional languages require a return value on their functions, meaning that if we find that a value cannot
+be match against any clause, it will crash:
+
+8> X = 0.
+0
+9> if
+9>   X > 0 -> positive.
+9>   X < 0 -> negative.
+9> end.
+//Gives an exception
+
+We don't explicitly have else statements, thus, we have to manually build a circumvention of this to account for the possibility of that istuation in Erlang:
+
+9> if
+9>     X > 0 -> positive;
+9>     X < 0 -> negative;
+9>     true -> zero //Acts as else clause due to structure of if no other value triggers
+9> end.
+
+Higher ordering functions, is when we talk about functions that accepts functions as params, or create ones as arguments for others.
+
+We are going to begin by defining Anonymous functions, by assigning a function to a variable:
+
+16> Negate = fun(I) -> -I end. //invert I in case of a integer
+//prints out that it's a function
+17> Negate(1).
+-1
+18> Negate(-1).
+1
+
+Note: Negate is actually the function, and fun() is the keyword to spawn a function
+
+We will begin with anonymous functions handling iterations over lists:
+
+1> Numbers = [1, 2, 3, 4].
+[1, 2, 3, 4]
+2> lists:foreach(fun(Number) -> io:format("~p~n", [Number]) end, Numbers).
+1
+2
+3
+4
+ok
+
+if we want to, we could simplify the code a bit to make a more straight forward function calling:
+
+3> Print = fun(X) -> io:format("~p~n", [X]) end.
+
+We have now bound the funtion of handling input formatting to Print, thus:
+
+8> lists:foreach(Print, Numbers).
+1
+2
+3
+4
+ok
+
+NOTE: ~p is to print an argument, ~n is to spawn a newline character
+
+Next up, we go to interact with mapping:
+
+10> lists:map(fun(X) -> X + 1 end, Numbers).
+[2,3,4,5]
+
+To define a map, we have to use Syntax akin to Erlang, as follows:
+
+map(F, [H|T]) -> [F(H) | map(F, T)];
+map(F, [])      -> [].
+
+We thus just map F:s head and F:s tail to create a list that is the mapped version of F, tow hich we then assign to a empty list
+
+We can also use functions to filter lists, by virtue of creating structures that sort out values:
+
+11> Small = fun(X) -> X < 3 end.
+//assigned a function
+12> Small(4).
+false
+13> Small(1).
+true
+
+We can now then use the function of filter on lists with the argument of Small and the target list to create a new list:
+
+14> list:filter(Small, Numbers).
+[1, 2]
+
+We can also run checks against the lists in a more widehitting matter, such as all and any:
+
+//match against all
+15> lists:all(Small, [0,1,2]).
+true
+16> lists:all(Small, [0, 1, 2, 3]).
+false
+
+//match against any
+17> lists:any(Small, [0, 1, 2, 3]).
+true
+18> lists:any(Small, [3,4,5]).
+false
+
+In case of empty lists, the filter won't matter:
+
+19> lists:any(Small, []).
+false
+20> lists:all(Small, []).
+true
+
+We can also construct lists by virtue of taking numbers as long as the condition is met:
+
+22> lists:takewhile(Small, Numbers).
+[1,2]
+23> lists:dropWhile(Small, Numbers).
+[3,4]
+24> lists:takewhile(Small, [1,2,1,4,1]).  //Take while condition is met
+[1, 2, 1]
+25> lists:dropwhile(Small, [1, 2, 1, 4, 1]). //drop while condition is met
+[4, 1]
+
+The next up concept, is foldl again, which is the concept of folding numbers of a list to sum them up:
+
+28> Numbers.
+[1,2,3,4]
+29> lists:foldl(fun(X, Sum) -> X + Sum end, 0, Numbers). //Run the anonymous function with passing the value of X and Sum, Where we add to x the iterating element
+10 //of Sum, meaning we begin with 0 and then take from Numbers to add up.
+
+To break it down a bit, we could seperate the functions:
+
+32> Adder = fun(ListItem, SumSoFar) -> ListItem + SumSoFar end.
+//Function
+33> InitialSum = 0.
+0
+34> lists:foldl(Adder, InitialSum, Numbers).
+10
+
+As per normal, in Erlang, we go to use the concept of recursion to enable us to cope with the concept of building advanced lists, thus instead of adding to lists
+and allowing for mutable state, we instead return via recursion and we build the lists, to which we have a point of a empty list returning a empty list, breaking the recursion.
+
+An example of the doubling function is as follows, where we access the head of the list to add elements to a new list etc.:
+
+-module(double).
+-export([double_all/1]).
+
+double_all([]) -> []; //The first rule that breaks the recursion
+double_all([First|Rest]) -> [First + First|double_all(Rest)]. //If it can, break the head into parts and call recursively on the rest of the list
+
+If we compile it and run it, we'd get the expected results as per usual:
+
+8> c(double).
+{ok, double}
+9> double:double_all([1,2,3]).
+[2,4,6]
+
+Using the right side of list declaration in terms of Erlang, causes for list construction instead of destruction. If we do ito n the left side,
+ we will end up with tearing lists apart, instead of building them:
+
+ 14> [1|[2,3]].
+ [1,2,3]
+ 15> [[2,3] | 1].
+ [[2,3]|1]
+ 16> [[] | [2,3]].
+ [[], 2, 3]
+ 17> [1 | []].
+ [1]
+
+ The second argument must be a list, and whatever is on the left side, gets added with the right handed into a new List.
+
+ In any functional language, mapping is extremely important. Thus, Erlang, decided to 1-up this to make a greater version, that allows for multiple
+ transformations at once.
+
+ 1> Fibs = [1, 1, 2, 3, 5].
+ [1,1,2,3,5]
+ 2> Double = fun(X) -> X * 2 end.
+ //Define a doubling function
+ 3> list:map(Double, Fibs). //Map and assign the result of running double on the list we have
+ [2,2,4,6,10]
+
+If we want, we can run List comprehension, which is a more consise matter and allows for multiple transformations:
+
+4> [Double(X) || X <- Fibs]. //assign X to be the mapping element from Fibs, run it into Double
+[2,2,4,6,10]
+
+We can just take out the middleman and do it instantly if we wish:
+
+5> [X * 2 || X <- [1,1,2,3,5]].
+[2,2,4,6,10]
+
+The definition of Map that we are going to use is a bit more consise and thus a bit more sophisticated as well, and is as follows:
+
+map(F, L) -> [ F(X) || X <- L].
+
+This , in other words, is, the map of some function over some list L is the collection of F(X) for each X that is a member of the L list.
+
+We are going to showcase this, in terms of a more consice mapping that allows us to see things in a different perspective:
+
+7> Cart = [{pencil, 4, 0.25}, {pen, 1, 1.20}, {paper, 2, 0.20}].
+[{pencil, 4, 0.25}, {pen, 1,1.2}, {paper,2, 0.2}]
+
+We can then run a list comprehension to add a 0.08 tax on eery dollar, if we wish:
+
+8> WithTax = [{Product, Quantity, Price, Price * Quantity * 0.08} || {Product, Quantity, Price} <- Cart].
+[{pencil, 4, 0.25, 0.08} etc.]
+
+The next example of this, is how we would just roll up a list with a 50% discount on all things. We begin with the list:
+
+10> Cat = [{Product, Price} || {Product, _, Price} <- Cart].
+[{pencil, 0.25}, {pen, 1.2}, {paper, 0.2}]
+
+We then build the discount table, by comprehension of lists since before:
+
+11> DiscountedCat = [{Product, Price / 2} || {Product, Price} <- Cat].
+[{pencil, 0.125}, {pen, 0.6}, {paper, 0.1}]
+
+List Comprehension can have arbitrarily long lists of arguments, can pass in Generators or Filters and functions that handle booleans.
+The main concept is that Generators they add new elements, filters sort out and Booleans are indirect handling of stuff:
+
+[X || X <- [1,2,3,4], X < 4, X > 1]. //Run a filter for values that are less than 4 and greater than 1
+[2,3]
+
+We can also have mutliple generators and generating to multiple lists at once:
+
+23> [{X, Y} || X <- [1,2,3,4], X < 3, Y <- [5,6]]. //Run a mapping of 1 through 4 to X and 5 and 6 to Y.
+
+The three primtives of concurrency in terms of Erlang, is:
+
+sending messages (!)
+
+spawnings processes (with spawn)
+
+recieving messages (with receive)
+
+We begin by defining a reciever loop that can handle the messages and spit something back at us. Like a translator of handling Spanish incoming text
+and then spitting back english Text:
+
+The basic reciever looks as follows:
+
+-module(translate).
+-export([loop/0]).
+
+loop() ->
+	recieve
+		"casa" ->
+			io:format("house~n"), //~n is new line
+			loop();
+
+		"blanca" ->
+			io:format("white~n"),
+			loop();
+
+		_ -> 
+			io:format("I do not undersand.~n"), //Run the "else" match last
+			loop()
+end.
+
+Since erlang is optimized for tail recursion, there is barely any overhead in terms of performance when it comes to the fact of running recursive calls,
+all we gotta keep in mind is the fact the last call is the one being recursively called. in our case, loop()
+
+The Recieve part is handling the incoming message from another Process
+
+Next up, is Spawning processes. We begin by running a compilation of the module:
+
+1> c(translate).
+{ok, translate}
+
+When we run spawn on a function, we spawn the process in a lightweight format and we return the PID of said process started:
+
+2> Pid = spawn(fun translate:loop/0);
+<0.38.0>
+
+We can also reference proesses by name, if we wish.
+
+We can also use other version of Spawn if we wish to create a process that can be hot-swapped. We an also make ones to make remote calls or on other systems, with the following syntax:
+
+spawn(Node, function)
+
+We then go to Call the Pid with ! <arguments>, <arguments> being whatever we see fit to pass in.
+
+3> Pid ! "casa".
+"house"
+"casa"
+
+4> Pid ! "blanca".
+"white"
+"blanca"
+5> Pid ! "loco".
+"I don't understand"
+"loco"
+
+If we have a named service, we'd use a slightly different synax for sending dedicated resources:
+
+node@server ! <message>
+
+The above examples, are asynch, but what if we want them to be Synch structured?
+
+To make it Synch, we have to add three parts:
+
+Each Recieve clause must have a tuple of the ID's of the process requesting the answer and the word to translate.
+
+Each Recieve must send the response to the sender instead of printing the result
+
+Instead of using the simple ! primitive, we'll write a simple function to send the request and await the response.
+
+To recieve Synchronously, we just have to make the call accept a tuple and then send it:
+
+recieve
+	{Pid, "casa"} ->
+		Pid ! "house".
+		loop();
+		...
+
+The main difference is just the pattern of which were the opt to have the Id be the first part of the call to identify what we are trying to send, but the actual part of sending does get a bit more complicated, as follows:
+
+Reciever ! "message_to_translate",
+	recieve
+		Message -> do_something_with(Message)
+	end
+
+Since we will be sending the message so often, we instead encapsulate the server messaging, as follows:
+
+translate(To, Word) ->
+	To ! {self(), Word}, //Send to send, the world
+	receive //Recieve the translation
+		Translation -> Translation
+	end.
+
+The completed structure looks as follows:
+
+-module(translate_service). //name hte module
+-export([loop/0, translate/2]). //Export the functions
+
+loop() ->
+	receive
+		{From, "casa"} ->
+			From ! "house",
+			loop();
+
+		{From, "blanca"} ->
+			From ! "white",
+			loop();
+		{From, _} -> 
+			From ! "I don't understand",
+			loop()
+end.
+
+translate(To, Word) ->
+	To ! {self(), Word},
+	receive
+		Translation -> Translation
+	end.
+
+to use it, we have the following:
+
+1> c(translate_service). //Compile it
+{ok, translate_service}
+2> Translator = spawn(fun translate_service:loop/0).
+<0.38.0>
+3> translate_service:translate(Translator, "blanca").
+"white"
+4> translate_service:translate(Translator, "casa").
+"house"
+
+Beyond this, Erlang does provide error handling, beyond the normal catching of exceptions.
+
+We can link processes, meaning that when one process dies, it sends a signal to the other and it can react accordingly.
+
+An example of this, is a really simple recursive calling of a roulette program:
+
+-module(roulette).
+-export([loop/0]).
+
+%Send a number 1-6
+loop() ->
+	receive
+		3 -> io:format("bang~n"), exit({roulette, die,at,erlang:time()}); //On 3, kill the process and send an exit signal with the time of death
+		_ -> io:format("click~n"), loop() //On any other number, just keep recursively running the loop
+end.
+
+It's a very simple client-server relation program, the console being the client and the roulette program being the server.
+
+1> c(roulette).
+{ok, roulette}
+2> Gun = spawn(fun roulette:loop/0).
+<0.38.0>
+3>Gun ! 1.
+"click"
+1
+4>Gun ! 3.
+"bang" //Process dies, further calls do nothing
+5> Gun ! 4.
+4
+6> Gun ! 1.
+1
+
+We can actually check to see if the process is dead or not:
+
+7> erlang:is_process_alive(Gun).
+false
+
+If we wish to make a monitor that can alarm us of the process death, we can write it as follows:
+
+-module(coroner).
+-export([loop/0]).
+
+loop() ->
+	process_flag(trap_exit, true),
+	receive
+		{monitor, Process} ->
+			link(Process),
+			io:format("monitoring process.~n").
+			loop();
+
+		{'EXIT', Form, Reason} ->
+			io:format("The shooter ~p died with reason ~p.", [From, Reason]),
+						io:format("Start another one.~n"),
+			loop()
+		end.
+
+IN our case, we are building a receive loop, because without it, we would have to Trap the exit signal.
+
+The actual receives sent, consist of two parts, one part with monitor and the other with the String ´EXIT´, we will look at this in detail:
+
+{monitor, Process} -> //Will link any of the relevant objects
+	link(Process),
+	io:format("Monitoring process.~n"),
+	loop();
+
+if the process dies:
+
+{'EXIT', From, Reason} ->
+	io:format("The shooter died. Start another one.~n"),
+	loop()
+end.
+
+An example of the overall structure:
+
+1> c(roulette).
+{ok, roulette}
+2> c(coroner).
+{ok, coroner}
+3> Revolver=spawn(fun roulette:loop/0).
+<0.43.0>
+4> Coroner=spawn(fun coroner:loop/0).
+<0.45.0>
+5> Coroner ! {monitor, Revolver}.
+Monitoring Process.
+{monitor, <0.43.0>}
+6> Revolver ! 1.
+click
+1
+7> Revolver ! 3.
+bang.
+3
+The shooter <0.43.0> died with reason
+{roulette, die, at, {8,48,1}}. Start another one.
+
+We can redo the coroner, into a Doctor, where we register the gun and restart it upon death:
+
+-module(doctor).
+-export([loop/0]).
+
+loop() ->
+	process_flag(trap_exit, true),
+	receive
+		new -> //Run looping
+			io:format("Creating and monitoring process.~n"),
+			register(revolver, spawn_link(fun roulette:loop/0)),
+			loop();
+
+		{'EXIT', From, Reason} -> //Case of Exit
+			io:format("The shooter ~p died with reason ~p.", [From, Reason]),
+						io:format(" Restarting. ~n"),
+			self() ! new, //Send a new copy of self to new
+			loop() //run loop
+		end.
+
+To showcase interaction of it:
+
+2> c(doctor).
+{ok, doctor}
+3> Doc = spawn(fun doctor:loop/0).
+<0.43.0>
+4> revolver ! 1.
+** exception error: bad argument
+	in operator !/2
+		called as revolver ! 1
+
+5> Doc ! new
+Creating and monitoring process.
+new
+6> revolver ! 1.
+click
+1
+7> revolver ! 3.
+bang.
+3
+The shooter <0.47.0> died with reason {roulette,die,at,{8,53,40}}.
+	Restarting.
+Creating and monitoring process.
+8> revolver ! 4.
+click
+4
+
+The moral fo teh story in erlang, is, when it crashes, just create a new one.
+
+The strengths of Erlang, are as follows:
+
+Dynamic and Reliable - Erlang is incredible Reliable, even to the degree of allowing hotswapping.
+
+Lightweight and Concurrency - Since no side effects and no states, it is incredible for Concurrency and very robust
+
+OTP - Has insanely many telecom libraries. Also supports hotswapping, tolerance, etc.
+
+Let it crash - Crashes can just be made to allow restarts.
+
+Weaknessese of Erlang:
+
+Niche
+
+Next up, is Clojure - Which is a Lisp dialect.
+
+Clojure is a JVM Lisp Dialect.
+
+We can install it as follows:
+
+lein new seven-languages
+Created new project in: seven-languages
+cd seven-languages/
+seven-languages
+
+We then start the Clojure console with repl:
+
+lein repl
+
+We begin simple:
+
+user=> (println "give me some shit")
+give me some shit
+nil
+
+when we call methods, we do (<methodname> <args>):
+
+user=> (-1)
+-1
+user=> (+ 1 1)
+2
+user=> (* 10 10)
+100
+
+user=> (/ 1 3)
+1/3
+
+user=> (/ 2 4)
+1/2
+
+user=> (/ 2.0 4)
+0.5
+
+user=> (class (/ 1 3))
+clojure.lang.Ratio //Ratio allows for delaying in processing to avoid loss of precision
+
+user=> (mod 5 4) //Modulus
+1
+
+We can do nested math:
+
+user=> (/ (/ 12 2) (/ 6 2))
+2
+
+user=> (+ 2 2 2 2)
+8
+
+user=> (- 8 1 2)
+5
+user=> (/ 8 2 2)
+2
+
+We can do evaluation based on ordering:
+
+user=> (< 1 2 3) //is in order
+true
+user=> (< 1 3 2 4) //is not in order
+false
+
+user=> (+ 3.0 5)
+8.0
+user=> (+ 3 5.0)
+8.0
+
+\n are newline in strings:
+
+user=> (println "master yoda\nluke skywalker\ndarth vader")
+master yoda
+luke skywalker
+darth vader
+nil
+
+To convert stuff to strings:
+
+user=> (str 1)
+"1"
+
+if the underlying class is Java, it will use it's toString() method.
+
+user=> (str "yoda, " "luke,  " "darth")
+"yoda, luke,   darth"
+
+We can also concatenate different types:
+
+user=> (str "one: " 1 " two: " 2)
+"one: 1 two: 2"
+
+To present a char outside of double quotes, escape then: \<letter>
+
+Comparisons:
+
+user=> (= "a" \a)
+false
+
+user=> (= (str \a) "a")
+true
+
+Moving on to booleans:
+
+user=> (= 1 1.0)
+true
+user=> (= 1 2)
+false
+user=> (< 1 2)
+true
+
+booleans in Clojure is the underlying Java classes:
+
+user=> (class true)
+java.lang.Boolean
+user=> (class (= 1 1))
+java.lang.Boolean
+
+Simple showcasing of conditionals:
+
+user=> (if true (println "True it is."))
+True it is.
+nil
+user=> (if (> 1 2) (println "True it is."))
+nil
+
+We can break it into lines
+
+user=> (if (< 1 2)
+	(println "False it is not."))
+False it is not.
+nil
+
+We can do else statements:
+
+user=> (if false (println "true") (println "false"))
+false
+nil
+
+0 and "" are true, in Clojure.
+
+Lists in Clojure is for Code, Vectors is for Data.
+
+We can't do:
+
+user=> (1 2 3)
+//will give an error
+
+if we wish to make a list of 1 2 3,we need to explicitly do so:
+
+user=> (list 1 2 3)
+(1 2 3)
+user=> '(1 2 3)
+(1 2 3)
+
+The ' is called quoting, and the ways we can act with lists is first, last, rest and cons:
+
+user=> (first '(:r2d2 :c3po))
+:r2d2
+user=> (last '(:r2d2 :c3po))
+:c3po
+user=> (rest '(:r2d2 :c3po))
+(:c3po)
+user=> (cons :battle-droid '(:r2d2 :c3po))
+(:battle-droid :r2d2 :c3po)
+
+Vectors are ordered collection of elements, and are optimized for random access.
+
+Vectors are written with square brackets:
+
+user=> [:hutt :wookie :ewok]
+[:hutt :wookie :ewok]
+
+To access the data in vectors:
+
+user=> (first [:hutt :wookie :ewok])
+:hutt
+user=> (nth [:hutt :wookie :ewok] 2) //get the 2:nth element
+:ewok
+
+user=> (nth [:hutt :wookie :ewok] 0)
+:hutt
+user=> (last [:hutt :wookie :ewok])
+:ewok
+user=> ([:hutt :wookie :ewok] 2)
+:ewok
+
+We can concat vectors:
+
+user=> (concat [:darth-vader] [:darth-maul])
+(:darth-vader :darth-maul)
+
+Many functions returning collections use abstraction in Clojure to return sequences.
+
+we can use head and tail by first and rest:
+
+user=> (first [:hutt :wookie :ewok])
+:hutt
+user=> (rest [:hutt :wookie :ewok])
+(:wookie :ewok)
+
+Next up, is sets and maps:
+
+user=> #{:x-wing :y-wing :tie-fighter} //define the set
+#{:x-wing :y-wing :tie-fighter}
+
+We can assign it by a method:
+
+user=> (def spacecraft #{:x-wing :y-wing :tie-fighter})
+#'user/spacecraft
+user=> spacecraft
+#{:x-wing :y-wing :tie-fighter}
+user=> (count spacecraft)
+3
+user=> (sort spacecraft)
+(:tie-fighter :x-wing :y-wing)
+
+We can make sorted sets:
+
+user=> (sorted-set 2 3 1)
+#{1 2 3}
+
+We can merge them, as well, if wish:
+
+user=> (clojure.set/union #{:skywalker} #{:vader})
+#{:skywalker :vader}
+
+or see differences:
+
+(clojure.set/difference #{1 2 3} #{2})
+
+Sets are also functions, in Clojure.
+
+To test membership, we do:
+
+user=> (#{:jar-jar :chewbacca} :chewbacca)
+:chewbacca
+user=> (#{:jar-jar :chewbacca} :luke)
+nil
+
+Next up, we move on to Maps:
+
+user=> {:chewie :wookie :lea :human}
+{:chewie :wookie, :lea :human}
+
+the , work as whitespace in maps in Clojure.
+
+Things that are named with : are two things in Clojure, either a keyword or a symbol pointing to something else.
+
+Keywords and Maps are also functions in Clojure. True and map are symbols.
+
+Some examples of interacting with maps:
+
+user=> (def mentors {:darth-vader "obi wan", :luke "yoda"})
+#'user/mentors
+user=> mentors
+{:darth-vader "obi wan", :luke "yoda"}
+
+We can retrieve values:
+
+user=> (mentors: luke)
+"yoda"
+
+Since keywords are also functions:
+
+user=> (:luke mentors) //The :luke is the function looking itself up in the respective map
+"yoda"
+
+We can merge maps as well:
+
+user=> (merge {:y-wing 2, :x-wing 4} {:tie-fighter 2})
+{:tie-fighter 2, :y-wing 2, :x-wing 4}
+
+We can also specify operators when hashes exists in both maps:
+
+user=> (merge-with + {:y-wing 2, :x-wing 4} {:tie-fighter 2 :x-wing 3})
+{:tie-fighter 2, :y-wing 2, :x-wing 7}
+
+To create a new association:
+
+user=>(assoc {:one 1} :two 2)
+{:two 2, :one 1}
+
+We can also make sorted maps:
+
+user=> (sorted-map 1 :one, 3: three, 2 :two)
+{1 :one, 2 :two, 3:three}
+
+To define methods, we use defn:
+
+user=> (defn force-it [] (str "User the force," "Luke."))
+#'user/force-it
+
+We then call it:
+
+user=> (force-it)
+"Use the force, Luke."
+
+We can define documentation for it as well, fi we wish:
+
+user=> (defn force-it
+			 "The first function a young Jedi needs"
+			 []
+			 (str "Use the force", "Luke"))
+
+to then show the doc:
+
+user=> (doc force-it)
+------------------------------
+user/force-it
+([])
+	The first function a young jedi needs
+nil
+
+We can also pass variables, of course:
+
+user=> (defn force-it
+				"The first function a young Jedi needs"
+				[jedi]
+				(str "use the force," jedi))
+#'user/force-it
+user=> (force-it "Luke")
+"Use the force, Luke"
+
+In Clojure, we can do something called destructing, which means we pick apart the object and the argumentlist, to find arguments:
+
+user=> (def line [[0 0] [10 20]])
+#'user/line
+user=> line
+[[0 0] [10 20]]
+
+We could then access the end of that line, by the other argument:
+
+user=> (defn line-end [ln] (last ln))
+#'user/line-end
+user=> (line-end line)
+[10 20]
+
+But we don't need the whole line, we could juat access the end, if we wanted to:
+
+(defn line-end [[_ second]] second) //Run a pattern matching against ignoring first and accessing second, then access second of that one
+#'user/line-end
+user=> (line-end line)
+[10 20]
+
+If we wish to get a specific element of a range of values:
+
+user=> (defn center [[_ [_ c _] _]] c) //Access the inner element whilst ignoring hte outer ones, and then feed in that arg
+#'user/center
+
+we'd get:
+
+user=> (center board)
+:x
+
+We could simplify it by shortening the target, since we already aquired it:
+
+(defn center[[_ [_ c]]] c)
+
+We can also perform variable binding in the process of destructing:
+
+(defn center [board])
+	(let [[_ [_ c]] board] c)) //ASsign the variable in the destructing process
+
+We can destruct maps:
+
+user=> (def person {:name "Jabba" :profession "Gangster"})
+#'user/person
+user=> (let [{name :name} person] (str "The person's name is " name)) //assign a variable and then call it to a function 
+"The person's name is Jabba"
+
+We can combine maps and vectors, as well:
+
+user=> (def villains [{:name "Godzilla" :size "big"} {:name "Ebola" :size "small"}])
+#'user/villains
+user=> (let [[_ {name :name}] villains] (str "Name of the second villain: " name)) //ignore the first argument, access the name of the second, call villains
+"Name of the second villain: Ebola"
+
+in clojure, if we do #, we define a anonymous function, and % binds to every variable in the context.
+
+Let's start seeing how to build it:
+
+user=> (def people ["Lea", "Han Solo"])
+#'user/people
+
+user=> (count "Lea")
+3
+
+We could build a list of the length of the people as ofllows:
+
+user=> (map count people)
+(3 8) //lea is 3, han solo is 8
+
+We can build double the length, as well:
+
+user=> (defn twice-count [w] (* 2 (count w)))
+#'user/twice-count
+user=> (twice-count "Lando")
+10
+user=> (map twice-count people)
+(6 16)
+
+We could re-write it as a anonymous function:
+
+user=> (map (fn [w] (* 2 (count w))) people)
+(6 16)
+
+we could write the same thing, but in a shorter format:
+
+user=> (map #(* 2 (count %)) people)
+(6 16)
+
+in Clojure, we call the # a reader macro, a macro that performs a function and does reading. iN this case, runs length and maps it.
+
+We're going to use a common vector for all the purposes of anons funcs, as follows:
+
+user=> (def v [3 1 2])
+#'user/v
+
+Apply, is a function call of just running a function to a argument list, for example, we can sum things in a list:
+
+user=> (apply + v)
+6
+user=> (apply max v)
+3
+
+We can also run filters, of course, if we wish, as follows:
+
+user=> (filter odd? v) //get all odd
+(3 1)
+user=> (filter #(< % 3) v) //Get all the elements less than 3
+(1 2)
+
+In functional languages, we use recursion instead of iteration. An example of iterating through recursion:
+
+(defn size [v]
+	(if (empty? v) //if it's empty
+			0
+			(inc (size (rest v))))) //increase the size by 1 and run recursion on the remaining things
+
+(size [1 2 3])
+
+Clojure, however, does not enforce tail recursion optimization, due to the JVM.
+
+We must manually recur through loops using loop and recur.
+
+An example of doing a loop:
+
+(loop [x x-initial-value, y y-initial-value] (do-something-with x y))
+
+The mere thing of what loop does, is iterate through and designate values or interact with values, much ain to a let:
+
+user=> (loop [x 1] x)
+1
+
+If we do recur, we'd recursively call to loop back:
+
+(defn size [v]
+		(loop [l v, c 0] //loop through the list l, v be the current element iterating, declaring c to be 0
+		(if (empty? l) //if it's empty
+				c //Acts as count, which is the value we track, and the purpose of this is to have it act as accumulator
+				(recur (rest l) (inc c))))) //call recursion on the rest and increment c to be called in with it
+
+Sequences is a implementation-independant abstractin of pretty much anything in Clojure, including Dirs, sets, maps, vectors, collections (Java), arrays, strings.
+
+Generally, if it supports first, rest and cons you can wrap it in a sequence.
+
+A callback to using the rest argument:
+
+user=> [1 2 3]
+[1 2 3]
+user=> (rest [1 2 3])
+(2 3)
+
+We started with a vector, and we get back a sequence.
+
+When we test sequences, we can use something called a predicate, a function that accepts a sequence and a test function to verify a condition:
+
+user=> (every? number? [1 2 3 :four]) //Is every element a number? No
+false
+
+(some nil? [1 2 nil]) //is there a nil element involved? Return the first element htat is not nil
+true
+
+We can inverse them:
+
+user=> (not-every? odd? [1 3 5]) //is everyone even? No
+false
+user=> (not-any? number? [:one :two :three]) //Is there not any number involved?
+true
+
+We can of course, change sequences as well:
+
+user=> (def words ["luke" "chewie" "han" "lando"])
+#'user/words
+user=> (filter (fn [word] (> (count word) 4)) words)
+("chewie" "lando")
+
+We can map stuff as well, raising the power to 2:
+
+user=> (map (fn [x] (* x x)) [1 1 2 3 5])
+(1 1 4 9 25)
+
+We can of course match sequences, either singularly or multiples at once:
+
+user=> (def colors ["red" "blue"])
+#'user/colors
+user=> (def toys ["block" "car"])
+#'user/toys
+
+An example of simple iteration:
+
+user=> (for [x colors] (str "i like " x))
+("I like red" "I like blue")
+
+We can iterate over several lists:
+
+user=> (for [x colors, y toys] (str "I like " x " " y "s"))
+("I like red blocks" "i like red cars"
+ "I like blue blocks" "I like blue cars")
+
+We can also make conditional checks against elements when we are iterating by virtue of the when:
+
+user=> (defn small-word? [w] (< (count w) 4))
+#'user/small-word
+user=> (for [x colors, y toys, :when (small-word? y)] //Run a iteration and trigger on the y elements when the words length is less than 4, meaning we only trigger car
+			(str "I like " x " " y "s"))
+("I like red cars" "I like blue cars")
+
+To interact with collections in a summarizing matter, we can just run reducers:
+
+user=> (reduce + [1 2 3 4])
+10
+user=> (reduce * [1 2 3 4 5])
+120
+
+We can also sort lists:
+
+user=> (sort [3 1 2 4])
+(1 2 3 4)
+
+We can also sort based on the result of a function:
+
+user=> (defn abs [x] (if (< x 0) (- x) x)) //calculate the absolute value 
+#'user/abs
+user=> (sort-by abs [-1 -4 3 2]) //Sort the values
+(-1 2 3 -4)
+
+In Clojure, we have something called lazy evaluation, which means it's only evaluated upon the moment that we need it.
+
+The reason we have lazy evaluation, is because we want to be have the practical equivilant of infinite numbers. Which is easy in non-functional languages, but here we do lazy evaluation. Most things are lazy evaluations, in fact.
+
+Let's talk a bit about finite sequences, simple ranges:
+
+user=> (range 1 10)
+(1 2 3 4 5 6 7 8 9) //Defaults to increment by 1
+
+user=> (range 1 10 3)
+(1 4 7)
+
+If there is no increment, we need not define the lowerbound:
+
+user= (range 10)
+(0 1 2 3 4 5 6 7 8 9)
+
+So, how do we make infinite sequences? Well, we define repeat on a element. Which we then take a limited amount from it:
+
+user=> (take 3 (repeat "Use the Force, Luke"))
+("Use the Force, Luke" "Use the Force, Luke" "Use the Force, Luke")
+
+We can also cycle through the elements and take a limited amount from that cycling:
+
+user=> (take 5 (cycle [:lather :rinse :repeat]))
+(:lather :rinse :repeat :lather :rinse)
+
+We can also drop the 2 first of a set:
+
+user=> (take 5(drop 2(cycle [:lather :rinse :repeat]))) //Drop the first 2, starting from repeat instead
+(:repeat :lather :rinse :repeat :lather)
+
+We could also use the ->> (left to right) operator, to apply things to a list:
+
+user=> (->> [:lather :rinse :repeat] (cycle) (drop 2) (take 5))
+(:repeat :lather :rinse :repeat :lather)
+
+If we want a kind of seperator, we can use the interpose <arg>:
+
+user=> (take 5 (interpose :and (cycle [:lather :rinse :repeat])))
+(:lather :and :rise :and :repeat)
+
+If we wish to take from another set as well, we can use interleave:
+
+user=> (take 20 (interleave (cycle (range 2)) (cycle (range 3))))
+<numbers cycling with intermission from the other set>
+
+We can also make arbitrary generated sequences:
+
+user=> (take 5 (iterate inc 1)) //create a sequence of iteration where increment is from 1 and increment is by 1
+(1 2 3 4 5)
+user=> (take 5 (iterate dec 0)) //Create a sequence of iteration where decrement is from 0 and decrement is by 1
+(0 -1 -2 -3 -4)
+
+An example of running fibonacci:
+
+user=> (defn fib-pair [[a b]] [b (+ a b)])
+#'user/fib-pair
+user=> (fib-pair [3 5])
+[5 8]
+
+We can also, if we use the trick of accessing a fib-pair generator, and map the first value and see what occurs when we take a certain index of them:
+
+user=> (take 5
+	   (map
+	   first
+	   (iterate fib-pair [1 1])))
+(1 1 2 3 5)
+
+Or we can grab the number at index 500:
+
+(nth (map first (iterate fib-pair [1 1])) 500)
+(225 //numbers// 626)
+
+The performance is excellent, because we make them as we go, with lazy evaluation.
+
+We can also do factorials, if we wish:
+
+user=> (defn factorial [n] (apply * (take n (iterate inc 1)))) //Take x amount of elements, use apply to multiply them all together
+#'user/factorial
+user=> (factorial 5)
+120
+
+in Clojure, we can use defrecords and protocols, to which they are like contracts which must support cetain functions, fields and arguments.
+An example, let us make a compass:
+
+(defprotocol Compass
+	(direction [c])
+	(left [c])
+	(right [c]))
+
+We can now implement said thing with a defrecord, if we wish. Next up, we define the directions:
+
+(def directions [:north :east :south :west])
+
+We then implement the turning control:
+
+(defn turn
+	[base amount] //accept base amount
+	(rem (+ base amount) (count directions))) //add base amount and count how many directions we are turning, incremented by 1 each time
+
+We load the compass and run it:
+
+user=> (turn 1 1)
+2
+user=> (turn 3 1)
+0
+user=> (turn 2 3)
+1
+
+We begin by implementing the protocol, with defrecord:
+
+(defrecord SimpleCompass [bearing] //initiate a protocol with one argument, bearing
+	Compass) //based on Compass
+
+We then define a method that handles bearing:
+
+(direction [_] (directions bearing)) //instead of refering self or this, just match against anything
+
+We then run against directions to match in calls:
+
+(left [_] (SimpleCompass. (turn bearing 3)))
+(right [_] (SimpleCompass. (turn bearing 1))) //Fire the concstructor of SimpleCompass with one arg. Return it afterwards, we always spawn a new instance.
+
+To have a string representation of it, we just access the Object class and designate the toString:
+
+Object
+(toString [this] (str "[" (direction this) "]")))
+
+The type is now complete, and we can interact with it:
+
+user=> (def c (SimpleCompass. 0))
+#'user/c
+
+user=> (left c) ; returns a new compass
+#:SimpleCompass{:bearing 3}
+
+user=> c ; original compass unchanged
+#:SimpleCompass{:bearing 0}
+
+But we can also access fields in the type as Clojure map keywords:
+
+user=> (:bearing c) //Access bearing of c
+0
+
+Next up, is Macros!
+
+Now, what if we want to run a unless form? We have to circumvent the way the assignment of arguments occurs ot the call stack. To do this, we simply have to
+use macro expansion to allow pre-defining structure to prevent exectuion of the stuff:
+
+user=> (macroexpand ''something-we-do-not-want-interpeted)
+	(quote something-we-do-not-want-interpeted)
+
+user=> (macroexpand '#(count %))
+(fn* [p1__97] (count p1__97))
+
+Our unless that we are defining, will look as follows:
+
+user=> (defmacro unless [test body]
+		(list 'if (list 'not test) body))
+#'user/unless
+
+It will evaluate test and body without replacement, but we have to quote the if and not and put them in a list.  We build a list of code in the orrder Clojure will execute it in.
+
+We can then macroexpand it:
+
+user=> (macroexpand '(unless condition body))
+(if (not condition) body)
+
+And we can then execute it:
+
+user=> (unless true (println "No more danger, Will."))
+nil
+user=> (unless false (println "Now, THIS is the FORCE."))
+Now, THIS is the FORCE.
+nil
+
+By virtue of using macroexpands and writing lists of code execution, we are actually defining our own control structures. Which allowed us to make a unless statement by ourselves.
+
+Macroexpansion occurs before the code is implemented.
+
+Now, there are plenty of models for concurrency, as far as we know. There is locks restricting access of multiple threads to the same object,
+we have versioning to return copies and assign copies to each thread to let them work on that respective part.
+
+Clojure, uses it's own version: STM. Software transactional memory - it uses multiple versions to maintain consistency and integrity.
+
+Unlike Scala, Ruby and Io, when we wish to change the state of a reference in Clojure, we must do so in the scope of a transaction.
+
+in Clojure, we must do so within scope of a Transaction.
+
+In Clojure, we use ref to make references, which are wrapped pieces of Data. All access must conform to a specific set of Data. The rules, in this case,
+is to support STM.
+
+We begin by starting references:
+
+user=> (ref "Attack of the Clones")
+#<Ref@ffdadcd: "Attack of the clones">
+
+We can assign it to a method to return it:
+
+user=> (def movie (ref "Star Wars"))
+#'user/movie
+
+//To get the ref back
+user=> movie
+#<Ref@579d75ee: "Star Wars">
+
+To get the value in the reference, just deref it: //both of the following ways work:
+
+user=> (deref movie)
+"Star Wars"
+
+user=> @movie //Short version
+"Star Wars"
+
+To transform the state of the reference, we have to access it in a Transaction, and we could try the following:
+
+user=> (alter movie str ": The Empire Strikes Back")
+//Exception, due to trying to do it outside of a Transaction
+
+The way we should do it, is with dosync:
+
+user=> (dosync (ref-set movie "Star Wars: The Revenge of the Sith"))
+"Star Wars: The Revenge of the Sith"
+
+We will then see that the reference changed:
+
+user=> @movie
+"Star Wars: The Revenge of the Sith"
+
+Given the usage of this, we ensure that the behavior is exact in terms of race conditions and deadlocks. Huzzah for saving ourselves problems later on,
+by adhering to STM.
+
+When it comes to singular references that should apply to thread safety and state mutation, we can do atoms, which is just a encapsulated piece of state:
+
+user=> (atom "Split at your own risk")
+#<Atom@53f64158: "Split at your own risk.">
+
+To then bind the atom:
+
+user=> (def danger (atom "Split at your own risk."))
+#'user/danger
+user=> danger
+#<Atom@3a56860b: "Split at your risk.">
+user=> @danger
+"Split at your own risk."
+
+We can bind the danger value to another, by virtue of reset!:
+
+user=> (reset! danger "Split with impunity")
+"Split with Impunity"
+user=> danger
+#<Atom@455fc40c: "Split with impunity">
+user=> @danger
+"Split with impunity"
+
+Reset replaces the entire atom, but the preferred usage is to provide a function to transform the atom. if we are changing a large vector,
+we can for instance use the swap! call:
+
+user=> (def top-sellers (atom []))
+#'user/top-sellers
+user=> (swap! top-sellers conj {:title "Seven Languages", :author "Tate"})
+[{:title "Seven Languages", :author "Tate"}]
+user=> (swap! top-sellers conj {:title "Programming Clojure" :author "Halloway!"})
+[{:title "Seven Languages in Seven Weeks", :author "Tate"}
+{:title "Programming Clojure", :author "Halloway"}]
+
+We do the same general idea in Haskell, where we take a piece of state in a package and later mutate it with functions. Whils refs requires transactions,
+Atoms do not. Thus, let's build an Atom cache!
+
+We simply run a hashing of associating values ot Atoms:
+
+(defn create
+	[]
+	(atom {}))
+
+//Create an atom, let the client of this class bind it, next we need the cache key
+
+(defn get
+	[cache key] //Access the cache with the key
+	(@cache key)) //derefernce it and access the value
+
+Next we define the putting of items there:
+
+(defn put //We actually define two versions of the put here
+	([cache value-map]
+		(swap! cache merge value-map)) //one adding the associations of a map to our cache
+	([cache key value]
+		(swap! cache assoc key value))) //use assoc to add a key and a value
+
+Thus, an example concluding of how we would create the cache and access it in a Synch matter:
+
+(def ac(create))
+(put ac :quote "I'm your father, FOK U")
+(println (str "Cached item: " (get ac :quote)))
+
+The output:
+
+Cached item: I'm your father, Luke.
+
+Atoms and Refs are simple ways of handling mutateable state, in Synch. Next up, we look at how to handle them in Asynch context:
+
+Akin to Atoms, are agents. That however, act like Io's future, which means that the value will first be available upon actually being retrieved or updated.
+
+Only one function can mutate the state of a Agent at a time, but when we do it in Asynch, we end up in such a situation so that we force the update in another Thread.
+
+Some simple interactions with values:
+
+user=> (defn twice [x] (* 2 x))
+#'user/twice
+
+We then define an agent and initialize the value:
+
+user=> (def tribbles (agent 1))
+#'user/tribbles
+
+user=> (send tribbles twice) //mutate the state of tribbles by sending it a value
+
+The function is run in another thread, and if we then retrieve the value, we can see it has updated.
+
+user=> @tribbles
+2
+
+Reading a value from a red, atom or Agent will never block and never lock. To showcase this in a practice, let's see it:
+
+user=> (defn slow-twice [x]
+		(do
+			(Thread/sleep 5000)
+			(* 2 x)))
+#'user/slow-twice
+user=> @tribbles
+2
+user=> (send tribbles slow-twice)
+#<Agent@554d7745: 16>
+user=> @tribbles //The value was never blocked from retrieval, despite having value updated, its available because its run in the other thread, though
+2
+user=> ; do this five seconds later //The value is updated, later
+user=> @tribbles
+4
+
+If we wish to be assured to have the latest value in respects to our own threads, we can use (await <name>) or (await-for timeout <name>), where timeout is a timeout in milisecs.
+
+However, if we were to try and do this, we would have failed the most basic of ideas, due to teh fact that Clojure bases itself on working with snapshots and never the actual current value, which is why the concurrency model is so quick - You do not wait for values, you accept snapshots and then move on.
+
+In Java, whilst we might have gone to assign different threads to different parts of computation, we could actually just handle that in Clojure with futures, agents, etc.
+
+A future, in Clojure, is a ASynch concurrency model that allows asynch returns before the computation is complete. We can use futures to allow several long-running
+functions to run in parallel.
+
+Note: If we derefence the future, it gets blocked until it retireves the actual value. Meaning we cannot access the snapshots
+
+There are a number of things we have not gone through with Clojure, but rest assured, Clojure is one of THE MOST powerful languages, what with the flexibility of akin to Io with redefining code in form of macros, we can also use Multimethods to allow multiparadigm code
+
+The things we missed in this book (Find a book on Clojure!):
+
+Metadata : Associating Metadata to a type. ALlows us to assign metadata to symbols and collections. 
+
+It's integrated with Java
+
+Multimethods: By allowing assocations of Libraries of functions with a type, metadata, arguments, or even attributes, means we can re-do pretty much anything
+we would bloody want. Which, is crazy.
+
+It would mean, for example, that we could implement Java inheritance, prototype inheritance or something entirely different.
+
+Clojure also allows us to save data to specific thread instances, with bindings:
+
+(binding [name "value"]), would bind name to value for just the current thread of operations
+
+NOTE: While reading Clojure would be really fucking dope, because it seems insanely powerful, i will have to focus on more important things, such as reading frameworks,
+and chasing the big dough. Sad, though.
+
+The strengths of Clojure:
+
+Concurrency, Java integration, lazy evaluation, Metaprogramming
+
+The last language on the list, is Haskell. WHich is a language that is purely functional. it is akin to Scala in Syntax.
+
+It does not return side effects, but functions can return side effects which is later executed.
+
+we begin by using the ghc, Glaskhow Haskell Computer. 
+
+NUmbers work as expected in Haskell, however, to put together strings, we must use ++:
+
+"hello" ++ " world"
+"hello world"
+
+And we can present chars in lists:
+
+Prelude> 'a'
+'a'
+Prelude> ['a', 'b']
+"ab"
+
+In Haskell, everything is functions, meaning we cannot do the normal faffing about of putting together numbers and strings, 
+and even conditionals like ifs, are functions:
+
+Prelude> (4 + 5) == 9
+True
+Prelude> (5 + 5) /= 10 //equal to !=
+False
+
+To create if/else statements, we must make a chain of if/then/else:
+
+Prelude> if (5 == 5) then "true" //Will nto work, expects a followup after this
+
+Prelude> if (5 == 5) then "true" else "false"
+"true"
+
+And since everything is functions, it all returns values, however, if structures only take booleans strictly:
+
+Prelude> if 1 then "true" else "false"
+//Gives an error, cause 1 is not a boolean
+
+Neither can we force conversion implicitly:
+
+Prelude> "one" + 1
+
+//Error due to attempting to do conversion implicitly between two types thata ren ot compatible
+
+If we wish to see the expansion of types, as in, a bit of explonation to what each type is, we can set the +t variable:
+
+Prelude> :set +t
+Prelude> 5
+5
+it :: Integer
+Prelude> 5.0
+5.0 
+it :: Double
+Prelude> "hello"
+"hello"
+it :: [Char]
+Prelude> (5 == (2 + 3))
+True
+It :: bool
+
+However, if we were to use the +t, we'd find that the issue arises to be the matter of that it will start explaining the classes and the function calls there of:
+
+Prelude> :t 5
+5 :: (Num t) => t
+
+Unless we have run :set t, Haskell will treat things as generic as possible, meaning that we get a "kind of explonation", instead of a more explicit one
+
+In Haskell, a function consists of two parts : An optional type declaration, and the actual implemention of the Method.
+
+Some example of interactions:
+
+Prelude> let x = 10
+Prelude> x
+10
+
+When we declare modules, we'll declare functions like this:
+
+double x = x * 2
+
+An example of doing it simply in the console:
+
+Prelude> let double x = x * 2
+Prelude> double 2
+4
+
+When we declare modules, we have to bind them to a certain hierarchy of a scope of which they are relevant to, and in the following example we will
+bind ours to Main, the highest instance:
+
+module Main where
+	
+	double x = x + x
+
+Then load main into the console:
+
+Prelude> :load double.hs
+[1 of 1] Compiling Main 		(double.hs, interpeted)
+Ok, modules loaded: Main.
+*Main> double 5
+10
+
+So far, we have allowed Haskell guess at what types we are using, and we will see what we do when we need to explicitly do it:
+
+module Main where
+
+	double :: Integer -> Integer //Declare what the pattern will be like with types
+	double x = x + x
+
+We can then later infer to what types are being relevantly used in the context, with the :t oeprator:
+
+//After loading main again as per above
+*Main> :t double //Tell me the types used in double
+double :: Integer -> Integer //means that the function double takes a int and returns a int
+
+If we look at the previous typeless infered version, we will see that Haskell can support more versions than that of the latest did:
+
+*Main :t double
+double :: (Num a) => a -> a //Here, a is a type variable and we simply feed it in and return one of the same type by virtue of using the + operator
+
+We will begin by writing a simple recursive factorial in the console:
+
+Prelude> let fact x = if x == 0 then 1 else fact (x - 1) * x
+Prelude> fact 3
+6
+
+If we were to write it into a module, we'd adapt much of Erlangs pattern matching in declaring how the logic works:
+
+module Main where
+	factorial :: Integer -> Integer
+	factorial 0 = 1
+	factorial x = x * factorial (x - 1)
+
+Since Haskell just does things in the order they appear, if we wished to reverse the order, we would have to have a guard involved:
+
+module Main where
+	factorial :: Integer -> Integer
+	factorial x //The factorial of X
+		| x > 1 = x * factorial (x - 1) //First check against that x is greater than 1, to which it then returns X * factorial, which is X - 1
+		| otherwise = 1 //otherwise, just return 1
+
+Next up, we will build fibonacci in Haskell:
+
+module Main where
+	fib :: Integer -> Integer
+	fib 0 = 1
+	fib 1 = 1
+	fib x = fib (x - 1) + fib (x - 2)
+
+It's a simple fibonnaci, but it is inefficient, we will build a more efficient one.
+
+If we were to use a Tuple, we could build with the following setup:
+
+fibTuple :: (Integer, Integer, Integer) -> (Integer, Integer, Integer)
+fibTuple (x, y, 0) = (x, y, 0)
+fibTuple (x, y, index) = fibTuple (y, x + y, index - 1)
+
+It takes a three arguments tuple, and returns a three arguments tuple.
+
+The last number act as a counter of how many times remains on the recursive calls.
+
+To run the answer and then match the answer, we can do as follows:
+
+Prelude> :load fib_tuple.hs
+[1 of 1] Compiling Main 			( fib_tuple.hs, interpeted )
+Ok, modules loaded: Main.
+*Main> fibTuple(0, 1, 4)
+(3, 5, 0)
+
+The answer will be in the first position, and we can get it with the following setup:
+
+fibResult :: (Integer, Integer, Integer) -> Integer
+fibResult (x, y, z) = x
+
+We could simplify the pattern, as well:
+
+fib :: Integer -> Integer
+fib x = fibResult (fibTuple (0, 1, x))
+
+The whole program, is as follows:
+
+module Main where
+	fibTuple :: (Integer, Integer, Integer) -> (Integer, Integer, Integer) //Declare the function
+	fibTuple (x, y, 0) = (x, y, 0) //Assign what options we can run into
+	fibTuple (x, y, index) = fibTuple (y, x + y, index - 1) //Second option
+
+	fibResult :: (Integer, Integer, Integer) -> Integer //Declare function for extracting result
+	fibResult (x, y, z) = x //the result pattern
+
+	fib :: Integer -> Integer //Declare a function that will use the two helper functions to create a Fibo
+	fib x = fibResult (fibTuple (0, 1, x)) //Extract the result
+
+To then call it, we could just write:
+
+fib 100
+//numbers
+
+We can also chain function calls, as follows:
+
+*Main> let second = head . tail //Access the head of the tail list, which means the first element of the tail of the list
+*Main> second [1, 2]
+2
+*Main> second [3, 4, 5]
+4
+
+We can also calculate fibonnaci pairs in this matter, if wish, as follows:
+
+fibNextPair :: (Integer, Integer) -> (Integer, Integer)
+fibNextPair (x, y) = (y, x + y) //Call the function of fibnextPair with the results of the earlier call
+
+We can use this to make a recursive arbitrary call to find the n:th pair of Fibo:
+
+fibNthPair :: Integer -> (Integer, Integer)
+fibNthPair 1 = (1, 1) //The base case
+fibNthPair n = fibNextPair (fibNthPair (n - 1)) //use chaincalls of calculations to find the next pair and assign it
+
+We can then just call stuff with a number:
+
+*Main> fibNthPair(8)
+(21, 34)
+*Main> fibNthPair(9)
+(34, 55)
+*Main> fibNthPair(10)
+(55, 89)
+
+Now, all we gotta do is find the first part of a pair and match them:
+
+module Main where
+	fibNextPair :: (Integer, Integer) -> (Integer, Integer) //Declare the way the method should be structured
+	fibNextPair (x, y) = (y, x + y) //the actual structure of the function
+
+	fibNthPair :: Integer -> (Integer, Integer) //Define the n:th pair structure
+	fibNthPair 1 = (1,1) //Ground case
+	fibNthPair n = fibNextPair (fibNthPair (n - 1)) //Run match against the next case
+
+	fib :: Integer -> Integer //Define the structure of the final fib
+	fib = fst . fibNthPair //take the head of the n:th tuple
+
+We can break lists apart by Head and tail, in Haskell:
+
+let (h:t) = [1, 2, 3, 4]
+*Main> h
+1
+*Main> t
+[2,3,4]
+
+We can do some simple recursions in terms of size and product of lists, with this:
+
+module Main where
+	size [] = 0
+	size (h:t) = 1 + size t //The size of a list is size of t + 1, since head is 1, meaning we recursively call to sum stuff in the list
+
+	prod [] = 1
+	prod (h:t) = h * prod t //the product is product of t times h, meaning we recursively call to times stuff in the list
+
+An example of using them:
+
+Prelude> :load lists.hs
+[1 of 1] Compiling Main
+	( lists.hs, interpeted )
+Ok, modules loaded: Main.
+*Main> size "Fascinating."
+12
+
+if we wish to combine lists or string values, we can use zip:
+
+*Main> zip "kirk" "spock"
+[('kirk', 'spock')]
+
+We can also zip lists together:
+
+Prelude> zip ["kirk", "spock"] ["enterprise", "reliant"]
+[("kirk", "enterprise"), ("spock", "reliant")]
+
+Next up, is building lists. We can use the h:t operator to build lists, as well as destruct them:
+
+Prelude> 1:[2,3]
+[1,2,3]
+
+In Haskell, lists are homogenus, meaning we cannot add a list to a list of numbers, for instance.
+
+Assume we want to write a function to return all even elements in a list:
+
+module Main where
+	allEven :: [Integer] -> [Integer] //Define the structure of the method
+	allEven [] = []  //Case of the list being empty
+	allEven (h:t) = if even h then h:allEven t else allEven t //if the head is even, then apply the allEven to head to tail, otherwise, discard head and put allEven to tail
+
+
+Ranges in haskell are simple, and default to increment of 1:
+
+Prelude> [1..2]
+[1,2]
+Prelude> [1..4]
+[1,2,3,4]
+
+If we try to go a downwards spiral without a increment, we get a empty list:
+
+Prelude> [10..4]
+[]
+
+To get an increment, we can specify the next item:
+
+Prelude> [10, 8 .. 4] //The differential becomes 2, due to that 10 - 8 is 2
+[10, 8, 6, 4]
+
+We can also do fractionals, there of:
+
+Prelude> [10, 9.5 .. 4]
+//A list with all fractals between 9.5 and 4
+
+We can create arbitrary sequences and take arbitrary numbers from them, if wish:
+
+Prelude> take 5 [ 1 ..] //take 5 from 1 to arbitrary
+[1,2,3,4,5]
+Prelude> take 5 [0, 2 ..] //Take 5 where we increment by 2 from 0 to arbitrary number
+[0, 2, 4, 6, 8]
+
+We can also do list comprehensions, in terms of generating lists and running filters on them.
+
+Prelude> [x * 2 | x <- [1, 2, 3]] //operations on left side, designations and filters on right side
+[2,4,6]
+
+Assume that we have a polygon that we wish to flip diagonally. We can transpose it, with x and y, as follows:
+
+Prelude> [ (y, x) | (x, y) <- [(1,2), (2,3), (3,1)]]
+[(2,1),(3,2),(1,3)]
+
+Or to flip it horizontally, we substract 4 from X:
+
+Prelude> [ (4 - x, y) | (x, y) <- [(1,2), (2,3), (3,1)]]
+[(3,2), (2,3), (1,1)]
+
+We can run matching against Lists, as well, if we wish, as follows:
+
+Prelude> let crew = ["Kirk", "Spock", "McCoy"]
+Prelude> [(a, b) | a <- crew, b <- crew]
+
+However, this would give us a list of all duplicates as well, to which we want to remove thoose:
+
+Prelude> [(a,b) | a <- crew, b <- crew, a /= b]
+
+We now would get no duplicates, in terms of values, but it does not sort out based on irrelevance of ordering, (i.e no duplication o terms of flipped lists),
+but we can remove thoose as well:
+
+Prelude> [(a, b) | a <- crew, b <- crew, a < b]
+
+The above simply gives a ordered version, and no duplicates.
+
+Anonymous functions in Haskell, are very simple:
+
+(\param1 .. paramn -> function_body)
+
+Prelude> (\x -> x) "Logical."
+"Logical".
+Prelude> (\x -> x ++ " captain.") "Logical,"
+"Logical, captain".
+
+We can also map things, in Haskell:
+
+map (\x -> x * x) [1, 2, 3]
+
+We can also assign values by virtue of where, to bind it locally:
+
+module Main where
+	squareAll list = map square list //map a list of square, where square is the value defined below
+		where square x = x * x //locally bind square 
+
+Example of using it:
+
+*Main> :load map.hs
+[1 of 1] Compiling Main 			(map.hs, interpeted)
+Ok, modules loaded: Main.
+*Main> squareAll [1,2,3]
+[1,4,9]
+
+We can also map partial functions to things, such as follows:
+
+Prelude> map (+1) [1, 2, 3] //+1 is a partially applied function, the + function takes 2 params, but we supplied only one, giving us a structure of x + 1
+[2,3,4]
+
+We can run combinatiosn of filters on lists, as well:
+
+Prelude> odd 5
+True
+Prelude> filter odd [1, 2, 3, 4, 5]
+[1,3,5]
+
+We can also fold left and right, called foldl and folr respectively, an example:
+
+Prelude> foldl (\x carryOver -> carryOver + x) 0 [1 .. 10] //Summarize from 0, all elements from 1 to 10
+55
+
+We can also fold with operators:
+
+Prelude> foldl (+) [1 .. 3] //1 + 2 + 3
+6
+
+We can also fold from right to left, with foldrl 
+
+By virtue of partial application, Haskell splits arguments into being functions that carries one argument, which means that we can apply singular arguments to calls
+of functions that yields 2, for instance we can call prod with 1 and then have results:
+
+Prelude> let double = prod 2
+Prelude> let triple = prod 3
+
+if we now call these, whatever we put, will be * by respective value in respective function
+
+The process of breaking down functions to be other functions that call each other, is called Currying, which allows for great flexibility and easier syntax.
+
+We can make a lazy evaluation of a infite list, we follows:
+
+module Main where
+	myRange start step = start:(myRange (start + step) step)
+
+The recursion goes infinitely tho, so we have to limit it:
+
+*Main> take 10 (myRange 10 1) //take 10 numbers, where we begin from 10 and increment by 1
+
+We can also look at the lazy evaluation version of Fib:
+
+module Main where
+	lazyFib x y = x:(lazyFib y (x + y))
+
+	fib = lazyFib 1 1
+
+	fibNth x = head (drop (x - 1) (take (x) fib)) //allows us to take a specific range of Fib
+
+The functions in action:
+
+*Main> take 5 (lazyFib 0 1)
+[1,1,2,3,5]
+*Main> take 5 (fib)
+[1,1,2,3,5]
+*Main> take 5 (drop 20 (lazyFib 0 1))
+<numbers>
+*Main> fibNth 3
+2
+*Main> fibNth 6
+8
+
+We can also use other higher oprder functions together:
+
+*Main> take 5 (zipWith (+) fib (drop 1 fib)) //match the two sequences by index with the + operator
+[2,3,5,8,13]
+
+or we could double a range:
+
+*Main> take 5 (map (*2) [1 ..]) //map double the range of 5 elements 
+[2,4,6,8,10]
+
+We can also combine all sorts of functions into one:
+
+*Main> take 5 (map ((* 2) . (* 5)) fib) //We multiple the first 5 elements of a infinite fib sequence where we time the result by <result> * 2 * 5
+[10,10,20,30,50] //1 * 2 * 5, 1 * 2 * 5, 2 * 2 * 5 etc.
+
+The . operator is what we use to chain the function calls to handle things
+
+An example would be in image handling:
+
+(flipHorizontally . flipVertically . invert)
+
+next up, we look a bit at types, were we set the type notation:
+
+Prelude> :set +t
+
+NOTE: Regardless of the structure of the things, it will give the core value, meaning that if we compare ['a', 'b', 'c'] to 'abc', they are functionally the same, in Haskell.
+
+We can define our own types, with the data keyword, as follows:
+
+module Maine where
+	data Suit = Spades | Hearts //Suit and Rank act as Type constructors.
+	data Rank = Ten | Jack | Queen | King | Ace
+
+However, if we were to try and run this, it would not, as it would not know how to display them, which we fix:
+
+module Main where
+	data Suit = Spades | Hearts deriving (Show)
+	data Rank = Ten | Jack | Queen | King | Ace deriving (Show)
+	type Card = (Rank, Suit) //A card has a Rank and a Suit
+	type Hand = [Card] //Hand is a list of cards
+
+We can use the types to build functions:
+
+value :: Rank -> Integer
+value Ten = 1
+value Jack = 2
+value Queen = 3
+value King = 4
+value Ace = 5
+
+cardValue :: Card -> Integer
+cardValue (rank, suit) = value rank
+
+To then showcase how it works:
+
+*Main> :load cards-with-show.hs
+[1 of 1] Compiling Main 			( cards-with-show.hs, interpeted )
+Ok, modules loaded: Main.
+*Main> cardValue (Ten, Hearts)
+1
+
+We can also define a type that converst to be Polymorphic:
+
+backwards :: [a] -> [a] //take a generic type and return of the same type, this case it being a list of generic types
+
+We can build a polymorphic data type, as example with a three tuple data type:
+
+module Main where
+	data Triplet a = Trio a a a deriving (Show)
+
+An example of calling it:
+
+*Main> :load triplet.hs
+[1 of 1] Compiling Main
+Ok, modules loaded: Main.
+*Main> :t Trio 'a' 'b' 'c'
+Trio 'a' 'b' 'c' :: Triplet Char
+
+Next up, we can use recursive types, to build trees:
+
+module Main where
+	data Tree a = Children [Tree a] | Leaf a deriving (Show)
+
+Some examples of interactions:
+
+Prelude> :load tree.hs
+[1 of 1] Compiling Main
+ok, Modules loaded: Main.
+*Main> let leaf = Leaf 1
+*Main> leaf
+Leaf 1
+
+We can then access each piece through pattern matching, as follows:
+
+*Main> let (Leaf value) = leaf
+*Main> value
+1
+
+Now, let's build some more complex trees:
+
+*Main> Children[Leaf 1, Leaf 2]
+Children [Leaf 1, Leaf 2]
+*Main> let tree = Children[Leaf 1, Children [ Leaf 2, Leaf 3]]
+*Main> tree
+Children [Leaf 1, Children [Leaf 2, Leaf 3]]
+
+Next, we go to see how we can interact with the tree:
+
+*Main> let (Children ch) = tree
+*Main> ch
+[Leaf 1, Children [Leaf 2, Leaf 3]]
+*Main> let (fst:tail) = ch //Access the head of the list
+*Main> fst
+Leaf 1
+
+Next, we can calculate depth of the trees structures:
+
+depth (Leaf _) = 1
+depth (Children c) = 1 + maximum (map depth c) //Constructs a list of all the depths of all the chidlren, and then assigns the max one to C + 1, due to parent element
+
+Classes, in Haskell, are types, and can be defined by their behavior:
+
+class Eq a where
+	(==), (/=) :: a -> a -> Bool
+
+		-- Minimal complete definition:
+		-- 		(==) or (/=)
+	x /= y 		= not (x == y)
+	x == y 		= not (x /= y)
+
+Thus, a type is a instance of Eq, if it supports == and /=
+
+If it inheritly is a class, it gains access to all the methods related to that Class.
+
+Monads in Haskell, is a composable computation of descriptions. It carries a description of a computation , and serves to be a differengin factor between
+computation executions timeline and composition timeline.
+
+Meaning we can get pure values for IOs and what not.
+
+A monad, has three basic things:
+
+a type constructor thats based on some type of container. The container will hold a function. 
+
+a function called return, that wraps a function and put it in the container. 
+
+A bind function called >>= that unwraps functions. We'll use bind to chain functions together
+
+Monads has three rules:
+
+You should be able to use a type constructor to create a monad that will work with some type that can hold a value.
+
+You should be able to unwrap it without info loss.
+
+Nesting bind functions should be the same as calling them sequentially.
+
+We'll build a Monad, and it will make more sense:
+
+module Main where
+	data Position t = Position t deriving (Show) //begin the Type with a position type
+
+	stagger (Position d) = Position (d + 2)
+	crawl (Position d) = Position (d + 1) //Execution operations
+
+	rtrn x = x //return x
+	x >>== f = f x //The unpacking should be the same as running the function on x
+
+We can then illustrate the interaction:
+
+treasureMap pos = pos >>==
+					stagger >>== //+2
+					stagger >>== //+2
+					crawl >>== //+1
+					rtn
+
+And it would then give the expected results:
+
+*Main> treasureMap (Position 0)
+Position 5
+
+We can also use the do command:
+
+module Main where
+	tryIo = do putStr "Enter your name: " ;
+				line <- getLine ;
+				let { backwards = reverse line } ;
+				return ("Hello. Your name backwards is " ++ backwards)
+
+The above code actually uses Monads, its just covered up.
+
+The body must be in the do, and lines are seperated by ;
+
+If there is multiple lines, we must do :{<code>}:
+
+All I/O must be in a do block.
+
+Lists are also monads:
+
+instance Monad [] where
+	m >>= f = concatMap f m
+	return x = [x]
+
+An example of interacting with monads:
+
+Main> let cartesian (xs, ys) = do x <- xs; y <- ys; return (x, y)
+Main> cartesian ([1..2], [3..4])
+[(1,3), (1,4), (2,3), (2,4)]
+
+We built a list from elements from xs and ys
+
+next up, we build a PW cracker with monads:
+
+module Main where
+	crack = do x <- ['a'..'c'] ; y <- ['a'..'c'] ; z <- ['a'..'c'] ;
+				let { password = [x, y, z]} ;
+				if attempt password
+					then return (password, True)
+					else return (password, False)
+
+	attempt pw = if pw == "cab" then True else False
+
+Here, we take all the combinations between a-c for a three letter combo
+
+These two, are called List (earlier one) and identity Monad, they use different stratergies to crack stuff.
+
+In case of failure, we have the Maybe monad, which can look like as follows:
+
+data Maybe a = Nothing | Just a //Just can wrap Nothing (null)
+
+instance Monad Maybe where
+	return 			= Just //wrap the result in Just
+	Nothing 	>>= f = Nothing //if nothing, return a function call returning nothing
+	(Just x) >>= f  = f x
+
+
+	...
+
+Strengths of Haskell:
+
+Lazy semantics, Typing system, powerful
+
+Weaknesses of Haskell:
+
+Inflexible, small community.
+
+//Done after 6 days.

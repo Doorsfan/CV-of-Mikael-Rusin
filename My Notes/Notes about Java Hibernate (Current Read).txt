@@ -1,0 +1,3070 @@
+Been gone for some time from this. Time to get back to work.
+
+Foreword to the revised edition:
+
+When Hibernate in Action was published two years ago, it was immediately recongized not only as
+the definitive book on Hibernate, but also the definitive work on object/relational mapping.
+
+In the intervening time, the persistence landscape has changed with the release of the Java
+Persistence API, the new standard for object/relational mapping for Java EE and Java SE
+which was developed under the Java Community Process as a part of the Enterprise
+JavaBeans 3.0 Specification.
+
+In developing the Java Persistence API, the EJB 3.0 Expert Group benefitted heavily from
+the experience of the O/R mapping frameworks already in use in the Java Community.
+As one of the leaders amongst these, Hibernate has had a very significant influence on
+the technical of Java Persistence.
+
+This was due not only to the participating of Gavin King and other members of the Hibernate
+term in the EJB 3.0 standardization effort, but was also due in large part t oteh direct
+and pragmatic approach that Hibernate has taken towards O/R Mapping and to the simplicity,
+clarity and power of its API and their resulting appeal to the Java community.
+
+In addition to their contributions to Java Persistence, the Hibernate developers also
+ahve tkaen major steps forward for Hibernate with the Hibernate 3 release described
+in this book.
+
+Among these are support for operations over large datasets; additional and more sophisticated
+mapping options, especially for handling legacy database; data filters; stratergies for managing
+conversations and integration with Seam, the new framework for Web Apps development with
+JSF and EJB 3.0.
+
+Java Persistence with Hibernate is therefore considerably more than simply a second edition
+to Hibernate in Action. It provides a comprehensive overview of all the capabilities of the
+Java Persistence API in addition to those of Hibernate 3, as well as a detailed comparative
+analysis of the two.
+
+It describes how Hibernate has been used to implement the Java Persistence standard, and how
+to leverage the Hibernate extension to Java Persistence.
+
+More improtant, throughout the presentation of Hibernate and Java Persistance, Christian
+Bauer and Gavin King illustrate and explain the fundamental principles and decisions that
+need to be taken into account in both the design and use of an object/relational mapping
+framework.
+
+The insights they provide into the underlying issues of ORM give the reader a deep
+understanding into the effective application of ORM as an enterprise technology.
+
+Java Presistence with Hibernate thus reaches out to a wider range of devs from newcomers
+to etc.
+
+Preface can be skipped.
+
+Part 1
+
+Getting started with Hiebrnate and EJB 3.0
+
+In part 1, we show you why object persistence i such a complex topic and
+what solutions you can apply in practice. Chapter 1 introduces the object/relational
+paradigm mismatch and several stratergies to deal with it, foremost object/relational
+mapping (ORM).
+
+In chapter 2, we guide you step by step through a tutorial with Hibernate, Java persistence,
+and EJB 3.0 - You will implement and test a "Hello world" example in all variations.
+Thus prepared, in chapter 3, you are ready to learn how to design and implement complex
+business domain models in Java, and which mapping metadata options you have available.
+
+After reading this part of the book, you will understand why you need object/relational
+mapping, and how Hibernate, Java Persistence, and EJB 3.0 work in pratice. You will have
+written your first small project and be ready to take on more complex problems.
+
+YOu will also understand how real-world business entities can be implemented as
+a Java domain model, and in waht format you prefer to work with object/relational
+mapping metadata.
+
+Understanding object/relational persistence
+
+This chapter covers:
+
+Object persistence with SQL databases
+
+The object/relational paradigm mismatch
+
+Persistence layers in object-oriented applications
+
+Object/relational mapping background
+
+CHAPTER 1
+Understanding object/relational persistence
+
+The approach to managing persistent data has been a key design decision in every
+software project we have workedo n. Given that persistent data is not a new or
+unusual requirement for Java applications, you would expect to be able to make a 
+simple choice among similar, well-established persistence solutions. Think of
+web application frameworks (Strurs versus WebWork), GUI component frameworks
+(Swing versus SWT), or template engines (JSP versus Velocity). Each of the
+competing solutions has various advantages and disadvantages, but they all share
+the same scope and overall approach.
+
+Unfortunately, this is not yet the case with persistence techs, where we see
+some wildly differing solutions to the same problem.
+
+For several years, persistence has been a hot topic of debate in the Java
+community. Many developers do not even agree on the scope of the problem.
+Is persistence a problem that is already solved by by relational technology
+and extensions such as stored procedures, or is it a more pervasive problem
+that must be addressed by special Java components models, such as EJB
+entity beans?
+
+Should we hand-code even the most primitive CRUD (create, read, update, delete)
+operations in SQL and JDBC, or should this work be automated? How do we
+achieve portability if every database management system has its own SQL dialect?
+Should we abandon SQL completely and adopt a different database technology, such
+as object database systems?
+
+Debate continues, but a solution called object/relational mapping (ORM) now has a 
+wide acceptance. Hibernate is an open source ORM serivce implementaiton.
+
+Hibernate is an ambitious project that aims to be a complete solution to the
+problem of managing persistent data in Java. It mediates the application's
+interaction with a relational DB, leaving the developer free to concentrate
+on the business problem at hand. Hibernate is a nonintrusive solution. You
+are not required to follow many Hibernate-specific rules and design patterns
+when writing your business logic and persistent classes; thus, Hibernate
+intergrates smoothly with most new and existing applications and does not
+require disruptive changes to the rest of the application.
+
+This book is about Hibernate. We'll cover basic and advanced features and
+describe some ways to develop new applications using Hibernate. Often,
+these recommendations won't even be specific to Hibernate. Sometimes, they
+will be our ideas about the best ways to do things when working with
+persistent data, explained in the context of Hibernate.
+
+This book is also about Java Persistence, a new standard for persistence
+that is part of the also updated EJB 3.0 specification. Hibernate implements
+Java Persistence and supports all the standardized mappings, queries and 
+APIs. Before we can get started with Hibernate, however, you need to understand
+the core problems of object persistence and object/relational mapping.
+
+This chapter explains why tools like Hibernate and specifications such
+as Java Persistence and EJB 3.0 are needed.
+
+First, we define persistent data management in the context of object-oriented
+applications and discuss the relationship of SQL, JDBC and Java, the underlying
+techs and standards that Hibernate is built on.
+
+We then discuss the so-called object/relational paradigm mismatch and
+the generic problems we encounter in object-oriented software development
+with relational databases. These problems make it clear that we need
+tools and patterns to minimize the time we have to spend on the
+persistence-related code of our applications. After we look at alternative
+tools and presistence mechanisms, you will see that ORM is the best
+available solution for many scenarios.
+
+Our discussion of the advantages and drawbacks of ORM will give you
+the full background to make the best decision when picking a persistence
+solution for your own project.
+
+We also take a look at the various Hibernate software modules, and how
+you can combine them to either work with Hibernate only, or with
+Java Persistence and EJB 3.0-compliant features.
+
+The best way to learn Hibernate is not necessarily linear. We understand
+that you may want to try Hibernate right away. If this is how you'd
+like to proceed, skip to the second chapter of this book and look
+at the respective example.
+
+We recommend that you at some point circle back to this point as you
+go through the book, that way you will be prepared.
+
+1.1 What Is Persistence?
+--------------------------------------
+
+Almost all applications require persistent data. Persistence is one
+of the fundamental concepts in application development. If an information
+system did not preserve data when it was powered off, the system would
+be of little practical use. 
+
+When we talk about persistence in Java, we are normally talking about
+storing data in a relational DB using SQL. We will start by taking a brief
+look at the tech and how we use it with Java. Armed with that information
+, we'll then continue our discussion of persistenec and how it's implemented
+in object-oriented applications.
+
+1.1.1 Relational databases
+
+You, like most other developers, have probably worked with a relational database.
+most of us use a relational DB every day. Relational tech is a known quantity,
+and this alone is sufficient reason for many organizations to choose it.
+
+But to say only this is to pay less respect than is due. Relational databases
+are entrenched because they are incredible flexible and robust approach to
+data management. Due to the complete and consistent theoretical foundation of
+the relational data model, relational database can effectively guarantee and
+protect the integrity of the data, among other desirable characteristics.
+
+Some people would even say that the last big invention in compution has been
+the relation concept for data management as first introduced by E.F. Codd
+more than three decades ago.
+
+Relation database management systems are not specific to Java, nor is a 
+relational database specific to a particular application. This important
+principle is known as data indepdendence. In other words, and we cannot
+stress this important fact enough, data lives longer than any app does.
+
+Relation tech provides a way of sharing data amongst different apps,
+or among different techs that form parts of the same application
+(the transactional engine and the reporting engine, for example).
+Relational tech is a common denominator of many disparate systems and
+technology platforms.
+
+Hence, the relational data model is often the common enterprise-wide
+representation of business entities.
+
+Relational database management systems have SQL-based application programming
+interfaces; hence, we call today's relational DB products SQL db management
+systems or when we are talking about particular DB systems, SQL dbs.
+
+Before we go into more detail about the practical aspects of SQL dbs, we
+have to mention an important issue: Although marketed as relational, a database
+system providing only an SQL language interface is not really relational
+and in many ways is not even close to the original concept.
+
+Naturally, this has led to confusion. SQL practioneers blame the relational
+data model for shortcomings in the SQL language, and relational data management
+experts blame the SQL standard for being a weak implementation of the
+relational model and ideals.
+
+Application developers are stuck somewhere in the middle, with the burden
+to deliver something that works. We will highlight some important and
+significant aspects of this issue throughout the book, but generally
+we will focus on the practical aspects. If you are interested in more background
+material, we highly recommend Practical Issues in Database Management:
+A reference for the Thinking Practioneer by Fabian Pascal.
+
+1.1.2 Understanding SQL
+
+To use Hibernate effectively, a solid understanding of the relational model
+and SQL is a prerequisite. You need to understand the relational model
+and topics such as normalization to guarantee the integrity of your
+data and you will need to use your knowledge of SQL to tune the performance
+of your Hibernate application.
+
+Hibernate automates many repetitive coding tasks, but your knowledge of
+persistence tech must extend beyond Hibernate itself if you want to
+take advantage of the full power of modern SQL databases. Remember that
+the underlying goal is robust, efficient management of persistent data.
+
+Let's review some of the SQL terms used in this book. You use SQL as a
+data definition language (DDL) to create a DB schema with CREATE and
+ALTER statements. After creating tables (and indexes, sequences and
+so on), you use SQL as a data manipulation language (DML) to manipulate
+and retrieve data. 
+
+The manipulation operations include insertions, updates and deletions.
+You retrieve the data by executing queries with restrictions, projections
+and join operations (including the Cartesian product).
+
+For efficient reporting, you use SQL to group, order and aggregate data
+as necessary. You can even nest SQL statements inside each other: this
+technique uses subselects.
+
+You have probably used SQL for many years and are familiar with the
+basics. Details here.
+
+If needed, consult Appendix A.
+
+If you need more details, especially about performance aspsects and how
+SQL is executed, get a copy of the excellent book SQL Tuning by
+Dan Tow (Tow, 2003). Also, read An Introduction to Database Systems
+by Chris Date (Date, 2003) for the theory, concepts and ideals of
+(relational) database systems. The latter book, is an excellent
+reference for all questions you may possible have about DBs and 
+data management.
+
+Although the relational DB is one part of ORM, the other part of course,
+consists of the objects in your Java app that need to be persisted
+tto and loaded from the DB using SQL.
+
+1.1.3 Using SQL in Java
+
+When you work with an SQL database in a Java application, the Java code
+issues SQL statements to the database via the Java Database Connectivity
+(JDBC) API. Whether the SQL was written by hand and embedded in the Java
+code, or generated on the fly by Java code, you use the JDBC API to
+bind arguments to prepare query parameters, execute the query, scroll
+through the query result table, retrieve values from the result set,
+and so on.
+
+These are low-level data access tasks; as application developers, we are
+more interested in the business problem that requires this data access.
+What we'd really like to write is code that saves and retrieves objects
+- the instances of our classes - to and from the DB, relieving us of
+this low-level dregery.
+
+Because the data access tasks are often so tedious, we have to ask:
+Are the relational data model and (especially) SQL the right choices
+for persistence in object-oriented applications? We answer this question
+immediately: Yes. There are many reasons why SQL DBs dominate the computing
+industry - relational data-base management systems are the only proven
+data management tech and they are almost always a requirement in any
+Java project.
+
+However, for the last 15 years, devs have spoken of a paradigm mismatch.
+This mismatch explains why so much effort is expended on persistence-related
+concerns in every enterprise project. The paradigms referred to are object
+modeling and relational modeling, or perhaps object-oriented programming
+and SQL.
+
+Let's begin our exploration of the mismatch problem by asking what persistence
+means in the context of object-oriented application dev. First, we will widen
+the simplistic definition of persistence stated at the beginning of this
+section to a broader, more mature understanding of what is involved in
+maintaining and using persistent data.
+
+1.1.4 Persistence in object-oriented applications
+
+In an object-oriented application, persistence allows an object to outlive
+the process that created it. The state of the object can be stored to disk,
+and an object with the same state can be re-created at some point in the future.
+
+This is not limited to a single object - entire networks of interconnected
+objects can be made persistent and later re-created in a new process. Most
+objects are not persistent; a transient object has a limited lifetime that
+is bounded by the life of the process that instansiated it.
+
+Almost all Java apps contains a mix of persistent and transient objects,
+hence, we need a subsystem that manages our persistent data.
+
+Modern relational databases provide a structured representation of persistent
+data, enablling the manipulating, sorting, searching and aggregating
+of data. Database management systems are responsible for managing concurrency
+and data integrity; they are responsible for sharing data between multiple
+users and multiple applications.
+
+They guarantee the integrity of the data through integirty rules that have
+been implemented with constraints. A database management system provides
+data-level security. When we discuss persistence in this book, we are thinking
+of all these things:
+
+Storage, organization, and retrieval of structured data
+
+Concurrency and data integrity
+
+Data sharing
+
+And, in particular, we are thinking of these problems in the context of an
+object-oriented application that uses a domain model.
+
+An application with a domain model does not work directly with the tabular
+representation of the business entities; the application has its own
+object-oriented model of the business entities. If the database of an
+online auction system has ITEM and BID tables, for example, the Java
+application defines Item and Bid classes.
+
+Then, instead of directly working with the rows and columns of an
+SQL result set, the business logic interacts with this object-oriented
+domain model and its runtime realization as a network of interconnected
+objects. Each instance of a Bid has a reference to an auction Item, and each
+Item may have a collection of references to Bid instances.
+
+The business logic is not executed in the database (as an SQL stored procedure):
+it's implemented in Java in the Application tier. THis allows business logic
+to make use of sophisticated object-oriented concepts such as inheritance
+and polymorphism. For example, we could use well-known design patterns
+such as Stratergy, Mediator and Composite (Gamma and others, 1995), all of
+which depend on polymorphic method calls.
+
+Now a caveat: Not all Java applications are designed this way, nor should
+they be. Simple applications may be much better off without a domain model.
+Complex applications may have to reuse existing stored procedures.
+SQL and teh JDBC API are perfectly servicable for dealing with pure tabular
+data, and the JDBC RowSet makes CRUD operations even easier.
+
+Working with a tabular representation of persistent data is straightforward
+and well understood. However, in the case of applications with nontrivial
+business logic, the domain model approach helps to improve code reuse and
+maintainability significantly. In pratice, both stratergies are common
+and needed.
+
+Many applications need to execute procedures that modify large sets of data,
+close to the data. At the same time, other application modules could
+benefit from an object-oriented domain model that executes regular online
+transaction processing logic in the application tier.
+
+An efficient way to bring persistent data closer to the application code is
+required. If we consider SQL and relational databases again, we finally observe
+the mismatch between the two paradigms. SQL operations such as projection
+and join always result in a tabular representation of the resulting data.
+(This is known as transitive closure), the result of an operation on relations
+is always a relation.
+
+This is quite different from the network of interconnected objects used to
+execute the business logic in a Java application. These are fundamentally
+different models, not just different ways of visualizing the same model.
+
+With this realization, you can begin to see the problems - Some well understood
+and some less well understood - that must be solved by an application that
+combines both data representations: an object-oriented domain model and
+a persistent relational model. Let's take a closer look at this so-called
+paradigm mismatch.
+
+1.2 The paradigm mismatch
+
+The object/relational paradigm mismatch can be broken into several parts,
+which we will examine one at a time. Let's start our exploration with a simple
+example that is problem free. As we build on it, you will begin to see the
+mismatch appear.
+
+Suppose you have to design and implement an online e-commerce application.
+In this application, you need a class to represent information about a 
+user of the system, and another class to represent information about the
+user's billing details, as shown in figure 1.1
+
+In this diagram, you can see that a User has many BillingDetails. You can
+navigate the relationship between the classes in both directions. The classes
+representing these entities may be extremely simple:
+
+public class User {
+	private String username;
+	private String name;
+	private String address;
+	private Set billingDetails;
+
+	// Accessor methods (getter/setter), business method etc.
+}
+
+public class BillingDetails {
+	private String accountNumber;
+	private String accountName;
+	private String accountType;
+	private User user;
+
+	//Accessor methods (getter/setter), business methods, etc.
+
+}
+
+[ USER ] ---------------- [ BillingDetails ] 
+
+Figure 1.1
+A simple UML class diagram of the User and BillingDetails entities
+
+Note that we are only interested in the state of the entities with regard to
+persistence, so we've omitted the implementation of property accessors and
+business methods (such as getUsername() or billAuction())
+
+It's easy to come up with a good SQL schema design for this case:
+
+create table USERS (
+	USERNAME varchar(15) not null primary key,
+	NAME varchar(50) not null,
+	ADDRESS varchar(100)
+)
+create table BILLING_DETAILS (
+	ACCOUNT_NUMBER varchar(10) not null primary key,
+	ACCOUNT_NAME varchar(50) not null,
+	ACCOUNT_TYPE varchar(2) not null,
+	USERNAME varchar(15) foreign key references user
+)
+
+The relationship between the two entities is represented as the foreign key,
+USERNAME, in BILLING_DETAILS. For this simple domain model, the object/relational
+mismatch is barely in evidence; it's straightforward to write JDBC code to
+insert, update, and delete information about users and billing details.
+
+Now, let's see what happens when we consider something a little more realistic.
+The paradigm mismatch will be visible when we add more entities and entity
+relationships to our application.
+
+The most glaringly obvious problem with our current implementation is that we've
+designed an address as simple String value. In most systems, it's necessary to
+store street, city, state, country, and ZIP code information separately. Of course,
+we could add these properties directly to the User class, but because it's
+highly likely that other classes in the system will also carry address information,
+it makes more sense to create a separate Address class.
+
+The updated model is shown in figure 1.2.
+Should we also add an ADDRESS table? Not necessarily. It's common to keep address
+information in the USERS tabe, in individual columns. This design is likely to
+perform better, because a table join isn't needed if you want to retrieve the user
+and address in a single query.
+
+The nicest solution may even be to create a user-defined SQL datatype to represent
+addresses, and to use a single column of that new type in teh USERS table instead
+of several new columns.
+
+Basically, we have the choice of adding either several columns or a single column
+(of a new SQL datatype). This is clearly a problem of granularity.
+ 						  1..*
+Address <-------- User -------- BillingDetails 
+
+Figure 1.2 The User has an Address
+
+1.2.1 The problem of granularity
+
+Granularity refers to the relative size of the types you're working with.
+Let's return to our example. Adding a new datatype to our database catalog
+to store Address Java instances in a single column, sounds like the best
+approach.
+
+A new Address type (class) in Java and a new ADDRESS SQL datatype should 
+guarantee interoperability. However, you will find various problems if you
+check the support for user-defined datatypes (UDT) in today's SQL database
+management systems.
+
+UDT support is one of a number of so-called object-relational extensions to
+traditional SQL. This term alone is confusing, because it means that the
+database management system has (or is supposed to support) a sophisticated
+datatype system - something you take for granted if somebody sells you
+a system that can handle data in a relational fashion.
+
+UNfortunately, UDT support is a somewhat obscure feature of most SQL
+database management systems and certainly is not portable between different
+systems. Furthermore, the SQL standard supports user-defined datatypes
+but poorly.
+
+THis limitation is not the fault of the relational data model. You can
+consider the failure to standardize such an important piece of functionality
+as fallout from the object-relational database wars between vendors in the
+mid 1990s. Today, most developers accept that SQL products have limited
+type systems - no questions asks.
+
+However, even with a sophisticated UTD system in our SQL database management
+system, we would likely still duplicate the type declarations, writing the
+new type in Java and again in SQL. Attempts to find a solution for the
+Java space, such as SQLJ, unfortunately, have not had much success.
+
+For these and whatever other reasons, use of UDTs or Java types inside an
+SQL database is not common practice in the industry at this time, and
+it is unlikely that you will encounter a legacy schema that makes extensive
+use of UDTs. We therefore can't and won't store instances of our new 
+Address class in a single new column that has the same datatype as the
+Java layer.
+
+OUr pragmatic solution for this problem has several columns of built-in
+vendor-defined SQL types (such as boolean, numeric and string datatypes).
+The USERS table is usually defined as follows:
+
+create table USERS (
+	USERNAME varchar(15) not null primary key,
+	NAME varchar(50) not null,
+	ADDRESS_STREET varchar(50),
+	ADDRESS_CITY varchar(15),
+	ADDRESS_STATE varchar(15),
+	ADDRESS_ZIPCODE varchar(5),
+	ADDRESS_COUNTRY varchar(15)
+)
+
+Classes in our domain model come in a range of different levels of 
+granularity - from coarse-grained entity classes like User, to
+finer-grained classes like Address, down to simple String-valued
+properties such as zipcode. In contrast, just two levels of granularity
+are visible at the level of the SQL DB: tables such as USERS, and 
+columns such as ADDRESS_ZIPCODE.
+
+Many simple persistence mechanics fail to recognize this mismatch and
+so end up forcing the less flexible SQL representation upon the
+object model. We've seen countless User classes with properties
+named zipcode.
+
+It turns out that the granularity problem is not especially difficult
+to solve. We probably would not even discuss it, were it not for
+the fact that it is visible in so many existing systems. We describe
+the solution to this problem in chapter 4, section 4.4, "fine-grained
+models and mappings".
+
+A much more difficult and interesting problem arises when we consider
+domain models that rely on inheritance, a feature of object-oriented
+design we may use to bill the users of our e-commerce application in
+new and interesting ways.
+
+1.2.2 The problem of subtypes
+
+In Java, you implement type inheritance using superclasses and subclasses.
+To illustrate why can present a mismatch problem, let's add to our e-commerce
+application so that we can accept not only bank account billing, but also
+credit and debit cards. The most natural way to reflect this change
+in the model is to use inheritance for the BillingDetails class.
+
+We may have an abstract BillingDetails superclass, along with several
+concrete subclasses: CreditCard, BankAccount, and so on. Each of these
+subclasses defines slightly different data (and completely different
+functionality that acts on that data). The UML class diagram in figure
+1.3 illustrates this model.
+
+SQL should probably include standard support for supertables and subtables.
+This would effectively allow us to create tables that inherits certain columns
+from its parent.
+
+Figure 1.3: Using inheritance for different billing strategies
+
+[USER] <<<<<< [BillingDetails]
+					^
+				<<<  >>>
+				V 	   V
+		[CreditCard]  [BankAccount]
+
+However, such a feature would be questionable, because it would introduce a new
+notion: virtual columns in base tables. Traditionally, we expect virtual
+columns only in virtual tables, which are called views. Furthermore, on a 
+theoretical level, the inheritance we applied in Java is type inheritance.
+
+A table is not a type, so the notion of supertables and subtables is questionable.
+In any case, we can take the short route here and observe that SQL database
+products don't generally implement type or table inheritance, and if they do
+implement it, they don't follow a standard syntax and usually expose you
+to data integrity problems (limited integrity rules for updatable views).
+
+In chapter 5, section 5.1, "Mapping class inheritance", we discuss how ORM
+solutions such as Hibernate solve the problem of persisting a class hierarchy
+to a database table or tables. This problem is now well understood in teh community,
+and most solutions support approximately the same functionality.
+
+But we are not finished with inheritance. As soon as we introduce inheritance
+into the model, we have the possibility of polymorphism.
+
+The User class has an association to the BillingDetails superclass. This is
+a polymorphic association. At runtime, a User object may reference an instance
+of any of the subclasses of BillingDetails. Similarly, we want to be able to
+write polymorphic queries that refer to the BillingDetails class, and have
+the query return instances of its subclasses.
+
+SQL databases also lack an obvious way (or at least a standardized way) to
+represent a polymoprhic association. A foreign key constrain refers to
+exactly one target table; it is not straightforward to define a foreign
+key that refers to multiple tables.
+
+We'd have to write a procedural constraint to enforce this kind of integrity
+rule. The result of this mismatch of subtypes is that the inheritance structure
+in your model must be persisted in an SQL database that does not offer an
+inheritance strategy. Fortunately, three of the inheritance mapping solutions
+we show in chapter 5 are designed to acommodate teh representation of polymorphic
+associations and the efficient execution of polymorphic queries.
+
+The next aspect of the object/relational mismatch problem is the issue of
+object identity. You probably noticed that we defined USERNAME as the primary
+key of our identity. You probably noticed that we defined USERNAME as the
+primary key of our USERS table. Was that a good choice? How do we handle
+identical objects in Java?
+
+1.2.3 The problem of identity
+
+Although the problem of object identity may not be obvious at first, we will
+encounter it often in our growing and expanding e-commerce system, such as when
+we need to check whether two objects are identical. There are three ways
+to tackle this problem: two in the Java world and one in our SQL database.
+As expected, they work together only with some help.
+
+Java objects define two different notions of sameness.
+
+Object identity (roughl equivalent to memory location, checked with a==b)
+
+Equality as determined by the implementation of the equals() method
+(also called equality by value)
+
+On the other hand, the identity of a database row is expressed as the
+primary key value. As you will see in chapter 9, section 9.2,
+"Object identity and equality", neither equals() nor == is naturally
+equivalent to the primary key value.
+
+It's common for several nonidentical objects to simultaneously represent 
+the same row of the DB, for example, in concurrently running application
+threads. Furthermore, some subtle differences are involved in implementing
+equals() correctly for a persistant class.
+
+Let's discuss another problem related to database identity with an example.
+In our table definition for USERS, we used USERNAME as a primary key.
+Unfortunately, this decision makes it difficult to change a username;
+we need to update not only the USERNAME column in USERS, but also the
+foreign key column in BILLING_DETAILS.
+
+To solve this problem, later in the book, we will recommend that you
+use surrogate keys whenever you cannot find a good natural key
+(we will also discuss what makes a key good). A surrogate key column
+is a primary key column with no meaning to the user; in other words,
+a key that is not presented to the user and is only used for 
+identification of data inside the software system.
+
+For example, we may change our table definitions to look like this:
+
+create table USERS (
+	USER_ID bigint not null primary key,
+	USERNAME varchar(15) not null unique,
+	NAME varchar(50) not null,
+	...
+)
+create table BILLING_DETAILS (
+	BILLING_DETAILS_ID bigint not null primary key,
+	ACCOUNT_NUMBER VARCHAR(10) not null unique,
+	ACCOUNT_NAME VARCHAR(50) not null,
+	USER_ID bigint foreign key references USER
+)
+
+The USER_ID and BILLING_DETAILS_ID columns contain system-generated values.
+These columns were introduced purely for the benefit of the data model,
+so how (if at all) should they be represented in the domain model? We discuss
+this question in chapter 4, section 4.2, "Mapping entities with identity", and we
+find a solution with ORM.
+
+In the context of persistence, identity is closely related to how the system
+handles caching and transactions. Different persistence have chosen different
+stratergies and this has been an area of confusion. We cover all these
+interesting topics - and show how they are related - in chapter 10 and 13.
+
+So far, the skeleton e-commerce application we have designed has identified the
+mismatch problems with mapping granularity, subtypes and object identity.
+We are almost ready to move on to other parts of the application, but fist we
+need to discuss the important concept of associations: how the relationships
+between our classes are mapped and handled. Is the foreign key in the database
+all you need?
+
+1.2.4 Problems relating to associations
+
+IN our domain model, associations represent the relationship between entities.
+The User,Address, and BillingDetails classes are all associated: but unlike Address,
+BillingDetails stands on its own. BillingDetails instances are stored in their own
+table. Association mapping and the management of entity associations are central
+concepts in any object persistence solution.
+
+Object-oriented languages represent associations using object references; but in
+the relational world, an association is represented as a foreign key column,
+with copies of key values ( and a constraint to guarantee integrity). There are
+substanstial differences between the two representations.
+
+Object references are inherently directional; the association is from one object
+to the other. They're pointers. If an association between objects should be
+navigatable in both directions, you must define the association twice, once in each
+of the associated classes. You have already seen in the domain model classes:
+
+public class User {
+	private Set billingDetails;
+}
+
+public class BillingDetails {
+	private User user;
+}
+
+On the other hand, foreign key association are not by nature directional. Navigation
+has no meaning for a relational DB model because you can create arbitrary data assocation
+with table joins and projection. The challenge is to bridge a completely open data model,
+which is independent of the application that works with the data, to an application-dependent
+navigation model, a constrained view of the associations needed by this particular application.
+
+It is not possible to determine the multiplicity of a unidirectional association by only looking
+at the Java classes. Java associations can ahve many-to-many multiplicity. Fo rexample, the classes
+could looke like akin:
+
+public class User {
+	private Set billingDetails;
+}
+
+public class BillingDetails {
+	private Set users;
+}
+
+Table associations, on the other hand, are always one-to-many or one-to-one. You can see the
+multiplicity immediately by looking at the foreign key definition. The following is a foreign
+key declration on the BILLING_DETAILS table for a one-to-many association (or, if read in the
+other direction, a many-to-one association):
+
+USER_ID bigint foreign key references USERS
+
+These are one-to-one associations:
+
+USER_ID bigint unique foreign key references USERS
+BILLING_DETAILS_ID bigint primary key foreign key references USERS
+
+If you wish to represent a many-to-many association in a relation database, you must
+introduce a new table, called a link table. This table does not appear anywhere in
+the domain model. For our example, if we consider the relationship between the user and
+the billing information to be many-to-many, the link table is defined as follows:
+
+create table USER_BILLING_DETAILS (
+	USER_ID bigint foreign key references USER,
+	BILLING_DETAILS_ID bigint foreign key references BILLING_DETAILS,
+	PRIMARY KEY (USER_ID, BILLING_DETAILS_ID)
+)
+
+We discuss association and collection mappings in great detail in chapters 6 and 7.
+So far, the issues we've considered are mainly structural. We can see them by considering
+a purely static view of the system. Perhaps the most difficult problem in object
+persistence is a dynamic problem. It concerns associations, and we've already hinted
+at it when we drew a distinction between object network navigation and table joins in
+section 1.1.4, "Persistence in object-oriented applications". Let's explore this
+significant mismatch problem in more depth.
+
+1.2.5 The problem of data navigation
+
+There is a fundamental difference in the way you access data in Java and in a relational
+database. In Java, when you access a user's billing information, you call aUser.getBillingDetails().getAccountNumber()
+or something akin.
+
+THis is the most natural way to access object-oriented data, and it's often described as
+walking the object network. You navigate from one object to another, following pointers
+between instances. Unfortunately, this is not an efficient way to retrieve data from
+the SQL db.
+
+The single most important thing you can do to improve the performance of data access
+code is to minimize the number of requests to the database. The most obvious way to do
+this is to minimize the number of SQL queries. (of course, there are other more sophisticated
+ways that follow as a second step).
+
+Therefore, efficient access to relational data with SQL usually requires joins between
+tables of interest. The number of tables included in the join when retrieving data
+determines the depth of the object network you can navigate in memory. For example,
+if you need to retrieve a User and are not interested in the user's billing info,
+you can write this simple query:
+
+select * from USERS u where u.USER_ID = 123
+
+On the other hand, if you need to retrieve a User and then subsequently visit each
+of the associated BillingDetails instances (let's say, to list the user's credit
+cards), you write a different query:
+
+select *
+	from USERS u
+	left outer join BILLING_DETAILS bd on bd.USER_ID = u.USER_ID
+	where u.USER_ID = 123
+
+As you can see, to efficiently use joins you need to know what portion of the
+object network you plan to access when you retrieve the initial User - this is
+before you start navigating the object network.
+
+On the other hand, any object persistence solution provides functionality for
+fetching the data of associated objects only when the object is first accessed.
+However, this piecemeal style of data access is fundamentally inefficient in the 
+context of a relational DB, because it requires executing one statement for each
+node or collection of the object network that is accessed. This is the dreaded
+n+1 selects problem.
+
+This mismatch in the way you access objects in Java and in a relational DB,
+is perhaps the single most common source of performance problems in Java apps.
+There is a natural tension between too many selects and too big selects,
+ which retrieve unecessary info into memory.
+
+Yet, although, we've been blessed with innumerable books and magazine articles
+advising us to use StringBuffer for string concats, it seems impossible to find
+advice for the n+1 selects problem.
+
+Fortunately, Hibernate provides sophisticated features for efficiently and transparently
+fetching networks of objects from the database to the application accessing
+them. We discuss these features in chapters 13,14 ,15.
+
+1.2.6 The cost of the mismatch
+
+We now have quite a list of object/relational mismatch problems, and it will be
+costly (in tiem and effort) to find solutions, as you may know from experience.
+THis cost is often underestimated, and we think this is a major reason for many
+failed software projects. In our experience (regularly confirmed by the devs
+we talk to), the main purpose of up to 30 % of the Java app code written is
+to handle the tedious SQL/JDBC and manual bridging of the object/relational
+paradigm mismatch.
+
+Despite all this effort, the end result still does not feel quite right.
+We've seen projects nearly sink due to the complexity and inflexibility
+of their database abstraction layers. We also see Java developers (and DBAs)
+quickly lose their confidence when design decisions about the persistence
+strategy for a project have to be made.
+
+One of the major costs is in the area of modeling. The relational and domain
+models must both encompass the same business entities, but an object-oriented
+purist will model these entities in a different way than an experienced
+relation data modeler would. The usual solution to this problem is to bend
+and twist the domain model and the implemented classes until they match
+the SQL db schema.
+
+(Which following the principle of data indepdence, is certainly a safe long-term
+choice).
+
+This can be done successfully, but only at the cost of losing some of the
+advantages of object orientation. Keep in mind that relational modeling
+is underpinned by relational theory. Object-orientation has no such rigorous
+mathematical definition or body of theoretical work, so we cannot look
+to mathematics to explain how we should bridge the gap between the two
+paradigms - there is no elegant transformation waiting to be discovered.
+
+(Doing away with Java and SQL, and starting from scratch is not considered
+elegant)
+
+The domain modeling mismatch is not the only source of the inlfexibility
+and the lost productivity that lead to the higher costs. A further cause
+is the JDBC API itself. JDBC and SQL provide a statement-oriented (that 
+is, command-oriented) approach to moving data to and from an SQL database.
+
+If you want to query or manipulate data, the tables and columns involved
+must be specified at least three times (insert, update, select), adding to
+the time required for design and implementation.
+
+The distinct dialects for every SQL database management system do not
+improve the situation. To round out your understanding of object persistence,
+and before we approach possible solutions, we need to discuss application
+architechture and the role of a persistence layer in typical application
+design.
+
+1.3 Persistence layers and alternatives
+
+In a medium- or large-sized application, it usually makes sense to organize
+classes by concern. Persistence is one concern; others include presentation,
+workflow, and business logic. A typical object-oriented architechture includes
+layers of code that represent the concerns. It's normal and certainly best
+practice to group all classes and components responsible for persistence
+into a separate persistence layer in a layered system architechture.
+
+In this section, we first look at the layers of this type of architechture and
+why we use them. After that, we focus on the layer we're most interested in
+- the persistence layer - and some of the ways it can be implemented.
+
+1.3.1 Layered Architechture
+
+A layered architecture defines interfaces between code that implements the
+various concerns, allowing changes to be made to the way one concern is
+implemented without significant disruption to code in the other layers.
+
+Layering also determines the kind of interlayer dependencies that occur.
+The rules are as follows:
+
+Layers communicate from top to bottom. A layer is dependent only on
+the layer directly below it.
+
+Each layer is unaware of any other layers except for the layer just below
+it.
+
+Different systems group concerns differently, so they define different
+layers. A typical, proven, high-level application architechture uses three
+layers: one each for presentation, business logic, and persistence, as shown
+in figure 1.4
+
+note, there is also the so-called cross-cutting concerns, which may be
+implemented generically - by framework code, for example. Typical cross-cutting
+concerns include logging, authorization, and transaction demarcation.
+
+Let's take a closer look at the layers and elements in the diagram:
+
+Figure 1.4: A persistence layer is the basis in a layered architechture
+
+Presentation Layer
+		V
+		V>>>>>>>>>>V
+Business Layer>>>>>> Interceptors, Utility and Helper Classes 
+		V>>>>>>>>>>^
+		V
+Persistence Layer
+		V
+		V
+	Database
+
+Presentation layer - The user interface logic is topmost. Code responsible for
+the presentation and control of page and screen navigation is in the presentation layer.
+
+Business layer - The exact form of the next layer varies widely between applications.
+It's generally agreed, however, that the business layer is responsible for implementing
+any business rules or system requirements that would be understood by users as part of
+the problem domain. This layer usually includes some kind of controlling component
+- code that knows when to invoke which business rule. In some systems, this layer has
+its own internal representation of the business domain entities, and in others it
+reuses the model defined by the persistence layer. We revisit this issue in chap 3.
+
+Persistence Layer - The persistence layer is a group of classes and components responsible
+for storing data to, and retrieve it from, one or more data stores. This layer necessarily
+includes a model of the business domain entities (even if it's only a metadata model)
+
+Database - The database exists outside the Java application itself. It's the 
+actual persistent representation of the system state. If an SQL database is
+used, the database includes the relational schema and possibly stored procedures.
+
+Helper and utility classes - every application has a set of infrastructural helper
+or utility classes that are used in every layer of the application (such as Exception
+classes for error handling). These infrastructural elements do not form a layer,
+because they do not obey the rules for interlayer dependency in a layered architechture.
+
+Let's now take a brief look at the various ways the persistence layer can be
+implemented by Java applications. Don't worry - we'll get to ORM and Hibernate
+soon. There is much to be learned by looking at other approaches.
+
+1.3.2 Hand-coding a persistence layer with SQL/JDBC
+
+The most common approach to Java persistence is for application programmers to work
+directly with SQL and JDBC. After all, developers are familiar with relational
+database management systems, they understand SQL, and they know how to work with
+tables and foreign keys.
+
+Moreover, they can always use the well-known and widely used data access objects
+(DAO) pattern to hide complex JDBC code and nonportable SQL from the business
+logic.
+
+The DAO pattern is a good one - So good, that we often recommend its use even
+with ORM. However, the work involved in manually coding persistence for each domain
+class is considerable, particularly when multiple SQL dialects are supported.
+This work usually ends up consuming a large portion of the development effort.
+Furthermore, when requirements change, a hand-coded solution always requires
+more attention and maintenance effort.
+
+Why not implement a simple mapping framework to fit the specific requirements
+of your project? The result of such an effort could even be reused in future
+projects. Many devs have taken this approach: numerous homegrown object/relational
+persistence layers are in production systems today.
+
+However, we do not recommend this approach. excellent solutions already exist:
+not only the mostly expensive tools sold by commercial vendors, but also open
+source projects with free licenses. We're certain you'll be able to find a 
+solution that meets your requirements, both business and technical. It's likely
+that such a solution will do a great deal more, and do it better, than a solution
+you could build in a limited time.
+
+Developing a reasonably full-featured ORM may take many developers months.
+For example, Hibernate is about 80,000 lines of code, some of which is
+much more difficult than typical application code, along with 25,000 lines
+of unit test code. This may be more code than is in your application.
+
+A great many details can easily be overlooked in such a large project- as both
+the authors known from experience. Even if an existing tool does not fully
+implemnent two or three of your more exotic requirements, it's still probably
+not worth creating your own tool.
+
+Any ORM software will handle the tedious common cases - the ones that kill
+productivity. It's OK if you need to hand-code certain special cases; few
+applications are composed primarily of specified cases.
+
+1.3.3 Using serialization
+
+Java has a built-in persistence mechanism: Serialization provides the ability
+to write a snapshot of a network of objects (the state of the application)
+to a byte stream, which may then be persisted to a file or database.
+
+Serialization is also used by Java's Remote Method Invocation (RMI) to
+achieve pass-by value semantics for complex objects. Another use of
+serialization is to replicate application state across nodes in a cluster
+of machines.
+
+Why not use serialization for the persistence layer? Unfortunately,
+a serialized network of interconnected objects can only be accessed
+as a whole; it's impossible to retrieve any data from the stream
+without deserializing the entire stream. Thus, the resulting byte stream
+must be considered unsuitable for arbitrary search or aggregation
+of large datasets. It isn't even possible to access or update a single
+object or subset of objects independently.
+
+Loading and overwriting an entire object network in each transaction
+is no option for systems designed to support high concurrency.
+
+Given current technology, serialization is inadequate as a persistance
+mechanism for high concurency web and enterprise applications. It has a 
+particular niche as a suitable persistence mechanism for desktop applications.
+
+1.3.4 Object-oriented database systems
+
+Because we work with objects in Java, it would be ideal if there were a way
+to store those objects in a database without having to bend and twist the
+object model at all. In the mid-1990's, object-oriented database systems gained
+attention. They are based on a network data model, which was common before
+the advent of the relational data model decades ago.
+
+The basic idea is to store a network of objects with all it's pointers and
+nodes and to re-create the same in-memory graph later on. This can be
+optimized with various metadata and configuration settings.
+
+An object-oriented database management system (OODBMS) is more like an
+extension to the application environment than an external data store.
+An OODBMS usually features a multitiered implementation, with the 
+backend data store, object cache, and client application coupled 
+tightly together and interacting via a propietary network protocol.
+
+Object nodes are kept on pages of memory, which are transported from
+and to the data store.
+
+Object-oriented database development begins with the top-down definition
+of host language bindings that add persistence capabilities to the 
+programming language. Hence, object databases offer seamless integration
+into the object-oriented application environment. This is different from
+the model used by today's relation databases, where interaction with the
+database occurs via an intermediate language (SQL) and data independence
+from a particular application is the major concern.
+
+For background information on object-oriented databases, we recommend the
+respective chapter in An Introduction to Database Systems (Date, 2003).
+
+We won't bother looking too closely into why object-oriented database
+technology has not been more popular: we will observe the object databases
+haven't been widely adopted and that it does not appear likely that they
+will be in the near future.
+
+We're confident that the overwhelming majority of developers will have
+far more oppurtounity to work with relational tech, given the current
+political realities (predefined deployment envs) and the common requirement
+for data independence.
+
+1.3.5 Other options
+
+Of course, there are other kinds of persistence layers. XML persistence
+is a variation on teh serialization theme; this approach addresses some
+of the limitations of byte-stream serialization by allowing easy access
+to the data through a standardized tool interface.
+
+However, managing data in XML would expose you to an object/hierarchial
+mismatch. Furthermore, there is no additional benefit from the XML itself,
+because it's just another text file format and has no inherent capabilities
+for data management.
+
+You can use stored procedures (even writing them in Java, sometimes) and move
+the problem into the database tier. So-called object-relational databases
+have been marketed as a solution, but they offer only a more sophisticated
+datatype system providing only half the solution to our problems (and further
+muddling terminology).
+
+We're sure that there are plenty of other examples, but none of them are
+likely to become popular in the immediate future.
+
+Political and economic constraints (long-term investments in SQL db:s),
+data independence, and the requirement for access to valuable legacy data
+call for a different approach. ORM may be the most practical solution
+to our problems.
+
+1.4 Object/relational mapping
+
+Now that we've looked at the alternative techniques for object persistence,
+it's time to introduce the solution we feel is the best, and the one we use
+with Hibernate: ORM. Despite its long history (the first research papers were
+published in the late 1980's), the terms for ORM used by developers vary.
+Some call it object relational mapping, others prefer the simple object
+mapping.
+
+We exclusively use the term object/relational mapping and its acronym, ORM.
+The slash stresses the mismatch problem that occurs when the two worlds
+collide.
+
+In this section, we first look at what ORM is. Then we enumerate the problems
+that a good ORM solution needs to solve. Finally, we discuss the general benefits
+that ORM provides and why we recommend this solution.
+
+1.4.1 What is ORM?
+
+In a nutshell, object/relational mappings is the automated (and transparent)
+persistence of objects in a Java application to the tables in a relational
+database, using metadata that describes the mapping between the objects and
+the database.
+
+ORM, in essence, works by (reversibly) transforming data from one representation
+to another. This implies certain performance penalties. However, if ORM is
+implemented as middleware, there are many oppurtounities for optimization that
+would not exist for a hand-coded persistence layer.
+
+The provision and management of metadata that governs the transformation adds 
+to the overhead at development time, but the cost is less than equivalent
+costs involved in maintaining a hand-coded solution. (And even object
+databases require significant amounts of metadata).
+
+FAQ
+
+Isn't ORM a Visio plug-in? The acronym ORM can also mean object role
+modeling and this term was invented before object/relational mapping
+became relevant. It describes a method for information analysis, used
+in database modelling and is primarily supported by Microsoft Visio, a
+graphical modelling tool.
+
+Database specialists use it as a replacement or as an addition to the
+more popular entity-relationship modelling. However, if you talk to
+Java developers about ORM, it's usually in the context of object/relational
+mapping.
+
+An ORM solution consists of the following four pieces:
+
+An API for performing basic CRUD operations on objects of persistent classes
+
+A language or API for specifying queries that refer to classes and properties
+of classes
+
+A facility for specifying mapping metadata
+
+A technique for the ORM implementation to interact with transactional objects
+to perform dirty checking, lazy association fetching, and other optimization
+functions.
+
+We're using the term full ORM to include any persistence layer where SQL is
+automatically generated from a metadata-based description. We are not including
+persistence layers where the object/relational mapping problem is solved manually
+by developers hand-coding SQL with JDBC. With ORM, the application interacts with
+the ORM APIs and the domain model classes and is abstracted from the underlying
+SQL/JDBC. 
+
+Depending on the features or the particular implementation, the ORM engine may
+also take on responsibility for issues such as optimistic locking and caching,
+relieving the application of these concerns entirely.
+
+Let's look at the various ways ORM can be implemented. Mark Fussel (Fussel, 1997),
+a developer in the field of ORM, defined the following four levels of ORM
+quality. We have slightly rewritten his descriptions and put them in the
+context of today's Java application development.
+
+Pure relational
+
+The whole application, including the user interface, is designed around the relational
+model and SQL-based relational operations. This approach, despite its deficiencies
+for large systems, can be an excellent solution for simple applications where
+a low level of code reuse is tolerable.
+
+Direct SQL can be fine-tuned in every aspect, but the drawbacks, such as lack
+of portability and maintainability, are significant, especially in the long
+run. Applications in this category often make heavy use of stored procedures,
+shifting some of the work out of the business layer and into the database.
+
+Light object mapping
+
+Entities are represented as classes that are mapped manually to the relational
+tables. Hand-coded SQL/JDBC is hidden from the business logic using well-known
+design patterns. This approach is extremely widespread and is successful for
+applications with a small number of entities, or applications with generic,
+metadata-driven data models. Stored procedures may have a place in this kind
+of application.
+
+Medium object mapping
+
+The application is designed around an object model. SQL is generated at build
+time using a code-generation tool, or at runtime by framework code. Associations
+between objects are supported by the persistence mechanism, and queries may be
+specified using an object-oriented expression language. Objects are cached by
+the persistence layer. A great many ORM produces and homegrown persistence layers
+support at least this level of functionality.
+
+It's well suited to medium-sized applications with some complex transactions,
+particularly when portability between different database products is important.
+These applications usually do not use stored procedures.
+
+Full object mapping
+
+Full object mapping supports sophisticated object modeling: composition, inheritance,
+polymorphism, and persistence by reachability. The persistence layer implements
+transparent persistence; persistent classes do not inherit from any special base
+class or have to implement a special interface.
+
+Efficient fetching strategies (lazy, eager, and prefetching) and caching strategies
+are implemented transparently for the application. This level of functionality
+can hardly be achieved by a homegrown persistence layer - it's equivalent to
+years of development time. A number of commercial and open source Java ORM tools
+have achieved this level of quality.
+
+This level meets the definition of ORM we are using in this book. Let's look at
+the problems we expect to be solved by a tool that achieves full object mapping.
+
+1.4.2 Generic ORM problems
+
+The following list of issues, which we will call the ORM problems, identifies the
+fundamental questions resolved by a full object/relational mapping tool in a Java
+environment. Particular ORM tools may provide extra functionality (for example,
+aggressive caching), but this is a reasonably exhaustive list of the conceptual
+issues and questions that are specific to object/relational mapping.
+
+1. What do persistent classes look like? How transparent is the persistence tool?
+Do we have to adopt a programming model and conventions for classes of the business
+domain?
+
+2. How is mapping metadata defined? Because the object/relational transformation
+is governed entirely by metadata, the format and definition of this metadata is
+important. Should an ORM tool provide a GUI interface to manipulate the metadata
+graphically? Or are there better approaches to metadata definition?
+
+3. How do object identity and equality relate to database (primary key) identity?
+How do we map instances of particular classes to particular table rows?
+
+4. How should we map class inheritance hierarchies? There are several standard
+strategies. What about polymorphic associations, abstract classes and interfaces?
+
+5. How does the persistence logic interact at runtime with the objects of the
+business domain? This is a problem of generic programming, and there are a number
+of solutions including source generation, runtime reflection, runtime bytecode
+generation, and build-time bytecode enhancement. The solution to this problem
+may affect your build process (but, preferably, should not otherwise affect
+you as a user).
+
+6. What is the lifecycle of a persistent object? Does the lifecycle of some
+objects depend upon the lifecycle of other associated objects? How do we 
+translate the lifecycle of an object to the lifecycle of a database row?
+
+7. What facilities are provided for sorting, searching, and aggregating?
+The application could do some of these things in memory, but efficient
+use of relational technology requires that this work often be performed
+by the database.
+
+8. How do we efficiently retrieve data with associations? Efficient access
+to relational data is usually accomplished via table joins. Object-oriented
+applications usually access data by navigating an object network. Two data
+access patterns should be avoided when possible: the n+1 selects problem,
+and its complement, the Cartesian product problem (fetching too much data
+in a single select).
+
+Two additional issues that impose fundamental contraints on the design and
+architechture of an ORM tool are common to any data access tech::
+
+Transactions and concurrency
+
+Cache management (and concurrency)
+
+As you can see, a full object/relational mapping tool needs to address quite
+a long list of issues. By now, you should be stating to see the value of
+ORM. In the next section, we look at some of the other benefits you gain
+when you use an ORM solution.
+
+1.4.3 Why ORM?
+
+An ORM implementation is a complex beast - less complex than an application
+server, but more complex than a web app framework like Struts or Tapestry.
+Why should we introduce another complex infrastructural element into our
+system? Will it be worth it?
+
+It will take us most of this book to provide a complete answer to those questions,
+but this section provides a quick summary of the most compelling benefits.
+First, though, let's quickly dispose of nonbenefit.
+
+A supposed advantage of ORM is that it shields developers from messy SQL.
+This view holds that object-oriented developers can't be expected to understand
+SQL or relational DBs well, and that they find SQL somehow offensive (?).
+
+On the contrary, we belive that Java devs must have a sufficient level
+of familiarity with and appreciation of - relational modeling and SQL
+in order to work with ORM. ORM is an advanced technique to be used by developers
+who have already done it the hard way.
+
+To use Hibernate effectively, you must be able to view and interpret the 
+SQL statements it issues and understand the implications for performance.
+Now let's look at some of the benefits of ORM and Hibernate.
+
+Productivity
+Persistence-related code can be perhaps the most tedious code in Java apps.
+Hibernate eliminates much of the grunt work (more than you would expect)
+and lets you concentrate on the business problem.
+
+No matter which application-development strategy you prefer- top-down,
+starting with a domain model, or bottom-up, starting with an existing
+DB schema, Hibernate used together with the appropiate tools, will
+significantly reduce dev time.
+
+Maintainability
+Fewer lines of code (LOC) makes the system more understandable, because
+it emphasizes business logic rather than plumbing. Most important, a 
+system with less code is easier to refactor. Automated object/relational
+persistence substantially reduces LOC. Of course, counting lines of
+code is a debatable way of measuring application complexity.
+
+However, there are other reasons that a Hibernate application is more
+maintainable. In systems with hand-coded persistence, an inevitable
+tension exists between the relational representation and the object
+model implementing the domain. Changes to one almost always involve
+changes to the other, and often the design of one representation is
+compromised to accomodate the existence of the other.
+
+(What almost always happens in practice is that the object model of
+the domain is compromised). ORM provides a buffer between the two
+models, allowing more elegant use of object orientation on the 
+Java side, and insulating each model from minor changes to the other.
+
+Performance
+A common claim is that hand-coded persistence can always be at least 
+as fast, and can often be faster, than automated persistence. This is
+true in the same sense that it's true that assembly code can always
+be at least as fast as Java code, or a hand-written paper can always 
+be at least as fast as parser generated by YACC or ANTLR - in other
+words, it's besides the point.
+
+The unspoken implication of the claim is that hand-coded persistence
+will perform at least as well in an actual application. But this
+implication will be true only if the effort required to implement
+at-least-as-fast hand-coded persistence is similar to the amount of
+effort involved in utilizing an automated solution.
+
+The really interesting question is what happens when we consider time
+and budget constraints?
+
+Given a persistence task, many optimizations are possible. Some (such
+as query hints) arem uch easier to achieve with hand-coded SQL/JDBC.
+Most optimizations, however, are much easier to achieve with automated
+ORM.
+
+In a project with time constraints, hand-coded persistence usually
+allows you to make some optimizations. Hibernate allows many more
+optimizations to be used all the time. Furthermore, automated persistence
+improves developer productivity so much taht you can spend more time
+hand-optimizing the few remaining bottlenecks.
+
+Finally, the people who implemented your ORM software probably had
+much more time to investigate performance optimizations than you have.
+Did you know, for instance, that pooling PreparedStatement instaces
+results in a significant performance increase for the DB2 JDBC driver
+but breaks the InterBase JDBC driver?
+
+Did you realize that updating only the changed columns of a table
+can be significantly faster for some DBs, but slower for others?
+In your handcrafted solution, how easy is it to experiment with
+the impact of these various strats?
+
+Vendor independence
+An ORM abstracts your application away from the underlying SQL database
+and SQL dialect. If the tool supports a number of different databases
+(and most do), this confers a certain level of portability on your
+application. You should not necessarily expect write-once/run-anywhere,
+because the capabilities of databases differ, and achieving full portability
+would require sacrificing some of the strength of the more powerful
+platforms.
+
+Nevertheless, it's usually much easier to develop a cross-platform application
+using ORM. Even if you do not require cross-platform operation, an ORM
+can still help mitigate some of the risks associated with vendor
+lock-in.
+
+In addition, database independence helps in development scenarios where
+developers use a lightweight local database but deploy for production
+on a different database.
+
+You need to select an ORM product at some point. To make an educated
+decision, you need a list of the software modules and standards that are
+available.
+
+1.4.4 Introducing Hibernate, EJB3, and JPA
+
+Hibernate is a full object/relational mapping tool that provides all the previously
+listed ORM benefits. The API you're working with in Hibernate is native and
+designed by the Hibernate developers. The same is true for the query interfaces
+and query languages, and for how object/relational mapping metadata is defined.
+
+Before you start your first project with Hibernate, you should consider
+the EJB 3.0 standard and its subspecification, Java Persistance. Let's go
+back in history and see how this new standard came into existence.
+
+Many Java developers considered EJB 2.1 entity beans as one of the
+technologies for the implementation of a persistence layer. The whole
+EJB programming and persistence model has been widely adopted in the
+industry, and it has been an important factor in the success of J2EE
+(or, Java EE as it's now called).
+
+However, over the last years, critics of EJB in the developer community
+became more vocal (especially with regard to entity beans and persistence),
+and companies realized that the EJB standard should be improved. Sun, at the
+steering party of J2EE, knew that an overhaul was in order and started a new
+Java specification request (JSR) with the goal of simplifying EJB in early
+2k3.
+
+This new JSR, Enterprise JavaBeans 3.0 (JSR 220), attracted significant
+interest. Developers from the Hibernate team joined the expert group
+early on and helped shape the new specification. Other vendors, including
+all major and many smaller companies in the Java industry, also contributed
+to the effort.
+
+An important decision made for the new standard was to specify and standardize
+things that work in practice, taking ideas and concepts from existing
+succesful products and projects. Hibernate, therefore, being a succesful
+data persistence solution, played an important role for the persistence part
+of the new standard.
+
+But what exactly is the relationship between Hibernate and EJB3, and what
+is Java Persistence?
+
+Understanding the standards
+
+First, it's difficult (if not impossible) to compare a specification and
+a product. The questions that should be asked, are: "Does Hibernate implement
+the EJB 3.0 specification, and what is the impact on my project? Do i have to
+use one or the other?"
+
+The new EJB 3.0 specification comes in several parts: The first part defines
+the new EJB programming model for session beans and message-driven beans,
+the deployment rules and so on. The second part of the specification deals with
+persistence exclusively: entities, object/relational mapping metadata, persistence
+manager interfaces, and the query language. 
+
+This second part is called Java Persistence API (JPA), probably because
+its interfaces are in the package javax.persistence. We will use this 
+acronmy throughout the book.
+
+This separation also exists in EJB 3.0 products; some implemen a full EJB
+3.0 container that supports all parts of the specification, and other products
+may implement only the Java Persistence part. Two important principles were
+designed into a new standard:
+
+JPA engines should be pluggable, which means you should be able to take
+out one product and replace it with another if you are not satisfied - even
+if you want to stay with the same EJB 3.0 container or Java EE 5.0 
+application server.
+
+JPA engines should be able to run outside of an EJB 3.0 (or any other)
+runtime environment, without a container in a plain standard Java.
+
+The consequences of this design are that there are more options for developers
+and architects, which drives competition and therefore improves overall 
+quality of products. Of course, actual products also offers features that
+go beyond the specification as vendor-specific extensions (such as
+for performance tuning, or because the vendor has a focus on a particular
+vertical problem space).
+
+Hibernate implements Java Persistence, and because a JPA engine must be 
+pluggable, new and interesting combinations of software are possible.
+You can select from various Hibernate software modules and combine them
+depending on your project's technical and business requirements.
+
+Hibernate Core
+
+The Hibernate Core is also known as Hibernate 3.2.x or Hibernate. It's the
+base service for persistence, with its native API and its mapping metadata
+stored in XML files. It has a query language called HQL (almost the same as
+sQL), as well as programmatic query interfaces for Criteria and Example
+queries.
+
+There are hundreds of options and features available for everything, as
+Hibernate Core is really the foundation and the platform all other modules
+are built on.
+
+You can use Hibernate Core on its own, independent from any framework or
+any particular runtime environment with all JDKs. It works in every Java
+EE/J2EE application server, in Swing applications, in a simple servlet
+container and so on.
+
+As long as you can configure a data source for Hibernate, it works. Your
+application code (in your persistance layer) will use Hibernate APIs and 
+queries, and your mapping metadata is written in native Hibernate XML
+files.
+
+Native Hibernate APIs, queries and XML mapping files are the primary focus
+of this book, and they're explained first in all code examples. The
+reason for that is that Hibernate functionality is a superset of
+all other available options.
+
+Hibernate Annotations
+
+A new way to define application metadata became available with JDK 5.0:
+type-safe annotations embedded directly in the Java source code. Many
+Hibernate users are already familiar with this concept, as the XDoclet
+software supports Javadoc meta-data attributes and a preprocessor at
+compile time (which, for Hibernate, generates XML mapping files).
+
+With the Hibernate Annotations package on top of Hibernate Core, you
+can now use type-safe JDK 5.0, metadata as a replacement or in 
+addition to native Hibernate XML mapping files. You will find the
+syntax and semantics of the mapping annotations familiar once you've
+seen them side-by-side with Hibernate XML mapping files.
+
+However, the basic annotations are not proprietary.
+
+THe JPA specification defines object/relational mapping metadata
+syntax and semantics, with the primary mechanism being JDK 5.0
+annotations. (Yes, JDK 5.0 is required for Java EE 5.0 and EJB
+3.0).
+
+Naturally, the Hibernate Annotations are a set of basic annotations
+that implements the JPA standard, and they are also a set of
+extension annotations you need for more advanced and exotic
+Hibernate mappings and tuning.
+
+You can use Hibernate Core and Hibernate Annotations to reduce
+your lines of code for mapping metadata, compared to the native
+XML files, and you may like the better refactoring capabilities
+of annotations.
+
+You can use only JPPA annotations, or you can add a Hibernate
+extension annotation if complete portability is not your
+primary concern. (In practice, you should embrace the product
+you have chosen instead of denying its existence at all times).
+
+We will discuss the impact of annotations on your development
+process, and how to use them in mappings, throughout this book,
+along with native Hibernate XML mapping examples.
+
+Hibernate EntityManager
+
+The JPA specification also defines programming interfaces, lifecycle
+rules for persistent objects, and query features. The Hibernate
+implementation for this part of JPA is available as Hibernate
+EntityManager, another optional module you can stack on top of
+Hibernate Core.
+
+You can fall back when a plain Hibernate interface, or even
+a JDBC Connection is needed. Hibernate's native features are
+a superset of the JPA persistence features in every respect.
+(The simple fact is that Hibernate Entity Manager is a small
+wrapper around Hibernate Core that provides JPA compability).
+
+Working with standardized interfaces and using a standardized
+query language has the benefit that you can execute your 
+JPA-compatible persistence layer with any EJB 3.0 compliant
+application server.
+
+Or, you can use JPA outside of any particular standardized
+runtime environment in plain Java (which really means everywhere
+Hibernate core can be used)
+
+Hibernate Annotations should be considered in combination with
+Hibernate EntityManager. It is unusual that you would write
+your application code against JPA interfaces and with JPA
+queries, and not create most of your mappings with JPA
+annotations.
+
+Java EE 5.0 application servers
+
+We don't cover all of EJB 3.0 in this book; our focus is
+naturally on persistence, and therefore on the JPA part
+of the specification. (We will, of course, show you many
+techniques with managed EJB components when we talk about
+application architechture and design).
+
+Hibernate is also part of the JBoss Application Server
+(JBoss AS), an implementation of J2EE 1.4 and (soon)
+Java EE 5.0. A combination of Hibernate Core, Hibernate
+Annotations, and Hibernate EntityManager forms the
+persistence engine of this application server.
+
+Hence, everything you can use stand-alone, you can also
+use inside the application server with all the EJB 3.0
+benefits, such as session beans, message-driven beans, and
+other Java EE services.
+
+To complete the picture, you also have to understand that
+Java EE 5.0 application servers are no longer the monolithic
+beasts of the JEE2 1.4 era. In fact, the JBoss EJB 3.0
+container also comes in an embeddable version, which runs
+inside other application servers, and even in Tomcat, or 
+in a unit test, or a Swing application.
+
+In the next chapter, you will prepare a project that utilizes
+EJB 3.0 components, and you will install the JBoss server for
+easy integration testing. As you can see, native Hibernate features
+implement significant parts of the specification or are
+natural vendor extensions, offering additional functionality if
+required.
+
+Here is a simple trick to see immediately what code you are looking
+at, whether JPA or native Hibernate. If only the javax.persistence.*
+import is visible, you are working inside the specification; if
+you also import org.hibernate.*, you are using native Hibernate
+functionality. We will later show you a few more tricks that will
+help you cleanly separate portable from vendor-specific code.
+
+FAQ
+
+What is the future of Hibernate? Hibernate Core will be developed
+independently from and faster than the EJB 3.0 or Java Persistence
+specifications. It will be the testing ground for new ideas, as it
+has always been. Any new feature developed for Hibernate Core
+is immediately and automatically available as an extension for
+all users of Java Persistence with Hibernate Annotations and
+Hibernate EntityManager.
+
+Over time, if a particular concept has proven its usefulness,
+Hibernate developers will work with other expert group members
+on future standardization in an updated EJB or Java Persistence
+specification. Hence, if you are interested in a quickly evolving
+standard, we encourage you to use Native Hibernate functionality,
+and to send feedback to teh respective xpert group. The desire for
+total portability and the rejection of vendor extensions were
+major reasons for the stagnation we saw in EJB 1.x and 2.x 
+
+After so much praise of ORM and Hibernate, it is time to look
+at some actual code. It's time to wrap up the theory and
+set up a first project.
+
+1.5 Summary
+
+In this chapter, we've discussed the concept of object persistence
+and the importance of ORM as an implementation technique.
+
+Object persistence means that individual objects can outlive the
+application process; they can be saved to a data source and be
+re-created at a later point in time. The object/relational mismatch
+comes into play when the data store is an SQL-based relational
+database management system.
+
+For instance, a network of objects cannot be saved to a database
+table; it must be disassembeled and persisted to columns of
+portable SQL datatypes.A good solution for this problem is 
+object/relational mapping (ORM), which is especially helpful
+if we consider richly typed Java domain models.
+
+A domain model represents the business entities used in a Java
+application. In a layered system architechture, the domain model
+is used to execute-business logic in the business layer (in Java,
+not in the database).
+
+This business layer communicates with the persistence layer
+beneath in order to load and store the persistent objects of
+the domain model. ORM is the middleware in the persistence layer
+that manages the persistence.
+
+ORM isn't a silver bullet for all persistnce tasks; its job is to
+relieve the devs of 95% of object persistence work, such as writing
+complex SQL statements with many table joins,a nd copying values from
+JDBC results sets to objects or graphs of objects.
+
+A full-featured ORM middleware solution may provide database portability,
+certain optimization techniques like caching, and other viable functions
+that are not easy to hand-code in a limited time with SQL and JDBC.
+
+It is like that a better solution than ORMs will come along, some day.
+We and many others have to rethink the way we know about SQL. persistence
+API standards and applicatio integration. The evolution of today's systems
+into true relational DB systems with seamless object-oriented integration
+remains pure speculation.
+
+But we cannot wait, and there is no sign that any of these issues will improve
+soon (a multibillion dollar industry is not very agile). ORM is the best
+solution currently, and its a timesaver for devs facing the object/relational
+mismatch every day.
+
+With EJB 3.0, a specification for full object/relational mapping software
+that is accepted in the Java Industry is finally available.
+
+2. Starting a Project
+
+This chapter covers:
+
+"Hello World" with Hibernate and Java Persistence
+
+The toolset for forward and reverse engineering
+
+Hibernate configuration and integration
+
+You want to start using Hibernate and Java Persistence, and you want to
+learn it with a step-by-step example. You want to see both persistence APIs
+and how you can benefit from native Hibernate or standardized JPA. This is
+what you will find in this chapter: a tour through a straightforward
+"Hello World" application.
+
+However, a good and complete tutorial is already publicably avaialble in
+the Hibernate reference docuemtnation, so instead of repeating it here,
+we show you more detailed instructions about Hibernate integration and
+configuration along the way.
+
+If you want to start with a less elaborate tutorial that you can complete
+in an hour, our advice is the Hibernate reference documentation. It takes
+you from a simple stand-alone Java app with Hibernate through the most 
+essential mapping concepts and finally demonstrates a Hibernate web application
+deployed on Tomcat.
+
+In this chapter, you will learn how to set up a Project infrastructure
+for a plain Java app that integrates Hibernate, and you will see many more
+details about how Hibernate can be configured in such an environment.
+
+We also discuss configuration and integration of Hibernate in a managed
+environment - that is, an env that provides Java EE services.
+
+As a build tool for the "Hello World" project, we introduce Ant and
+create build scripts that can not only compile and run the project,
+but also utilize the Hibernate Tools. Depending on your dev process,
+you will use Hibernate toolset to export db schemas automatically
+or even reverse-engineer a complete app from an existing (legacy)
+DB schema.
+
+Like every good engineer, before you start your first real Hibernate
+project you should prepare your tools and decide what your development
+process is going to look like. And, depending on the process you
+choose, you may naturally prefer different tools. Let's look at this
+preparation phase and what our options are, and then start a 
+Hibernate project.
+
+2.1 Starting a Hibernate project
+
+In some projects, the development of an application is driven by
+developers analyzing the business domain in object-oriented terms.
+In others, it's heavily influenced by an existing relational data
+modeler. There are many choices to be made, and the following
+questions need to be answered before you can start:
+
+Can you start from scratch with a clean design of a new business
+requirement, or is legacy data and/or legacy application code present?
+
+Can some of the necessary pieces be automatically generated from an
+existing artifact (for example, Java source from an existing database
+schema)?
+
+Can the database schema be generated from Java code and Hibernate
+mapping metadata?
+
+What kind of tool is available to support this work? What about
+other tools to support the full development cycle?
+
+We'll discuss these questions in the following sections as we
+set up a basic Hibernate project. This is your road map:
+
+1. Select a development process
+
+2. Set up the project infrastructure
+
+3. Write application code and mappings
+
+4. Configure and start Hibernate
+
+5. Run the application
+
+After reading the next sections, you will be prepared for the correct
+approach in your own project, and you will also have teh background
+information for more complex scenarios we will touch on later in this
+chapter.
+
+2.1.1 Selecting a development process
+
+Let's first get an overview of the available tools, the artifacts they use
+as source input, and the output that is produced. Figure 2.1, shows various
+import export tasks for Ant; all the functionality is also available with the
+Hibernate Tools plug-ins for Eclipse. Refer to this diagram while reading this chapter.
+
+Figure 2.1 Input and output of the tools used for Hibernate development
+
+UML Model XML/XMI
+	V
+	AndroMDA
+	V 				Mapping Metadata Annotations
+Persistent Class 	v 						^
+Java source 		annotationconfiguration ^ 				Data Access Object Java Source
+	^ 				v 						hbm2java 		^	 								Documentation HTML
+	hbm2java 		v 						^ 				hbm2dao 							^
+	^ 				v 						^ 				^ 									hbm2doc
+			HIBERNATE META MODEL 																^
+V 		  ^ 					V  			^ 				V 
+hbm2ddl   jdbcconfiguration 	hbm2hbmxml  configuration 	hbm2cfgxml 			hbmtemplate
+V 		  ^ 					V 			^ 				V  						V
+Database Schema 			Mapping Metadata XML 		Configuration XML 		Freemarker Template
+
+
+NOTE:
+
+Hibernate Tools for Eclipse IDE - The Hibernate Tools are plug-ins for the Eclipse IDE (part of
+the JBoss IDE for Eclipse - a set of Wizards, editors and extra views in Eclipse that help you
+develop EJB3, Hibernate, JBoss Seam, and other Java applications based on JBoss middleware).
+
+The features for forward and reverse engineering are equivalent to the Ant-based tools.
+The additional Hibernate Console view allows you to execute adhoc Hibernate Queries
+(HQL and Criteria) against your DB and to browse the result graphically.
+
+The Hibernate Tools XML editor supports automatic completion of mapping files, including class,
+property and even table and column names. The graphical tools were still in development and 
+available as a beta release during the writing of this book, however, so any screenshots
+would be obsolete with future releases of the software.
+
+The documentation of the Hibernate Tools contains many SS's and detailed project
+setup instructions that you can easily adapt to create your first "Hello World"
+program with the Eclipse IDE.
+
+The following development scenarios are common:
+
+Top down - In top-down development, you start with an existing domain model,
+its implementation in Java and (ideally) complete freedom with respect to the
+DB schema. You must create mapping metadata - either with XML files or by
+annotating the Java source - and then optionally let Hibernate's hbm2ddl tool
+generate the database schema.
+
+In the absence of an existing database schema, this is the most comfortable
+development style for most java devs. You may even use the Hibernate Tools 
+to automatically refresh the Database schema on every application restart
+in development.
+
+Bottom up - Conversely, bottom-up development begins with an existing data-base
+schema and data model. In this case, the easiest way to proceed is to use the
+reverse-engineering tools to extract metadata from the database. This metadata
+can be used to generate XML mapping files, with hbm2hbmxml for example.
+
+With hbm2java, the Hibernate mapping metadata is used to generate Java persistent
+classes, and even data access objects - in other words, a skeleton for a Java
+persistence layer. Or, instead of writing to XML
+
+* Note that AndroMDA, is a tool that generates POJO source code from UML diagram
+files, is not strictly considered part of the common Hibernate toolset, so it is
+not discussed in this chapter. See the community area on the Hibernate website
+for more information about the Hibernate module for AndroMDA.
+
+mapping files, annotated Java source code (EJB 3.0 entity classes) can be produced
+directly by the tools. However, not all class association details and Java-specific
+metainformation can be automatically generated from an SQL database schema
+with this strategy, so expect some manual work.
+
+Middle out - The Hibernate XML mapping metadata provides sufficient information
+to completely deduce the database schema and to generate the Java source code
+for the persistence layer of the application. Furthermore, the XML mapping
+document is not too verbose. Hence, some architects and developers prefer
+middle-out development, where they begin with handwritten Hibernate XML
+mapping files, and then generate the database schema using hbm2ddl and Java
+classes using hbm2java.
+
+The Hibernate XML mapping files are constantly updated during development,
+and otehr artifacts are generated from this master definition. Additional
+business logic or database objects are added through subclassing and
+auxiliary DDL. This development style can be reommended only for
+the seasoned Hibernate Expert.
+
+Meet in the middle - The most difficult scenario is combining existing
+Java classes and an existing Db schema. In this case, there is little
+that the Hibernate toolset can do to help. It is, of course, not possible
+to map arbitrary Java domain models to a given schema, so this scenario
+usually requires at least some refactoring of the Java classes, database
+schema or both.
+
+The mapping metadata will almost certainly need to be written by hand and
+in XML files (though it might be possible to use annotations if there is
+ a close match). This can be an incredibly painful scenario and is
+fortunately, exceedingly rare.
+
+We now explore the tools and their configuration options in more detail
+and set up a work environment for typical Hibernate application development.
+You can follow our instructions step by step and create the same environment,
+or you can take only the bits and pieces you need, such as the Ant build
+scripts.
+
+The development process we assume first is top down, and we will walk through
+a Hibernate project that does not involve any legacy data schemas or Java
+code. After that, you will migrate the code to JPA and EJB 3.0 and then you
+will start a project bottom up reverse-engineering from an existing DB
+schema.
+
+2.1.2 Setting up the Project
+
+We assume that you have downloaded the latest production release of Hibernate
+from the Hibernate website at http://www.hibernate.org/ and that you unpacked
+this archive. You also need Apache Ant installed on your development machine.
+You should also download a current version of HSQLDB from http://hsqldb.org/
+and extract the package.
+
+YOu will use this DB management system for your tests. If you have another
+database management system already installed, you only need to obtain a
+JDBC driver for it.
+
+Instead of the sophisticated app, you will develop later in the book, you
+will get started with a "Hello world" example. That way, you can focus on
+the development process without getting distracted by the Hibernate details.
+Let's set up the project directory first.
+
+Creating the Work Directory
+
+Create a new Directory on your system, in any location you like; C:\helloworld
+isa good choice if you work on microsoft windows. We will refer to this
+dir as WORKDIR in a future example. Create lib and src subdirs, and copy
+all the required libs:
+
+WORKDIR
+	+lib
+		antlr.jar
+		asm.jar
+		asm-attrs.jars
+		c3p0.jar
+		cglib.jar
+		commons-collections.jar
+		commons-logging.jar
+		dom4j.jar
+		hibernate3.jar
+		hsqldb.jar
+		jta.jar
+	+src
+
+The liberaries you see in teh library directory are from the Hibernate distribution,
+most of them required for a typical Hibernate project. The hsqldb.jar file is from
+the HSQLDB distribution: replace it with a different driver JAR if you want to use
+a different database management system.
+
+Keep in mind that some of the libraries you are seeing here may not be required for
+the particular version of Hibernate you are working with, which is likely a newer
+release than we used when writing this book.
+
+To make sure you have the right set of libraries, always check the lib/README.txt
+file in the Hibernate distribution package. This file contains an up-to-date list
+of all required and optional third-party libraries for Hibernate - you only need
+the libraries listed as required for runtime.
+
+In the "Hello World" application, you want to store messages in the database
+and load them from the database. You need to create the domain model for this
+business case.
+
+Creating the domain model
+
+Hibernate applications define persistent classes that are mapped to database 
+tables. You define these classes based on your analysis of the business domain;
+hence, they are a model of the domain. The "Hello World" example consists of
+one class and its mapping.
+
+Let's see what a simple persistent class looks like, how the mapping is created,
+and some of the things you can do with instances of the persistent class in Hibernate.
+
+The objective of this example is to store message in a database and retrieve
+them for display. Your application has a simple persistent class, Message, which
+represents these printable messages. The message class is shown in the
+following listing, 2.1:
+
+Listing 2.1 Message.java: a simple persistent class
+
+package hello;
+
+public class Message { //identifier attribute contained here
+	private Long id;
+	private String text;// Message text
+	private Message nextMessage; //Reference to another message
+
+	Message() {}
+
+	public Message(String text) {
+		this.text = text;
+	}
+
+	public Long getId(){
+		return id;
+	}
+	private void setId(Long id){
+		this.id = id;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public Message getNextMessage() {
+		return nextMessage;
+	}
+	public void setNextMessage(Message nextMessage) {
+		this.nextMessage = nextMessage;
+	}
+}
+
+The Message class has three attributes: the identifier attribute, the text
+of the message, and a reference to another Message object. The identifier
+attribute allows the application to access the database identity - the primary
+key value - of a persistent object. If two instances of Message have the same
+identifier value, they represent the same row in teh database.
+
+This example uses Long for the type of the identifier attribute, but this is
+not a requirement. Hibernate allows virtually anything for the identifer type,
+as you will see later.
+
+You may have noticed that all attributes of the Message class have JavaBeans-style
+property accessor methods. The class also has a constructor with no parameters.
+The persistent classes we show in the examples will almost always look something
+like this. The no-argument constructor is a requirement (tools like Hibernate use
+reflection on this constructor to instansiate objects).
+
+Instances of the Message class can be managed (made persistent) by Hibernate, but 
+they do not have to be. Because the MEssage Object does not implement any Hibernate-specific
+class or interfaces, you can use it just like any other Java class:
+
+Message message = new Message("Hello World");
+System.out.println(message.getText());
+
+This code fragment does exactly what you have come to expect from "Hello World"
+applications: It prints Hello World to the console. It may look like we're
+trying to be cute here; in fact, we're demonstrating a important feature that 
+distinguishes Hibernate from some other persistence solutions. The persistent
+class can be used in any execution context at all - no special container, is needed.
+
+Note that this is also one of the benefits of the new JPA entities, which are
+also POJO's.
+
+Save the code for the Message class into your source folder, in a directory and
+package named hello.
+
+Mapping the class to a database schema
+
+To allow the object/relational mapping magic to occur, Hibernate needs some
+more information about exactly how the Message class should be made persistent.
+In other words, Hibernate needs to know how instances of that class are supposed
+to be stored and loaded.
+
+This metadata can be written into an XML mapping document, which defines, among other
+things, how properties of the Message class map to columns of a MESSAGES table. Let's
+look at the mapping document in listing 2.2:
+
+Listing 2.2 A simple Hibernate XML mapping
+
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class
+		name="hello.Message"
+		table="MESSAGES">
+
+		<id
+			name="id"
+			column="MESSAGE_ID"
+			<generator class="increment"/>
+		</id>
+
+		<property
+			name="text"
+			column="MESSAGE_TEXT"/>
+
+		<many-to-one
+			name="nextMessage"
+			cascade="all"
+			column="NEXT_MESSAGE_ID"
+			foreign-key="FK_NEXT_MESSAGE"/>
+	</class>
+</hibernate-mapping>
+
+The mapping document tells Hibernate that the Message class is to be persisted to
+the MESSAGES table, that the identifier property maps to a column named MESSAGE_ID,
+that the text property maps to a column named MESSAGE_TEXT, and that the property
+named nextMessage in association with many-to-one multiplicity that maps to a 
+foreign key column named NEXT_MESSAGE_ID.
+
+Hibernate also generates the database schema for you and adds a foreign key constraint
+with the name FK_NEXT_MESSAGE to the database catalog. (Do not worry about the
+other details for now)
+
+The XML document is not difficult to understand. You can easily write and maintain
+it by hand. Later, we discuss a way of using annotaitons directly in the source
+code to define mapping information, but whichever method you choose, Hibernate 
+has enough information to generate all the SQL statements needed to insert, update,
+delete and retrieve instances of the Message class.
+
+You no longer need to write these SQL statements by hand. Create a file named
+Message.hbm.xml with the content shown in listing 2.2, and place it next to your
+Message.java file in the source package hello.
+
+The hbm suffix is a naming convention accepted by the Hibernate community, and
+most developers prefer to palce mapping files next to teh source code of their
+domain classes.
+
+Let's load and store some objects in the main code of the "Hello World" app.
+
+Sotring and loading objects
+
+What oyu really came here to see is Hibernate, so let us saev a new Message
+to the db:
+
+Listing 2.3 The "Hello World" main app code
+
+package hello;
+
+import java.util.*;
+import org.hibernate.*;
+import persistence.*;
+
+public class HelloWorld {
+	public static void main(String[] args) {
+
+		//First unit of work
+		Session session = 
+			HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+
+		Message message = new Message("Hello World");
+		Long msgId = (Long) session.save(message);
+
+		tx.commit();
+		session.close();
+
+		//Second unit of work
+		Session newSession =
+			HibernateUtil.getSessionFactory().openSession();
+		Transaction newTransaction = newSession.beginTransaction();
+
+		List messages =
+			newSession.createQuery("from Message m order by 
+			m.text asc").list();
+
+		System.out.println(message.size() +
+			" message(s) found:" );
+
+		for ( Iterator iter = messages.iterator();
+			  iter.hasNext(); ) {
+			Message loadedMsg = (Message) iter.next();
+			System.out.println(loadedmsg.getText());
+		}
+
+		newTransaction.commit();
+		newSession.close();
+
+		//Shutting down the app
+		HibernateUtil.shutdown();
+	}
+}
+
+Place this code in the file HelloWorld.java in teh source folder of your
+project, in the hello package. lets walk through the code
+
+The class has a standard Java main() method, and you can call it form the 
+command line directly. Inside the main app code, you execute two separate
+units of work with Hibernate. The first unit stores a new Message object,
+and the second unit loads all objects and prints their text to the console.
+
+You can call Hibernate Session, Transaction, and Query interfaces to access
+the database:
+
+	Session - A Hibernate Session is many things in one. It's a single-threaded
+	nonshaped object that represents a particular unit of work with the 
+	database. It has the persistence manager API you call to load and
+	store objects. (The Session internals consists of a queue of SQL 
+	statements that need to be synchronized with the database at some point
+	and a map of managed persistence instances that are monitored by
+	the Session).
+
+	Transaction - This Hibernate API can be used to set transaction
+	boundaries programatically, but it's optional (transaction boundaries
+	are not). Other choices are JDBC transaction demarcation, teh JTA
+	interface, or container-managed transactions with EJBs.
+
+	Query - A database query can be written in Hibernate's own object-oriented
+	query language (HQL) or plain SQL. This interface allows you to create
+	queries, bind arguments to placeholders in the query, and execute
+	the query in various ways.
+
+Ignore hte line of code that calls to get the getSessionFactory(), we will
+get into it soon.
+
+The first unit of work, if run, results in the execution of something similar
+to the following SQL:
+
+insert into MESSAGES (MESSAGE_ID, MESSAGE_TEXT, NEXT_MESSAGE_ID)
+	values (1, 'Hello World', null)
+
+Hold on - the MESSAGE_ID column is being initialized to a strange
+value. You did not see the id prop anywhere, so you epxect it ot be
+null, right?
+
+Actually, the id property is special. It's an identifier property.
+It holds a generated unique value. The value is assigned to the
+Message instance by Hibernate when save() is called. (We will discuss
+how the value is generated later.)
+
+Look at the second unit of work. The literal string "from Message m
+order by m.text asc" is a hibernate query, expressed in HQL. This query
+is internally translated into the following SQL when list() is called:
+
+select m.MESSAGE_ID m.MESSAGE_TEXT, m.NEXT_MESSAGE_ID
+	from MESSAGES m
+	order by m.MESSAGE_TEXT asc
+
+if you run this main() method (do not try this now, you still need to
+configure hibernate), the output on your console is as follows:
+
+1 messages(s) found:
+	Hello world 
+
+If you never used an ORM tool like Hibernate before, you probably
+expected to see the SQL statements somewhere in the code or mapping
+metadata, but they are not there. All SQL is generated at runtime
+(actually, at startup for all reusable SQL statements).
+
+Your next step would normally be configuring Hibernate. However,
+if you feel confident, you can add two Hibernate features - automatic
+dirty checking and cascading - in a third unit of work by adding
+the following code to your main application:
+
+	//Third unit of work
+	Session thirdSession =
+		HibernateUtil.getSessionFactory().openSession();
+	Transaction thirdTransaction = thirdSession.beginTransaction();
+
+	// msgId holds the identifier value of the first message
+	message = (Message) thirdSession.get( Message.class, msgId);
+
+	message.setText( "Greetings Earthling" );
+	message.setNextMessage(
+		new Message( "Take me to your leader (please)" )
+	);
+	thirdTransaction.commit();
+	thirdSession.close();
+
+This code calls three SQL statements inside the same database transaction:
+
+select m.MESSAGE_ID, m.MESSAGE_TEXT, m.NEXT_MESSAGE_ID
+from MESSAGES m
+where m.MESSAGE_ID = 1
+
+insert into MESSAGES (MESSAGE_ID, MESSAGE_TEXT, NEXT_MESSAGE_ID)
+values (2, 'Take me to your leader (please)', null)
+
+update MESSAGES
+set MESSAGE_TEXT = 'Greetings Earthling', NEXT_MESSAGE_ID = 2
+where MESSAGE_ID = 1
+
+Notice how Hibernate detected the modification to the text and
+nextMessage properties of the first message and automatically
+update the DB - Hibernate did automatic dirty checking. This feature
+saves you the effort of explicitly asking Hibernate to update
+the database when you modify the state of an object inside
+a unit of work.
+
+Similarly, the new message was made persistent when a reference
+was created from the first message. This feature is called
+cascading save. It saves you effort of explicitly making the
+new object persistent by calling save(), as long as it's
+reachable by an already persistance instance.
+
+Also notice that the ordering of the SQL statements is not the
+same as the order in which you set property values. Hibernate
+uses a sophisticated algorithm to determine an efficent ordering
+that avoids DB foreign key constraints violations but is still
+sufficiently predictable to the user.
+
+This feature is called transactional write-behind.
+
+If you ran the application now, you'd get the following output
+(you'd have to copy the second unit of work after the third
+to execute the query-display step again):
+
+2 message(s) found:
+Greetings Earthling
+Take me to your leader (please)
+
+You now have domain classes, an XML mapping file, and the "Hello World"
+application code that loads and stores objects. Before, you can compile
+and run this code, you need to create Hibernate's configuration (and 
+resolve the mystery of the HibernateUtil class).
+
+2.1.3 Hibernate configuration and startup
+
+The regular way of initializing Hibernate is to build a SessionFactory
+object from a Configuration object. If you like, you can think of the
+Configuration as an object representation of a configuration file
+(or a properties file) for Hibernate.
+
+Let's look at some variations before we wrap it up in the HibernateUtil
+class.
+
+Building a SessionFactory
+
+This is an example of a typical Hibernate startup procedure, in one line of
+code, using automatic configuration file detection:
+	
+	SessionFactory sessionFactory =
+		new Configuration().configure().buildSessionFactory();
+
+Wait, how did Hibernate know where the config file was located and which
+one to load?
+
+When new Configuration() is called, Hiberante searches for a file named
+hibernate.properties in the root of the classpath. If it's found, all hibernate.*
+props are loaded and added to the Configuration object.
+
+When configure() is called, Hibernate searches for a file named hibernate.cfg.xml
+in teh root of the classpath, and an exception is thrown if it can't be found.
+You don't have to call this method if you do not have this configuration file, of
+course. 
+
+If settings in the XML configuration file is always the root of the classpath,
+outside of any package. If you wish to use a different file or to have Hibernate
+look in a subdir of your classpath for the XML configuration file, you must pass
+a path as an argument of the configure() method:
+
+SessionFactory sessionFactory = new Configuration()
+			.configure("/persistence/auction.cfg.xml")
+			.buildSessionFactory();
+
+FInally, you can always set additional configuration options or mapping file
+locations on the Configuration object programmatically, before building the
+SessionFactory:
+
+SessionFactory sessionFactory = new Configuration()
+		.configure("/persistence/auction.cfg.xml")
+		.setProperty(Environment.DEFAULT_SCHEMA, "CAVEATEMPTOR")
+		.addResource("auction/CreditCard.hbm.xml")
+		.buildSessionFactory();
+
+Many sources for the configuration are applied here: First the hibernate
+properties file in your classpath is read (if present). Next, all settings
+from /persistence/ auction.cfg.xml are added and override any previously
+applied settings. Finally, an additional configuration property (a default
+database schema name) is set programmatically, and an additional Hibernate
+XML mapping metadata file is added to the configuration.
+
+You can, of course, set all options programmatically, or switch between
+different XML configuration files for different deployment databases. There
+is effectively no limitation on how you can configure and deploy Hibernate;
+in the end, you only need to build a SessionFactory from a prepared configuration.
+
+Note:
+
+Method chaining - Method chaining is a programming style supported by 
+many Hibernate interfaces. This style is more popular in Smalltalk than
+in Java and is considered by some people to be less readable and more
+difficult to debug than the more accepted Java style. However, it's
+convenient in many cases, such as for the configuration snippets you've
+seen in this section.
+
+Here is how it works: Most Java developers declare setter or adder
+methods to be of type void, meaning they return no value; but in
+Smalltalk, which has no void type, setter or adder methods usually
+return the receiving object. We use this Smalltalk style in some
+code examples, but if you do not like it - you do not need to use it.
+
+If you do use this coding style, it's better to write each method
+invocation on a different line. Otherwise, it may be difficult
+to step through the code in your debugger.
+
+Now that you know how Hibernate is started and how to build a
+SessionFactory, what to do next? You have to create a configuration
+file for Hibernate.
+
+Creating an XML configuration file
+
+Let's assume you want to keep things simple, and, like most users,
+you decide to use a single XML configuration file for Hibernate
+that contains all the configuration details.
+
+We recommend that you give your new configuration file the default
+name hibernate.cfg.xml and place it directly in the source directory
+of your project, outside of any package. That way, it will end up
+in the root of your classpath after compilation, and Hibernate will
+find it automatically. Look at hte file in listing 2.4:
+
+Listing 2.4: A simple Hibernate XML configuration file
+
+<!DOCTYPE hibernate-configuration SYSTEM
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">
+			org.hsqldb.jdbcDriver
+		</property>
+		<property name="hibernate.connection.url">
+			jdbc:hsqldb:hsql://localhost
+		</property>
+		<property name="hibernate.connection.username">
+			sa
+		</property>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.HSQLDialect
+		</property>
+
+		<!-- Use the C3PO connection pool provider -->
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.timeout">300</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+
+		<!-- List of XML mapping files -->
+		<mapping resource="hello/Message.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>
+
+The document type declaration is used by the XML parser to validate this
+document against the Hibernate configuration DTD. Note that this is not the
+same DTD as the one for Hibernate XML mapping files.
+
+Also note that we added some line breaks in the property values to make this
+more readable - you should not do this in your real config file (unless your
+database username contains a line break).
+
+First in configuration file are the database connection settings. You need to
+tell Hibernate which databade JDBC driver you are using and how to connect to the
+database with a URL, a username, and a password (the passwordh ere is omitted,
+because HSQLDB by default does not require one).
+
+You set a dialect, so that Hibernate knows which SQL variation it has to
+generate to talk to your database; dozens of dialets are packaged with Hibernate
+- look at the Hibernate API documentation to get a list.
+
+In the XML configuration file, Hibernate properties may be specified without
+the hibernate prefix, so you can write either hibernate.show_sql or just
+show_sql. Property names and values are otherwise identical to programmatic
+configuration properties - that is, to the constants as defined in org.hibernate.cfg.Environment
+. The hibernate.connection.driver_class property, for example, has the constant
+Environment.DRIVER.
+
+Before we look at some important configuration options, consider the last line
+in the configuration that names a Hibernate XML mapping file. The Configuration
+object needs to know about all your XML mapping files before you build the
+SessionFactory. A SessionFactory is an object that represnets a particular
+Hibernate configuration for ap articular set of mapping metadata.
+
+You can either list all your XML mapping files in the Hibernate XML configuration
+file, or you can set their names and paths programmatically on the Configuration
+object. In any case, if you list them as a resource, the path to the
+mapping files is the relative location on the classpath, with, in this example,
+hello being a package in the root of the classpath.
+
+You also enabled printing of all SQL executed by Hibernate to the console, and
+you told Hibernate to format it nicely so that you can check what is going on
+behind the scenes. We'll come back to logging later in this chapter.
+
+Another, sometimes useful, trick is to make configuration options more
+dynamic with system properties:
+
+...
+<property name="show_sql">${displaysql}</property>
+...
+
+You can now specify a system property, such as with java -displaysql=true, on
+the command line when you start your application, and this will automatically
+be applied to the Hibernate configuration property.
+
+The database connection pool settings deserve extra attention.
+
+The database connection pool
+
+Generally, it isn't advisable to create a connection each time you want
+to interact with the database. Instead, Java applications should use 
+a pool of connections. Each application thread that needs to do work
+on the database requests a connection from the pool and then returns
+it to the pool when all SQL operations have been executed.
+
+The pool maintains the connection and minimizes the cost of opening
+and closing connections.
+
+There are three reasons for using a pool:
+
+Acquiring a new connection is expensive. Some database management
+systems even start a completeny new server process for each connection.
+
+Maintaing many idle connections is expensive for a DB management system,
+and the pool can optimize the usageo f idle connections (or disconnec tif
+there are no requests)
+
+Creating prepared statements is also expensive for some drivers, and
+the connection pool can cache statements for a connection across
+requests.
+
+Figure 2.2 shows the role of a connection pool in an unmanaged application
+runtime environment (that is, one without application server).
+
+Nonmanaged JSE environment 
+	Application
+		main() 		User-managed JCBC connections 
+		Servlet 	<< >> 							Connection Pool 		>>>>>>> Database
+		JSP
+
+With no application server to provide a connection pool, an application either
+implements its own pooling algorithm or relies on a third-party library such
+as the open source C3P0 connection pooling software.
+
+Without Hibernate, the application code calls the connection pool to obtain a JDBC
+connection and then executes SQL statements with the JDBC programming interface.
+When the application closes the SQL statements, and finally closes the connection,
+the prepared statements and connection are not destroyed but are returned to the
+pool.
+
+With Hibernate, the picture changes: It acts as a client of the JDBC connection
+pool, as shown in figure 2.3. The application code uses the Hibernate Session
+and Query API for persistence operations, and it manages database transactions
+(probably) with the Hibernate Transaction API.
+
+Hibernate defines a plug-in architechture that allows integration with any
+connection poolong software. However, support for C3P0 is built in, and the
+software comes bundled with Hibernate, so you will use that (you already copied
+the c3p0.jar file into your library dir, right?)
+
+Hibernate maintains the pool for you and configuration properties are passed
+through. How do you configure C3P0 through Hibernate?
+
+Figure 2.3 Hibernate with a connection pool in a nonmanaged environment
+
+Nonmanaged JSE Environment
+
+	Application 				Hibernate
+		main() 			Session
+		Servlet 		Transaction 	Connection >>>>>>>> Database
+		JSP 			Query
+
+One way to configure the connection pool is to put the settings into your
+hibernate.cfg.xml configuration file, like you did in the previous section.
+
+Alternative, you can create a hibernate.properties file in the classpath root
+of the application. An example of hibernate.properties file for C3P0 is shown
+in listing 2.5. Note that htis file, with the exception of a list of mapping
+reosurces, is equivalent to the configuration shown in listing 2.4
+
+Listing 2.5 Using hibernate.properties for C3P0 connection pool settings
+
+hibernate.connection.driver_class = org.hsqldb.jdbcDriver
+hibernate.connection.url = jdbc:hsqldb:hsql://localhost
+hibernate.connection.username = sa
+hibernate.dialect = org.hibernate.dialect.HSQLDialect
+
+hibernate.c3p0.min_size = 5 //Min number of JDBC connections C3P0 keeps ready at all times
+hibernate.c3p0.max_size = 20 //Maximum number of the pool, exception thrown if exceeded
+hibernate.c3p0.timeout = 300 //time out period, seconds
+hibernate.c3p0.max_statements = 50 //maximum of 50 prepared statemesn cached
+hibernate.c3p0.idle_test_period = 3000 //time of idle before automatically validated
+
+hibernate.show_sql = true
+hibernate.format_sql = true
+
+Specifying properties of the form hibernate.c3p0.* selects C3P0 as the connection
+pool (the c3p0.max_size option is needed - you do not need any other switch to enable:
+C3P0 support). C3P0 has more features than shown in the previous example; refer to
+the properties file in teh etc/subdirectory of the Hibernate distribution to get a
+comprehensive example you can copy from.
+
+The Javadoc for the class org.hibernate.cfg.Environment also documents every Hibernate
+configuration property. Furthermore, you can find an up-to-date table with all
+Hibernate configuration options in the Hibernate reference documentation.
+
+We'll explain the most important settins throughout the book, however. You already
+know all you need to get started.
+
+FAQ
+
+Can i supply my own connections? Implement the org.hibernate.connection.ConnectionProvider
+interface, and name your implementation with the hibernate.connection.provider_class
+configuration option. Hibernate will now rely on your custom provider if it needs a 
+database connection.
+
+Now that you've completed the Hibernate configuration file, you can move on
+and create the SessionFactory in your application.
+
+Handling the SessionFactory
+
+In most Hibernate applications, the SessionFactory should be instansiated once
+during application initialization. The single instance should then be used by all
+code in a particular process, and any Session should be created using this single
+Sessionfactory.
+
+The SessionFactory is thread-safe and can be shared; a Session is a single-threaded
+object.
+
+A frequently asked question is where the factory should be stored after creation and
+how it can be accessed without much hassle. There are more advanced but comfortable
+options such as JNDI and JMX, but they are usually available only in full Java EE
+application servers.
+
+Instead, we will introduce a pragmatic and quick solution that solves both the
+problem of Hibernate startup (the one line of code) and the storing and accessing
+of the SessionFactory: you will use a static global variable and static initialization.
+
+Both the variable and initialization can be implemented in a single class, which
+you'll call HibernateUtil. This helper class is well known in the Hibernate community -
+it's a common pattern for Hibernate startup in plain Java applications without Java
+EE services. A basic implementation is shown in listing 2.6
+
+Listing 2.6 The HibernateUtil class for startup and SessionFactory handling
+
+package persistence;
+
+import org.hibernate.*;
+import org.hibernate.cfg.*;
+
+public class HibernateUtil {
+	private static SessionFactory sessionFactory;
+
+	static {
+		try {
+			sessionFactory = new Configuration()
+									.configure()
+									.buildSessionFactory();
+		} catch (Throwable ex) {
+			throw new ExceptionInitializeError(ex);
+		}
+	}
+
+	public static SessionFactory getSessionFactory() {
+		//Alternatively, you could look up in JNDI here
+		return sessionFactory;
+	}
+
+	public static void shutdown() {
+		//Close caches and connection pools
+		getSessionFactory().close();
+	}
+}
+
+You create a static initializer block to start up Hibernate; this block
+is executed by the loader of this class exactly once, on initialization
+when the class is loaded.
+
+The first call of HibernateUtil in the application loads the class, builds
+the SessionFactory, and sets the static variable at the same time. If a 
+problem occurs, any Exception or Error is wrapped and thrown out of the
+static block (that is why you catch Throwable). The wrapping in ExceptionInInitalizerError
+is mandatory for static initializers.
+
+You've created this new class in a new package called persistence. In a fully
+featued Hibernate application, you often need such a package - for example,
+to wrap up your custom persistence layer interceptors and data type
+converters as part of your infrastructure.
+
+Now, whenever you need access to a Hibernate Session in your application,
+you can get it easily with HibernateUtil.getSessionFactory().openSession(),
+just as you did earlier in the HelloWorld main application code.
+
+You're almost ready to run and test the application. But because you
+certainly want to know what is going on behind the scenes, you will first
+enable logging.
+
+Enabling logging and statistics
+
+You've already seen the hibernate.show_sql configuration property. You will
+need it continually when you develop software with Hibernate; it enables
+logging of all generated SQL to the console.
+
+You will use it for troubleshooting, for performance tuning, and to see
+what's going on. If you also enable hibernate.format_sql, the output is
+more readable but take up more screen space. A third option you have not
+set so far is hibernate.use_sql_comments - it causes Hibernate to put
+comments inside all generated SQL statements to hint at their origin.
+
+For example, you can then easily see if a particular SQL statement was
+generated from an explicit query or an on-demand collection initialization.
+
+Enabling the SQL output to stdout is only your first logging option.
+Hibernate (and many other ORM implementations) execute SQL statements
+asynch. An INSERT statement is not usually executed when the application
+calls session.save(), nor is an UPDATE immediately isued when the application
+calls item.setPrice().
+
+Instead, the SQL statements are usually issued at the end of a transaction.
+
+This means that tracing and debugging ORM code is sometimes nontrivial. In
+theory, it's possible for the application to treat Hibernate as a black box
+and ignore this behavior. However, when you are troubleshooting a difficult
+problem, you need to be able to see exactly what is going on inside Hibernate.
+
+Because Hibernate is open source, you can easily step into the Hibernate code,
+and occasionally this helps a great deal. Seasoned Hibernate experts debug
+problems by looking at the Hibernate log and the mapping files only; we encourage
+you to spend some time with the log output generated by Hibernate and familiarize
+yourself with the internals.
+
+Hibernate logs all interesting events through Apache commons-logging, a thin
+abstraction layer that directs output to either Apache Log4j (if you put log4j.jar
+in your classpath) or JDK 1.4 logging (if you are running under JDK 1.4 or above
+and Log4j is not present). We recommend Log4j because it's more mature, 
+more popular, and under more active development.
+
+To see output from Log4j, you need a file named log4j.properties in your
+classpath (right next to hibernate.properties or hibernate.cfg.xml). Also,
+do not forget to copy the log4j.jar library to your lib directory. the Log4j
+configuration example in listing 2.7 directs all log messages to the console.
+
+Listing 2.7 An example log4j.properties.configuration file
+
+# Direct log messages to stdout
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE}
+	%5p %c{1}:%L - %m%n
+
+# Root logger option
+log4j.rootLogger=INFO, stdout
+
+# Hibernate logging options (INFO only shows startup messages)
+log4j.logger.org.hibernate=INFO
+
+# Log JDBC bind parameter runtime arguments
+log4j.logger.org.hibernate.type=INFO
+
+The last category in this configuration file is especially interesting:
+It enables the logging of JDBC bind parameters if you set it to DEBUG
+level, providing information you usually do not see in the ad hoc
+SQL console log.
+
+For a more comprehensive example, check the log4j.properties file
+bundled in the etc / directory of the Hibernate distribution, 
+and also look at the Log4j documentation for more information.
+
+Note that, you should never log anything at DEBUG level in production,
+because doing so can seriously impact the performance of your
+application. You can also monitor Hibernate by enabling live statistics.
+Without an application server (that is, if you do not have a JMX deployment
+environment), the easiest way to get statistics out of the Hibernate
+engine at runtime is the SessionFactory:
+
+Statistics stats =
+	HibernateUtil.getSessionFactory().getStatistics();
+
+stats.setStatisticsEnabled(true);
+...
+
+stats.getSessionOpenCount();
+stats.logSummary();
+
+EntityStatistics itemStats =
+	stats.getEntityStatistics("auction.model.Item");
+itemStats.getFetchCount();
+
+The statistics interfaces are Statistics for global information. Entity-Statistics
+for information about a particular entity, CollectionStatistics for a particular
+collection role, QueryStatistics for SQL and HQL queries, and SecondLevelCacheStatistics
+for detailed runtime information about a particular region in the optional
+second-level data cache.
+
+A convenient method in logSummary(), which prints out a complete summary to the console
+with a single call. If you want to enable the collection of statistics through the 
+configuration, and not programatically, set the hibernate.generate_statistics
+configuration property to true.
+
+See the API documentation for more information about the various stats retrieval
+methods.
+
+Before oyu run the "Hello World" application, check that your work dir has all
+the necessary files:
+
+WORKDIR
+build,xml
++lib
+	<all required libraries>
++src
+	+hello
+		HelloWorld.java
+		Message.java
+		Message.hbm.xml
+	+persistence
+		HibernateUtil.java
+	hibernate.cfg.xml (or hibernate.properties)
+	log4j.properties
+
+The first file, build.xml, is the Ant build definition. It contains the Ant targets
+for building and running the application, which we'll discuss next. You will also
+add a target that can generate the database schema automatically.
+
+2.1.4 Running and testing the application
+
+To run the application, you need to compile it first and start the database management
+system with the right database schema.
+
+Ant is a powerful build system for Java. Typically, you'd write a build.xml file for
+your project and call the build targets you defined in this file with the Ant
+command-line tool. You can also call Ant targets from your Java IDE, if that is
+supported.
+
+Compiling the project with Ant
+
+You will now add a build.xml file and some targets to the "Hello World" project.
+The initial content for the build file is shown in listing 2.8 - you create this
+file directly in your WORKDIR
+
+Listing 2.8 A basic Ant build file for "Hello World"
+
+<project name="HelloWorld" default="compile" basedir=".">
+	
+	<!-- Name of project and version -->
+	<property name="proj.name" 		value="HelloWorld"/>
+	<property name="proj.version" 	value="1.0"/>
+
+	<!-- Global properties for this build -->
+	<property name="src.java.dir" 	value="src"/>
+	<property name="lib.dir" 		value="lib"/>
+	<property name="build.dir" 		value="bin"/>
+
+	<!-- Classpath declaration -->
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar"/>
+			<include name="**/*.zip"/>
+		</fileset>
+	</path>
+
+	<!-- Useful shortcuts -->
+	<patternset id="meta.files">
+		<include name="**/*.xml"/>
+		<include name="**/*.properties"/>
+	</patternset>
+
+	<!-- Clean up -->
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<!-- Compile Java source -->
+	<target name="compile" depends="clean">
+		<mkdir dir="${build.dir}"/>
+		<javac
+			srcdir="${src.java.dir}"
+			destdir="${build.dir}"
+			nowarn="on">
+			<classpath refid="project.classpath"/>
+		</javac>
+	</target>
+
+	<!-- Copy metadata to build classpath -->
+	<target name="copymetafiles">
+		<copy todir="${build.dir}">
+			<fileset dir="${src.java.dir}">
+				<patternset refid="meta.files"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- Run HelloWorld -->
+	<target name="run" depends="compile, copymetafiles"
+		description="Build and run HelloWorld">
+		<java fork="time"
+			classname="hello.HelloWorld"
+			classpathref="project.classpath">
+			<classpath path="${build.dir}"/>
+		</java>
+	</target>
+</project>
+
+The first half of this. Ant build file contains property settings, such as the
+project name and global locations of files and directories. You can already see
+that this build is based on the existing directory layout, your WORKDIR (for Ant,
+this is the same directory as the basedir). The default target, when this build
+file is called with no named target, is compile.
+
+Next, a name that can be easily referenced later, project.classpath, is defined
+as a shortcut to all libraries in the library directory of the project. Another
+shortcut for pattern that will come in handy is defined as meta.files. You need
+to handle configuration and metadata files separately in the processing of the
+build, using this filter.
+
+The clean target removes all created and compiled files, and cleans the project.
+The last three targets, compile, copymetafiles, and run, should be self-explanatory.
+Running the application depends on the compilation of all Java source files,
+and the copying of all mapping and property configuration files to the
+build directory.
+
+Now, execute ant compile in your WORKDIR to compile the "Hello World" application.
+You should see no errors (nor any warnings) during compilation and find your
+compiled class files in teh bin directory. Also call ant copymetafiles once,
+and check whether all configuration and mapping files are copied correctly
+into the bin directory.
+
+Before you run the application, start the database management system and
+export a fresh database schema.
+
+Starting the HSQL database system
+
+Hibernate supports more than 25 SQL database management systems out of the
+box, and support for any unknown dialect can be added easily. If you have
+an existing database, or if you know basic DB administration, you can also
+replace the configuration options (mostly connection and dialect settings)
+you created earlier with settings for your own preferred system.
+
+To say hello to the world, you need a lightweight, no-frills database system
+that is easy to install and configure. A good choice is HSQLDB, an open source
+SQL database management system written in Java. It can run in-process with
+the main application, but in our experience, running it stand-alone with a 
+TCP port listening for connections is usually more convenient.
+
+You've already copied the hsqldb.jar file into the library directory of your
+WORKDIR - this library includes both the database engine and the JDBC driver
+required to connect to a running instance.
+
+To start the HSQLDB server, open up a command line, change into your WORKDIR,
+and run the command shown in figure 2.4. You should see startup messages and
+finall a help message that tells you how to shut down the database system 
+(it's OK to use Ctrl+C). You will also find some new files in your WORKDIR,
+starting with test - these are filed used by HSQLDB to store your data.
+
+If you want to start with a fresh database, delete the files between restarts
+of the server.
+
+Figure: 2.4 Starting the HSQLDB server from the command line
+
+/helloworld $ java -classpath lib/hsqldb.jar org.hsqldb.Server
+[Server@67d940]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@67d940]: [Thread(main,5,main)]: checkRunning(false) exited
+[Server@67d940]: Startup sequence initated from main() method
+[Server@67d940]: Loaded properties from [/helloworld/Server.properties]
+[Server@67d940]: Server socket opened successfully in 8 ms.
+[Server@67d940]: Database [index=0, id=0, db=file:test, alias=] opened successfully in 502 ms.
+[Server@67d940]: Startup sequence completed in 521 ms.
+[Server@67d940]: 2006-05-14 10:52:24.618 HSQLDB server 1.8.0 is online
+[Server@67d940]: To close normally, connect and execute SHUTDOWN SQL
+[Server@67d940]: From command line, use [Ctrl]+[C] to abort abruptly
+
+You now have an empty database that has no content, not even a schema. Let's create
+the schema next.
+
+Exporting the database schema
+
+You can create the database schema by hand by writing SQL DDL with CREATE statements
+and executing this DDL on your database. Or (and this is much more convenient) you
+can let Hibernate take care of this and create a default schema for your application.
+
+The prerequisite in Hibernate for automatic generation of SQL DDL is always a 
+Hibernate mapping metadata definition, either in XML mapping files or in Java
+source-code annotations. We assume that you have designed and implemented 
+your domain model classes and written mapping metadata in XML as you
+followed the previous sections.
+
+The tool used for schema generation is hbm2ddl; its class is org.hibernate.tool.hbm2ddl.SchemaExport,
+so it's also sometimes called SchemaExport.
+
+There are many ways to run this tool and create a schema:
+
+You can run <hbm2ddl> in an Ant target in your regular build procedure.
+
+You can run SchemaExport programmaticaly in application code, maybe in
+your HibernateUtil startup class. This is not common, however, because
+you rarely need programmatic control over schema generation.
+
+You can enable automatic export of a schema when your SessionFactory is built by
+setting the hibernate.hbm2ddl.auto configuration property to create or create-drop.
+The first setting results in DROP statements followed by CREATE statements when
+the SessionFactory is built.
+
+The second setting adds additional DROP statements when the application is shut
+down and the SessionFactory is closed - effectively leaving a clean database
+after every run.
+
+Programmatic schema generation is straightforward:
+
+Configuration cfg = new Configuration().configure();
+SchemaExport schemaExport = new SchemaExport(cfg);
+schemaExport.create(false, true);
+
+A new SchemaExport object is created from a Configuration; all settings (such
+as the database driver, connection URL, and so on) are passed to the SchemaExport
+constructor. The create(false, true) call triggers the DDL generation process,
+without any SQL printed to stdout (because of the false setting), but with DDL
+immediately executed in the database (true). See the SchemaExport API for more
+information and additional settings.
+
+Your development process determines whether you should enable automatic schema
+export with the hibernate.hbm2ddl.auto configuration setting. Many new Hibernate
+users find the automatic dropping and re-creation on Session-Factory build a 
+little confusing.
+
+Once you are more familiar with Hibernate, we encourage you to explore this
+option for fast turnaround times in integration testing.
+
+An additional option for this configuration property, update, can be useful
+during development: it enables the built-in SchemaUpdate tool, which can
+make schema evolution easier. If enabled, Hibernate reads the JDBC database
+metadata on startup and creates new tables and constraints by comparing the
+old schema with the current mapping metadata.
+
+Note that this functionality depends on the quality of the metadata provided
+by teh JDBC driver, an area in which many drivers are lacking. In practice,
+this feature is therefore less exciting and useful than it sounds.
+
+Warning
+
+We've seen Hibernate users trying to use SchemaUpdate to update the schema 
+of a production database automatically. This can quickly end up in a disaster
+and won't be allowed on your DBA.
+
+You can also run SchemaUpdate programmatically:
+
+Configuration cfg = new Configuration().configure();
+SchemaUpdate schemaUpdate = new SchemaUpdate(cfg);
+schemaUpdate.execute(false);
+
+The false setting at the end again disables printing of the SQL DDL to the
+console and only executes the statements directly on the database. If you
+export the DDL to the console or a text file, your DBA may be able to use
+it as a starting point to produce a quality schema-evolution script.
+
+Another hbm2ddl.auto setting useful in development is validate. It enables
+SchemaValidator to run at startup. This tool can compare your mapping
+against the JDBC metadata and tell you if the schema and mappings match.
+You can also run SchemaValidator programatically:
+
+Configuration cfg = new Configuration().configure();
+new SchemaValidator(cfg).validate();
+
+An exception is thrown if a mismatch between the mappings and the database
+schema is detected. Because you are basing your build system on Ant, you
+will ideally add a schemaexport target to your Ant build that generates
+and exports a fresh schema for your database whenever you need one (see listing 2.9)
+
+Listing 2.9 	Ant target for schema export
+
+<taskdef name="hibernatetool"
+		classname="org.hibernate.tool.ant.HibernateToolTask"
+		classpathref="project.classpath"/>
+
+<target name="schemaexport" depends="compile, copymetafiles"
+	description="Exports a generated schema to DB and file">
+
+	<hibernatetool destdir="${basedir}">
+		<classpath path="${build.dir}"/>
+
+		<configuration
+			configurationfile="${build.dir}/hibernate.cfg.xml"/>
+		<hbm2ddl
+			drop="true"
+			create="true"
+			export="true"
+			outputfilename="helloworld-ddl.sql"
+			delimiter=";"
+			format="true"/>
+	</hibernatetool>
+</target>
+
+In this target, you first define a new Ant task that you'd like to use,
+HibernateToolTask. This is a generic task that can do many things - exporting
+an SQL DDL schema from Hibernate mapping metadata is only one of them.
+You'll use it throughout this chapter in all Ant builds.
+
+Make sure you include all Hibernate libraries, required third-party
+libraries, and your JDBC driver in the classpath of the task definition.
+You also need to add the hibernate-tools.jar file, which can be found
+in the Hibernate Tools download package.

@@ -1,0 +1,4571 @@
+HTML5 
+
+In HTML5 we can do the following things:
+
+<meta charset="UTF-8"> //character encoding
+
+The <script> tag allows for adding a type attribute to script elements as follows:
+
+<script type="text/javascript" src="scriptfile.js"></script>
+
+Can be written as:
+
+<script src="scriptfile.js"></script>
+
+Previous, when we were using link tags, we used the below:
+<link rel="stylesheet" type="text/css" href="stylefile.css">
+
+Instead, we can use the following:
+
+<link rel="stylesheet" href="stylefile.css">
+
+when it comes to HTML5, what follows, is a list of all tags:
+
+<!--...--> 	: Specifies a comment
+
+<!DOCTYPE> 	: Specifies the document type
+
+<a> 		: Specifies an anchor
+
+<abbr> 		: Specifies an abbreviation
+
+<acronym> 	: Deprecated: Specifies an acronym
+
+<applet> 	: deprecated: Specifies an applet
+
+<area> 		: Specifies an area within a image map
+
+<article>	: New tag: Specifies an independant piece of content of a document, such as blog entry or newspaper article
+
+<aside> 	: New tag: Specifies a piece of content that is only slightly related to the rest of the page
+
+<audio> 	: New tag: Specifies an audio file
+
+<base> 		: Specifies a base URL for all the links in a page
+
+<basefont> 	: Deprecated: specifies a base font
+
+<bdo> 		: Specifies the direction of text display
+
+<bgsound> 	: Specifies the background music
+
+<blink> 	: Specifies a text which blinks
+
+<blockquote> : Specifies a long quotation
+
+<body> 		: Specifies the body element
+
+<br> 		: Inserts a line break
+
+<button> 	: Specifies a push button
+
+<canvas> 	: New tag: This is used for rendering dynamic bitmap graphics on the fly, such as graphs or games.
+
+<caption> 	: Specifies a table caption
+
+<center> 	: Deprecated: Specifies centered text
+
+<col> 		: Specifies attributes for table columns
+
+<colgroup> 	: Specifies group of table columns
+
+<command> 	: New tag: Specifies a command the user can invoke
+
+<comment> 	: Puts a comment in the document
+
+<datalist> 	: New tag: Together with the a new list attribute for input can be used to create comboboxes
+
+<dd> 		: Specifies a definition description
+
+<del> 		: Specifies deleted text
+
+<details> 	: New tag: Specifies additional information or controls which the user can obtain on demand.
+
+<dir> 		: Deprecated. Specifies a dir list
+
+<div> 		: Specifies a section in a document
+
+<dl> 		: Specifies a definition list
+
+<dt> 		: Specifies a definition term
+
+<embed> 	: New tag: Defines external interactive content or plugin.
+
+<fieldset> 	: Specifies a fieldset
+
+<figure> 	: New tag: Defines a piece of self-contained flow content, typically referenced as a single unit from the main flow of the document
+
+<b> 		: Specifies bold text
+
+<big> 		: depricated : Specifies big text
+
+<i> 		: Italic text
+
+<small> 	: Small text
+
+<tt> 		: deprecated: Specifies teletype text
+
+<font> 		: Deprecated: specifies text font, size and color
+
+<footer> 	: New tag: Specifies a footer for a section and can contain information
+			  about the author, copy right info, etc.
+
+<form> 		: Specifies a form
+
+<frame> 	: Deprecated: Specifies a sub window (a frame)
+
+<framset> 	: depricated: specifies a set of frames
+
+<head> 		: Specifies info about the document
+
+<header> 	: New tag: Specifies a group of introductionary or navigational aids.
+
+<hgroup> 	: New Tag: Specifies the header of a section
+
+<h1> to <h6>: Specifies header1 to header6
+
+<hr> 		: Specifies a horizontal rule
+
+<html> 		: Specifies a HTML document
+
+<isindex> 	: Deprecated: Specifies a single-line input field
+
+<iframe> 	: Specifies a inline sub window (frame)
+
+<ilayer> 	: Specifies an inline layer
+
+<img> 		: Specifies an image
+
+<input> 	: Specifies an input field
+
+<ins> 		: Specifies inserted text
+
+<keygen> 	: New Tag: Specifies control for key pair generation
+
+<keygen> 	: Generate key information in a form
+
+<label> 	: Specifies a label for a form control
+
+<layer> 	: Specifies a layer
+
+<legend> 	: Specifies a title in a fieldset
+
+<li> 		: Specifies a list item
+
+<link> 		: Specifies a reousrce reference
+
+<map> 		: Specifies an image map
+
+<mark> 		: New Tag: Specifies a run of text in one document marked or highlighted for reference purposes, due to it's relevance in another context
+
+<marquee> 	: Create a scrolling-text marquee
+
+<menu> 		: Deprecated: Specifies a menu list
+
+<meta> 		: Specifies meta info
+
+<meter> 	: new Tag: specifies a measurement, such as disk usage.
+
+<multicol> 	: Specifies a multicolumn text flow
+
+<nav> 		: New tag: Specifies a section of the document intended for navigation
+
+<nobr> 		: NO breaks allowed on the enclosed text
+
+<noembed> 	: Specifies content to be represented by browsers that do not support the <embed>tag
+
+<noframes> 	: Depricated: Specifies a noframe section
+
+<noscript> 	: Specifies a noscript section
+
+<object> 	: Specifies an embedded object
+
+<ol> 		: Specifies an ordered list
+
+<optgroup> 	: Specifies an option group
+
+<option> 	: Specifies an option in a drop-down list
+
+<output> 	: New tag: Specifies some type of output, such as from a calculation done through scripting
+
+<p> 		: Specifies a paragraph
+
+<param> 	: Specifies a parameter for a object
+
+<cite> 		: Specifies a citation
+
+<code> 		: Specifies a computer code text
+
+<dfn> 		: Specifies a definition term
+
+<em> 		: Specifies a emphasized text
+
+<kbd> 		: Specifies keyboard text
+
+<samp> 		: Specifies sample computer code
+
+<strong> 	: Specifies a strong text
+
+<var> 		: Specifies a variable
+
+<plaintext> : Deprecated: Render the remainder of the document as preformatted plain text
+
+<pre> 		: Specifies preformatted text
+
+<progress> 	: New taG: Specifies a completion of a task, such as downloading or when performing a series of expensive operations
+
+<q> 		: Specifies a short quotation
+
+<ruby> 		: New tag: Together with <rt> and <rp> allow for marking up ruby annotations
+
+<script> 	: Specifies a script
+
+<section> 	: New Tag: Represents a generic document or application section
+
+<select> 	: Specifies a selectable list
+
+<spacer> 	: Specifies white space
+
+<span>		: Specifies a section in a document
+
+<s> 		: depricated: Specifies strikethrough text
+
+<strike> 	: same as above
+
+<style> 	: Specifies a style definition
+
+<sub> 		: Specifies a subscripted text
+
+<sup> 		: Specifies a superscripted text
+
+<table> 	: Specifies a table
+
+<tbody> 	: Specifies a table body
+
+<td> 		: Specifies a table cell
+
+<textarea> 	: Specifies a text area
+
+<tfoot> 	: Specifies a table footer
+
+<th> 		: Specifies a table header
+
+<theader> 	: Same as above
+
+<time> 		: New tag: Specifies a date and/or time
+
+<title> 	: Specifies the document title
+
+<tr> 		: Specifies a table row
+
+<u> 		: Deprecated: Specifies underlined text
+
+<video> 	: New tag: Specifies a video file
+
+<wbr> 		: New tag: Specifies a line break oppurtounity
+
+<wbr> 		: Indicate a potentional word break point within a <nobr> section
+
+<xmp> 		: depricated: Specifiers preformatted text
+
+
+What follows, is a list of attributes that can be applied to almost all HTML5 tags:
+
+Attribute: 						Options 						Function
+
+accesskey 						User defined 					Specifies a keyboard shortcut to access an element
+
+align 							right, left, center 			Horizontally aligns tags
+
+background 						URL 							Places a background image behind an element
+
+bgcolor 						numeric, hexa, rbg values 		Places a background colour behind an element
+
+class 							user defined 					Classifies an element for use with CSS.
+
+contenteditable 				true, false 					Specifies if the user can edit the elements content or not
+
+contextmenu 					Menu id 						Specifies the context menu for an element.
+
+data-XXXX 						User Defined 					Custom Attributes, Authors of a HTML document can define their own attributes. Must start with "data-"
+
+draggable 						true, false, auto 				Specifies wether a user is allowed to drag an obejct or not
+
+height 							Numeric 						specifies the height of tables, images or table cells
+
+hidden 							hidden 							Specifies wether element should be visible or not
+
+id 								user defined 					Name an element for use with CSS 
+
+item 							List of elements 				use to group elements
+
+itemprop 						List of items 					used to group items
+
+spellcheck 						true, false 					Specifies if the element must have it's spelling or grammar checked
+
+style 							CSS sheet 						Specifies an inline style for an element.
+
+subject 						user defined ID 				Specifies the element's coresponding item
+
+tabindex 						Tab number 						Specifies the tab order of an element
+
+title 							User Defined 					"Pop-up" title of your elements
+
+valign 							top, middle, bottom 			Vertial allignment assignments
+
+width 							numeric 						Specifies width of tables, table cells or images.
+
+Note: Attributes can be custom made and set as follows:
+
+<div class="example" data-subject="physics" data-level="complex">
+	...
+</div>
+
+Just as per how we get values for standard attributes, we can get the values for these with CSS and JS.
+
+What follows, is an example structure of how to built a website in HTML5 ; and what follows, is first a list of relevant attributes used:
+
+section : Represents a generic document or application section. It can be used together with h1-h6 to indicate the document structure
+
+article : This tag represents an indepedent piece of content of a document, such as blog entry or newspaper article.
+
+aside : aside element (element that is not really related to the main subject of the page)
+
+header : the header of a section
+
+footer : footer of the section
+
+nav : This tag represents a sectin of the document intended for navigation
+
+dialog : this tag can be used to mark up a conversation
+
+figure : this tag can be used to associate a caption together with some embedded content, such as graphic or video.
+
+What follows is the code:
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>...</title>
+	</head>
+
+
+	<body>
+		<header>...</header>
+		<nav>...</nav>
+
+		<article>
+			<section>
+
+				...
+
+			</section>
+		</article>
+
+		<aside>...</aside>
+		<footer>...</footer>
+	</body>
+</html>
+
+Followed by another example:
+
+
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>...</title>
+	</head>
+
+	<body>
+
+		<header role="banner">
+			<h1>HTML5 Document Structure Example</h1>
+			<p>This page should be tried in Safari, chrome or mozilla.</p>
+		</header>
+
+		<nav>
+
+			<ul>
+				<li><a href="http://www.tutorialspoint.com/html">HTML Tutorial</a></li>
+				<li><a href="http://www.tutorialspoint.com/css">CSS Tutorial</a></li>
+				<li><a href="http://www.tutorialspoint.com/javascript">Javascript Tutorial</a></li>
+			</ul>
+		</nav>
+
+
+		<article>
+			<section>
+				<p>One article can have multiple sections</p>
+			</section>
+		</article>
+
+
+		<aside>
+			<p>This is aside part of the web page</p>
+		</aside>
+
+		<footer>
+			<p>Created by <a href="http://tutorialspoint.com/">Tutorials Point</a></p>
+		</footer>
+
+	</body>
+</html>
+
+
+
+In html5, we have event-driven programming, that is lined out as follows: NOTE: we can use the following things to triger javascript or vbscript code segments
+What follows, is a list of said events:
+
+Attribute 						value 					Description
+
+offline 						script 					Triggers when the document goes offline
+
+onabort 						script 					Triggers on an abort event
+
+onafterprint 					script 					Triggers after the document is printed
+
+onbeforeonload 					script 					Triggers before the document loads
+
+onbeforeprint 					script 					Triggers before the document is printed
+
+onblur 							scripts 				Triggers when window loses focus
+
+oncanplay 						scripts 				Triggers when media can start play, but might also has to stop for buffering
+
+oncanplaythrough 				scripts 				Triggers when the media can play all the way through, without stopping for buffering
+
+onchange 						scripts 				Triggers when an element changes
+
+onclick 						scripts 				Triggers on a mouseclick
+
+oncontextmenu 					scripts 				Triggers when a context menu is triggered
+
+ondblclick 						script 					Triggers on a mouse double-click
+
+ondrag 							script 					Triggers when an element is dragged
+
+ondragend 						script 					Triggers at the end of a drag operation
+
+ondragenter 					script 					Triggers when an element has been dragged to a valid drop target
+
+ondragleave 					script 					Triggers when an element leaves a valid drop target
+
+ondragover 						script 					Triggers when an element is being dragged over a valid drop target
+
+ondragstart 					script 					Triggers at the start of a drag operation
+
+ondrop 							script 					Triggers when dragged element is being dropped
+
+ondurationchange 				script 					Triggers when the length of the media is changed
+
+onemptied 						script 					Triggers when a media resource element suddenly becomes empty
+
+onended 						script 					Triggers when media has reached the end
+
+onerror 						script 					Triggers when an error occurs
+
+onfocus 						script 					Triggers when the window gets focus
+
+onformchange 					script 					Triggers when a form changes
+
+onforminput 					script 					Triggers when a form gets user input
+
+onhaschange 					script 					Triggers when the document has a change
+
+oninput 						script 					Triggers when an element gets user input
+
+oninvalid 						script 					Triggers when an element is invalid
+
+onkeydown 						script 					Triggers when a key is pressed
+
+onkeypress 						script 					Triggers when the key is pressed and released
+
+onkeyup 						script 					Triggers when a key is released
+
+onload 							script 					Triggers when the document loads
+
+onloadeddata 					script 					Triggers when media data is loaded
+
+onloadedmetadata 				script 					Triggers when the duration and other media data of a media element is loaded
+
+onloadstart 					script 					Triggers when the browser starts to load the media data
+
+onmessage 						script 					Triggers when the message is triggered
+
+onmousedown 					script 					Triggers when a mouse button is pressed
+
+onmousemove 					script 					Triggers when a mouse pointer moves
+
+onmouseout 						script 					Triggers when the mouse pointer moves out of an element
+
+onmouseover 					script 					Triggers when the mouse pointer moves over an element
+
+onmouseup 						script 					Triggers when a mouse button is released
+
+onmousewheel 					script 					Triggers when the mouse wheel is being rotated
+
+onoffline 						script 					Triggers when the document goes offline
+
+onoine 							script 					Triggers when the document goes online
+
+ononline 						script 					Triggers when the document comes online
+
+onpagehide 						script 					Triggers when the window is hidden
+
+onpageshow 						script 					Triggers when the window becomes visible
+
+onpause 						script 					Triggers when the media data is paused
+
+onplay 							script 					Triggers when media data is going to start playing
+
+onplaying 						script 					Triggers when media data has started playing
+
+onpopstate 						script 					Triggers when the windows history is changed
+
+onprogress 						script 					Triggers when the browser is fetching the media data
+
+onratechange 					script 					Triggers when the media data's playing rate has changed
+
+onreadystatechange 				script 					Triggers when the ready-state changes
+
+onredo 							script 					Triggers when the document performs a redo
+
+onresize 						script 					Triggers when the window is resized
+
+onscroll 						script 					Triggers when an element's scrollbar is being scrolled
+
+onseeked 						script 					Triggers when a media element's seeking attribute is no longer true and the seeking stopped
+
+onseeking 						script 					Triggers when a media element's seeking attribute is true, and begins searching
+
+onselect 						script 					Triggers when an element is selected
+
+onstalled 						script 					Triggers when a media has run into an error in fetching data
+
+onstorage 						script 					Triggers when a document loads
+
+onsubmit 						script 					Triggers when a form is submitted
+
+onsuspend 						script 					Triggers when the browser has been fetching media data, but stopped before the entire media file was fetched
+
+ontimeupdate 					script 					Triggers when media changed it's play position
+
+onundo 							script 					Triggers when a document performs an undo
+
+onunload 						script 					Triggers when the user leaves the document
+
+onvolumechange 					script 					Triggers when media changes the volume, also when volume is set to "mute"
+
+onwaiting 						script 					Triggers when media stopped playing, but is expected to resume
+
+What follows, is form features that specifies input areas and akin:
+
+text : A free-form text field, normally free of line breaks
+
+password : A form-free text field for sensitive info, normally free of line breaks
+
+checkbox : A set of zero or more values from a predefined list
+
+radio 	: An enumerated value
+
+submit 	: A free form of button initiates from submission
+
+file 	: An arbitrary file with a MIME type and optionally a file name
+
+image   : A coordinate, relative to particular image's size, with the extra semantic that it must be the last value selected and initiates from submission.
+
+hidden 	: An arbitrary string that is not normally displayed to the user.
+
+select 	: An enumerated value, much like the radio type
+
+textarea : A free-form text field, normally with no line-break restrictions
+
+button : A free form of button which can initate any event related to said button
+
+What follows is an example of some of said things:
+
+...
+<form action="http://example.com/cgiscript.pl" method="post">
+
+	<p>
+
+		<label for="firstname">first name: </label>
+		<input type="text" id="firstname"><br />
+
+		<label for="lastname">last name: </label>
+
+		<input type="text" id="lastname"><br />
+
+		<label for="email">email: </label>
+		<input type="text" id="email"><br>
+
+		<input type="radio" name="sex" value="male"> Male<br>
+		<input type="radio" name="sex" value="female"> Female<br>
+		<input type="submit" value="send"> <input type="reset">
+	</p>
+</form>
+...
+
+Beyond this, html5 adds some new ones, as well:
+
+datetime 		: A date and time (year, month, day, hour, minute, second, fractions of a second) encoded according to ISO 8601 with the time zone set to UTC.
+
+datetime-local 	: A date and time (year, month, day, hour, minute, second, fractions of a second) encoded according to ISO 8601, with no time zone information
+
+date 			: A date (year, month, day) according to ISO 8601
+
+month 			: A date consisting of a year and a month encoded according to ISO 8601
+
+week 			: A date consisting of a year and a week number according to ISO 8601
+
+time 			: A time (hour, minute, seconds, fractional seconds) encoded according to ISO 8601
+
+number 			: It accepts only numerical value. The step attributes specifies the precision, defaulting to 1
+
+range 			: The range type is used for input fields that should contain a value from a range of numbers
+
+email 			: It accepts only email value. This type is used for input fields that should contain an e-mail adress.
+				  In attempts of trying to append simple text, it forces format according to email@example.com
+
+url 			: same as above, but for URLs, conforms to http://www.example.com or http://example.com format
+
+What follows is an example of using datetime:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get">
+			Date and time : <input type = "datetime" name = "newinput" />
+			<input type = "submit" value = "submit" />
+		</form>
+	</body>
+</html>
+
+Gives us a box that we can submit Dattime data to
+
+An example of how to have a box with input for datetime local:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get">
+			Local Date and Time : <input type = "datetime-local" name = "newinput" />
+			<input type = "submit" value = "submit" />
+		</form>
+	</body>
+</html>
+
+Will give us a box with a defaulted text that accepts mm/dd/yy and time, followed by a submit button
+
+What follows is the same as above, but time being omitted:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get">
+			Date : <input type = "date" name "newinput" />
+			<input type = "submit" value = "submit" />
+		</form>
+	</body>
+</html>
+
+Will give the output of a box with date formatting of mm/dd/yy and submit button 
+
+What follows is a format of reading only a year and months:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get">
+			Month : <input type = "month" name = "newinput" />
+			<input type = "submit" value = "submit" />
+		</form>
+	</body>
+</html>
+
+
+What follows is a format of reading only a year and weeks:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get">
+			Week : <input type = "week" name = "newinput" />
+			<input type = "submit" value = "submit" />
+		</form>
+	</body>
+</html>
+
+What follows is an example of a format of reading only hours, minutes, seconds and fractions of seconds:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get">
+			Time : <input type = "time" name = "newinput" />
+			<input type = "submit" value = "submit" />
+		</form>
+	</body>
+</html>
+
+What follows is a example of a format of reading inputs of numerical values, whole integer numbers:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get">
+
+			Select Number : <input type = "number" min = "0" max = "10" step "1" //denotes whole integers between 0 and 10
+				value = "5" name = "newinput" /> //assign the start vlue to be 5 and have the variable be called newinput
+
+			<input type = "submit" value = "submit" /> //Denote that input type is to submit and that the value accepted is submitted
+		</form>
+	</body>
+</html>
+
+Will produce a box that accepts numerical inputs from 0 to 10, wholesome integers, and can accept the input by virtue of pressing the submit button
+
+What follows is an example that can accept a sliding range:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get">
+			Select Range : <input type = "range" min = "0" max = "10" step = "1"
+				value = "5" name = "newinput" />
+			<input type = "submit" value = "submit" />
+		</form>
+	</body>
+</html>
+
+This produces a range slider, with wholesome integers in steps of 1 and a range of 0 to 10, the default value being 5
+
+What follows is a input format of where it accepts input regarding E-mails:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "cgi-bin/html5.cgi" method = "get">
+			Enter email : <input type = "email" name = "newinput" />
+			<input type = "submit" value = "submit" />
+		</form>
+	</body>
+</html>
+
+What follows, is a input format regarding only accepting URLs:
+
+<!DOCTYPE HTML>
+<html>
+	<body>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get"> //run with the method of get value on action
+			Enter URL : <input type = "url" name = "newinput" /> //input type is url format, the name of the variable is formatted after newinput
+			<input type = "submit" value = "submit" /> //the input type is a submit format, where the value is what has been submitted
+		</form>
+	</body>
+</html>
+
+What follows, is a example of a type of script that has output of simple inputs:
+
+<html>
+
+	<script type="text/javascript">
+		function showResult()
+		{
+			x = document.forms["myform"]["newinput"].value; //NOTE: To actually make addition out of this, you would have to parse the input to int first, with parseInt 
+			document.forms["myform"]["result"].value=x; 	//and then perform operations on it. Otherwise the value is implicitly a string which must be converted first,
+		} 													//Otherwise it just assumes concatenation instead of actual arithmetic operations
+	</script>
+
+	<body>
+
+		<form action="/cgi-bin/html5.cgi" method="get" name="myform"> //assign a form that we can get values from in the function of showResult()
+			Enter a value : <input type="text" name="newinput" /> //make a input prompt
+			<input type="button" value="Result" 	onclick="showResult();" /> //retrieve the value of onclick and assign it to value upon interacting with the button
+			<output name="result"> //this outputs the variable of name in form of the result variable
+		</form>
+	</body>
+</html>
+
+HTML5 also introduces the concept of a attribute called placeholder. placeholders are the Grayed out text that occurs in prompt boxes that is the temp value upon being empty
+
+the simplest syntax for placeholder, is as follows:
+
+<input type="text" name="search" placeholder="search the web"/>
+
+What follows is integrated into a script that allows for a prompt that says to enter a email:
+
+<!DOCTYPE HTML>
+<html>
+	
+	<body>
+
+		<form action="/cgi-bin/html5.cgi" method="get">
+			Enter email : <input type="email" name="newinput" placeholder="email@example.com"/>
+			<input type="submit" value="submit" />
+		</form>
+
+	</body>
+</html>
+
+To cause automated focus on one form, we can use the autofocus feature:
+
+<input type="text" name="search" autofocus/>
+
+What follows is an example integrating this:
+
+<!DOCTYPE HTML>
+
+<html>
+
+	<body>
+
+		<form action="/cgi-bin/html5.cgi" method="get">
+			Enter email : <input type="text" name="newinput" autofocus/>
+			<p>Try to submit using Submit button</p>
+			<input type="submit" value="submit" />
+		</form>
+	</body>
+</html>
+
+
+If we wish to check against empty inputs, we can use the required modifier on inputs, as follows:
+
+
+<!DOCTYPE HTML>
+
+<html>
+	<body>
+
+		<form action="/cgi-bin/html5.cgi" method="get">
+			Enter email: <input type="text" name="newinput" required/> //The required notation forces a prompt that the window is required, if it is empty
+			<p>Try to submit using Submit button</p>
+			<input type="submit" value="submit" />
+		</form>
+	</body>
+</html>
+
+When we wish to integrate piecharts and akin, we can do so by the virtue of SVG format files:
+
+<svg xmlns="http://www.w3.org/2000/svg">
+	...
+</svg>
+
+To enable it in firefox, we can access it with about:config, as follows:
+
+1. Write about:config in your Firefox adress bar
+
+2. Accept the prompt
+
+3. type html5.enable in the filter bar at the top of the page
+
+4. Click it to toggle it on
+
+What follows is a svg circle, where we fill it with red:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>SVG</title>
+		<meta charset="utf-8" />
+	</head>
+
+	<body>
+		<h2>HTML5 SVG CIRCLE</h2>
+		<svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+			<circle id="redcircle" cx="50" cy="50" r="50" fill="red" />
+		</svg>
+	</body>
+</html>
+
+This outputs a red Circle
+
+What follows, is an example of how to output a svg rectangle:
+
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<title>SVG</title>
+		<meta charset="utf-8" />
+	</head>
+
+	<body>
+		<h2>HTML5 SVG Rectangle</h2>
+		<svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+			<rect id="redrect" width="300" height="100" fill="red" />
+		</svg>
+	</body>
+</html>
+
+This will output a red rectangle
+
+What follows, is a program on how to output a red line:
+
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<title>SVG</title>
+		<meta charset="utf-8" />
+	</head>
+
+	<body>
+		<h2>HTML5 SVG Line</h2>
+
+		<svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+			<line x1="0" y1="0" x2="200" y2="100" style="stroke:red;stroke-width:2"/>
+		</svg>
+	</body>
+</html>
+
+This would produce a red line.
+
+What follows is how to do a eclipse:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SVG<title/>
+		<meta charset="utf-8" />
+	</head>
+
+	<body>
+		<h2>HTML5 SVG Eclipse</h2>
+		<svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+			<eclipse cx="100" cy="50" rx="100" ry="50" fill="red" />
+		</svg>
+	</body>
+</html>
+
+This will produce a red eclipse
+
+What follows, is a example of how to draw a polygon:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SVG</title>
+		<meta charset="utf-8" />
+	</head>
+
+	<body>
+		<h2>HTML5 SVG Polygon</h2>
+		<svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+			<polygon points="20,10 300,20, 170, 50" fill="red" />
+		</svg>
+	</body>
+</html>
+
+What follows is an example of how to draw polygon lines:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SVG</title>
+		<meta charset="utf-8" />
+	</head>
+
+	<body>
+		<h2>HTML5 SVG Polyline</h2>
+
+		<svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+			<polyline points="0,0 0,20 20,20 20,40 40,40 40,60" fill="red" />
+		</svg>
+	</body>
+</html>
+
+this will give us a jagged polygon
+
+What follows, is an example of how to make a eclipse that has a gradient colour:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SVG</title>
+		<meta charset="utf-8" />
+	</head>
+
+	<body>
+		<h2>HTML5 SVG Gradient Eclipse</h2>
+		<svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<radialtGradient id="gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+					<stop offset="0%" style="stop-color:rgb(200,200,200); stop-opacity:0"/>
+					<stop offset="100%" style="stop-color:rgb(0,0,255); stop-opacity:1"/>
+				</radialGradient>
+			</defs>
+			<ellipse cx="100" cy="50" rx="100" ry="50" style="fill:url(#gradient)" />
+		</svg>
+	</body>
+</html>
+
+This would produce a eclipse that slowly goes from blue to white in the middle
+
+and the final example of SVG interaction, is making a red star:
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<style>
+			#svgelem{
+				position: relative;
+				left: 50;
+				-webkit-transform: translateX(-40%);
+				-ms-transform: translateX(-40%);
+				transform: translateX(-40%);
+			}
+		</style>
+
+		<title>SVG</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<h2 align="center"> HTML5 SVG STAR</h2>
+		<svg id="svgelem" height="200" xmlns="http://www.w3.org/2000/svg">
+			<polygon points="100, 10 40, 189 190, 60 160, 180" fill="red"/>
+		</svg>
+	</body>
+</html>
+
+What follows is an example of a script thar runs pythagoras in your web-browser:
+
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Pythagorean theorem</title>
+	</head>
+
+	<body>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<msup><mi>a</mi><mn>2</mn></msup>
+				<mo>+</mo>
+
+				<msup><mi>b</mi><mn>2</mn></msup>
+				<mo>=</mo>
+
+				<msup><mi>c</mi><mn>2</mn></msup>
+			</mrow>
+		</math>
+	</body>
+</html>
+
+This will produce a*2 + b*2 = c*2
+
+What follows, is use of a special character that allows for multiplication in terms of output of 4x (4 * x):
+
+<!doctype html>
+<html>
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>MathML Examples</title>
+	</head>
+
+	<body>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+
+			<mrow>
+
+				<msup>
+					<mi>x</mi> //x
+					<mn>2</mn> //raised to the power of 2
+				</msup>
+
+				<mo>+</mo> //+
+
+				<mrow>
+
+					<mn>4</mn> //produces format of 4x (4*x)
+					<mo>&InvisibleTimes;</mo> //a invisible x
+					<mi>x</mi>
+				</mrow>
+				<mo>+</mo> //mo stands for math operator
+
+				<mn>4</mn>
+
+			</mrow>
+		</math>
+	</body>
+</html>
+
+
+What follows, is an example that showcases how we can achieve the format of representing positive and negative roots for secondary level equations(the format of:
+	 
+A = [X  y]
+	[Z  w]
+)
+
+To showcase how to create it, it is as follows:
+
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>MathML Examples</title>
+	</head>
+
+	<body>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+
+			<mrow>
+				<mi>A</mi>
+				<mo>=</mo>
+
+				<mfenced open="[" close="]">
+
+					<mtable>
+						<mtr>
+							<mtd><mi>x</mi></mtd>
+							<mtd><mi>y</mi></mtd>
+						</mtr>
+
+						<mtr>
+							<mtd><mi>z</mi></mtd>
+							<mtd><mi>w</mi></mtd>
+						</mtr>
+					</mtable>
+				</mfenced>
+			</mrow>
+		</math>
+	</body>
+</html>
+
+When we send data over the internet, we generally put data in cookies. Albeit, this is not that good, since cookies are unencrypted and they are not large
+enough to store any real data in.
+
+Thus, html5 made the Session Storage and Local storage.
+
+The session storage is for the times when we are making a transaction, but we could be carrying out multiple transactions in different windows:
+
+The idea is that values individually apply to each session ; Where every time you close a session, you'd lose your session values from that session,
+as the problem with using cookies would be that the problem of potentional overlapping or repetition occurs, based on the fact of two sites open at once
+and operating to do the same thing, causing leakage of data from one cookie to cause the bug of duplication action.
+
+The following is code that handles the concepts of accessing the session variable and setting it:
+
+<!DOCTYPE HTML>
+<html>
+
+	<body>
+
+		<script type="text/javascript">
+			if( sessionStorage.hits ){
+				sessionStorage.hits = Number(sessionStorage.hits) +1; //assign amount of hits to be the converted value of the sessionStorages amounts of hits + 1
+			}else{
+				sessionStorage.hits = 1; //otherwise, it means we have no hits, then we declare it to be one
+			}
+			document.write("Total Hits :" + sessionStorage.hits );
+		</script>
+
+		<p>Refresh the page to increase number of hits.</p>
+		<p>Close the window and open it again and check the result.</p>
+	</body>
+</html>
+
+Basically, Session storage is a simple map with keys related to them.
+It is a storage object that can hold several MBs of data, and does not presist through sessions.
+
+a hit is basically a request for a invisible image file. There are a lot of kinds of hits, that can interact with a website. 
+
+The most common ones, are as follows:
+
+Pageviews/Screenviews : This is one of the biggest metrics in data analytics, in terms of retain time, amount of visits etc. Is automatically collected.
+
+Events : An event is a counter for how many actions with things, on the website, that has been taken. Must be manually implemented if we seek to collect it.
+
+Transactions : A transactions is a package of data that refers to economical purchases. Must be manually implemented if we seek to collect transactions.
+
+Social interaction hit : A counter for retweets and stuff. Must be manually implemented to account for occurences
+
+Customized user timings : A measurement of timings between actions (between page loading and clicking on an element). Must be implemented manually.
+
+We can get the data via GET or POST requests. a GET can only be 2048 chars long, a POST can be any length, but is usually 8k in terms of google
+tracking stuff.
+
+NOTE: For Cellphones, they send session data in bursts, due to not always being connected to internet.
+
+A way to measure the concept of how much time a person spends, can be done either by setting up intervals of time to which it runs hits.
+The standard is that 30 mins designations a session and if you're not active during such a time, you account for as being inactive.
+
+This is not very accurate in terms of watching videos or having stuff that is of very long length, but only runs once, because it only needs
+to send the data once. A solution to this, is to for instance, send a lot of hits constantly, to get a better measurement of how much spending time had been
+done.
+
+In terms of how Google does it, they measure interactive hits - Which means that all hits that fill the following criteria, account for being
+relevant hits:
+
+Pageview hits
+Interactive event hits
+Ecommerce Transactions hits
+Ecommerce Transactions items hits
+Social plugin hits
+
+Usually, when webtools analyze the amount of time spent on webpages, it's built around the fact of setting the time interval between pageviews,
+so from the time you opened a page, until the point of where you switch, is the interaction it accounts for, when there is multiple hits.
+
+If there is only one, it tracks the total amount of time between interactive hits, and measures based on the span from start to finish.
+
+What follows, is a code example that tracks amount of interactions on your website: //Note: This is a project Google did
+NOTE: jQuery is something that JS is integrated into almost on every single website, and it's very good for simplifying complex tasks
+
+jQuery(function($)) {
+	//debug flag
+	var debugMode = true;
+
+	//Default time delay before checking location
+	var callBackTime = 100;
+
+	//Number of px before tracking a reader
+	var readerLocation = 150;
+
+	//initialize some variables for tracking and execution
+	var timer = 0;
+	var scroller = false;
+	var endContent = false;
+	var didComplete = false;
+
+	//Set some time variables to account for amount of time read
+	var startTime = new Date();
+	var beginning = startTime.getTime();
+	var totalTime = 0;
+
+	//Get some information about the current page
+	var pageTitle = document.title;
+
+	//Track the article load
+	if (!debugmode){
+		_gaq.push(['_trackEvent', 'Reading', 'ArticleLoaded', '', , true]);
+	} else {
+		alert('The page has loaded. Woohooo.');
+	}
+
+	//Check the location and track user
+	function trackLocation(){
+		bottom = $(window).height() + $(window).scrollTop();
+		height = $(document).height();
+
+		//If the user starts scrolling, send an event
+		if (bottom > readerLocation && !scroller){
+			currentTime = new Date();
+			scrollStart = currentTime.getTime();
+			timeToScroll = Math.round((scrollStart - beginning) / 1000);
+			if(!debugmode){
+				_gaq.push(['_trackEvent', 'Reading', 'StartReading', '', timeToScroll]);
+			} else{
+				alert('started reading ' + timeToScroll);
+			}
+			scroller = true;
+		}
+
+		//if the user has scrolled to the bottom of the content, send an event
+		if (bottom >= $('.entry-content').scrollTop() + $('.entry-content').innerHeight() && !endContent) {
+			currentTime = new Date();
+			contentScrollEnd = currentTime.getTime();
+			timeToContentEnd = Math.round((contentScrollEnd - scrollStart) / 1000);
+			if(!debugmode){
+				_gaq.push(['_trackEvent', 'Reading', 'ContentBottom', '', timeToContentEnd]);
+			} else{
+				alert('end content section '+timeToContentEnd);
+			}
+			endContent = true;
+		}
+
+		//if the user has scrolled to the bottom of the page, send an event
+		if (bottom >= height && !didComplete){
+			currentTime = new Date();
+			end = currentTime.getTime();
+			totalTime = Math.round((end - scrollStart) / 1000);
+			if(!debugmode){
+				if (totalTime < 60){
+					_gaq.push(['_setCustomVar', 5, 'ReaderType', 'Scanner', 2]);
+				} else{
+					_gaq.push(['_setCustomVar', 5, 'ReaderType', 'Reader', 2]);
+				}
+
+			} else{
+				alert('bottom of page'+totalTime);
+			}
+			didComplete = true;
+		}
+	}
+
+	$(window).scroll(function() {
+		if (timer) {
+			clearTimeout(timer);
+		}
+
+		timer = setTimeout(trackLocation, callBackTime);
+	});
+
+});
+
+By virtue of each hit having a id, you can lump together the IDs and create a cohessive session in terms of analysing the results.
+
+When we use the js analytics tool, the program tries to set the cookies domain to the highest that it can, so that it can account for sub domains
+without any extra configs. So for example, if our domain is : blog.example.co.uk  it tries to set it to example.co.uk
+
+the analytics.js sets two kinds of cookies: _ga and _gat.
+
+_ga has a 2 years expiration date and is used to distinguish users
+
+_gat has a 10 mins expiration date and is used to throttle request rate
+
+By virtue of assining a random unique string to each domain and user, it is able to distinguish users returning to the same page.
+
+The default values used by js to track these things, is as follows:
+
+cookieName : A text that has the default value of _ga
+
+cookieDomain : a text that has the domain of the cookie
+
+cookieExpires : integer, the amount of seconds left to expire, defaults to 63072000 (2 years in seconds)
+
+The most common applicance of mucking about with the cookie field, is to set the cookieDomain.
+But since it is very common place to do, it's modified so that it accepts this field as third and optional field, as is shown:
+
+The normal syntax for it is as follows:
+
+ga('create', 'UA-XXXXX-Y', {
+	'cookieName ' : 'gaCookie',
+	'cookieDomain' : 'blog.example.co.uk',
+	'cookieExpress' : 60 * 60 * 24 * 28 //time in seconds
+})
+
+Or we can write it, with the optional arg, as follows: 
+
+ga('create', 'UA-XXXXX-Y', 'blog.example.co.uk');
+
+also, the JS tracking snippet defaults to using 'auto' for the cookiedomain. This setting attempts to always set the cookie to the highest domain that
+it can surmount to.
+
+Note: If a cookies expiration date is set to 0, it becomes a session based cookie, meaning it terminates as soon as you close the session.
+
+to get the ClientID from cookies, one should use the readyCallback function to wait until analytics.js is loaded, due to that the cookie might otherwise
+change under the time that elapses.
+
+It looks as follows:
+
+ga(function(tracker) {
+	var clientId = tracker.get('clientId');
+});
+
+If we set the storage field to 'none', we disable cookies.
+
+if we are storing the cliendId var ourselves, we need to make sure to set it, as follows:
+
+ga('create', 'UA-XXXXX-Y', {
+	'storage' : 'none',
+	'clientId' : '76c24efd-ec42-492a-92df-c62cfd4540a3'
+});
+
+The following code showcases how to track clientId instead of cookies:
+
+var GA_LOCAL_STORAGE_KEY = 'ga:clientId';
+
+if (window.localStorage) {
+	ga('create', 'UA-XXXXX-Y', {
+		'storage' : 'none',
+		'clientId' : localStorage.getItem(GA_LOCAL_STORAGE_KEY, tracker.get('clientId'));
+	});
+}
+else{
+	ga('create', 'UA-XXXXX-y', 'auto');
+}
+
+ga('send', 'pageview');
+
+NOTE: using localstorage imposes restrictions in terms of not tracking across different subdomains correctly. Thus, cookies continue ot be the 
+#1 source of tracking such info.
+
+UserID enables the tracking to track across group sessions, and we can set it up for all relevant users if we wish, as follows: NOTE: They must be unique non mutating string values
+that are non-identifiable towards person
+
+ga('create', 'UA-XXXXX-Y', 'auto', {
+	userID: USER_ID
+});
+ga('send', 'pageview');
+
+Single Page Applications or other dynamic websites have systems that makes it impossible to have User_ID regsitered before the page loads.
+In case of this, we can use the following method to counteract that:
+
+ga('create', 'UA-XXXXX-Y', 'auto'); 	// Creates the tracker
+ga('send', 'pageview'); //send pageview as per normal
+
+ga('set', 'userID', USER_ID); //We set the userID later on when we know what it is.
+
+If we wish to find out if a website is running analytical tools, we can just display the source code of the website and view it there.
+
+the ga.js uses first party cookies. It uses it to Determine which domain to survey, Tell unique users apart, Throttle request rates,
+Rmember number of previous vists, Rmember traffic source info, Determine the start and end of a session, Remember the value of visitor-level
+custom vars.
+
+The library sets the following cookies:
+
+Name 				Expiration 					Desc
+
+__utma  			2 years from set/update 	used to distinguish users and sessions. The cookie is updated every time data is sent to Google Analytics
+
+__utmt 				10 minutes 					Used to throttle request rate
+
+__utmb 				30 mins from set/update 	Used to determine new sessions/visits. The cookie is created when the JS lib executes and no existing __utmb cookie exists.
+												Úpdated every time data is sent
+
+__utmc 				End of browser session 		Not used in ga.js, set for interoperability with urchin.js , historically worked with __utmb to help distinguish user firsttime
+
+__umtz 				6 months from set/update 	Stores the traffic source or campaign that explains how the user reached your site. Is created and updated every time data
+												is sent to Google Analytics
+
+__utmv 				2 years from set/update 	Used to store visitor-level custom variable data. Is created when a dev uses _setCustomVar with a visitor level
+												custom var.
+
+
+The following methods can be used to cutomize cookies:
+
+_setDomainName : sets the domain name of which all cookies will be set
+
+_setCookiePath : Sets the path to which all cookies will be set
+
+_setCookieVisitorTimeout : Sets the google analytics visitor cookie expiration in milisecs
+
+_setSessionCookieTimeout : Sets the new session cookie timeout in milisecs
+
+_setCampaignCookieTimeout : Sets the campaign tracking cookie expiration time in milisecs
+
+The same principle works for Cellphones, except they store it in a internal database that has it's value created during installation of hte app and removed upon
+uninstallation.
+
+The problem with cellphones is that a lot of apps are a hybrid of apps and websites, making framed versions of websites, which causes there to be a need to circumvent it.
+There are a few ways to do this, but will not be concluded here, yet.
+
+
+To delete local stored data (The only other beign session based), we can call the following:
+
+localStorage.removekey('key'); //needs a specified key to be able to access that specific element for removal
+
+or
+
+localStorage.clear(); //clears the whole local storage
+
+What follows is an example of a HTML piece that uses it:
+
+<!DOCTYPE HTML>
+<html>
+	
+	<body>
+
+		<script type="text/javascript">
+			localStorage.clear();
+			//Reset number of hits
+			if ( localStorage.hits ){
+				localStorage.hits = Number(localStorage.hits)+1;
+			}else{
+				localStorage.hits = 1;
+			}
+			document.write("Total Hits : " + localStorage.hits);
+
+		</script>
+
+		<p>Refreshing the page would not increase hit counts.</p>
+		<p>Close the window and re-open it, to see the results.</p>
+	</body>
+</html>
+
+To open a database in a html, for making operations on it and likewise, we can do as follows:
+
+var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024); //The five parameters are as follows: DB name, Version number, Text description, Size of DB, Creation callback
+
+to interact with the db, we have to execute queries upon the Database object:
+
+var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+	tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)'); //creates a table LOGS if it doesn't exist
+});
+
+
+To create entries, we simply follow up with SQL statements, as follows:
+
+var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+	tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)'); //creates a table LOGS if it doesn't exist
+	tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "foobar")');
+	tx.executeSql('INSERT INTO LOGS (id, log) VALUES (2, "logmsg")');
+});
+
+We can also do dynamic names, much akin to variable expansion in linux:
+
+var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+
+db.transaction(function(tx) {
+	tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)');
+	tx.executeSql('INSERT INTO LOGS (id, log) VALUES (?, ?'), [e_id, e_log]; //This causes sql to dynamically refer to e_id and e_log as external factors from elsewhere
+	//and replaces the ? with the values as it goes through the array
+}
+
+For the final part, which is reading, we can use it as follows:
+
+db.transactions(function (tx) {
+	tx.executeSql('SELECT * FROM LOGS', [], function (tx, results) { //Select everything from Logs, put em intop an array, run the function with the results
+		var len = results.rows.length, i; //see how many elements there are
+		msg = "<p>Found rows: " + len + "</p>"; //found that many elements
+		document.querySelector('#status').inheritHTML += msg; 
+
+		for (i = 0; i < len; i++){
+			alert(results.rows.item(i).log); //print out teh names
+		}
+	}, null);
+});
+
+What follows, is the entire part put into one piece:
+
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<script type="text/javascript">
+
+			var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+			var msg;
+
+			db.transaction(function (tx) {
+				tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)');
+				tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "foobar")');
+				tx.executeSql('INSERT INTO LOGS (id, log) VALUES (2, "logmsg")');
+				msg = '<p>Log message created and row inserted.</p>';
+				document.querySelector('#status').inheritHTML = msg;
+
+			});
+
+			db.transaction(function tx) {
+				tx.executeSql('SELECT * FROM LOGS', [], function (tx, results) {
+					var len = results.rows.length, i;
+					msg = "<p>Found rows: " + len + "</p>";
+					document.querySelector('#status').innerHTML += msg;
+
+					for (i = 0; i < len; i++){
+						msg = "<p><b>" + results.rows.item(i).log + "</b></p>";
+						document.querySelector('#status').innerHTML += msg;
+					}
+				}, null);
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="status" name="status">Status Message</div>
+	</body>
+</html>
+
+When we stream data, we speak of using something called SSE, which is Server Sent Events.
+By the use of <eventsource> and a website, that provides a http stream and has a connected script that sends data consistently, then we can stream the data
+and have a constant update of info on a regular basis.
+
+What follows, is the syntax for this:
+
+<!DOCTYPE HTML>
+<html>
+	
+	<head>
+		<script type="text/javascript">
+			/* Define event handling logic here */
+		</script>
+	</head>
+
+	<body>
+		<div id="sse">
+			<eventsource src="url" /> //url is just placeholder for any URL that has a http connection where it sends info from
+		</div>
+
+		<div id="ticker">
+			<TIME>
+		</div>
+	</body>
+</html>
+
+A server-side script should send Content-type header specifying the type <text>/<event-stream> as follows:
+
+#!/usr/bin/perl
+
+print "Content-Type: text/event-stream\n\n";
+
+while(true){
+	print "Event: server-time\n";
+	$time = localtime();
+	print "Data: $time\n";
+	sleep(5);
+}
+
+
+What follows, is the complete example of having everything integrated:
+
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<script type="text/javascript">
+
+			document.getElementsByTagName("eventsource")[0].addEventListener("server-time", eventHandler, false);
+
+			function eventHandler(event){
+				//Alert time send by the server
+				document.querySelector('#ticker').innerHTML = event.data;
+				//This is basically where we do the eventhandling of the event occuring, which is relative to what we are doing
+			}
+		</script>
+	</head>
+
+	<body>
+
+		<div id="sse">
+			<eventsource src="/cgi-bin/ticker.cgi" />
+		</div>
+
+		<div id="ticker" name="ticker">
+			[TIME]
+		</div>
+	</body>
+</html>
+
+if we wish, we could create somewhat of a two-way pipe between a website and a script, which is used with a JS interface and operates over a single socket.
+
+What follows, is how to intiiate such a thing:
+
+var Socket = new WebSocket(url, [protocol] ); //Uses the url to connect to a Website, protocl is a optional argument that, if set, is a conditional virtue of
+//that said url must fullfill, to succeed in it's connection
+
+What follows, is a list of attributes, for said Socket, assuming we created it as above:
+
+Attribute 													Desc
+
+Socket.readyState 							Represents the state of the connection: 0 is not yet established, 1 means establish and communication is possible,
+																					2 means it's going through closing handsake, 3 means closed or could not be opened
+										 	(IS READONLY)
+
+Socket.bufferedAmount 						 presents the number of bytes of UTF-8 text that have been queued using the send() method. (IS READONLY)
+
+
+WHat follows, is a list of the events that a WebSocket can do:
+
+Event 		Event Handler 			Desc
+
+open 		Socket.onopen 			This event occurs when socket connection is established.
+
+message 	Socket.onmessage 		This even occurs when client recieves data from server.
+
+error 		Socket.onerror 			This event occurs when there is any error in communication.
+
+close 		Socket.onclose 			This event occurs when the connection is closed.
+
+What follows, is a list of the methods a Websocket has access to:
+
+Method 						Desc
+
+Socket.send() 				The send(data) method transmits data using the connection
+
+Socket.close() 				The close() method would be used to terminate any existing connection
+
+What follows, is a clienside HTML and JS code that attempts to open a WebSocket:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript">
+			function WebSocketTests()
+			{
+				if ("WebSocket" in window)
+
+				{
+					alert("WebSocket is supported by your browser!");
+					//Let's open a Socket
+					var ws = new WebSocket("ws://localhost:9998/echo");
+
+					ws.onopen = function()
+					{
+						//Web Socket is connected, send data using send()
+						ws.send("Message to Send"); //Whatever we wish to send, we do it here
+						alert("Message is sent...");
+					};
+
+					ws.onmessage = function (evt)
+					{
+						var recieved_arg = evt.data;
+						alert("Message is recieved..."); //This is where we do something with the data recieved
+					};
+
+					ws.onclose = function()
+					{
+						//websocket is closed.
+						alert("Connection is closed..");
+					};
+				}
+				else
+
+				{
+					//The browser DOES NOT support websockets
+					alert("WebSocket NOT supported by your Browser!");
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="sse">
+			<a href="javascript:WebSocketTest()">Run WebSocket</a>
+		</div>
+	</body>
+</html>
+
+
+Before we run the above, we must have a server that supports WebSockets.
+
+We can download pywebsocket, install it and then run the server with the following commands:
+
+$sudo python standalone.py -p 9998 -w ../example/ //Starts the listener and uses the handler allocated in "../example/", where it is a folder that you have the
+//echo_wsh.py file
+
+What follows, is some interactions in terms of canvases:
+
+This is a canvas element:
+
+<canvas id="mycanvas" width="100" height="100"></canvas>
+
+to find the canvas, we can use the var canvas = document.getElementById("mycanvas");
+
+What follows, is an example that spawns a red and empty canvas:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#mycanvas{border:1px solid red;}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="mycanvas" width="100" height="100"></canvas>
+	</body>
+</html>
+
+What follows, is the code that follows to interact with the canvas:
+
+var canvas = document.getElementById("mycanvas");
+
+if (canvas.getContext){
+	var ctx = canvas.getContext('2d');
+	//drawing code goes here
+} else{
+	// canvas not supported code goes here
+}
+
+To draw a rectangle, we have three methods availabvle, as follows:
+
+fillRect(x,y , width, height) //draws a filled rect
+
+strokeRect(x, y, width, height) //draws a rectangular outlining
+
+clearRect(x,y,width, height) //Clears the specified area and makes it fully transparent
+
+What follows, is an example of how to draw a rectangle:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+				//get the Canvas element, calling the DOM
+
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute canvas if it's not supported
+
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					//draw shapes
+					ctx.fillRect(25,25,100, 100);
+					ctx.clearRect(45,45,60,60);
+					ctx.strokRect(50,50,50,50);
+				}
+
+				else{
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+
+			}
+		</script>
+	</head>
+
+	<body id='test' onload="drawshape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+
+To draw paths on a canvas, we can use the following methods:
+
+beginpath() 	: Resets the current path
+
+moveTo(x, y) 	: Crates a new subpath to given point
+
+closePath() 	: closes the current subpath and creates a new one with same cords as last one
+
+fill() 			: fills subpath will current fill style.
+
+stroke() 		: Strokes the current path with the current stroke style.
+
+arc(x, y, radius, startAngle, endAngle, anticlockwise) : Adds points according to the arc pattern
+
+An example follows:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+
+			}
+		</stytle>
+
+		<script type="text/javascript">
+			function drawShape(){
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute when canvas isn't supported
+				var ctx = canvas.getContext('2d');
+
+				if (canvas.getContext){
+
+					//Draw shapes
+					ctx.beginPath();
+					ctx.arc(75,75,50,0,Math.PI*2,true); //Outer circle
+
+					ctx.moveTo(110, 75);
+
+					ctx.arc(75,75,35,0,Math.PI,false); //mouth
+
+					ctx.moveTo(65,65);
+					ctx.arc(60,65,5,0,Math.PI*2,true); //left eye
+
+					ctx.moveTo(95,65);
+					ctx.arc(90,65,5,0,Math.PI*2,true); //right eye
+
+					ctx.stroke();
+				}
+				else {
+					alert('You need safari or firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+This will produce a smiley face 
+
+To draw lines, we can use the following methods:
+
+beginPath() : Resets the current path
+
+moveTo(x, y) : Subpath with the given point
+
+closePath() : Closes the current path, opens a new one
+
+fill() : Fills current subpath with fill style
+
+stroke() : Strokes the subpath with current style
+ 
+lineTo(x,y) : Makes a straight line to the previous point from X and Y
+
+What follows, is an example of a script that paints a triangle:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawshape(){
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//make sure we have support
+
+				if (canvas.getContext){
+					//use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+					//filled triangle
+
+					ctx.beginPath();
+					ctx.moveTo(25,25);
+					ctx.lineTo(105,25);
+					ctx.lineTo(25, 105);
+					ctx.fill();
+
+					// Stroked triangle
+					ctx.beginPath();
+					ctx.moveTo(125, 125);
+					ctx.lineTo(125, 45);
+					ctx.lineTo(45, 125);
+					ctx.closePath();
+					ctx.stroke();
+				}
+
+				else{
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+The above code, will produce two triangles, one black and one white.
+
+What follows, is an example of writing a couple of lines with different width:
+
+lineWidth [ = width ] : Returns the current linewidth or can be used to set it
+
+lineCap [ = value ] : Returns or sets current lineCap, ones available are butt, round and square
+
+lineJoin [ = value ] : Returns line style or sets line to be a value, ones available are bevel, round and miter
+
+miterLimit [ = value ] : Returns the miter limit ratio, and can be set.
+
+An example of changing width, follows:
+
+<!DOCTYTPE HTML>
+<html>
+	<head>
+
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+				// get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute canvas when it is not supported
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					for(i=0;i<10;i++){
+						ctx.lineWidth = 1+i;
+						ctx.beginPath();
+						ctx.moveTo(5+i*14,5);
+						ctx.lineTo(5+i*14,140);
+						ctx.stroke();
+					}
+				}
+
+				else
+				{
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body> id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+What follows, is an example of how to write Bezier Curves:
+
+beginPath() 	: Resets the current path
+
+moveTo(x, y) 	: Creates a new subpath with the given point
+
+closePath() 	: marks the current path as closed and creates a new one with same cords as old
+
+fill() 			: fills the subpath with the current style
+
+stroke() 		: Strokes the current subpath with the current stroke style
+
+bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) : 	Adds a given point to the x and y cords connected to the earlier cords
+
+What follows is an example of how to draw a heart:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+				//get the canvas elements using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute when canvas isn't supported
+				if (canvas.getContext){
+
+					// use getContext to use the Canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					ctx.beginPath();
+					ctx.moveTo(75,40);
+
+					ctx.bezierCurveTo(75,37,70,25,50,25);
+					ctx.bezierCurveTo(20,25,20,62.5,20,62.5);
+
+					ctx.bezierCurveTo(20,80,40,102,75,120);
+					ctx.bezierCurveTo(110,102,130,80,130,62.5);
+
+					ctx.bezierCurveTo(130,62.5,130,25,100,25);
+					ctx.bezierCurveTo(85,25,75,37,75,40);
+
+					ctx.fill();
+				}
+
+				else {
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+
+To be able to draw quadratic curves, we have the following tools:
+
+beginPath() : This method resets the current path.
+
+moveTo(x,y) : Creates a new subpath at the given point
+
+closePath() : Closes current Subpath and spawns new one with old cords
+
+fill() : fill teh current subpath with the current fill style
+
+stroke() : Strokes the subpath with the current stroke style
+
+quadraticCurveTo(cpx, cpy, x, y) : Adds a quadratic curve to the pos drawn from the previous pos
+
+What follows is an example of how to draw a speech bubble:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<style>
+			#test {
+				width: 100px;
+				height:100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+
+				// get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute when canvas isn't supported
+				if (canvas.getContext){
+
+					// use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					ctx.beginPath();
+
+					ctx.moveTo(75,25);
+					ctx.quadraticCurveTo(25,25,25,62.5);
+
+					ctx.quadraticCurveTo(25,100,50,100);
+					ctx.quadraticCurveTo(50,120,30,125);
+
+					ctx.quadraticCurveTo(60,120,65,100);
+
+					ctx.quadraticCurveTo(125,100,125,62.5);
+
+					ctx.quadraticCurveTo(125,25,75,25);
+
+					ctx.stroke();
+				}
+
+				else {
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+What follows, is an example of how to import an image and then draw on it:
+
+beginpath : Resets the current path
+
+moveTo(x,y) : Creates a new subpath at the given point
+
+closePath() : closes current subpath and spawns a new one with prev ending lines cords
+
+fill() : fills subpath with current fill style
+
+stroke() : strokes the subpath with the current stroke style
+
+drawImage(image, dx, dy) : draws a image on the given cords. image is a reference to a image or canvas object.
+
+What follows, is an example of how to load in a picture of a backdrop and then draw a graph unto it:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<script type="text/javascript">
+			function drawShape(){
+
+				//get the canvas element using the DOM
+
+				var canvas = document.getElementById('mycanvas');
+
+				//make sure we don't execute when the browser does not support ít
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for drawing
+
+					var ctx = canvas.getContext('2d');
+
+					//Draw shapes
+					var img = new Image();
+					img.src = '/images/background.jpg';
+
+					img.onload = function(){
+						ctx.drawImage(img,0,0);
+						ctx.beginPath();
+
+						ctx.moveTo(30,96);
+						ctx.lineTo(70,66);
+
+						ctx.lineTo(103,76);
+						ctx.lineTo(170,15);
+
+						ctx.stroke();
+					}
+				}
+
+				else {
+					alert('You need Safari or Firefox 1.5+ to see this demon.');
+				}
+
+			}
+		</script>
+	</head>
+
+	<body> onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+What follows, are examples of how to make gradient colours on objects:
+
+addColorStop(offset, color) : adds a color stop at the given offset - 0.0 is one end, whilst 1.0 is the other end
+
+createLinearGradient(x0,y0,x1,y1) : Retursn a linear gradient, where each set is starting points and ending points
+
+createRadialGradient(x0,y0,r0,x1,y1,r1) : Returns a CanvasGradient object that is a circle object
+
+What follows, is an example of how to use linear gradients:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test{
+				width:100px;
+				height:100px;
+				margin:0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute when canvas isn't supported
+				if (canvas.getContext){
+
+					//use get Context to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					//Create a linear gradients
+					var lingrad = ctx.createLinearGradient(0,0,0,150);
+
+					lingrad.addColorStop(0, '#00ABEB'); //hexadecimal colour codes
+					lingrad.addColorStop(0.5, '#fff');
+
+					lingrad.addColorStop(0.5, '#66CC00');
+					lingrad.addColorStop(1, '#fff');
+
+					var lingrad2 = ctx.createLinearGradient(0,50,0,95);
+					lingrad2.addColorStop(0.5, '#000');
+					lingrad2.addColorStop(1, 'rgba(0,0,0,0)');
+
+					//assign gradients to fill and stroke styles
+					ctx.fillStyle = lingrad;
+					ctx.strokeStyle = lingrad2;
+
+					//draw shapes
+					ctx.fillRect(10,10,130,130);
+					ctx.strokeRect(50,50,50,50);
+
+
+				}
+
+				else{
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+The above code will generate two coloured squared.
+
+The following code, allows for construction of several gradient circles:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<style>
+			#test {
+				width:100px;
+				height:100px;
+				margin:0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+
+				//get the canvas elements using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//make sure we don't execute it unless weh ave support
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					//Create gradients
+					var radgrad = ctx.createRadialGradient(45,45,10,52,50,30);
+					radgrad.addColorStop(0, '#A7D30C');
+					radgrad.addColorStop(0.9, '#019F62');
+					radgrad.addColorStop(1, 'rgba(1,159,98,0)');
+
+					var radgrad2 = ctx.createRadialGradient(105,105,20,112,120,50);
+					radgrad2.addColorStop(0, 'FF5F98');
+					radgrad2.addColorStop(0.75, '#FF0188');
+					radgrad2.addColorStop(1, 'rgba(255,1,136,0)');
+
+					var radgrad3 = ctx.createRadialGradient(95,15,15,102,20,40);
+					radgrad3.addColorStop(0, '#00C9FF');
+					radgrad3.addColorStop(0.8, '#00B5E2');
+					radgrad3.addColorStop(1, 'rgba(0,201,255,0)');
+
+					var radgrad4 = ctx.createRadialGradient(0,150,50,0,140,90);
+					radgrad4.addColorStop(0, '#F4F201');
+					radgrad4.addColorStop(0.8, '#E4C700');
+					radgrad4.addColorStop(1, 'rgba(228,199,0,0)');
+
+					//draw shapes
+
+					ctx.fillStyle = radgrad4;
+					ctx.fillRect(0,0,150,150);
+
+					ctx.fillStyle = radgrad3;
+					ctx.fillRect(0,0,150,150);
+
+					ctx.fillStyle = radgrad2;
+					ctx.fillStyle(0,0,150,150);
+
+					ctx.fillStyle = radgrad;
+					ctx.fillStyle(0,0,150,150);
+				}
+
+				else {
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+This will produce some different lighted spheres
+
+In Html5 there are two ways to apply colours to a figure.
+
+fillStyle : the color to use inside of shapes.
+
+strokeStyle : the color to use for the lines of the shapes
+
+What follows, is a fillstyle example:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test {
+				width: 100px;
+				height:100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute it without actual support
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					//Create a pattern
+					for (var i=0;i<7;i++){
+						for(var j=0;j<7;j++){
+							ctx.fillStyle='rgb(' + Math.floor(255-20.5*i)+ ',' + Math.floor(255 - 42.5*j) + ',255)';
+							ctx.fillRect( j*25, i* 25, 55, 55);
+						}
+					}
+				}
+
+				else {
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+This will produce a rgb akin "Square" where we get each respective colour code on a gradient.
+
+What follows, is an example of a pattern of small circles:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test{
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+		<script type="text/javascript">
+			function drawShape(){
+
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//make sure we don't run it without support
+				if (canvas.getContext){
+					var ctx = canvas.getContext('2d');
+
+					//Create a pattern
+					for (var i=0;i<10;i++){
+						for (var j=0;j<10;j++){
+							ctx.strokeStyle='rgb(255,' + Math.floor(50-2.5*i)+',' + Math.floor(155 - 22.5 * j ) + ')';
+							ctx.beginPath();
+
+							ctx.arc(1.5+j*25, 1.5 + i*25,10,10,Math.PI*5.5, true);
+							ctx.stroke; 
+						}
+					}
+				}
+
+				else{
+					alert('You need Safari or Firefox 1.5+ to see this Demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+What follows is an example of creating two words with special fonts and text properties:
+
+font [= value] : returns current font, can be set with value
+
+textAlign [ = value] : returns alignment, can be set with value
+
+textBaseLine [ = value] : returns baseline alignment, can be set with value
+
+fillText(text, x,y[,maxWidth]) : Fills text at given cords
+
+strokText(text, x,y[, maxWidth]) : strokes the given text at the given cords
+
+What follows, is an example of creating two words, with special fonts and text props:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//make sure we don't run it without support
+
+				if (canvas.getContext){
+
+					var ctx = canvas.getContext('2d');
+
+					ctx.fillStyle = '#00F';
+					ctx.font 	  = 'Italic 30px Sans-Serif';
+
+					ctx.textBaseline = 'Top';
+					ctx.fillText ('Hello world!', 40, 100);
+
+					ctx.font 	  = 'Bold 30px Sans-Serif';
+					ctx.strokeText('Hello world!, 40, 50);
+				}
+
+				else{
+					alert('You need safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+We can also project patterns on a larger scale, if we so wish, as follows:
+
+createPattern(image, repetition) : will use image to create the pattern. Second arg is a string, can be : repeat, repeat-x, repeat-xy and no-repeat. If not specified
+then repeat is assumed.
+
+What follows, is an example:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test {
+				width=100px;
+				height=100px;
+				margin=0px auto;
+			}
+		</style>
+
+		<script="text/javascript">
+			function drawShape(){
+
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//make sure we don't execute when canvas is not supported
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					// create new image object to use as a pattern
+					var img = new Image();
+
+					img.src = 'images/pattern.jpg';
+					img.onload = function(){
+
+						//create pattern
+						var ptrn = ctx.createPattern(img, 'repeat');
+
+						ctx.fillStyle = ptrn;
+						ctx.fillRect(0,0,150,150);
+					}
+				}
+
+				else {
+					alert('You need safari or firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+This will project a pattern to be repeated on a larger scale.
+
+If we wish to apply shadows to objects, we can do as follows:
+
+shadowColor [= value] : returns current shadow color or sets it
+
+shadowOffsetX [= value] : Returns shadow OffsetX or sets it
+
+shadowOffsetY [= value] : Returns shadow OffsetY or sets it
+
+shadowBlur [ = value] : returns current blur or sets it
+
+What follows, is a example of how to draw shadows:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't run it unless we have support for it
+				if (canvas.getContext){
+
+					//use getcontext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					ctx.shadowOffsetX = 2;
+					ctx.shadowOffsetY = 2;
+
+					ctx.ShadowBlur = 2;
+					ctx.shadowColor = "rgba(0,0,0,0.5)";
+
+					ctx.font = "20px Times New Roman";
+					ctx.fillStyle = "Black";
+
+					ctx.fillText("This is shadow test", 5, 30);
+				}
+
+				else {
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+The above will give a output of a Text that says "This is shadow test"
+
+When we wish to save and restore states of a Canvas, we can use two kinds of methods, to interact with the stack of canvas object:
+
+save() : Pushes the canvas object to the top of the stack
+
+and
+
+restore() : Pops the top state, returning that specific one
+
+The settings that are returned are as follows:
+
+Translates, scales, rotates etc.
+
+Clipping region
+
+values of strokeStyle, fillStyle, globalApha, lineWidth, lineCap, lineJoin, miterLimit, shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor, globalCompositeOperation,
+font, textAlign, textBaseLine
+
+What follows, is an example of how to restore states and save states:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function drawShape(){
+
+				//get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute it without support
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+
+					// draw a rectangle with default settings
+					ctx.fillRect(0,0,150,150);
+
+					//Save the default state
+					ctx.save();
+
+					//Make changes to the settings
+					ctx.fillStyle = '#66FFFF'
+					ctx.fillRect( 15,15,120,120);
+
+					//Save the current state
+					ctx.save();
+
+					//Make the new changes to the settings
+					ctx.fillStyle = '#993333'
+					ctx.globalAlpha = 0.5;
+					ctx.fillRect(30, 30,90,90);
+
+					//Restore the previous state
+					ctx.restore();
+
+					//Draw a rect with restored settings
+					ctx.fillRect(45,45,60,60);
+
+					//Restore original state
+					ctx.restore();
+
+					//Draw a rectangle with restored settings
+					ctx.fillRect(40,40,90,90);
+				}
+
+				else {
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas"></canvas>
+	</body>
+</html>
+
+When we wish to move the canvas to left or right, we can use the translate(x, y) method, what follows, is an example of such:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test {
+				width:100px;
+
+				height:100px;
+				margin:0px auto;
+				}
+		</style>
+		<script type="text/javascript">
+			function drawShape(){
+				// get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+				// Make sure we don't execute when canvas isn't supported
+				if (canvas.getContext){
+				// use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+					ctx.fillRect(0,0,300,300);
+					for (i=0;i<3;i++) {
+						for (j=0;j<3;j++) {
+							ctx.save();
+							ctx.strokeStyle = "#FF0066";
+							ctx.translate(50+j*100,50+i*100);
+							drawSpirograph(ctx,10*(j+3)/(j+2),-2*(i+3)/(i+1),10);
+							ctx.restore();
+						}
+					}
+				}
+				
+                else {
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+			function drawSpirograph(ctx,R,r,O){
+				var x1 = R-O;
+
+
+				var y1 = 0;
+				var i = 1;
+				ctx.beginPath();
+				ctx.moveTo(x1,y1);
+				do {
+					if (i>20000) break;
+					var x2 = (R+r)*Math.cos(i*Math.PI/72) - (r+O)*Math.cos(((R+r)/r)*(i*Math.PI/72))
+					var y2 = (R+r)*Math.sin(i*Math.PI/72) - (r+O)*Math.sin(((R+r)/r)*(i*Math.PI/72))
+					ctx.lineTo(x2,y2);
+					x1 = x2;
+					y1 = y2;
+					i++;
+				} while (x2 != R-O && y2 != 0 );
+				ctx.stroke();
+			}
+		</script>
+	</head>
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas" width="400" height="400"></canvas>
+	</body>
+</html>
+
+If we wish to rotate the canvas, we can do so, by virtue of the method call of rotate:
+
+rotate(angle) : Accepts a degree of which to rotate the canvas
+
+What follows, is an example of how to enact rotate:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#test {
+				width: 100px;
+				height: 100px;
+				margin: 0px auto;
+			}
+		</style>
+		<script type="text/javascript">
+			function drawShape(){
+				//Get the canvas elements using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				//Make sure we don't execute it without support for it
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+					ctx.translate(100,100);
+
+					for(i=1; i<7; i++){
+						ctx.save();
+						ctx.fillStyle = 'rgb('+(51*1)+','+(200-51*i)+',0)';
+
+						for (j=0; j < i*6; j++){
+							ctx.rotate(Math.PI*2/(i*6));
+							ctx.beginPath();
+
+							ctx.arc(0,i*12.5,5,0,Math.PI*2,true);
+							ctx.fill();
+						}
+						ctx.restore();
+					}
+				}
+
+				else{
+					alert('You need to have Safari or Firefox 1.5+ to run this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body id="test" onload="drawShape();">
+		<canvas id="mycanvas" width="400" height="400"></canvas>
+	</body>
+</html>
+
+This will produce a circle of small circles that rotate.
+
+We can access scaling with the scale(x,y) method, which is used to scale elements.
+x is for horizontal scale, y is for vertical scale. Both must be positive numbers.
+
+If it is a number greater than 1.0, it means a enlargement, if its lower than 1.0 it means a scaling down. A input of 1.0 causes nothing to occur.
+
+What follows, is a example of spawning 9 elements and scaling them:
+
+
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript">
+			function drawShape(){
+				// get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+				// Make sure we don't execute when canvas isn't supported
+				if (canvas.getContext){
+					// use getContext to use the canvas for drawing
+					var ctx = canvas.getContext('2d');
+					ctx.strokeStyle = "#fc0";
+					ctx.lineWidth = 1.5;
+					ctx.fillRect(0,0,300,300);
+					// Uniform scaling
+					ctx.save()
+					ctx.translate(50,50);
+					drawSpirograph(ctx,22,6,5);
+					ctx.translate(100,0);
+					ctx.scale(0.75,0.75);
+					drawSpirograph(ctx,22,6,5);
+					ctx.translate(133.333,0);
+					ctx.scale(0.75,0.75);
+					drawSpirograph(ctx,22,6,5);
+					ctx.restore();
+					// Non uniform scaling (y direction)
+					ctx.strokeStyle = "#0cf";
+					ctx.save()
+					ctx.translate(50,150);
+					ctx.scale(1,0.75);
+					drawSpirograph(ctx,22,6,5);
+					ctx.translate(100,0);
+					ctx.scale(1,0.75);
+					drawSpirograph(ctx,22,6,5);
+					ctx.translate(100,0);
+					ctx.scale(1,0.75);
+					drawSpirograph(ctx,22,6,5);
+					ctx.restore();
+					// Non uniform scaling (x direction)
+					ctx.strokeStyle = "#cf0";
+					ctx.save()
+					ctx.translate(50,250);
+					ctx.scale(0.75,1);
+					drawSpirograph(ctx,22,6,5);
+					ctx.translate(133.333,0);
+					ctx.scale(0.75,1);
+					drawSpirograph(ctx,22,6,5);
+					ctx.translate(177.777,0);
+					ctx.scale(0.75,1);
+					drawSpirograph(ctx,22,6,5);
+					ctx.restore();
+				}
+				else {
+					alert('You need Safari or Firefox 1.5+ to see this demo.');
+				}
+			}
+
+			function drawSpirograph(ctx,R,r,O){
+				var x1 = R-O;
+				var y1 = 0;
+				var i = 1;
+				ctx.beginPath();
+				ctx.moveTo(x1,y1);
+
+				do {
+					if (i>20000) break;
+					var x2 = (R+r)*Math.cos(i*Math.PI/72) -
+					(r+O)*Math.cos(((R+r)/r)*(i*Math.PI/72))
+					var y2 = (R+r)*Math.sin(i*Math.PI/72) -
+					(r+O)*Math.sin(((R+r)/r)*(i*Math.PI/72))
+					ctx.lineTo(x2,y2);
+					x1 = x2;
+					y1 = y2;
+					i++;
+				}
+
+				
+				while (x2 != R-O && y2 != 0 );
+				ctx.stroke();
+			}
+		</script>
+	</head>
+	<body onload="drawShape();">
+		<canvas id="mycanvas" width="400" height="400"></canvas>
+	</body>
+</html>
+
+The above code, showcases scalings.
+
+The following methods can be used to modify the transformation matrix:
+
+transform(m11, m12, m21, m22, dx, dy) : Changes the transformation matrix to apply the matrix given by the args
+
+setTransform(m11, m12, m21, m22, dx, dy) : Sets the transformation matrix to this one
+
+This basically means changing the angles and overlap the previous objects performed by the transform() methods
+
+What follows, is an example of a Script that utilizes Transform:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript">
+			function drawShape(){
+
+				//Get the canvas element using the DOM
+				var canvas = document.getElementById('mycanvas');
+
+				// Make sure we don't execute when the canvas is not supported
+				if (canvas.getContext){
+
+					//use getContext to use the canvas for something
+					var ctx = canvas.getContext('2d');
+
+					var sin = Math.sin(Math.PI/6);
+					var cos = Math.cos(Math.PI/6);
+
+					ctx.translate(200, 200);
+					var c = 0;
+
+					for (var i=0; i <= 12; i++){
+						c = Math.floor(255 / 12 * i);
+						ctx.fillStyle = "rgb(" + c + "," + c + "," + c + ")";
+						ctx.fillRect(0, 0, 100,100);
+						ctx.transform(cos, sin, -sin, cos, 0, 0);
+					}
+
+					ctx.setTransform(-1,0,0,1,200,200);
+					ctx.fillStyle = "rgba(100,100,255,0.5)";
+					ctx.fillRect(50,50,100,100);
+				}
+
+				else {
+					alert('You need Safari of Firefox 1.5+ to run this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="drawShape();">
+		<canvas id="mycanvas" width="400" height="400"></canvas>
+	</body>
+</html>
+
+When we wish to create compositions of drawings, where we can mask off certain areas, clear sections , we can set the following attributes:
+
+Attribute 						Desc
+
+source-over 					This is the default, it causes shapes to be drawn over the existing canvas content
+
+source-in 						The new shape is only drawn where the canvas and the object, overlap, everything else is rendered transparent
+
+source-out 						The new shape is drawn where it doesn't overlap the existing canvas content
+
+source-atop 					The new shape is only drawn when it overlaps the existing canvas content
+
+lighter 						Where both shapes overlap the color is determined by adding color values.
+
+xor 							Shapes become transparent upon overlap, normal elsewhere
+
+destination-over 				New shapes are drawn behind the existing canvas content
+
+destination-in 					The existing canvas content is kept where both the new shape and existing canvas content overlap. all else is transparent
+
+desitnation-out 				The existing content is kept where it doesn't overlap the new shape
+
+destination-atop 				The existing canvas is only kept where it overlaps the new shape. The new shape is drawn behind the canvas content
+
+darker 							Where both shapes overlap, the final colour is defined by subtracting color values
+
+What follows, is an example that constructs one of each possible composition:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript">
+			var compositeTypes = [
+				'source-over', 'source-in', 'source-out', 'source-atop',
+				'destination-over', 'destination-in', 'destination-out',
+				'destination-atop', 'lighter', 'darker', 'copy', 'xor'
+			];
+
+			function drawShape(){
+				for (i=0;i<compositeTypes.length;i++){
+					var label = document.createTextNode(compositeTypes[i]);
+					document.getElementById('lab'+i).appendChild(label);
+					var ctx = document.getElementById('tut'+i).getContext('2d');
+
+					//draw rectangle
+					ctx.fillStyle = "#FF3366";
+					ctx.fillRect(15,15,70,70);
+
+					//set composite property
+					ctx.globalCompositeOperation = compositeTypes[i];
+
+					//draw circle
+					ctx.fillStyle = "#0066FF";
+					ctx.beginPath();
+					ctx.arc(75,75,35,0,Math.PI*2,true);
+					ctx.fill();
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="drawShape();">
+		<table border="1" align="center">
+			<tr>
+				<td><canvas id="tut0" width="125" height="125"></canvas><br/>
+					<label id="lab0"></label>
+				</td>
+
+				<td><canvas id="tut1" width="125" height="125"></canvas><br/>
+					<label id="lab1"></label>
+				</td>
+
+				<td><canvas id="tut2" width="125" height="125"></canvas><br/>
+					<label id="lab2"></label>
+				</td>
+			</tr>
+
+			<tr>
+				<td><canvas id="tut3" width="125" height="125"></canvas><br/>
+					<label id="lab3"></label>
+				</td>
+
+				<td><canvas id="tut4" width="125" height="125"></canvas><br/>
+					<label id="lab4"></label>
+				</td>
+
+				<td><canvas id="tut5" width="125" height="125"></canvas><br/>
+					<label id="lab5"></label>
+				</td>
+			</tr>
+
+			<tr>
+				<td><canvas id="tut6" width="125" height="125"></canvas><br/>
+					<label id="lab6"></label>
+				</td>
+
+				<td><canvas id="tut7" width="125" height="125"></canvas><br/>
+					<label id="lab7"></label>
+				</td>
+
+				<td><canvas id="tut8" width="125" height="125"></canvas><br/>
+					<label id ="lab8"></label>
+				</td>
+			</tr>
+
+			<tr>
+				<td><canvas id="tut9" width="125" height="125"></canvas><br/>
+					<label id="lab9"></label>
+				</td>
+
+				<td><canvas id="tut10" width="125" height="125"></canvas><br/>
+					<label id="lab10"></label>
+				</td>
+
+				<td><canvas id="tut11" width="125" height="125"></canvas><br/>
+					<label id="lab11"></label>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+
+The above, would produce a showcase of the differing compositions that we could have.
+
+What follows, are two methods that are important in terms of having JS do Animations for us:
+
+setInterval(callback, time) : Executes the supplied code repeatedly, after the given time
+
+set Timeout(callback, time) : This method only executes the supplied code once after a given time
+
+What follows, is a example of rotating a picture repeatedly:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<script type="text/javascript">
+			var pattern = new Image();
+
+			function animate(){
+				pattern.src = '/html5/images/pattern.jpg';
+				setInterval(drawShape, 100);
+			}
+
+			function drawShape(){
+				// get the canvas element using the DOM
+				var canvas = document.getElemenyById('mycanvas');
+
+				// Make sure we don't call the canvas without it being supported
+				if (canvas.getContext) {
+					var ctx = canvas.getContext('2d');
+
+					ctx.fillStyle = 'rgba(0,0,0,0.4)';
+					ctx.strokeStyle = 'rgba(0,153,255,0.4)';
+					ctx.save();
+					ctx.translate(150, 150);
+
+					var time = new Date();
+					ctx.rotate((2*Math.PI)/6)*time.getSeconds() + ((2*Math.PI)/6000)*time.getMilliSeconds() );
+					ctx.translate(0, 28.5);
+					ctx.drawImage(pattern, -3.5, -3.5);
+					ctx.restore();
+				}
+
+				else {
+					alert('You need Safari or Firefox 1.5+ to view this demo.');
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="animate();">
+		<canvas id="mycanvas" width="400" height="400"></canvas>
+	</body>
+</html>
+
+The above example, runs a animation.
+
+In HTML5 we have native support for Audio and Video.
+
+The simplest form of appending a video, is as follows:
+
+<video src="foo.mp4" width="300" height="200" controls>
+	Your browser does not support <video> element.
+</video>
+
+The above does not define the video format to support in the video tag, what follows, is an example of that:
+NOTE: HTML5 supports many, but mostly commonly are Ogg and mpeg4 files.
+
+<!DOCTYPE HTLM>
+<html>
+<body>
+	<video width="300" height="200" controls autoplay>
+		<source src="/html5/foo.ogg" types="video/ogg" />
+		<source src="/html5/foo.mp4" types="video.mp4" />
+		Your video does not support the <video> element. //NOTE: When we specify like this, the html tries to take the first format that it can recognize, going through ogg and mp4.
+		//if it cannot access any of the above specified, it will resort to this part, that is designated to tell that the video format is not supported.
+	</video>
+</body>
+</html>
+
+The above will produce a video in a autoplayer window
+
+There are a number of attributes associated with the Video tag, in HTML5 as follows:
+
+autoplay : boolean, if specified, will attempt to play back as soon as it can
+
+autobuffer : boolean, if specified, buffering occurs automatically, even if not set to automatically play
+
+controls : if this attribute is present, it allows for control of the user  to set audio, seeking, play etc.
+
+height : This  attribute specifies the height of the video display area, in CSS pixels
+
+loop : boolean, if specified, loops after done
+
+preload : Specifies that the video will be loaded at page load and ready to run. Ignored if autoplay is present
+
+poster : The URL of the image to show until the point of where the video plays
+
+src : The URL of the video to embed. This is an optional arg, can use the <source> element within the vid block to specify the video to embed
+
+width : width, specified in CSS pixels
+
+We can also embed audio, if we wish, which we do in the format of a html or htmlx document:
+
+<audio src="foo.wav" controls autoplay>
+	Your browser does not support the <audio> element.
+</audio>
+
+There are many formats the HTML supports, but the most common ones are ogg, mp3 and wav.
+
+Just as per video, we can append it as such:
+
+<!DOCTYPE HTML>
+<html>
+<body>
+	<audio controls=autoplay>
+		<source src="/html5/audio.ogg" type="audio.ogg" />
+		<source src="/html5/audio.wav" type="audio.wav" />
+	</audio>
+</body>
+</html>
+
+There are a number of attributes associated with the audio tag:
+
+autoplay : Boolean, if specified, will attempt to playback as soon as it can
+
+autobuffer : boolean, if specified, will buffer automatically, even if not set to play
+
+controls : if present, allows user controls
+
+loop : boolean, if specified, audo will attempt to loop
+
+preload : Specifies that audio will be loaded at page load and ready to run. Ignored if autoplay is present
+
+src : The URL of the audio to embed. optional arg, may instead use the <source> element within the video block to specify the audio to embed
+
+Both Audio and Video tags have several related attributes to control stuff, using JS:
+
+abort : This event is generated when playback is aborted
+
+canplay : This event is generated when enough data has been buffered to make play available
+
+ended : When playback completes, this event is generated
+
+error : When an error occurs, this event is generated
+
+loadeddata : This event is triggered when the first frame of media has finished loading.
+
+loadstart : This event is generated when loading of the media begins.
+
+pause : This event is generated when the media is paused.
+
+play : This event is generated when playback starts or resumes.
+
+progress : This event is generated periodically to inform progress of the downloading of the media
+
+ratechange : This event is generated, when the playback speed changes.
+
+seeked : This event is generated when a seek operation completes.
+
+seeking : This event is generated when a seek operation begins.
+
+suspend : This event is generated when loading of the media is suspended.
+
+volumechange : This event is generated when audio volume changes.
+
+waiting : This event is generated, when the request operation (such as playback) is delayed pending the completion of another (such as seek).
+
+What follows, is the code that allows for the actual playing of the video:
+
+<!DOCTYPE HTML>
+<head>
+<script type="text/javascript">
+function PlayVideo(){
+	var v = document.getElementTagName("video")[0];
+	v.play();
+}
+</script>
+</head>
+<html>
+<body>
+	<form>
+	<video width="300" height="200" src="/html5/foo.mp4">
+		Your browser does not support the <video> element.
+	</video>
+	<input type="button" onclick="PlayVideo();" values="Play"/>
+	</form>
+</body>
+</html>
+
+The above code will make it so that we simply get a play button related to the video underneath it, to interact with.
+
+Most servers don't have the appropiate MIME accompanied to the ogg or mp4. Most likely, we will need to set this ourselves, as follows:
+
+AddType audio/ogg .oga
+AddType audio/wav .wav
+AddType video/ogg .ogv .ogg
+AddType video/mp4 .mp4
+
+In HTML5, we have a standardized API that is called Geolocation. Geolocation allows for tracking of GPS position, and can be used to process things to achieve
+stuff as positioning relative to a map or to find local businesses in the area you are projected to be in.
+
+First, we need to designate the geolocation object to operate upon it:
+
+var geolocation = navigator.geolocation;
+
+the object allows support for the following methods:
+
+getCurrentPosition() : This method returns the current geological position of the user.
+
+watchPosition() : This method retrieves periodic updates about the current geographical location of the device.
+
+clearWatch() : This method cancels an ongoing call to watchPosition() 
+
+What follows, is an example of interacting with the said above examples:
+
+function getLocation() {
+	var geolocation = navigator.geolocation;
+	geolocation.getCurrentPosition(showLocation, errorHandler);
+}
+
+The getCurrentPosition has 3 possible args:
+
+showLocation : Specifies the callback method that retrieves the location info. The method is called asyncronoushly with an object
+corresponding to the Position object which stores the returned location information.
+
+ErrorHandler : This optional parameter, specifies the callback method that is invoked when an error occurs in processing the
+asyncrhonous call. This method is called with the PositionError object that stores info about the returned error Info.
+
+options : This optional param, specifies a set of options for retrieving the location info. You can specify the following:
+
+Accuracy of the returned location info.
+
+Timeout for retrieving the location info.
+
+Use of cached location information.
+
+An example of using the above, follows:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<script type="text/javascript">
+			function showLocation(position){
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude;
+				alert("Latitude : " + latitude + " Longitude: " + longitude);
+			}
+
+			function errorHandler(err) {
+				if(err.code == 1){
+					alert("Error: Access is denied!");
+				}
+
+				else if(err.code == 2){
+					alert("Error: Position is unavailable!");
+				}
+			}
+
+			function getLocation(){
+				if(navigator.geolocation){
+					//timeout at 60000 miliseconds (60 seconds)
+					var options = (timeout:60000);
+					navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+				}
+
+				else{
+					alert("Sorry, browser does not support geolocation!");
+				}
+			}
+		</script>
+
+	</head>
+	<body>
+
+		<form>
+			<input type="button" onclick="getLocation();" value="Get Location"/>
+		</form>
+	</body>
+</html>
+
+The above, gets information about the current position.
+
+The watchPosition, gets periodic information about the current position:
+
+The location is expressed as a set of geographic coordinates together with information about heading and speed.
+
+Each update, returns a Position object.
+
+The syntax for watchPosition, is as follows:
+
+watchPosition(showLocation, ErrorHandler, options);
+
+Where the paramas do as follows:
+
+showLocation : This specifies the callback method that retrieves the location information. It is called asynchronously with an object
+coresponding to the Position object, which stores the returned location information.
+
+ErrorHandler : This optional parameter specifies the callback method that is invoked when an error occurs in processing the asynchronous call.
+It is called with the PositionError object that stores the returned info.
+
+options : This optional param, specifies a set of options of retrieving the location info. You can specify the following:
+
+a) Accuracy of the returned location info
+
+b) Timeout for retrieving the location information 
+
+c) Use of cached location info
+
+the Return value of watchPosition is a unique transaction ID, which we can use to cancel the running loop that watchPosition runs.
+
+An example of using watchPosition() follows:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<script type="text/javascript">
+			var watchID;
+			var geoLoc;
+
+			function showLocation(position){
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude;
+				alert("Latitude: " + latitude + " Longitude: " + longitude);
+			}
+
+			function errorHandler(err){
+				if(err.code == 1){
+					alert("Error: Access is denied!");
+				}
+
+				else if( err.code == 2){
+					alert("Error: Position is unavailable!");
+				}
+			}
+
+			function getLocationUpdate(){
+				if(navigator.geolocation){
+					// timeout at 60000 miliseconds (60 secs)
+					var options = (timeout:60000);
+					geoLoc = navigator.geolocation;
+					watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
+				}
+
+				else{
+					alert("Sorry, browser does not support Geolocation!");
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+
+		<form>
+			<input type="button" onclick="getLocationUpdate();" value="Watch Update"/>
+		</form>
+	</body>
+</html>
+
+The final method, which is the geolocation clearWatch API, cancels an ongoing call to retrieve the position with watchPosition.
+
+The syntax, is as follows:
+
+clearWatch(watchId); 
+
+The watchId specifies the unique ID of the watchPosition call to cancel. The Id is returned by the watchPosition call.
+
+This specific method, returns nothing.
+
+What follows, is example of usage of this API:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript">
+			var watchID;
+			var geoLoc;
+
+			function showLocation(position){
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude,
+				alert("Latitude: " + latitude + " Longitude: " + longitude);
+			}
+
+			function errorHandler(err){
+				if(err.code == 1){
+					alert("Error: Access is denied!");
+				}
+
+				else if( err.code == 2) {
+					alert("Error: Position is unavailable.");
+				}
+			}
+
+			function getLocationUpdate(){
+				if(navigator.geolocation){
+					//timeout at 60000 miliseconds (60 seconds)
+					var options = {timeout:60000};
+					geoLoc = navigator.geolocation;
+					watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
+				}
+
+				else{
+					alert("Sorry, browser does not support geolocation!");
+				}
+			}
+
+			function stopWatch(){
+				geoLoc.clearWatch(watchID);
+			}
+		</script>
+	</head>
+
+	<body>
+
+		<form>
+			<input type="button" onclick="getLocationUpdate();" value="Watch Update"/>
+			<input type="button" onclick="stopWatch();" value="Stop Watch"/>
+		</form>
+	</body>
+</html>
+
+The above will give us two buttons, one which provides availability for watching position, the other for stopping
+
+What follows, is a list of the attributes that relate to the position object which we get in terms of the location object:
+
+Property 			type 					Desc
+
+coords : 			objects 				Specifies the geographic location of the device.
+											The location is expressed as a set of geographic coords together with info about heading and speed.
+
+coords.latitude 	number 					Specifies the latitude estimate in decimal degrees. The value range is -90.00 to +90.00
+
+cords.longitude 	number 					Specifies the longitude estimate in decimal degrees, the value range is -180 to +180
+
+coords.altitude 	number 					(OPTIONAL) Specifies the altitude in meters above the WSG 84 elipsoid
+
+coords.accuracy 	number 					(OPTIONAL) Specifies the accuracy of the latidue and longitude estimates in meters.
+
+coords.altitudeAccuracy number 				(OPTIONAL) Specifies the accuracy of the altitude estimate in meters.
+
+coords.heading 		number 					(OPTIONAL) Specifies the device's current direciton of movement in degrees counting clockwise relative to true north
+
+coords.speed 		number 					(OPTIONAL) Specifies the devices current ground speed in m/s
+
+timestamp 			date 					Specifies the time when the location information was retrieved and the Position object was created
+
+A simple example of the above, follows:
+
+function showLocation ( position ) {
+		var latitude = position.coords.latitude;
+		var longitude = position.coords.longitude;
+		....
+}
+
+Since Geolocation is very complicated, to handle a error, when it can occur, is vital.
+
+There are two attributes to the Error object, from GeoLocation, as follows:
+
+Property 				Type 				Description
+ 
+code : 					Number 				Contains a numeric code for the error.
+
+message 				String 				Contains a human-readable description of the error.
+
+The errorcodes, are as follows:
+
+Code 	Constant 			Desc
+
+0 : Unknown error : The method failed to retrieve positon due to a unknown error 
+
+1 : PERMISSION_DENIED : The method failed to retrieve the location of the device because the app does not have the permission to use the Location
+service.
+
+2 : POSITON_UNAVAILABLE : The location of the device could not be determined.
+
+3 : TIMEOUT : 			  The method was unable to retrieve the location information within the specified maximum timeout interval.
+
+A simple example of how to handle errors follows:
+
+function errorHandler( err ) {
+	if (err.code == 1)
+		//access is dnied
+	}
+	....
+
+}
+
+What follows, are the options for getCurrentPosition(callback, ErrorCallback, options)
+
+Property 					Type 				Desc
+
+enableHighAccuracy 			Boolean 			Specifies wether the widget wants to recieve the most accurate location most possible. is False by default
+
+timeout 					number 				The timeout property is the number of miliseconds your web application is willign to wait for a position
+
+maximumAge 					number 				Specifies the expiration time for cached location information 
+
+What follows, is a simple example of interacting with the above:
+
+function getLocation() {
+		var geolocation = navigator.geolocation;
+		geolocation.getCurrentPosition(showLocation, errorHandler, {maximumAge: 75000});
+}
+
+in HTML, if we were to have additional semantics for our webpage, to customize our own elements and start embedding
+custom properties - then we can use something called Microdata.
+
+microdata, on a high level, consists of a group of name-value relations. Each item is called a group, and each each name-value pair is
+a property. 
+
+To create an item, we use the itemscope attribute and to add properties, we have to use the itemprop attribute on one of the item's descendants.
+
+An example:
+
+<html>
+	<body>
+		<div itemscope>
+			<p>My name is <span itemprop="name">Zara</span>.</p>
+		</div>
+
+		<div itemscope>
+			<p>My name is <span itemprop="name">Nuha</span>.</p>
+		</div>
+	</body>
+</html>
+
+It will produce:
+
+My name is Zara.
+
+My name is Nuha.
+
+Properties generally have values that are strings, but can also have URLs.
+
+Microdata, also introduces 5 global attributes, which any element can use and give context for machines about your data:
+
+itemscope : This used to create an item. The itemscope attribute is a boolean attribute that tells that there is Microdata on this page, and this is where it starts.
+
+itemtype : This attribute is a valid URL which defines the item and provides the context for the properties
+
+itemid : This attribute is a global identifier for the item.
+
+itemprop : This attribute defines a property of the item.
+
+itemref : This attribute gives a list of additional elements to crawl to find the name-value pairs of the item.
+
+What follows, is an example where a Property Datatype has a URL as it's value:
+
+<div itemscope>
+	<img itemprops="image" src="tp-logo.gif" alt="TutorialsPoint">
+</div>
+
+Properties can also have times, dates as attributes. This is shown, in the following example:
+
+<html>
+	<body>
+
+		<div itemscope>
+			My birthday is:
+			<time itemprop="birthday" datetime="1971-05-08">
+				Aug 5th 1971
+			</time>
+		</div>
+	</body>
+</html>
+
+Furthermore, Properties themselves can be groups of name-value pairs, by putting the itemscope attribute on the element that declares the property.
+
+if a browser supports microdata, ther will be a getItems() function on the global document object. If it doesn't, it will be undefined.
+
+Modernzir does not support this function, so to get it in that context, we have to use one that looks like this:
+
+function supports_microdata_api(){
+	return !!document.getItems;
+}
+
+The HTML5 Microdata standard includes both HTML Markup (primary for search engines) and a set of DOM functions (primary for browsers)
+
+You can include microdata markup in your web pages, and search engines that don't understand them will jsut ignore them.
+But if you need access or manipulate the data through DOM, you'll need to check wether the browser supports microdata DOM API.
+
+If we wish, we could define our own microdata vocabulary, which would require us to redirect to a valid URL, for example http://data-vocabulary.org/Person
+This example, could be, for instance, used for the following:
+
+name : Person name as a simple string
+
+Photo : a URL to a picture of said person
+
+URL : A website belonging to the person
+
+Using about properties a person microdata could be as follows:
+
+<html>
+	<body>
+
+		<div itemscope>
+			<section itemscope itemtype="http://data-vocabulary.org/Person">
+				<h1 itemprop="name">Gopal K Varma</h1>
+
+				<p>
+					<img itemprop="photo" src="http://www.tutorialspoint.com/green/images/logo.png">
+				</p>
+
+				<a itemprop="url" href="#">Site</a>
+			</section>
+		</div>
+	</body>
+</html>
+
+The above example would lead to a link and having the image above said link
+
+In HTML5, we have support for DnD (Drag and Drop) interaction with websites to drag elements etc.
+
+In earlier versions, you had to write complicated JS scripts for that part, but now it's integrated into the DnD API.
+
+The following, is a list of the different event of which can occur in terms of Drag and Drop:
+
+dragstart = Fires when the user starts dragging of the object.
+
+dragenter = Fired when the mouse is first moved over the target element while a drag is occuring. A listener for this event should
+indicate wether a drop is allowed over this location. if there is no listener, or the listeners perform no operations, then a drop is not
+allowed by default.
+
+dragover = This event is fired as the mouse is moved over an element when a drag is occuring. Much of the time, the operation that occurs
+during a listener will be the same as the dragenter event.
+
+dragleave = This event is fired when the mouse leaves an element while a drag is occurring. Listeners should remove any highlightning or insertion
+markers used for drop feedback.
+
+drag = Fires every time the mouse is moved while the object is being dragged.
+
+drop = The drop event is fired on the element where the drop was occured at the end of the drag operation. A listener would be responsible for
+retrieving the data being dragged and inserting it at the drop location.
+
+dragend = Fires when the user releases the mouse button while dragging an object.
+
+All of the event listener methods that relate to drag and drop, accept a Event object which has a readonly attribute called dataTransfer.
+
+the event.datatransfer returns DataTransfer object associated with the event as follows:
+
+function EnterHandler(event) {
+	DataTransfer dt = event.dataTransfer;
+	..................
+}
+
+The DataTransfer object holds data about the drag and drop operation. This data can be 
+retrieved and set in terms of various attributes associated with DataTransfer object as follows:
+
+dataTransfer.dropEffect [ = value ] : Returns the kind of operation that is selected, can be set to change selected operation.
+Possible values are as follows: none, copy, copyLink, copyMove, link, linkMove, move, all and uninitialized.
+
+dataTransfer.effectAllowed [ = value ] : Returns the kinds of operations that are to be allowed. Can be set.
+Possible values are: none, copy, copyLink, copyMove, link, linkMove, move, all and uninitialized.
+
+dataTransfer.types : Returns a DOMStringList listing the formats that were set in the dragstart event.
+In addition, if any files are being dragged, then one of the types will be the string "Files".
+
+dataTransfer.clearData( [format] ) : Removes the data of the specified formats. Removes all data if the argument is omitted.
+
+dataTransfer.setData(format, data) : Adds the specified data.
+
+data = dataTransfer.getData(format) : Returns the specified data. If there is no such data, returns the empty string.
+
+dataTransfer.files : returns a FileList of the files being dragged, if any.
+
+dataTransfer.setDragImage(element, x, y) : Uses the given element to update the drag feedback, replacing any previously specified feedback.
+
+dataTransfer.addElement(element) : Adds the given element to the list of elements used to render the drag feedback.
+
+What follows, is an example of how to make a designated object dragable:
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<style type="text/css">
+#boxA, #boxB {
+	float:left;padding:10px;margin:10px; -moz-user-select:none;
+}
+#boxA { background-color: #6633FF; width:75px; height:75px; }
+#boxB { background-color: #FF6699; width:150px; height:150px; }
+</style>
+<script type="text/javascript">
+function dragStart(ev) {
+	ev.dataTransfer.effectAllowed='move';
+	ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+	ev.dataTransfer.setDragImage(ev.target,0,0);
+	return true;
+}
+</script>
+</head>
+
+<body>
+<center>
+<h2>Drag and drop HTML5 demo</h2>
+<div>Try to drag the purple box around.</div>
+
+<div id="boxA" draggable="true" ondragstart="return dragStart(event)">
+	<p>Drag Me</p>
+</div>
+<div id="boxB">Dustbin</div>
+</center>
+</body>
+</html>
+
+The aboive code enables dragging. If we wish to put in functions of dropping as well, what follows, is an example of such:
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<style type="text/css">
+#boxA, #boxB {
+	float:left;padding:10px;margin:10px;-moz-user-select:none;
+}
+#boxA { background-color : #6633FF; width:75px; height:75px; }
+#boxB { background-color : #FF6699; width:150px; height:150px; }
+</style>
+<script type="text/javascript">
+function dragStart(ev) {
+	ev.dataTransfer.effectAllowed='move';
+	ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+	ev.dataTransfer.setDragImage(ev.target,0,0);
+	return true;
+}
+function dragEnter(ev) {
+	event.preventDefault();
+	return true;
+}
+function dragOver(ev) {
+	return false;
+}
+function dragDrop(ev){
+	var src = ev.dataTransfer.getData("Text");
+	ev.target.appendChild(document.getElementById(src));
+	ev.stopPropagation();
+	return false;
+}
+</script>
+</head>
+<body>
+<center>
+<h2>Drag and drop HTML5 demo</h2>
+<div>Try to move the purple box into the pink one!</div>
+
+<div id="boxA" draggable="true" ondragstart="return dragStart(event)">
+	<p>Drag me</p>
+</div>
+<div id="boxB" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">Dustbin</div>
+</center>
+</body>
+</html>
+
+
+Javascript was designed with single-threading in mind ; What follows, is an example of a really big loop, that causes the browser to hang:
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Big for loop</title>
+	<script>
+		function bigLoop(){
+			for (var i = 0; i <= 1000000000000; i += 1){
+				var j = i;
+			}
+			alert ("Completed " + j + "iterations.");
+		}
+		function sayHello(){
+			alert("Hello sir....");
+		}
+	</script>
+</head>
+<body>
+	<input type="button" onclick="bigLoop();" value="Big Loop" />
+	<input type="button" onclick="sayHello();" value="Say Hello" />
+</body>
+</html>
+
+The above produces two buttons, if we were to click bigloop, it would crash.
+
+Basically, if we have a really heavyweight background process that we wish to run whilst keeping it concurrent with the rest of the working,
+we could use something called Web Workers. NOTE: Do not run many of these. They are very prestanda heavy, and they do not have direct access
+to the Elements of the Webpage, as per the window.document.
+
+To initialize a Web Worker, we have to apply the Script as a argument to the function that is going to be run as a Web Worker, as follows:
+
+var worker = new Worker('bigLoop.js');
+
+If the specified JS exists, the browser will spawn a new worker thread, which is downloaded asyncrhonously. If the path to your worker 
+returns a 404 error, the worker will fail silently.
+
+If our app has multiple supporting JS scripts, we can import them with the importScripts() method, which takes filenames seperated by ,
+as follows:
+
+importScripts("helper.js", "anotherHelper.js");
+
+Once a web worker is spawned, it can interact on the basis of the postMessage() method. Depending on our browser/version,
+postMessage() can accept either a String or JSON object as it's single argument.
+
+The message passed by the Web Worker, is accessed by using the onmessage event in the main page. What follows, is an example, of using a web worker:
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Big for loop</title>
+	<script>
+		var worker = new Worker('bigLoop.js');
+		worker.onmessage = function (event) {
+			alert("Completed " + event.data + "iterations.");
+		};
+
+		function sayHello(){
+			alert("Hello Sir!");
+		}
+	</script>
+</head>
+</body>
+	<input type="button" onclick="sayHello();" value="Say Hello"/>
+</body>
+</html>
+
+The contents of the js file, bigLoop, is as follows:
+
+for (var i = 0; i <= 1000000000; i += 1){
+	var j = i;
+}
+
+postMessage(j);
+
+A web Worker, does not stop by itself. To stop a webworker, we must call the worker.terminate(); to make it quit.
+
+if we wish to implement errorhanlding in form of logging errors to the console, we could do as follows:
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Big for loop</title>
+	<script>
+		var worker = new Worker('bigLoop.js');
+
+		worker.onmessage = function (event) {
+			alert("Completed " + event.data + "iterations");
+		};
+
+		worker.onerror = function (event) {
+			console.log(event.message, event);
+		};
+
+		function sayHello(){
+			alert("Hello sir!");
+		}
+	</script>
+</head>
+<body>
+	<input type="button" onclick="sayHello();" value="Say Hello" />
+</body>
+</html>
+
+If we wish to find out if a web browser supports a web worker, we could do the following:
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Big for loop</title>
+	<script src="/js/modernizr-1.5.min.js"></script>
+	<script>
+	if (Modernizr.webworkers){
+		alert("Congrats! You have web workers Support!);
+	}
+	else{
+		alert("Sorry! No luck, no support.");
+	}
+	</script>
+</head>
+<body>
+	<p>Checking for browser support for web workers</p>
+</body>
+</html>
+
+To store larger sets of information in client side programs, we can use IndexedDB's - since the Web SQL is a deprecated version.
+
+IndexedDB's are the following:
+
+Not a relation DB 
+
+asynchronous //it is asyncrhonous, meaning it does things whenever it feels for it
+
+not a structed query language //does not take queries ala SQL
+
+stores key-pair values
+
+support to access the data from the same domain
+
+Before we enter into a indexedDB, we have to do some prefixes of information:
+
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTansaction || window.msIDBTransaction;
+
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
+
+if (!window.indexedDB){
+	window.alert("Your browser does not support a stable version of indexedDB")
+}
+
+Before we open the indexed DB, we also have to create data for it, which we can do as follows:
+
+const employeeData = [ {id:"01", name: "Gopal K Varma", age: 35, email:"contact@tutorialspoint.com" }, {id:"02", name: "Prasad", age: 24, email: "prasad@tutorialspoint.com"}];
+
+To add the data, we can do as follows:
+
+function add() {
+	var request = db.transaction(["employee"], "readwrite")
+	.objectStore("employee")
+	.add({ id: "01", name: "prasad", age: 24, email: "prasad@tutorialspoint.com"});
+
+	request.onsuccess = function(event) {
+		alert("Prasad has been added to your database.");
+	}
+
+	request.onerror = function(event) {
+		alert("unable to add data\r\nPrasad already exists in your DB");
+	}
+}
+
+We can retrieve the data, with get methods, as follows:
+
+function read(){
+	var transaction = db.transaction(["employee"]);
+	var objectStore = transaction.objectStore("employee");
+	var request = objectStore.get("00-03");
+
+	request.onerror = function(event) {
+		alert("Unable to retrieve data from DB");
+	};
+
+	request.onsuccess = function(event) {
+		if(request.result) {
+			alert("Name: " + request.result.name + ", Age: " + request.result.age + ", Email: " + request.result.email);
+		}
+
+		else{
+			alert("Kenny couldn't be found in your DB");
+		}
+	};
+}
+
+Instead of saving the data in a object, we can save the data in a cursor, as follows:
+
+function readAll(){
+	var objectStore = db.transaction("employee").objectStore("employee");
+
+	objectStore.openCursor().onsuccess = function(event) {
+		var cursor = event.target.result;
+
+		if (cursor) {
+			alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
+			cursor.continue();
+		}
+
+		else{
+			alert("No more entries!");
+		}
+	};
+}
+
+
+We can also remove data from the DB, as follows:
+
+function remove(){
+	var request = db.transaction(["employee"], "readwrite")
+	.objectStore("employee")
+	.delete("02");
+
+	request.onsuccess = function(event) {
+		alert("prasad entry has been removed from your DB");
+	};
+}
+
+To show all of the data, we need to use a onClick event, as follows:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>IndexedDb Demo | onlyWebPro.com</title>
+
+	</head>
+	<body>
+
+		<button onclick="read()">Read </button>
+		<button onclick="readAll()"></buton>
+		<button onclick="add()"></button>
+		<button onclick="remove()">Delete </button>
+
+	</body>
+</html>
+
+The final code we would get, would look as follows:
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript">
+			//Arrange the prefixes 
+			window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+			//Prefixes for the window.IDB object
+			window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+
+			window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
+
+			if (!window.indexedDB) {
+				window.alert("Your browser does not support a stable version of IndexedDB")
+			}
+
+			const employeeData = [{ id: "00-01", name: "gopal", age: 35, email: "gopal@tutorialspoint.com" }, { id: "00-02", name :"prasad", age: 32,
+									email: "prasad@tutorialspoint.com" }
+									];
+
+			var db;
+			var request = window.indexedDB.open("newDatabase", 1);
+
+			request.onerror = function(event) {
+				
+				console.log("Error: ");
+			};
+
+			request.onsuccess = function(event) {
+				db = request.result;
+				console.log("success: " + db);
+			};
+
+			request.onupgradeneeded = function(event) {
+				var db = event.target.result;
+				var objectStore = db.createObjectStore("employee", {keyPath: "id"});
+
+				for (var i in employeeData) {
+					objectStore.add(employeeData[i]);
+				}
+			}
+
+			function read() {
+				var transaction = db.transaction(["employee"]);
+				var objectStore = transaction.objectStore("employee");
+				var request = objectStore.get("00-03");
+
+				request.onerror = function(event) {
+					alert("Unable to retrieve data from DB");
+				}
+			};
+
+			request.onsuccess = function(event) {
+				//do something with the request.result;
+				if(request.result){
+					alert("Name: " + request.result.name + " Age: " + request.result.age + ", Email: " + request.result.email);
+				}
+
+				else{
+					alert("Kenny couldn't be found in the DB, lol");
+				}
+
+
+				};
+			}
+
+
+			function readAll() {
+				var objectStore = db.transaction("employee").objectStore("employee");
+
+				objectStore.openCursor().onsuccess = function(event) {
+					var cursor = event.target.result;
+
+					if(cursor){
+						alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
+						cursor.continue();
+					}
+					else{
+						alert("No more entries!");
+					}
+				};
+			}
+
+			function add(){
+				var request = db.transaction(["employee"], "readwrite")
+				.objectStore("employee")
+				.add({ id: "00-03", name: "Kenny", age: 19, email: "kenny@planet.org" });
+
+				request.onsuccess = function(event){
+					alert("Kenny has been added to your DB");
+				};
+
+				request.onerror = function(event){
+					alert("Unable to add data\r\nKenny already exists in your DB!");
+				}
+			}
+
+			function remove(){
+				var request = db.transaction(["employee"], "readwrite")
+				.objectStore("employee")
+				.delete("00-03");
+
+				request.onsuccess = function(event) {
+					alert("Kenny's entry has been removed from your DB");
+				};
+			}
+		</script>
+	</head>
+	<body>
+		<button onclick="read()">Read</button>
+		<button onclick="readAll()">Read all </button>
+		<button onclick="add()">Add data </button>
+		<button onclick="remove()">Delete data </button>
+	</body>
+</html>
+
+
+NOTE ON THE ABOVE: Some indention error exists in the above code, but the principle holds the same
+
+Within web interaction, there are different setups of relevant sections - and trying to transgress these in normal cases,
+causes security exception. To bypass this, we use something called Web Messaging:
+
+Web messaging causes a web message object, which can be transported over the following:
+
+cross-document
+
+channel messaging
+
+server-sent events
+
+websockets
+
+The attributes of a message object, is as follows:
+
+data : Contains string data
+
+origin : Contains Domain name and port
+
+lastEventId : Contains unique identifier for the current message event
+
+source : Contains to A reference to the originating document's window
+
+ports : Contains the data which is sent by any message port
+
+Before we send messages cross-document, we need to create a new web browsing context either by creating new iframe or new window. We can send
+the data using the postMessage() method. postMessage() has two args, as follows:
+
+message : The message to send
+
+targetOrigin : origin name
+
+What follows, is an example of sending messages from iframe to a button:
+
+var iframe = document.querySelector('iframe');
+var button = document.querySelector('button');
+
+var clickHandler = function(){
+	iframe.contentWindow.postMessage('The message to send', 'https://www.tutorialspoint.com');
+}
+
+button.addEventListener('click', clickHandler, false);
+
+The recieving end, would look as follows:
+
+var messageEventHandler = function(event){
+	//check that the origin is one we want
+	if(event.origin == 'https://www.tutorialspoint.com'){
+		alert(event.data);
+	}
+}
+window.addEventListener('message', messageEventHandler, false);
+
+When two channels communicate, it creates two ports and sends data over said ports.
+There are three related functions, to this, as follows:
+
+postMessage() : Posts the message through the channel
+
+start() 	: Sends the data
+
+close() 	: Stops the data
+
+What follows, is a example of how to interact with the messageChannel:
+
+var loadhandler = function(){
+	var mc, portMessageHandler;
+	mc = new MessageChannel();
+
+window.parent.postMessage('documentAHasLoaded', 'http://foo.example.com', [mc.port2]);
+
+	
+	portMessageHandler = function(postMsgEvent){
+		alert( portMsgEvent.data );
+	}
+
+	mc.port1.addEventListener('message', portMessageHandler, false);
+
+	mc.port1.start();
+}
+window.addEventListener('DOMContentLoaded', loadHandler, false);
+
+In the above code, it is taking data from port 2, what follows, is code where it passes it to the second iframe:
+
+var loadhandler = function(){
+	var iframes, messageHandler;
+
+	iframes = window.frames;
+	messageHandler = function(messageEvent){
+		if( messageEvent.ports.length > 0){
+			//Transfer the port to iframe[1]
+
+		 	iframes[1].postMessage('portopen', 'http://foo.example', messageEvent.ports);
+		}
+	}
+
+	window.addEventListener('message', messageHandler, false);
+}
+window.addEventListener('DOMContentLoaded', loadHandler, false);
+
+Now, the second document will handle the data by using the portMsgHandler function:
+
+var loadHandler(){
+	//Define our message handler function
+	var messageHandler = function(messageEvent){
+
+		//Our form submission handler
+		var formHandler = function(){
+			var msg = 'add <foo@example.com> to game circle.';
+			messageEvent.ports[0].postMessage(msg);
+		}
+		document.forms[0].addEventListener('submit', formHandler, false);
+	}
+	window.addEventListener('message', messageHandler, false);
+}
+window.addEventListener('DOMContentLoaded', loadHandler, false);
+
+In HTML5, there is also something called CORS. A CORS, is a Cross Original Resource Sharing. Which means, basically,
+requests as such to use your microphone, your sound output source, or whatever - This is a kind of request for thoose kinds of things.
+
+What follows, is an example of how to make a CORS request:
+
+function createCORSRequest(method, url) {
+	var xhr = new XMLHttpRequest();
+
+	if("withCredentials" in xhr){
+		//Check if the XMLHttpRequest object has a "withCredentials" property.
+		//"withCredentials" only exists in XMLHttpRequest2 objects
+		xhr.open(method, url, true);
+	}
+	else if (typeof XDomainRequest != "undefined"){
+		//Otherwise, check if XDomainRequest
+		//XDomainRequest only exists in IE, and is IE's way of making CORS requests
+		xhr = new XDomainRequest();
+		xhr.open(method,url);
+	}
+
+	else{
+		//Otherwise, CORS is not supported by your Browser
+		xhr = null;
+	}
+	return xhr;
+}
+var xhr = createCORSRequest('GET', url);
+if (!xhr) {
+	throw new Error('CORS not supported');
+}
+
+What follows, is a list of event handling, in terms of CORS:
+
+onloadstart : Starts the request
+
+onprogress : Loads the data and send the data
+
+onabort : Abort the request
+
+onerror : request has failed
+
+onload : Request load succesfully
+
+ontimeout : Time out has happened before request could complete
+
+onloadend : When the request is complete either successful or failure
+
+What follows, is an example of onload or onerror events:
+
+xhr.onload() = function() {
+	var responseText = xhr.responseText;
+
+	//Process the response
+	console.log(responseText);
+};
+
+xhr.onerror = function(){
+	console.log('Oops, something went wrong.');
+}
+
+What follows, is examples of making CorsRequests and the Handler for such:
+
+//Create the XHR object.
+function createCORSRequest(method, url){
+	var xhr = new XMLHttpRequest();
+
+	if("withCredentials" in xhr){
+		//XHR for Chrome/Firefox/Safari
+		xhr.open(method, url, true);
+	}
+
+	else if(typeof XDomainRequest != "undefined"){
+		//XDomainRequest for IE.
+		xhr = new XDomainRequest();
+		xhr.open(method, url);
+	}
+
+	else{
+		//CORS not supported
+		xhr = null;
+	}
+	return xhr;
+}
+
+//Helper method to parse the title tag from response.
+function getTitle(text){
+	return text.match('<title>(.*)?</title>')[1]; //get the matching element of text versus the Title extracted
+}
+
+//Make the Actual CORS Request
+function makeCorsRequest(){
+	//ALL HTML5 Rocks properties support CORS
+	var url = 'http://tutorialspoint.com';
+
+	var xhr = createCORSRequest('GET', url);
+
+	if (!xhr){
+		alert('CORS not supported!');
+		return;
+	}
+
+
+	//Response handlers
+	xhr.onload = function(){
+		var text = xhr.responseText;
+		var title = getTitle(text);
+		alert('Response from CORS request to ' + url + ': ' + title);
+
+	};
+
+	xhr.onerror = function(){
+		alert('Woops, there was an error making the request.');
+	};
+	xhr.send();
+}
+
+Web RTC is the concept of Browser to browser voice calling, video chat and P2P file sharing.
+
+Web RTC's implements 3 API's, as follows:
+
+MediaStream : Gets access to the user's Camera and Microphone
+
+RTCPeerConnection : gets access to audio or video calling facility
+
+RTCDataChannel : gets access to peer-to-peer communication
+
+The mediastream is the synchronized streams of media. What follows, is an example of how to interact with MediaStreams, as follows:
+
+function gotStream(stream){
+	window.AudioContext = window.AudioContext || window.webkitAudioContext;
+	var audioContext = new AudioContext();
+
+	//Create an AudioNode from the stream
+	var mediaStreamSource = audioContext.createMediaStreamSource(stream);
+
+	//Connect it to destination to hear yourself
+	//or any other node for processing!
+	mediaStreamSource.connect(audioContext, destination);
+}
+navigator.getUserMedia({audio:true}, gotStream);
+
+Web RTC requires peer-to-peer communication between browsers. This mechanism requires signaling, network info, session control and media info.
+
+Web Developers can choose different mechanisms for this task, such as SIP or XMPP or any two way communications. 
+
+What follows, is a code example illustrating how to create a Signaling Channel:
+
+var signalingChannel = createSignalingChannel();
+var pc;
+var configuration = ...;
+
+//Run start(true) to initiate a call
+function start(isCaller){
+	pc = new RTCPeerConnection(configuration);
+
+	// Send any ice candiates to the other peer
+	pc.onicecandidate = function (evt) {
+		signalingChannel.send(JSON.stringify({ "candidate": evt.candidate}));
+	};
+
+	//Once remote stream arrives, show it in the remote video element
+	pc.onaddstream = function (evt) {
+		remoteView.src = URL.createObjectURL(evt.stream);
+	};
+
+	//get the local stream, show it in the local video element and send it 
+	navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+	selfView.src = URL.createObjectURL(stream);
+	pc.addStream(stream);
+
+	if(isCaller)
+		pc.createOffer(gotDescription);
+	
+	else
+		pc.createAnswer(pc.remoteDescription, gotDescription);
+
+		function gotDescription(desc) {
+			pc.setLocalDescription(desc);
+			signalingChannel.send(JSON.stringify({ "sdp": desc}));
+
+		}
+	});
+
+}
+
+	signalingChannel.onmessage = function(evt) {
+		if (!pc)
+			start(false);
+			var signal = JSON.parse(evt.data);
+
+		if (signal.sdp)
+			pc.setRemoteDescription(new RTCSessionDescription(signal.sdp));
+
+		else
+			pc.addIceCandidate(new RTCIceCandidate(signal.candidate));
+};
+
+NOTE: Same error as before, indention somewhere gone wrong, but the syntax generally holds.

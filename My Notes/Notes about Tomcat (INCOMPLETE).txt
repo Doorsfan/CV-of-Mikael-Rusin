@@ -1,0 +1,370 @@
+An XML representation of the relation of the JVM to Tomcat:
+
+<Server> //The Catalina Servlet engine, may contain 1 or more Service containers
+	<Service> //Holds one or more connector containers, 
+			<Connector /> //Defines the class that handles requests and responses to and from a calling client app
+			<Engine> //Shared between all Connector elements, handles all requests recieved by Connector components defined by the parent Service
+					<Host> //Virtual hosts of the Catalina Servlet engine
+							<Context></Context> //Represents a Individual Web App
+					</Host>
+			</Engine>
+	</Service>
+</Server>
+
+To have easier access to Tomcat, as in accessing the Cmd line with it etc, we need to manually install it on Windows.
+
+After we have installed it, we just add the Root path for your Tomcat dir to our System path. 
+
+We simply go to System interface, Environment Variables, add new Path, write out Dir of Tomcat
+
+When we have installed and started up our Tomcat server, we can find it at http://localhost:8080/
+
+If we wish to change hte port, we go to the Xml and change the port to 80, which is akin to other Apache servers etc.
+
+We can find the Xml in CATALINA_HOME/conf/server.xml //CATALINA_HOME is just your tomcat dir
+
+The dirs within our CATALINA_HOME (installation path to Tomcat), is as follows:
+
+/bin //Contains startup and shutdown scripts and Jars with classes for Tomcat to start up
+
+/conf //Contains the main config files for Tomcat, the most important being server.xml and web.xml
+
+/lib //Contains all shared Java libs, All web apps through Tomcat can access this to get the Servlet API and JSP API libs.
+
+/logs //Contains Tomcat's log files
+
+/temp //Temp file system storage
+
+/webapps //The dir where all web apps are deployed, and where we place our WAR file when its ready for deployment
+
+/work //Tomcats working dir where Tomcat places all servlets that are generated from JSPs. If you wish to know how a JSP is interpeted, look into this dir.
+
+All tomcat executable files exist in /bin, we can find the catalina.bat or catalina.sh (linux) file here, which is the script to handle Tomcat.
+
+We can simply start Catlina from commandline with catlina start or catlina stop to stop the server
+
+The commands we can do:
+
+catalina start //Stars the server as a detached process. on Windows, Tomcat starts in a New Cmd prompt. on Linux it goes background.
+
+catalina stop //Stops the server
+
+catalina run //Starts the Tomcat server in the current window/terminal. On windows, the output is added to the current command prompt window. In Linux it will run in current terminal session. Useful for diagnosing why Tomcat fails to start
+
+catalina debug //Starts Tomcat in Debug mode
+
+catalina version //Displays the version of Tomcat
+
+catalina configtest //Checks to see that configs are correct.
+
+catalina jpda start //Starts Tomcat in Java Platform Debugging Architechture debug mode
+
+We can also add -security so Tomcat starts with security manager enabled.
+
+-Security can block external calls, such as System.exit(1) and unauthorized calls from Third-party Components.
+
+The JAVA_OPTS variable contains our Option configurations. An example:
+
+export JAVA_OPTS = "-Dfile.encoding=utf-8"
+
+However, JAVA_OPTS goes for all JVM related things. To do it just to Tomcat:
+
+export CATALINA_OPTS=" -Xms256m -Xmx1g -XX:MaxPermSize=256m" //Sets memory allocation of server to 1 gig
+
+The main file of Tomcat, is the server.xml in our conf dir
+
+The context.xml contains all configs for Tomcat related stuff
+
+Each context can have their own respective Configs, in CATALINA_HOME/conf/ENGINE_NAME/HOST_NAME/CONTEXT_NAME.xml
+
+For example, if it is run on localhost, with Tomcat, with Apress:
+
+CATALINA_HOME/conf/Catalina/localhost/apress.xml
+
+A webb app, is a container that can hold any of the following things:
+
+Servlets
+
+Java Server Pages (JPSs)
+
+Utility Classes
+
+Static documents, including HTML, images, Javascript libs, CSS, etc.
+
+Client-side classes
+
+Meta-info describing the Web app
+
+One of the main characteristics of a web app is the relationship to the ServletContext.
+Each web app has one and only one ServletContext. It is controlled by the Servlet container, to guarantee singular control to Web apps.
+
+The dir structure, in a Server setup, is as follows:
+
+/apress //root dir, all JSP, HTML goes here. All seperate static content (JS, styles, images are put into respective sub-dirs)
+
+/apress/WEB-INF //Contains all resources related to the App that are not in the document root of the App. This is where your web app
+				deployment descriptor is located. No files in this dir, can be directly requested by a client.
+
+/apress/WEB-INF/classes //Where servlet and utility classes are located
+
+/apress/WEB-INF/lib //Contains Jar files that relates to the Web app, such as the JDBC driver or JSP tag library
+
+It loads classes in the order of classes -> lib, if there are duplicates, first occurence of classes takes precedence.
+
+In the WEB-INF, we can find the main xml, web.xml, the info in it, is the following things:
+
+Servlet definitions
+
+Servlet initialization parameters
+
+Session Config params
+
+Servlet/JSP mappings
+
+MIME type mappings
+
+Security config params
+
+Welcome file list
+
+List of Error pages
+
+Resources and Env variable defs
+
+An example of a web.xml follows:
+
+<web-app>
+		<display-name>
+					Apress demo
+		</display-name>
+
+		<servlet>
+				<servlet-name>TestServlet</servlet-name>
+				<servlet-class>
+							com.apress.TestServlet
+				</servlet-class>
+				<load-on-startup>1</load-on-startup>
+				<init-param>
+						<param-name>name</param-name>
+						<param-value>value</param-value>
+				</init-param>
+		</servlet>
+
+		<session-timeout>30</session-timeout> //logs you out after 30 minutes of inactivity, due to the session being lost
+</web-app>
+
+To build a web-app, we begin by building the dir structure, in CATALINA_HOME/webapps:
+
+/apress //acts as root dir
+
+/apress/WEB-INF
+
+/apress/WEB-INF/classes
+
+/apress/WEB-INF/lib
+
+For the actual stuff we are going to use for Tomcat, later on, we build a WAR file, that we send to Tomcat.
+
+We then must add a deployment descriptor, which is the web.xml, a default web.xml looks as follows:
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+						http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" //The servlent version is 3 that we support, so we reference that here
+	version="3.0">
+</web-app>
+
+The XML Schema verifies the correct Servlet API version.
+
+To add static files into our server, we simply add a dir on the same level as apress:
+
+/apress
+
+/apress/WEB-INF/
+
+/apress/images/
+
+/apress/scripts/
+
+/apress/styles/
+
+To then access the stuff, we could just direct ourselves to the relevant place:
+
+http://localhost:8080/apress/images/logo.jpg //example of a picture that wil lrender directly to the site
+
+The JSPs (java server pages), are extensions of Java Servlets, that allow for directi nsertion of Java logic into the website, if we wish.
+
+All we have to do, in Tomcat, is make our JSPs (.jsp or jspx), an example of a simple barebones text deploy follows:
+
+<%@ import="java.util.Calendar" %>
+
+<html>
+<head>
+	<title>Apress Demo</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+	<div class="content">
+		<b>Welcome to Apress</b>
+
+		<p>Today is <%=Calendar.getInstance().getTime()%>
+		</p>
+
+		<%
+			String greeting;
+			int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+			if (hourOfDay < 12){
+				greeting = "Good Morning";
+			} else if (hourOfDay >= 12 && hourOfDay < 19){
+				greeting = "Good Afternoon";
+			} else {
+				greeting = "Good Evening";
+			}
+		%>
+		<p><%=greeting%></p>
+	</div>
+</body>
+</html>
+
+the <% tags converts Java code results with toString() to display in the html, whilst the <%@ is for imports
+
+To access code that is inheritly not of the same scope, but available due to loading in, we can use the <%= designation, where the value can come from other places.
+
+The beginning of the tag dependso n the nature of hte request:
+
+<%@ for a directive, <% for standard Java JSP scriptlet, <%= for JSP expression rendering the result of the Java code to the HTML.
+
+We then save the jsps, in a new folder:
+
+/apress/jsps/index.jsps
+
+To add our own servlet, we begin by using the Java servlet API that allows us to write and implement our servlets:
+
+package com.apress.apachetomcat7.chapter2;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class HelloWorldServlet extends HttpServlet {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException
+	{
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<title>Hello World!</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<h1>Hello World!</h1>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+}
+
+To compile our class, we run the command from commandline:
+
+javac HelloWorldServlet.java -cp CATALINA_HOME/lib/servlet-api.jar
+
+We then copy in our class, accoring to the entire name as per the package:
+
+/apress/WEB-INF/classes/com/apress/apachetomcat7/chapter2/HelloWorldServlet.class.
+
+We then go to update the xml to load the resource as well:
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+
+
+	<display-name>Chapter 2</display-name>
+	<description>Apress Demo</description>
+
+	<servlet>
+		<servlet-name>helloworld</servlet-name>
+		<servlet-class>
+			com.apress.apachetomcat7.chapter2.HelloWorldServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>helloworld</servlet-name>
+		<url-pattern>/hello.html</url-pattern>
+	</servlet-mapping>
+</web-app>
+
+This deployment method we just used, is called exploded directory. It is not supported by the java servlet specification. Thus, may only work on Tomcat.
+
+We will, however, cover how to upload them with WAR archives, the method supported by Java Servlet specification.
+
+The WAR archive, is much akin to a zip, with the dir structure that we have, that we send to Tomcat.
+
+We can compile it to a WAR file, by going to the root dir (/apress in our case), and writing in the CMD:
+
+jar cvf apress.war. //Will pack in the current dir
+
+*.war is actually just a different extension of .jar
+
+We then simply put our war in a dir coresponding to: CATALINA_HOME/webapps dir
+
+Tomcat will unpack this for performance reasons, as to make it quicker, instead of unpacking every time it is requested, but if you lack writing permissions,
+you can config so that it gets from Archive directly, by modifying our CATALINA_HOM/conf/server.xml:
+
+<Context path="/apress" docBase="apress" unpackWar="true">
+
+If we wish to further config our hosting capacities and what not, we can navigate to CATALINA_HOME/conf/server.xml.
+
+It has a part that looks something like:
+
+<Host
+		name="localhost" //name of host, localhost resolves to own machine, only change if a different domain is required
+		appBase="webapps" //The base of where it takes servlets from
+		unpackWARs="true" //Wether to unpack WARs or not, if not, it will be served directly from the WAR archive instead
+		autoDeploy="true" //Wether to check automatically for updates periodically in the exploded dir (not contents), and deploy if changes found
+>
+
+To configure contexts, we can modify the <Context> XML element:
+
+<Context
+	path="/apress" //Every relevant XML that identifies with this path will recieve requests through this context, is oftenly defined in the server.xml, should only be set if //context is configured in server.xml file
+	
+	docBase="apress"
+	reloadable="true"
+/>
+
+Every HTTP request has a URI associated with them (web address), that will be checked against path, after server name and port
+
+The Web App context can be configed in the following four ways:
+
+In the Server.xml file:
+
+In the host config dir: CATALINA_HOME/conf/ENGINE_NAME/HOST_NAME/CONTEXT_PATH.xml
+
+As part of the web app code, in the /META-INF/context.xml file, in the web APP WAR or exploded dir
+
+Implicitly, when a context is created and none of the above applies
+
+The only time we should set a docBase, is when it's refering to place outside of the current app based context (I.e, not the root dir)
+
+To apply our own path referal in terms of URL, we must first remove the ROOT referal Dir of Tomcat:
+
+CATALINA_HOME/webapps/ROOT //Restart Tomcat after this
+
+Note: each context name must be unique.
+
+We have a number of options to set our other file as Root:
+
+Name the War to ROOT.war
+
+We can keep the name, but put it in another dir:
+
+/var/deployments/apress.war 
+
+To which we then put a ROOT.xml in:
+
+CATALINA_HOME/conf/Catalina/localhost/ROOT.xml
+

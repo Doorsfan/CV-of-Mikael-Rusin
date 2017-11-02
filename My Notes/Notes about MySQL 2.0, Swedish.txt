@@ -1,0 +1,1180 @@
+Marknadsöversikt
+
+DB Squared 2017 (databasnytt)
+
+Aktuella Teknologier:
+
+DBAAS (DataBase As A Service)
+Moln- och/eller distribuerad DB
+Queries med JS
+Big Data Apps
+	Raw throughput
+	Grafer
+	API:er
+	IOT-integration
+
+Trender
+	Moln- och distribuerade högprestanda-databaser i ropet.
+	Neo4j växer fort. 50 nya anställda i Malmö i bara år (lol).
+	Postgres är på väg att gå om MySQL som ledande i RelationsDB
+
+Redis
+Snabb Key/Value DB med Objekt-API
+	
+	Version 4.0 släpptes i Juli, stora cluster-/replication förbättringar
+	Native Rasberry PI version släppt
+
+Neo4j
+Ledande Graph DB
+	
+	Stora prestandaökningar
+	Förbättrade för globala kluster
+	Förbättringar i Cypher 
+
+Clusterpoint
+Snabb ACID-compliant NoSQL DBAAS (DataBase As A Service)
+
+	Har fått ett JS/SQL-query language (exekvera JS intui SQL-lika Queries).
+
+MySQL
+	Oracle MySQL Cloud Service (DBAAS) släppt.
+	Fr o m MySQL 5.7.8 kan vi prata direkt med JSON i MySQL.
+	MySQL 8 släppt (beta-ish)
+		Stora förändringar, bla fullständig dokumentdatabas brevid relationsdatabas
+		bla SQL och JavaScript som query language
+
+MySQL Server 8.0
+
+Safe Harbor Statement
+
+The following is intended to outline our general product direction: It is intended for
+information purposes only, and may not be incorporated into any contract. It is not a 
+commitment to deliver any material, code or functionality, and should not be relied
+upon in making purchasing decisions. The development, release and timing of any features
+or functionality described for Oracle's products remains at the sole discretion of Oracle.
+
+MySQL 5.7 - Improvements across the board
+
+Replication
+
+InnoDB
+
+Optimizer
+
+Security
+
+Performance Schema
+
+GIS
+
+Triggers
+
+Partitioning
+
+New! SYS Schema
+
+New! JSON
+
+Performance
+
+The MySQL 5.7 Story (cont.)
+
+Continuing the JSON Developer Experience
+
+MySQL 8.0
+
+MySQL Document Store
+
+-Document collections
+
+-Relational tables
+
+-Combine them as you like
+
+Administer MySQL via the MySQL Shell
+
+-One stop DevOps tools for MySQL
+
+-Out of the Box HA
+
+- Use your preferred language: SQL, JS, Python
+
+- Relational or Document
+
+GIS
+
+Geography support
+	st_distance()
+
+Spatial Reference Systems (SRS) Support
+
+SQL/MM Information Schema views
+
+Standard compliant axis ordering in import/export functions
+
+Helper functions to manipulate and convert data:
+	st_x(geom, x)
+	st_y(geom, y)
+	st_srid(geom, srid)
+
+ufmb4 as default char-set
+
+MySQL 8.0
+
+Support for the latest Unicode 9.0
+
+Accent and case sensitive collations
+
+Language specific collations
+	including Japanese
+
+UTF-8
+
+Charset of the present
+
+UTF-8 is the dominant charset in todays apps
+
+Requries 1-4 bytes for storing chars
+
+Historically a performance problem
+
+MySQL 8.0 vs MySQL 5.7 utf8mb4
+
++300-350% in OLTP RO
++176-233% in OLTP RW
++1500-1800% in SELECT DISTINCT_RANGES
+
+MySQL 8.0 utf8mb4 vs MySQL 5.7 utf8mb3
+
++270-340% in OLTP RO
++150-200% in OLTP RW
++1300-1600% in SELECT DISTINCT_RANGES
+
+UUID and Bit-wise Improvements
+
+Feature requests from devs
+
+Functions to convert UUID to and from binary:
+
+- UUID_TO_BIN()
+- BIN_TO_UUID()
+- plus IS_UUID()
+
+Bit-wise operations on binary data types
+
+Bit-wise operations on binary data types
+- Designed with IPv6 in mind:
+- INET6_ATON(address) & INET6_ATON(network)
+
+UUID_TO_BIN Optimization
+
+Binary format is now smaller and insert-order efficient:
+	From VARCHAR(36) 53303f87-78fe-11e6-a477-8c89a52c4f3b
+	to VARBINARY(16) 11e678fe53303f87a4778c89a52c4f3b
+
+The insert performance is about 2 greater, on a scale of 20ish (of what, i do not know)
+
+MySQL 8.0: Better Handling of Hot Rows
+
+SELECT seat_no
+	FROM seats
+	JOIN seat_rows USING ( row_no )
+	WHERE seat_no IN (3,4)
+	AND seat_rows.row_no IN (12)
+	AND booked = 'NO'
+	FOR UPDATE OF seats SKIP LOCKED //Non deterministically skip over locked rows
+	FOR SHARE OF seat_rows NOWAIT; //ERROR immediately if a row is already locked
+
+Common Table Expressions
+
+"With queries"
+
+Both Recursive and Non-Recursive Forms
+
+Simplifies writing complex SQL:
+
+WITH t1 AS (SELECT * FROM tblA WHERE a = 'b')
+SELECT * FROM t1;
+
+Recursive CTE
+
+WITH RECURSIVE cte AS
+( SELECT ... FROM table_name/* "seed" SELECT */
+	UNION ALL
+	SELECT ... FROM cte, table_name) /* "recursive" SELECT */
+SELECT ... FROM cte;/
+
+A recursive CTE refers to itself in a subquery
+
+The "seed" SELECT is executed once to create the initial data subset,
+the recursive SELECT is repeatedly executed to return subsets of data
+until the complete result set is obtained.
+
+useful to dig in hierarchies (parent/child, part/subpart)
+
+Similar to Oracle's CONNECT BY
+
+Recursive CTE (Example)
+
+print 1 to 10
+
+WITH RECURSIVE qn AS
+( SELECT 1 AS a 
+	UNION ALL
+	SELECT 1+a FROM qn WHERE a<10
+)
+SELECT * FROM qn;
+
+Window functions: //Coming soon
+
+SELECT name, department_id, salary,
+SUM (salary)
+	OVER (PARTITION BY department_id)
+	AS department_total
+FROM employee
+ORDER BY department_id, name;
+
+Optimizer Cost Model
+
+Improved to consider buffer pool fit
+
+SELECT * FROM Country
+WHERE population > 200000000000000;
+
+Model for a table scan:
+
+# pages in table *
+(IO_BLOCK_READ_COST |
+MEMORY_BLOCK_READ_COST)
+
+# records *
+ROW_EVALUATE_COST
+
+= 25.4 100% in memory
+= 29.9 100% on disk
+
+Mode lfor a range scan:
+
+# records_in_range * //Model accounts for memory fit. 
+(IO_BLOCK_READ_COST | //For data on disk an IO block read defaults to 1.0
+MEMORY_BLOCK_READ_COST) //In memory defaults to 0.25
+
+# records_in_range *
+ROW_EVALUATE_COST + #
+records_in_range *
+ROW_EVALUATE_COST
+
+= 22.5 100% in memory //Much larger performance difference for range
+= 00 100% on disk // scan not in memory (good)
+
+Histograms! //Coming soon
+
+More consistent query execution for cases when data is skewed
+
+Lower cost to maintain than an index
+
+InnoDB Auto Increment Persists
+
+First reported as BUG #199
+
+Auto increment counters are now written to the REDO log
+
+Allows for fast changing meta data
+
+New! Descending INdexes
+
+For B+tree indexes
+
+CREATE TABLE t1 (
+	a INT,
+	b INT,
+	INDEX a_b (a DESC, b ASC)
+	);
+
+In 5.7: Index in ascending order is created, server scans it backwards
+In 8.0: Index in descending order is created, server scans it forwards
+
+Benefits:
+
+Forward index scan is faster than backward index scan
+
+Use indexes instead of filesort for ORDER BY clause with ASC/DESC sort key
+
+New! Invisible Indexes
+
+Indexes are "hidden" to the MySQL Optimizer
+
+- Not the same as "disabled indexes"
+
+- Contents are fully up to date and maintained by DML
+
+Two use cases:
+
+- Soft Delete (Recycle Bin)
+
+- Staged Rollout
+
+Soft Delete
+
+Example Usage
+
+I do not think index is used any more:
+	ALTER TABLE Country ALTER INDEX c INVISIBLE;
+
+I need to revert::
+	ALTER TABLE Country ALTER INDEX c VISIBLE;
+
+It is now safe to drop:
+	ALTER TABLE Country DROP INDEX c;
+
+Staged Rollout:
+
+Adding any new index can change existing execution plans.
+
+All change introduces risk of regression
+
+Invisible indexes allow you to stage all changes
+	i.e put the database in a "prepared" state
+
+Turn on changes at an opportune time
+
+ALTER TABLE Country AND INDEX c (Continent)
+INVISIBLE;
+# after some time
+ALTER TABLE Country ALTER INDEX c VISIBLE;
+
+SELECT * FROM information_schema.statistics WHERE is_visible='NO';
+******************************************************************
+TABLE_CATALOG: def
+TABLE_SCHEMA:  world
+TABLE_NAME:    Country
+NON_UNIQUE:    1
+INDEX_SCHEMA:  world
+INDEX_NAME:    c
+SEQ_IN_INDEX:  1
+COLUMN_NAME:   Continent
+COLLATION: 	   A
+CARDINALITY:   7
+SUB_PART: 	   NULL
+PACKED: 	   NULL
+NULLABLE:
+INDEX_TYPE:    BTREE
+COMMENT: 	   disabled
+INDEX_COMMENT: 
+IS_VISIBLE:    NO
+
+MySQL Roles
+
+Improving MySQL Access Controls
+
+Introduced in the 8.00 DMR
+
+Easier to manage user and application rights
+
+As standards compliant as practically possible
+
+Multiple default roles
+
+Can export the role graph in GraphML
+
+New! Atomic ACL Statements
+
+Long standing MySQL issue
+- For replication, HA, Backups, etc.
+
+Possible now - ACL tables reside in InnoDB Data Dictionary
+
+Not just a table operation: memory caches need update too
+
+Applies to statements performing multiple logical operations, e.g:
+	- CREATE USER u1, u2
+	- GRANT SELECT ON *.* TO u1, u2
+
+Uses a custom MDL lock to block ACL related activity
+- While altering the ACL caches and tables
+
+New! Dynamic Privileges
+
+Provides finer grained administrative level access controls
+
+Too often super is required for tasks when less privilege is really needed
+- Support concept of "least privilege"
+
+Needed to allow adding administrative access controls
+- Now can come with new components
+- Examples
+	Replication
+
+	HA
+
+	Backup
+
+Give us your ideas
+
+New! InnoDB Redo and Undo Encryption
+
+AES 256 encryption
+
+Encrypted when redo/undo log data is written to disk
+
+Decryptions occurs when redo/undo log data is read from disk
+
+once redo/undo log data is read into memory, it is in unecrypted form.
+
+Two tiered encryption - like Innodb tablepace encryption
+- Fast key rotation, high performance
+
+Easy to use
+- Enabled using innodb_redo_log_encrypt and innodb_undo_log_encrypt
+
+Performance Schema Indexes
+
+Allows for more efficient access to Performance Schema tables
+
+A total of 90 indexes across 89 tables
+
+Adds zero verhead
+-A physicla index is not maintained internally
+-Implementation of indexes tricks the optimizer into better execution plan
+
+Performance Comparison:
+
+SELECT * FROM sys.session 1000 active sessions
+
+Over 30x faster in MySQL 8.0 compared to 5.7.
+
+Performance Schema Instrumenting SQL Errors
+
+Aggregation 		Table Name
+
+By Account 			events_errors_summary_by_account_by_error
+
+By Host 			events_errors_summary_by_host_by_error
+
+By Thread 			events_errors_summary_by_thread_by_error
+
+By User 			events_errors_summary_by_user_by_error
+
+Global 				events_errors_summary_global_by_error
+
+SELECT * FROM test.no_table;
+ERROR 1146 (42S02): Table 'test.no_table' does not exist
+
+SELECT * FROM performance_schema.events_errors_summary_global_by_error
+WHERE sum_error_handled > 0 OR SUM_ERROR_RAISED > 0\G
+****************************** 1. row *********************************
+		ERROR_NUMBER: 1146
+		ERROR_NAME: ER_NO_SUCH_TABLE
+		SQL_STATE: 42S02
+		SUM_ERROR_RAISED: 1
+		SUM_ERROR_HANDLED: 0
+		FIRST_SEEN: 2016-09-11 20:52:42
+		LAST_SEEN: 2016-09-11 20:52:42
+		1 row in set (0.00 sec)
+
+Performance Schema Histograms
+Showing distribution of query time from a run of mysqlslap
+
+bucket 	visualization 						count
+ous+ 	# 									1253
+1ous+ 	############################## 		43102
+1oous+ 	#################### 				25013
+1ms+ 	# 									2003
+10ms+ 										325
+100ms+ 										17
+1s+ 										0
+10s+ 										0
+
+Generated with a quick CTE over events_statements_histogram_global
+
+8 rows in set (0.08 sec)
+
+Performance Schema Histogram (cont.)
+
+query: INSERT INTO `t1` VALUES (...)
+db: mysqlslap
+total_latency: 54.43s
+exec_count: 58377
+ock_latency: 1.70s
+
+digest: 4e0c5b796c4052b0da4548fd7cb694be
+first_seen: 2017-04-16 20:59:16
+last_seen: 2017-04-16 21:00:34
+
+Available on a per statement digest level. Can quickly aggregate top-N statements
+with latency distribution
+
+latency_distribution:
+0us+
+10us+ #####################################
+100us+ #########################
+1ms+ #
+10ms+
+100ms+
+1s+
+10s+
+
+Performance Schema Data Locks
+
+SELECT thread_id, object_name, index_name, lock_type, lock_mode, lock_data
+FROM performance_schema.data_locks WHERE object_name = 'seats';
+
+thread_id 	object_name 	index_name 		lock_type 		lock_mode 		lock_data
+
+33 			seats 			NULL 			TABLE 			IX 				NULL
+33 			seats 			PRIMARY 		RECORD 			X 				3, 5
+33 			seats 			PRIMARY 		RECORD 			X 				3, 6
+33 			seats 			PRIMARY 		RECORD 			X 				4, 5
+33 			seats 			PRIMARY 		RECORD 			X 				4, 6
+
+5 rows in set (0.00 sec)
+
+Presist Configuration //Cloud Friendly
+
+Persist GLOBAL Server Variables
+
+-SET PERSIST max_connections = 500;
+
+Examples include:
+
+- Offline_mode
+- Read_Only
+
+Requires no filesystem access
+
+New! Includes timestamp and change user
+
+Variables Info
+
+Find the source of variables changed on your installation
+
+SELECT * FROM performance_schema.variables_info WHERE variable_source != 'COMPILED';
+
+VARIABLE_NAME 			VARIABLE_SOURCE 			VARIABLE_PATH 		MIN_VALUE 	MAX_VALUE 		SET_TIME 				SET_USER 		SET_HOST
+
+autocommit 				DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+basedir 				COMMAND_LINE 								 	0 			0 				2017-04-16 21:08:11 	
+
+bind_address 			EXPLICIT 					[..]my.sandbox.cnf 	0 			0 				2017-04-16 21:08:11 	
+
+character_set_client 	DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+character_set_results 	DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+collation_connection 	DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+datadir 				COMMAND_LINE 									0 			0 				2017-04-16 21:08:11 	
+
+foreign_key_checks 		DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+log_error 				COMMAND_LINE 									0 			0 				2017-04-16 21:08:11 	
+
+lower_case_table_names 	EXPLICIT 					[..]my.sandbox.cnf 	0 			2 				2017-04-16 21:08:11 	
+
+pid_file 				COMMAND_LINE 									0 			0 				2017-04-16 21:08:11
+
+plugin_dir 				COMMAND_LINE 									0 			0 				2017-04-16 21:08:11
+
+port 					COMMAND_LINE 									0 			65535 			2017-04-16 21:08:11
+
+socket 					COMMAND_LINE 									0 			0 				2017-04-16 21:08:11
+
+sql_mode 				DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+sql_notes 				DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+time_zone 				DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+tmpdir 					EXPLICIT 					[..]my.sandbox.cnf 	0 			0 				2017-04-16 21:08:11
+
+unique_checks 			DYNAMIC 										0 			0 				2017-04-16 20:56:53 	msandbox 		localhost
+
+19 rows in set (0.00 sec)
+
+Transactional Data Dictionary
+
+Increased Reliability
+
+Using InnoDB internally for data dictionary
+
+- No FRM files
+
+- No DB.OPT files
+
+- No TRG files
+
+- No TRN files
+
+- No PAR files
+
+MySQL 8.0 default install no longer contains MyISAM tables.
+
+Transactional Data Dictionary
+
+Additional Benefits
+
+Better cross-platform experience
+- No depdencies on filesystem semantics
+
+Atomic DDL
+- Better Replication
+- Simplifies server edge cases
+
+MDL for Foreign Keys
+
+Flexible Metadata API
+- Easier path to adding new features
+
+Information Schema Performance  //Already faster at 7/10 queries in our test suite!
+
+100 schemas times 50 tables (5000 tables)
+
+Count All Schemas
+
+Schema aggregate size stats
+
+All Dynamic Table Info
+
+All Static Table Info
+
+Auto Increments Near Limit
+
+Count All Columns
+
+Count All Indexes
+
+Performance is dramatically higher in MySQL 8.0 compared to MySQL 5.7
+
+30x Faster
+
+SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE, ENGINE, ROW_FORMAT FROM information_schema.tables
+WHERE TABLE_SCHEMA LIKE 'db%';
+
+Test Performed with 100 schemas, each with 50 tables.
+
+All these features plus...
+
+Source code now documented with Doxygen
+
+Plugin Infrastructure
+
+Expanded GIS Support
+
+Expanded Query Hints Support
+
+Improved Scan Query Performance
+
+Improved BLOB Storage
+
+Improved Memcached Interface
+
+Cost Model Improvements
+
+Scalability Improvements
+
+Atomicity in privileges
+
+Parser Refactoring
+
+Improvements to Temporary Tables
+
+C++1 and Toolchain Improvements
+
+Replication Applier Thread Progress Reports
+
+GTID_PURGED always settable
+
+New! Improved Parallel Replication
+
+New! SQL Grouping Function
+
+New! Optimizer Trace detailed sort statistics
+
+New! Smaller Package Downloads
+
+New! JSON Aggregate, Pretty print functions
+
+New! Expanded Query Hints
+
+New! Improved usability of cost constant configuration
+
+Integrated Cloud
+Applications & Platform Services
+
+A class is a template for an object (amongst other things), and is a general concept.
+
+A entity has more semantic significance and is usually tied to a concept. (possibly about
+a real object for example, an Employee or a Student or Music Album) and is linked to business
+logic.
+
+Entities are usually used to establish a mapping between an object and to a table in the database.
+
+Typically, said entity represents a table in a relational DB, and each entity instance corresponds to
+a row in that table.
+
+Data is the actual data, or values of the attributes of the said object, as per say.
+
+Model is the attributes per say, as in, what the values fill in to adapt to.
+
+Object is the collition of attributes and allocated values according to the class blueprint.
+
+MySQL Functions
+
+Om Stored Procedures och Functions:
+
+Längst ner i denna post finns en tabell, en view och exmpeldata som illusterar användning av
+url_friendly funktionen nedan.
+
+En funktion för att skapa "pretty URLs" (som kan användas i queries eller i andra funktioner, procedures, etc.)
+
+(OBS! Beroende av regex_replace funtkionen undertill, så regex_replace måsta installeras först)
+
+DELIMITER $$ # ändrar avgränsare från ; till $$
+
+CREATE FUNCTION url_friendly(productTitle VARCHAR(1000)) # funktionsdeklaration
+RETURNS VARCHAR(1000) #deklarerar outputs (returns) datatyp
+DETERMINISTIC # givet input vet vi output
+BEGIN # funktions-body
+	DECLARE productUrl VARCHAR(1000); # variabel-deklaration
+	SET productUrl = LOWER(productTitle); # SET för att förändra värde
+	SET productUrl = REPLACE(productUrl,"å","a"); # LOWER, REPLACE är mysql string functions
+	SET productUrl = REPLACE(productUrl, "ä", "a");
+	SET productUrl = REPLACE(productUrl, "ö", "o");
+	SET productUrl = REPLACE(productUrl, " ","-");
+	SET productUrl = regex_replace("[^a-z0-9\-]","",productUrl);
+	RETURN productUrl; #output (return)
+END$$ # slut på funktions body
+
+DELIMITER ; #återställer avgränsare från $$ till ;
+
+En regex_replace funktion (som kan användas i queries eller i andra funktioner, procedures,
+etc..)
+
+DELIMITER $$ # Annan avgränsare
+CREATE FUNCTION regex_replace(pattern VARCHAR(1000),replacement VARCHAR(1000),original VARCHAR(1000)) # funktionsnam(parameter TYP, ...)
+RETURNS VARCHAR(1000) #return-definition
+DETERMINISTIC #funktionen får alltid samma resultat givet samma paramvärden
+BEGIN
+	DECLARE temp VARCHAR(1000);
+	DECLARE ch VARCHAR(1);
+	DECLARE i INT;
+	SET i = 1;
+	SET temp = '';
+	IF original REGEXP pattern THEN
+		loop_label: LOOP
+			IF i>CHAR_LENGTH(original) THEN
+				LEAVE loop_label;
+			END IF;
+			SET ch = SUBSTRING(original,i,1);
+			IF NOT ch REGEXP pattern THEN
+				SET temp = CONCAT(temp,ch);
+			ELSE
+				SET temp = CONCAT(temp, replacement);
+			END IF;
+			SET i=i+1;
+		END LOOP;
+	ELSE
+		SET temp = original;
+	END IF;
+	RETURN temp;
+END$$
+DELIMITER ;
+
+SQL - Exampledata med en tabell och en view
+
+CREATE TABLE `products` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`title` varchar(255) DEFAULT NULL,
+	`count` int(11) unsigned NOT NULL DEFAULT '0',
+	`price` double unsigned DEFAULT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+INSERT INTO `products` (`id`, `title`, `count`, `price`)
+VALUES
+	(1, 'Grön gräsmatta', 5, 99),
+	(2, 'Blå drömmar', 10, 20),
+	(3, 'Röda drömmar', 0, 20),
+	(4, 'Gröna drömmar', 1, 98),
+	(5, 'Turkosa drömmar', 1, 99);
+
+CREATE VIEW products_view AS
+SELECT id, title, url_friendly(title) AS url_title, count, price
+FROM products WHERE count > 0;
+
+An example of creating a procedure:
+
+mysql>delimiter //
+
+mysql> CREATE PROCEDURE simpleproc (OUT param1 INT)
+	-> BEGIN
+	-> 	SELECT COUNT(*) INTO param1 FROM t;
+	-> END//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter ;
+
+mysql> CALL simpleproc(@a);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT @a;
+@a
+3
+
+1 row in set (0.00 sec)
+
+An example of a function:
+
+mysql> CREATE FUNCTION hello (s CHAR(20))
+mysql> RETURNS CHAR(50) DETERMINISTIC
+	-> RETURN CONCAT('Hello, ', s,'!');
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT hello('world');
+hello('world')
+
+Hello, world!
+
+MySQL Stored Procedures
+
+Om Stored Procedures Och Functions:
+
+SQL för att skapa tabellerna i exemplen finns längst ner i posten
+
+Ett kortfattat exmpel först, en procedure som lägger till en produkt:
+
+DELIMITER $$ # mellanslaget före $$ behövs för att få ändra delimitern
+
+CREATE PROCEDURE add_product(p_title VARCHAR(255), p_count INT, p_price (DOUBLE)
+	BEGIN
+		INSERT INTO products SET title = p_title, `count` = p_count, price = p_price;
+	END$$
+
+DELIMITER ; #mellanslaget före ; behövs för att få ändrat delimitern
+
+# För att använda vår procedure anropar vi den så här:
+CALL add_product('Violetta drömmar', 5, 49));
+
+Facit för övning: En Stored Procedure som kan lägga till en inkommande vara i shipments
+(sådant vi precis tagit emot på lagret). Om produkten redan finns hos oss ska vi öka
+lagersaldot (products.count) annars ska vi skapa produkten ( och lägga in saldot).
+
+DELIMITER $$ # mellanslaget före $$ behövs för att få ändra avgränsaren
+
+CREATE PROCEDURE add_shipment(p_title VARCHAR(255), p_count INT, p_price DOUBLE)
+BEGIN
+	
+	INSERT INTO shipments SET shipment_title = p_title, shipment_count = p_count, shipment_price = p_price;
+
+	IF EXISTS(SELECT title FROM products WHERE title = p_title) THEN
+		UPDATE products SET count = count + p_count WHERE title = p_title;
+	ELSE
+		INSERT INTO products SET title = p_title, count = p_count, price = p_price;
+	END IF;
+
+END$$
+
+DELIMITER ; # mellanslaget före ; behövs för att få ändra avgränsaren
+
+# Exempel på användning:
+CALL add_shipment('Orangea drömmar', 15, 99);
+
+SQL för att skapa tabeller och data
+
+CREATE TABLE `products` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`title` varchar(255) DEFAULT NULL,
+	`count` int(11) unsigned NOT NULL DEFAULT '0',
+	`price` double unsigned DEFAULT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+INSERT INTO `products` (`title`, `count`, `price`)
+VALUES
+	('Grön gräsmatta', 5, 99),
+	('Blå drömmar', 10, 20),
+	('Röda drömmar', 0, 20),
+	('Gröna drömmar', 1, 98),
+	('Turkosa drömmar', 1, 99);
+
+CREATE TABLE `shipments` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`shipment_title` varchar(255) DEFAULT NULL,
+	`shipment_count` int(11) unsigned NOT NULL DEFAULT '0',
+	`shipment_price` double unsigned DEFAULT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+MySQL Triggers
+
+Exempel på en Stored Procedure som vi kan anropa ifrån en trigger:
+
+/*
+ 		1. insert incoming_order (produkt id, antal) # "inkorg"
+ 		2. skapa en INSERT trigger från incoming_order
+ 		3. Kör en procedure från triggern för att placera ordern:
+ 			testa om vi kan leverera: är order count <= produkt count
+ 				om vi kan: skapa en order med state = 'TO DELIVER' #insert order
+ 					och ändra produkt count (sänka lagersaldo) #update product
+ 				om vi inte kan: skapa en order med state = 'OUT OF STOCK' # insert order
+*/
+
+DELIMITER $$
+
+CREATE PROCEDURE place_order(product_id INT, order_count INT)
+BEGIN
+	DECLARE product_count INT;
+	SET product_count = (SELECT count FROM products WHERE id = product_id);
+	IF order_count <= product_count THEN
+		INSERT INTO orders SET state = 'TO DELIVER', product = product_id, count = order_count;
+		UPDATE products SET count = count - order_count WHERE id = product_id;
+	ELSE
+		INSERT INTO orders SET state = 'OUT OF STOCK', product = product_id, count = order_count;
+	END IF;
+END$$
+
+DELIMITER ;
+
+# Test-exempel
+CALL place_order(2,9); # Vi köper 9 st av saldot i produkten med id 2
+
+Nu har vi en Procedure som kan göra jobbet, vi ska nu anropa den varje gång den läggs till en
+incoming_order. Vi gör det med en Insert Trigger; vi får då också med oss data från INSERT.
+
+Exempel på en Trigger som anropar en Stored Procedure:
+
+DELIMITER $$
+
+CREATE TRIGGER call_place_order AFTER INSERT ON incoming_orders
+	FOR EACH ROW
+		BEGIN
+			CALL place_order(NEW.product, NEW.count);
+		END$$
+
+DELIMITER ;
+
+SQL för att skapa tabellerna i exmplen ovan:
+
+CREATE TABLE `incoming_orders` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`product` int(11) unsigned DEFAULT NULL,
+	`count` int(11) DEFAULT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `orders` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`product` int(11) unsigned DEFAULT NULL,
+	`count` int(11) DEFAULT NULL,
+	`state` varchar(255) DEFAULT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `products` (
+	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`title` varchar(255) DEFAULT NULL,
+	`count` int(11) unsigned NOT NULL DEFAULT '0',
+	`price` double unsigned DEFAULT NULL,
+	PRIMARY KEY(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+INSERT INTO `products` (`title`, `count`, `price`)
+VALUES
+	('Grön gräsmatta', 5, 99),
+	('Blå drömmar', 10, 20),
+	('Röda drömmar', 0, 20),
+	('Gröna drömmar', 1, 98),
+	('Turkosa drömmar', 1, 99);
+
+
+Use call to call upon stored procedures.
+
+RDB is relational database
+
+Att hantera prestanda i MySQL /RDBS
+
+Mäta prestanda
+
+Prestandastratergier
+
+Cachestratergier
+
+Mäta prestanda
+
+Använda Timers
+
+Granska queries med EXPLAIN
+
+Hitta långsamma queries med Slow query log
+
+Timers:
+
+1. Vi kan se timers i vårt MySQL GUI.
+
+2. Vi kan ställa in och se timers i MySQL Performance Schema.
+
+3. Vi kan skapa timers i vår backend eller i vår klient.
+
+Granska queries med Explain
+
+Sätter vi EXPLAIN framför vår query får vi ut detaljer om hur querien
+genomförts av MySQL.
+
+Hitta långsamma queries med Slow query log
+
+Persona toolkit (*nix, men kan installera på mac/ win via 3:e part)
+
+Droppa din slow-query-logfile på den här webbsidan för lite läshjälp
+med visualisering och filter
+
+Live-statistik av DB användning
+
+Profile SQL (*nix/mac/win)  //http://www.profilesql.com/
+
+Prestandastratergier
+
+Skriva om queries
+
+Strukturera om databasen
+
+Använda bra nycklar
+
+Använda index på ett bra sätt
+
+Optimera databaskonfigurationen
+
+Extrem motpol till traditionella RDBM - Använd MySQL för maximal prestanda och
+replicerbarhet vid distributerade dbs.
+
+Cacha långsamma frågor
+
+Skriva om queries
+
+Om dina queries är långsamma kan du försöka att skriva om den. Några saker att tänka på:
+
+Har den en subquery? En LEFT OUTER JOIN kan vara snabbare än en subquery.
+
+Använder den views? Hur många joins finns där? Skriv EXPLAIN före din query och granska detta.
+
+Har den för många joins? Kanske är din DB för hårt normaliserad? överväg att strukturera om den
+
+Struktuerara om DBn
+
+Normalisering är fint, men det kan bli för mycket. Komplexa queries med många joins kan kosta prestanda
+och översiktlighet.
+
+Views kan hjälpa med översikten vid komplexa queries, men riskera att sopa multipla joins under mattan
+
+A view is a stored procedure that can be called upon
+
+Å ena sidan vill vi ha en normaliserad och välstrukturerad db som tillåter oss att läsa eller skriva
+till vår data nästan hur vi vill när vi utvecklar vår db. Å andra sidan vill vi leverera data enkelt och blixtsnabbt.
+
+Vi kan bygga en db med två ansikten, en för dev, en för production.
+
+Vi kan använda backend eller triggers och stored procedures för att uppdatera en läsversion vid varje förändring.
+
+Använda bra nycklar
+
+Undvik text-nycklar, särskilt av variabel längd.
+
+Föredra unsigned INT
+
+Fins dock vissa fördelar med GUID - och det är en text-nyckel.
+
+Undvik om möjligt att använda multipla index som primärnycklar.
+
+Använd index på ett bra sätt:
+
+Gärna multipla för uniqueness, men inte för regulär hämtning av data (Så som MIN(), MAX(), etc.)
+
+Skapa index för de kolumner du använder till relationer och som nycklaer i queries, men ska inte index
+för alla kolumner på/för stora mängder data, då blir index långsamt.
+
+Om index är skadade, kör REPAIR.
+
+Databasconf: Query cache
+
+Om du har ett system som inte har så stor belastning, men har långsamma queries, så kan en stor query cache
+hjälpa eller tom lösa prestanda
+
+Sätt query_cache_type=ON och query_cache_size=256M
+
+Högre orsakar problem för MySQL i termer av invalidering
+
+Vid stor belastning, kör liten eller ingen query cache.
+
+För att uppnå prestanda:
+
+Använd inte transaktioner, de låser tabeller - Om du behöver backa, backa progressivt med negativ diff.
+(Dessa snubbarna är fucking clueless när det kommer till programmering)
+
+Använd inte seriella nycklar (auto increment keys), de låser tabeller / blockar parallela skrivningar:
+
+Alternativ stratergi: Använd istället klient-genererade unika nyclar (GUID)
+
+Extrem optimering för läsning:
+
+Normalisera inte.
+
+Vi behöver bara ha vår data uppdelad i olika fält (kolumner) för att indexera den.
+All den data som inte behöver indexeras kan lagras i blob/text som t e x JSON.
+
+Använd inte foriegn keys (undvik joins / relationer i läs-optimerade dataset)
+
+Designa så att du kan läsa en enkel rad för att besvara varje fråga
+
+Använd inte table alter-kommandon i produktionsläge - skapa schema som undviker detta
+(t.e.x via högre abstraktioner eller key-value tabeller)
+
+Extrem optimering vid querying:
+
+Fråga efter primärnyckeln eller indexerade fält.
+
+Använd inte joins.
+
+Använd inte aggergerande (GROUP BY) funktioner i queries (AVG, COUNT, SUM, MAX, MIN, m fl).
+
+Kör intensiva Business Intelligence / statistik / undersökande queries off-line, alltås en 
+copy av DBn, inte i production.
+
+Cachestratergier:
+
+Först och svårast: Hur kan vi invalidera cachen?
+
+Uppdatera cachen
+
+Spara/läsa cache
+
+Första och svåraste: Hur kan vi invalidera cachen?
+
+Vid skrivning
+
+Vid tidpunkt
+
+Med polling
+
+Uppdatera cachen
+
+Jämför nytt och gammalt, eller bara invalidera direkt
+
+Spara/läsa cache
+
+I databas, filsystem eller minne?
+
+Key/Value storage
+
+Sökväg är ett bra val av nyckel (= direkt REST)
+
+På servrar eller i klient, eller i molnet?
+
+Stratergier i klient/moln
+
+Stratergier på server
+	I DB eller filssytem: persistance
+
+	I minne: performance
+	Det bästa av två världar, Redis
+
+ 
