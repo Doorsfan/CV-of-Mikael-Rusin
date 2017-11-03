@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grupp 1 - Yatzy </title>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="js/libs/jquery.js"></script>
+	<script src="js/libs/jquery-ui/jquery-ui.js"></script>
+	<script src="js/libs/jquery-rotate.js"></script>
+	<script src="js/libs/jquery.rotate.1-1.js"></script>
+	<script src="js/libs/bootstrap.min.js"></script>
+	<script src="js/classes/base.class.js"></script>
+	<script src="js/classes/test.class.js"></script>
+	<script src="js/classes/db-connector.class.js"></script>
+	<script src="js/classes/usedpowerup.class.js"></script>
+	<script src="js/classes/powerup.class.js"></script>
+	<script src="js/classes/scoreboard.class.js"></script>
+	<script src="js/classes/dice.class.js"></script>
+    <script src="js/classes/game.class.js"></script>
+	<script src="js/main.js"></script>
+	<link rel="stylesheet" href="css/libs/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<nav class="hideable">
+		<a href="#score-board">Protokoll</a>
+		<a href="#game-board">Spelbräde</a>
+		<a href="#high-scores">Poängtoppen</a>
+	</nav>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="score-board" class="col-xs-12 col-md-3 game-content score-board">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 protocol">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Spelare</th>
+										<th id="player1"></th>
+										<th id="player2"></th>
+										<th id="player3"></th>
+										<th id="player4"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="textLeft" id="ones">Ettor</td>
+										<td id="0-1"></td>
+										<td id="1-1"></td>
+										<td id="2-1"></td>
+										<td id="3-1"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="twos">Tvåor</td>
+										<td id="0-2"></td>
+										<td id="1-2"></td>
+										<td id="2-2"></td>
+										<td id="3-2"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="threes">Treor</td>
+										<td id="0-3"></td>
+										<td id="1-3"></td>
+										<td id="2-3"></td>
+										<td id="3-3"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="fours">Fyror</td>
+										<td id="0-4"></td>
+										<td id="1-4"></td>
+										<td id="2-4"></td>
+										<td id="3-4"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="fives">Femmor</td>
+										<td id="0-5"></td>
+										<td id="1-5"></td>
+										<td id="2-5"></td>
+										<td id="3-5"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="sixes">Sexor</td>
+										<td id="0-6"></td>
+										<td id="1-6"></td>
+										<td id="2-6"></td>
+										<td id="3-6"></td>
+									</tr>
+									<tr>
+										<th id="sum">Summa</th>
+										<td id="0-sum"></td>
+										<td id="1-sum"></td>
+										<td id="2-sum"></td>
+										<td id="3-sum"></td>
+									</tr>
+									<tr>
+										<th id="bonus">Bonus</th>
+										<td id="0-bonus"></td>
+										<td id="1-bonus"></td>
+										<td id="2-bonus"></td>
+										<td id="3-bonus"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="onePair">Ett par</td>
+										<td id="0-onePair"></td>
+										<td id="1-onePair"></td>
+										<td id="2-onePair"></td>
+										<td id="3-onePair"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="twoPair">Två par</td>
+										<td id="0-twoPair"></td>
+										<td id="1-twoPair"></td>
+										<td id="2-twoPair"></td>
+										<td id="3-twoPair"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="threeOfAKind">Tretal</td>
+										<td id="0-threeOfAKind"></td>
+										<td id="1-threeOfAKind"></td>
+										<td id="2-threeOfAKind"></td>
+										<td id="3-threeOfAKind"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="fourOfAKind">Fyrtal</td>
+										<td id="0-fourOfAKind"></td>
+										<td id="1-fourOfAKind"></td>
+										<td id="2-fourOfAKind"></td>
+										<td id="3-fourOfAKind"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="smallStraight">Liten stege</td>
+										<td id="0-smallStraight"></td>
+										<td id="1-smallStraight"></td>
+										<td id="2-smallStraight"></td>
+										<td id="3-smallStraight"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="largeStraight">Stor stege</td>
+										<td id="0-largeStraight"></td>
+										<td id="1-largeStraight"></td>
+										<td id="2-largeStraight"></td>
+										<td id="3-largeStraight"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="fullHouse">Kåk</td>
+										<td id="0-fullHouse"></td>
+										<td id="1-fullHouse"></td>
+										<td id="2-fullHouse"></td>
+										<td id="3-fullHouse"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="chance">Chans</td>
+										<td id="0-chance"></td>
+										<td id="1-chance"></td>
+										<td id="2-chance"></td>
+										<td id="3-chance"></td>
+									</tr>
+									<tr>
+										<td class="textLeft" id="yahtzee">Yatzy</td>
+										<td id="0-yahtzee"></td>
+										<td id="1-yahtzee"></td>
+										<td id="2-yahtzee"></td>
+										<td id="3-yahtzee"></td>
+									</tr>
+									<tr>
+										<th id="totalSum">Total</th>
+										<td id="0-totalSum"></td>
+										<td id="1-totalSum"></td>
+										<td id="2-totalSum"></td>
+										<td id="3-totalSum"></td>
+									</tr>
+								</tbody>  
+							</table>      		
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="game-board" class="col-xs-12 col-md-6 game-content game-board">
+				<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" role="dialog">
+  					<div class="modal-dialog" role="document">
+  						<div class="modal-content">
+      						<div class="modal-header">
+        						<h4 class="modal-title">Ange spelarnas namn</h4>
+     		 				</div>
+ 							<div class="modal-body">
+  								<div class="dropdown">
+  									<select id="numOfPlayers">
+    									<option value="1">1 Spelare</option>
+									   	<option value="2">2 Spelare</option>
+									    <option value="3">3 Spelare</option>
+									    <option value="4">4 Spelare</option>
+  									</select>
+  									<div class="playerValues">
+  										<input type="text" placeholder="Namn spelare 1" autofocus>
+  									</div>
+ 								</div>
+							</div>
+    						<div class="modal-footer">
+    							<div class="row">
+    								<div class="col-xs-7">
+    									<p class="errorMessage"></p>
+    								</div>
+    								<div class="col-xs-5">
+    									<button type="button" class="btn btn-primary" id="startGame">Starta spel</button>
+    								</div>
+    							</div>
+      						</div>
+    					</div><!-- /.modal-content -->
+  					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<div class="modal fade" id="gameOverModal" data-backdrop="static" data-keyboard="false" role="dialog">
+  					<div class="modal-dialog" role="document">
+  						<div class="modal-content">
+      						<div class="modal-header">
+        						<h4 class="modal-title">Spelet är slut!</h4>
+     		 				</div>
+ 							<div class="modal-body">
+ 								<div class="row">
+ 									<div class="col-xs-6 placements" id="placements">
+ 										
+ 									</div>
+ 									<div class="col-xs-6">
+ 										<img src='img/podium.gif'>	
+ 									</div>
+ 								</div>
+							</div>
+    						<div class="modal-footer">
+    							<p id="errorMessage" class="pull-left"> </p>
+       							<button type="button" class="btn btn-primary" onClick="window.location.reload()">Avsluta</button>
+      						</div>
+    					</div><!-- /.modal-content -->
+  					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!-- Rules Modal -->
+
+				<div class="modal hide" id="UsedPowerups" role="dialog" aria-labelledby="UsedPowerupsLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h7 class="modal-title" id="InnerUsedPowerupsLabel">Used Powerups</h7>
+							</div>
+							<div class="modal-body" id="UsedPowerupsList">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="dices-in-play" class="AvailablePowerupsRow row">
+					<div class="modal fade" id="AvailablePowerups" role="dialog" aria-labelledby="AvailablePowerupsLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<h8 class="modal-title" id="InnerAvailablePowerupsLabel">Available Powerups</h8>
+							</div>
+							<div class="modal-body" id="AvailablePowerupsList">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal hide" id="TargetPlayerModal" role="dialog" aria-labelledby="TargetPlayerModal">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<h9 class="modal-title" id="InnerTargetPlayerModalLabel">Target a Player!</h9>
+						</div>
+						<div class="modal-body" id="TargetPlayerList">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+				<div class="modal hide" id="targetPowerupModal" role="dialog" aria-labelledby="TargetPowerupModal">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<h10 class="modal-title" id="InnerTargetPowerupModalLabel">Target a Powerup!</h10>
+						</div>
+						<div class="modal-body" id="TargetPowerupList">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="getHelp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+				    		<div class="modal-header">
+				        		<h3 class="modal-title" id="myModalLabel">Information & Regler</h3>
+				      		</div>
+				      		<div class="modal-body">
+				        		<h3>Spelregler </h3>
+								<p><h6>ETT PAR:</h6> Ex. 5-3-3-2-1, 2 st 3:or </p>
+								<p><h6>TVÅ PAR:</h6> Ex. 5-3-3-4-4, 2 st 3:or, 2 st 4:or </p>
+								<p><h6>TRETAL:</h6> Ex. 5-3-3-3-2, 3 st 3:or </p>
+								<p><h6>FYRTAL:</h6> Ex. 5-4-4-4-4, 4 st 4:or </p>
+								<p><h6>LITEN STRAIGHT:</h6> Ex. 1-2-3-4-5 </p>
+								<p><h6>STOR STRAIGHT:</h6> Ex. 2-3-4-5-6 </p>
+								<p><h6>KÅK:</h6> Ex.3-5-5-3-3, 3 st 3:or, 2 st 5:or </p>
+								<p><h6>CHANS:</h6> Alla de fem tärningarnas ögontal räknas och summan av dessa förs in på protokollet. Den här rubriken används när ingen annan lämplig rubrik är ledig. </p>
+								<p><h6>YATZY:</h6> Alla de fem tärningarna visar lika och då ger Yatzy alltid 50 poäng. </p>
+									<div class="powerUps">
+				      				<h3>PowerUps</h3>
+				      				<p><h6>Grund</h6>Få ett extra kast.</p>
+				      				<p><h6>Grund</h6>Sno tid från motspelare.</p>
+				      				<p><h6>Grund</h6>Ta bort tärning från motspelare.</p>
+
+				   	  				<p><h6>Bonus</h6>Ta bort ett kast från din motspelare.</p>
+				   	  				<p><h6>Bonus</h6>Duplicera en redan existerande Power-Up.</p>
+				   	  				<p><h6>Bonus</h6>Randomize - Slumpa motspelares power-Up.</p>
+
+				   	  				<p><h6>Yatzy</h6>Nolla en motspelares poängruta, (inte Yatzy/ bonus).</p>
+				   	  				<p><h6>Yatzy</h6>Byt en aktiv poängruta mellan dig och en aktiv motspelare.</p>
+				   	  				<p><h6>Yatzy</h6>Ta bort en av dina motspelares Power-Ups, (måste vara aktiv).</p>
+				      			</div>
+				    		</div>
+				      		<div class="modal-footer">
+				        		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				      		</div>
+				    	</div>
+				  	</div>
+				</div>
+				<div class="play-container">
+					<div id="dices-in-play" class="dices-in-play row">
+						<div id="dice-container-0" class="col-xs-2 dice-container">
+							
+						</div>
+						<div id="dice-container-1" class="col-xs-2 dice-container">
+							
+						</div>
+						<div id="dice-container-2" class="col-xs-2 dice-container">
+							
+						</div>
+						<div id="dice-container-3" class="col-xs-2 dice-container">
+							
+						</div>	
+						<div id="dice-container-4" class="col-xs-2 dice-container">
+							
+						</div>
+					</div>
+					<div id="check-boxes" class="check-boxes row">
+						<div id="check-container-0" class="col-xs-2 check-container">
+							
+						</div>
+						<div id="check-container-1" class="col-xs-2 check-container">
+							
+						</div>
+						<div id="check-container-2" class="col-xs-2 check-container">
+							
+						</div>
+						<div id="check-container-3" class="col-xs-2 check-container">
+							
+						</div>	
+						<div id="check-container-4" class="col-xs-2 check-container">
+							
+						</div>
+					</div>
+				</div>
+				<a href="#" class="help"> 
+					<span class="glyphicon glyphicon-question-sign"></span>
+				</a>
+                <div class="buttons row">
+                    <button class ="btn btn-primary" type="button" id="roll-dices">Kasta!</button>
+                </div>
+			</div>
+			<div id="high-scores" class="col-xs-12 col-md-3 game-content high-scores">
+				<div class="row">
+					<div class="container-fluid">
+						<div class="col-xs-12 scores">
+							<div class="row">
+								<div class="col-xs-12">
+									<h1>Topp tio</h1>
+								</div>
+								<div class="col-xs-12 top-ten">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+</body>
+</html>

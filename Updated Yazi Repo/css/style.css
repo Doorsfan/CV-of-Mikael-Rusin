@@ -1,0 +1,344 @@
+.container-fluid {
+	overflow: hidden;
+}
+
+.game-content {
+	height: 100vh;
+}
+
+.score-board, .high-scores {
+	background-image: url("/img/wood2.jpg");
+	padding: 5% 2%;
+}
+
+.protocol, .scores {
+	border: 2px solid black;
+	background-color: white;
+	padding: 0;
+	opacity: 0.75;
+}
+
+.list-group {
+	margin: 0;
+}
+
+.scores h1 {
+	text-align: center;
+	background-color: lightgrey;
+	margin: 0;
+	padding: 2% 0;
+}
+
+.dices-in-play {
+	position:absolute;
+	float:left;
+}
+
+.game-board {
+	background-image: url("/img/green2.jpg");
+	border-left: 2px solid #021B06;
+	border-right: 2px solid #021B06;
+}
+
+.placements {
+	font-size: 18px;
+}
+
+.buttons {
+	position:absolute;
+	bottom:35%;
+}
+
+.play-container {
+	position: absolute;
+	top: 30%;
+	width: 100%;
+}
+
+
+
+.check-container {
+	pointer-events: none;
+	padding-top: 1.2%;
+}
+
+.dice-container, .check-container {
+	text-align: center;
+}
+
+.check-container.AnimateLock {
+    -webkit-animation-delay: 0s, 0.1s, .5s, .8s, 1.05s, 1.25s;
+    -webkit-animation-duration: 100ms, 400ms, 300ms, 250ms, 200ms, 200ms;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: Lock1, Lock2, Lock3, Lock4, Lock5, Lock6;
+}
+
+ @-webkit-keyframes Lock1 {
+ 	from { -webkit-transform: rotate(-40deg); }
+    to { -webkit-transform: rotate(-45deg); }
+}
+
+@-webkit-keyframes Lock2 {
+    from { -webkit-transform: rotate(-45deg); }
+    to { -webkit-transform: rotate(25deg); }
+}
+
+@-webkit-keyframes Lock3 {
+    from { -webkit-transform: rotate(25deg); }
+    to { -webkit-transform: rotate(-15deg); }
+}
+
+@-webkit-keyframes Lock4 {
+    from { -webkit-transform: rotate(-15deg); }
+    to { -webkit-transform: rotate(5deg); }
+}
+
+@-webkit-keyframes Lock5 {
+    from { -webkit-transform: rotate(5deg); }
+    to { -webkit-transform: rotate(-3deg); }
+}
+
+@-webkit-keyframes Lock6 {
+    from { -webkit-transform: rotate(-3deg); }
+    to { -webkit-transform: rotate(0deg); }
+}
+
+.check-container>img {
+	width:100%;
+	height:100%;
+	opacity: 0.85;
+}
+
+.dice-container>img {
+	width: 100%;
+	height: 100%;
+	opacity: 0.9;
+}
+
+.dices-in-play, .check-boxes, .buttons {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.game-board button{
+	color:green;
+	background-color: black;
+	font-size:20px;
+	margin:5%;
+	padding: 1%;
+}
+
+.modal input{
+	display:block;
+	margin-top:2%;
+}
+
+.modal button{
+	margin:0;
+}
+
+.errorMessage {
+	text-align: left;
+	color: red;
+}
+
+a.help{
+	color:black;
+	font-size:30px;
+	justify-content: flex-end;
+	position: absolute;
+	bottom: 0;
+	right: 2%;
+}
+
+nav {
+	position: fixed;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	background-color: rgb(0, 0, 180);
+	width: 100%;
+	z-index: 1;
+}
+
+nav a {
+	color: #e6ebf4;
+	text-align: center;
+	text-decoration: none;
+	padding: 10px 30px;
+}
+
+nav a:hover, nav a:focus {
+	text-decoration: none;
+	color: white;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.hideable {
+	display: none;
+}
+
+.table-bordered{
+	font-size: 15px;
+	margin: 0;
+}
+
+.table-bordered>tbody>tr>td{
+	padding:0;
+}
+
+.table-bordered>thead>tr>th{
+	padding:0;
+	min-width: 30px;
+	overflow:hidden;
+	text-align: center;	
+	word-wrap:break-word;
+	background-color: lightgrey;
+}
+
+.table-bordered>tbody>tr>th{
+	padding:0px;
+	text-align: left;	
+	word-wrap:break-word;
+	background-color: lightgrey;
+}
+
+.table-bordered>thead>tr>th:first-child{
+	text-align: left;
+	font-weight: bold;
+	padding:0;
+}
+
+td{
+	text-align: center;
+}
+
+.textLeft{
+	text-align: left;
+}
+
+tbody>tr:nth-child(7){
+	
+	background-color: lightgrey;
+}
+tbody>tr:nth-child(8){
+	
+	background-color: lightgrey;
+}
+tbody>tr:nth-child(18){
+	
+	background-color: lightgrey;
+}
+
+.image{
+	max-width: 20%;
+	margin: auto;
+	
+}
+
+.image>img{
+	width: 100%;
+}
+
+.dice-container.animateDice0{
+	
+	-webkit-animation-name: slideInDiceZero;
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 1000ms;
+}
+
+.dice-container.animateDice1{
+	
+	-webkit-animation-name: slideInDiceOne;
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 1000ms;
+}
+
+.dice-container.animateDice2{
+	
+	-webkit-animation-name: slideInDiceTwo;
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 1000ms;
+}
+
+.dice-container.animateDice3{
+	
+	-webkit-animation-name: slideInDiceThree;
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 1000ms;
+}
+
+.dice-container.animateDice4{
+	
+	-webkit-animation-name: slideInDiceFour;
+	-webkit-animation-delay: 0s;
+	-webkit-animation-duration: 1000ms;
+}
+
+
+
+
+@keyframes slideInDiceZero{
+	from { bottom: -90vh; right: -20vw; }
+
+	to{ bottom: 0vh; right: 0vw; -webkit-transform: rotate(1080deg); }
+	}
+
+@keyframes slideInDiceOne{
+	from { bottom: -90vh; right: -10vw; }
+
+	to{ bottom: 0vh; right: 0vw; -webkit-transform: rotate(1080deg); }
+	}
+
+@keyframes slideInDiceTwo{
+	from { bottom: -90vh; right: 0vw; }
+
+	to{ bottom: 0vh; right: 0vw; -webkit-transform: rotate(1080deg); }
+	}
+
+@keyframes slideInDiceThree{
+	from { bottom: -90vh; right: 10vw; }
+
+	to{ bottom: 0vh; right: 0vw; -webkit-transform: rotate(1080deg); }
+	}
+
+@keyframes slideInDiceFour{
+	from { bottom: -90vh; right: 20vw; }
+
+	to{ bottom: 0vh; right: 0vw; -webkit-transform: rotate(1080deg); }
+	}
+
+
+
+
+
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+	.hideable {
+		display: flex;
+	}
+
+	.score-board, .high-scores {
+		padding-top: 15%;
+		padding-bottom: 0%;
+	}
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+	
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+
+}
+
