@@ -1,0 +1,87 @@
+CV of Mikael Rusin
+
+Name: Mikael Rusin
+
+Age: 26, born 1991, 25:th August
+
+Contact: 46 723 87 35 01, mikael.rusin@gmail.com, Mikael Rusin (LinkedIn)
+
+Disclaimer: I have Aspergers Syndrome. I was diagnosed when i was 14. Papers on said statement can be shown on demand.
+
+What follows, is a general list of my knowledge. To see exactly what is referenced in terms of sources, see respective documents in respective directory.
+
+Do note, that text values or akin in terms of Note material, such as placeholder or example text values in certain cases, can take form of silly names or less serious matter of naming, due to redundancy in copying exact values.
+
+Listing:
+
+JavaScript - React, Atom, Redux, GraphQL, normal JS, JQuery, Ajax, LESS, Component Driven, Reducers, State Handlers, Validators, curl, XHTTP, Template Engine
+
+Java - JavaFX, Channels, Byte Buffers, Streams, HTTP requests (POST, GET, DELETE, UPDATE) (CRUD), Object Oriented, Multithreading, Iterators, Race Conditions, Deadlocks, Priority, Echo servers, UDP servers, Postman, Rest Paths, Jax-RS, JUnit Testing, Hibernate ORM, Tomcat/Glassfish Server, TCP/IP protocols, JDBC, POJO's, Lambda Classes/Methods, Event Handlers, Interfaces, JSON Parser, Command-line MySQL handler with JDBC prepared SQL statements (Reading more about Beans as we speak, in terms of Hibernate)
+
+PHP - Doctrine ORM, Zend Framework, Repositories, Factories, Request handling, SOAP Client/Servers, XML/XSL imports, Scraping, WordPress, Hooking, WooCommerce, Initialization Vectors (Encryption), SSL, Apache, gd, ImageMagick, mbstring, mcrypt, mhash, PDO, SimpleXML
+
+MySQL - MySQL, HQL, SQL, Creating Tables from pure Syntax, Joins, (Know of Views and Triggers, not used), XML configurations in terms of old Hibernate, Prepared Statements, Database Engines, Transactions
+
+HTML - CSS, Bootstrap, XHTML, DOM, Race conditions, HTML5
+
+Python - Web crawlers, Log parsers, Self-learning AI's, Event Handlers, Consoles (Flushing, blitting, etc.), Reading/Writing to files, Recursive functions, Generators, Serialization (cPickle (had issues with Copying Deep Copies)), Object Oriented, (Was a Teacher in it for a While), Monte-Carlo simulations, Towers of Hannoi, Meta-programming
+
+Linux - Ubuntu, Emacs, Vim, Command line, umasking, Root Using, Symbolic Links, Hard Links, Bash, TCSH
+
+Agile - SCRUM, Standup, Sprints, Backlog, Pair Programming, Taskboards, Trello
+
+Trello boards can be shown on demand.
+
+Git - Commandline, GitKraken, Merging, Branching, GitHub, Repositories, Pulling, Pushing, Commits
+
+
+Have experience of showcasing project flow in presentation of Prezi.   Can be shown on demand.
+
+Repository of Source Code for my Game (Python):
+
+https://github.com/Doorsfan/My-Game
+
+This game includes a variety of number of principles. 
+Object-oriented, Meta-programming (akin to code writing code), assigning handles of Functions (Expansions of names later on allows for abstract component assignment of functions as part of a Object)
+
+Some of the naming conventions of variables or akin, are not to be seen as form of professional level of use - this derives
+from the fact of that this Document was written as a Hobby project.
+
+Refactoring could be done, albeit, to refactor 40k lines of Code, would take time.
+
+In terms of the AI - The algorithms for calculations of predictions of upcoming probabilities and what not, is not implemented. 
+Albeit, the rest of the 'sensory systems' are already in place. The real-time memory allocation, is also there, in place. 
+
+Certifications, MiT, EDX platform:
+
+• 6.00.1x: Introduction to Computer Science and Programming using Python
+
+• 6.00.2x: Introduction to Computational Thinking and Data Science
+
+• 6.00.4.1x: Computation Structures – Part 1: Digital Circuits
+
+Repository of Java EE project:
+
+https://github.com/christofferflystam/projekt-testverktyg
+
+Repository of another Java project:
+
+https://github.com/lingonpaj/testverktyg_client
+
+Repository of Jatzy project:
+
+Accurate version exists on my Github.
+
+Do note, some bugs in terms of HTML and akin, remains, as full integration was never reached.
+
+Presented, ‘group version’:
+
+https://github.com/christofferflystam/Grupp1_Yatzy
+
+Work experiences:
+
+Due to errors of social integration earlier, i do not yield a record of employed history. 
+
+I generally enjoy constructive and direct communication - I respect management who respects me, and i inherently am a person who tries to be diplomatic, understanding and kind as far as possible - Only times i have issues to correct this, is if i am unbalanced by virtue of abuse.
+
+I love yielding a dialogue and a clear flow of communication. I feel that it helps, in terms of working in a constructive matter.
